@@ -89,7 +89,7 @@ def generate_docs():
 def update_client():
     check_exit_code(
         "openapi-python-client update\
-            --url https://raw.githubusercontent.com/fishjam-dev/"
+            --url https://raw.githubusercontent.com/membrane-cloud/"
         "fishjam/main/openapi.yaml \
             --config openapi-python-client-config.yaml \
             --custom-template-path=templates/openapi"

@@ -3,8 +3,8 @@ name = "fishjam-server-sdk"
 version = "0.5.0"
 description = "Python server SDK for the Fishjam media server"
 authors = ["Fishjam Team"]
-homepage = "https://github.com/fishjam-dev/python-server-sdk"
-documentation = "https://fishjam-dev.github.io/python-server-sdk/fishjam"
+homepage = "https://github.com/membrane-cloud/python-server-sdk"
+documentation = "https://membrane-cloud.github.io/python-server-sdk/fishjam"
 license = "Apache-2.0"
 readme = "README.md"
 packages = [{ include = "fishjam" }]
