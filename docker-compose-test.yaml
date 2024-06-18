@@ -1,8 +1,6 @@
-version: "3"
-
 services:
   fishjam:
-    image: "ghcr.io/membrane-cloud/fishjam:${TAG:-edge}"
+    image: "ghcr.io/fishjam-dev/fishjam:${TAG:-edge}"
     container_name: fishjam
     restart: on-failure
     healthcheck:
