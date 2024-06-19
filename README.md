@@ -1,10 +1,10 @@
 # Fishjam Python Server SDK
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/membrane-cloud/python-server-sdk/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/membrane-cloud/python-server-sdk/tree/main)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/fishjam-cloud/python-server-sdk/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/fishjam-cloud/python-server-sdk/tree/main)
 
-Python server SDK for the [Fishjam Media Server](https://github.com/membrane-cloud/fishjam).
+Python server SDK for the [Fishjam Media Server](https://github.com/fishjam-cloud/fishjam).
 
-Read the docs [here](https://membrane-cloud.github.io/python-server-sdk)
+Read the docs [here](https://fishjam-cloud.github.io/python-server-sdk)
 
 ## Installation
 
@@ -55,7 +55,7 @@ All methods in `RoomApi` may raise one of the exceptions deriving from `fishjam.
 
 Notifier allows for receiving real-time updates from the Fishjam Server.
 
-You can read more about notifications in the [Fishjam Docs](https://membrane-cloud.github.io/fishjam-docs/next/getting_started/notifications).
+You can read more about notifications in the [Fishjam Docs](https://fishjam-cloud.github.io/fishjam-docs/next/getting_started/notifications).
 
 Create `Notifier` instance
 ```python

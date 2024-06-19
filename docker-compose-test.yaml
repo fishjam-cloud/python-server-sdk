@@ -1,6 +1,6 @@
 services:
   fishjam:
-    image: "ghcr.io/fishjam-dev/fishjam:${TAG:-edge}"
+    image: "ghcr.io/fishjam-cloud/fishjam:${TAG:-edge}"
     container_name: fishjam
     restart: on-failure
     healthcheck:
