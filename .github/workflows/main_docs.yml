@@ -3,6 +3,10 @@ on:
       branches:
         - main
 
+permissions:
+  contents: read
+  pull-requests: write
+
 jobs:
   # Build the documentation and upload the static HTML files as an artifact.
   build:
