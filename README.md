@@ -1,10 +1,10 @@
 # Fishjam Python Server SDK
 
-[![CircleCI](https://dl.circleci.com/status-badge/img/gh/fishjam-dev/python-server-sdk/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/fishjam-dev/python-server-sdk/tree/main)
+[![CircleCI](https://dl.circleci.com/status-badge/img/gh/fishjam-cloud/python-server-sdk/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/fishjam-cloud/python-server-sdk/tree/main)
 
-Python server SDK for the [Fishjam Media Server](https://github.com/fishjam-dev/fishjam).
+Python server SDK for the [Fishjam Media Server](https://github.com/fishjam-cloud/fishjam).
 
-Read the docs [here](https://fishjam-dev.github.io/python-server-sdk)
+Read the docs [here](https://fishjam-cloud.github.io/python-server-sdk)
 
 ## Installation
 
@@ -55,7 +55,7 @@ All methods in `RoomApi` may raise one of the exceptions deriving from `fishjam.
 
 Notifier allows for receiving real-time updates from the Fishjam Server.
 
-You can read more about notifications in the [Fishjam Docs](https://fishjam-dev.github.io/fishjam-docs/next/getting_started/notifications).
+You can read more about notifications in the [Fishjam Docs](https://fishjam-cloud.github.io/fishjam-docs/next/getting_started/notifications).
 
 Create `Notifier` instance
 ```python
@@ -140,6 +140,13 @@ You can check linter by running
 ```console
 poetry run lint
 ```
+
+## Documentation
+Documentation is generated via openapi-python-client.
+
+To update documentation you need to:
+- in `poetry_scripts.py` change branch from which openapi.yaml should be downloaded
+- run `poetry run update-client`
 
 ## Copyright and License
 

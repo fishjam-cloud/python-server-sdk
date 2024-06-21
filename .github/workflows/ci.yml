@@ -1,0 +1,32 @@
+name: CI
+
+on: [push]
+
+jobs:
+  lint:
+
+    runs-on: ubuntu-latest
+    name: lint
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python 3.8
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.8
+      - name: Install poetry
+        run: pip install poetry
+      - name: Install project dependencies
+        run: poetry install --no-ansi --with=dev
+      - name: Lint
+        run: poetry run lint
+      - name: Check format
+        run: poetry run format_check
+  
+  test:
+    runs-on: ubuntu-latest
+    name: test
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker compose -f docker-compose-test.yaml up test --exit-code-from test
+      - run: docker compose -f docker-compose-test.yaml down
+      - run: docker compose -f docker-compose-test.yaml up examples --exit-code-from examples
