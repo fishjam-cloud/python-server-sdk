@@ -23,10 +23,19 @@ jobs:
         run: poetry run format_check
   
   test:
-    runs-on: ubuntu-latest
-    name: test
-    steps:
-      - uses: actions/checkout@v4
-      - run: docker compose -f docker-compose-test.yaml up test --exit-code-from test
-      - run: docker compose -f docker-compose-test.yaml down
-      - run: docker compose -f docker-compose-test.yaml up examples --exit-code-from examples
+      runs-on: ubuntu-latest
+      name: test
+      steps:
+        - uses: actions/checkout@v4
+        
+        - name: Log in to GitHub Container Registry
+          run: echo "${{ secrets.PACKAGE_ACCESS_TOKEN }}" | docker login ghcr.io -u USERNAME --password-stdin
+        
+        - name: Run tests
+          run: docker compose -f docker-compose-test.yaml up test --exit-code-from test
+        
+        - name: Tear down test containers
+          run: docker compose -f docker-compose-test.yaml down
+        
+        - name: Run examples
+          run: docker compose -f docker-compose-test.yaml up examples --exit-code-from examples
