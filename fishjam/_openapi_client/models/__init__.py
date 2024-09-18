@@ -44,6 +44,7 @@ from .peer import Peer
 from .peer_details_response import PeerDetailsResponse
 from .peer_details_response_data import PeerDetailsResponseData
 from .peer_options_web_rtc import PeerOptionsWebRTC
+from .peer_options_web_rtc_metadata import PeerOptionsWebRTCMetadata
 from .peer_status import PeerStatus
 from .recording_list_response import RecordingListResponse
 from .room import Room
@@ -54,6 +55,8 @@ from .room_create_details_response_data import RoomCreateDetailsResponseData
 from .room_details_response import RoomDetailsResponse
 from .rooms_listing_response import RoomsListingResponse
 from .s3_credentials import S3Credentials
+from .shutdown_status import ShutdownStatus
+from .shutdown_status_response import ShutdownStatusResponse
 from .sip_credentials import SIPCredentials
 from .subscription_config import SubscriptionConfig
 from .track import Track
@@ -96,6 +99,7 @@ __all__ = (
     "PeerDetailsResponse",
     "PeerDetailsResponseData",
     "PeerOptionsWebRTC",
+    "PeerOptionsWebRTCMetadata",
     "PeerStatus",
     "RecordingListResponse",
     "Room",
@@ -106,6 +110,8 @@ __all__ = (
     "RoomDetailsResponse",
     "RoomsListingResponse",
     "S3Credentials",
+    "ShutdownStatus",
+    "ShutdownStatusResponse",
     "SIPCredentials",
     "SubscriptionConfig",
     "Track",
