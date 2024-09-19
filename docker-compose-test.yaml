@@ -20,7 +20,7 @@ services:
       FJ_PORT: 5002
       FJ_SECRET_KEY_BASE: "super-secret-key"
       FJ_SIP_IP: "127.0.0.1"
-      FJ_COMPONENTS_USED: rtsp file hls recording sip
+      FJ_COMPONENTS_USED: "rtsp file hls recording sip"
     ports:
       - "5002:5002"
       - "49999:49999"
