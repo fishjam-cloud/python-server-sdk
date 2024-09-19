@@ -396,7 +396,7 @@ class TestAddPeer:
             type="webrtc",
             status=PeerStatus("disconnected"),
             tracks=[],
-            metadata=None,
+            metadata={"peer": {}, "server": {}},
         )
 
         room = room_api.get_room(room_id)
