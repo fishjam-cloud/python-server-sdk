@@ -11,12 +11,12 @@ from fishjam import (
     RoomApi,
     RoomOptions,
 )
-from fishjam.api._room_api import Peer, Room
 from fishjam._openapi_client.models import (
+    PeerStatus,
     RoomConfig,
     RoomConfigVideoCodec,
-    PeerStatus,
 )
+from fishjam.api._room_api import Peer, Room
 from fishjam.errors import (
     BadRequestError,
     NotFoundError,

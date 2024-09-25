@@ -10,7 +10,6 @@ import pytest
 import requests
 
 from fishjam import Notifier, RoomApi, RoomOptions
-
 from fishjam.events import (
     ServerMessageMetricsReport,
     ServerMessagePeerAdded,

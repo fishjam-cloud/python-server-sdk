@@ -3,8 +3,7 @@ RoomApi used to manage rooms
 """
 
 from dataclasses import dataclass
-from typing import Tuple, NewType, List, Literal
-
+from typing import List, Literal, NewType, Tuple
 
 from fishjam._openapi_client.api.room import add_peer as room_add_peer
 from fishjam._openapi_client.api.room import create_room as room_create_room
@@ -14,15 +13,14 @@ from fishjam._openapi_client.api.room import get_all_rooms as room_get_all_rooms
 from fishjam._openapi_client.api.room import get_room as room_get_room
 from fishjam._openapi_client.models import (
     AddPeerJsonBody,
-    RoomConfig,
     Peer,
     PeerOptionsWebRTC,
+    RoomConfig,
 )
-from fishjam._openapi_client.models.room_config_video_codec import RoomConfigVideoCodec
 from fishjam._openapi_client.models.peer_options_web_rtc_metadata import (
     PeerOptionsWebRTCMetadata,
 )
-
+from fishjam._openapi_client.models.room_config_video_codec import RoomConfigVideoCodec
 from fishjam.api._base_api import BaseApi
 
 PeerToken = NewType("PeerToken", str)
@@ -47,11 +45,20 @@ class RoomOptions:
     max_peers: int = None
     """Maximum amount of peers allowed into the room"""
     peer_disconnected_timeout: int = None
-    """Duration (in seconds) after which the peer will be removed if it is disconnected. If not provided, this feature is disabled."""
+    """
+    Duration (in seconds) after which the peer will be removed if it is disconnected.
+    If not provided, this feature is disabled.
+    """
     peerless_purge_timeout: int = None
-    """Duration (in seconds) after which the room will be removed if no peers are connected. If not provided, this feature is disabled."""
+    """
+    Duration (in seconds) after which the room will be removed 
+    if no peers are connected. If not provided, this feature is disabled.
+    """
     room_id: str = None
-    """Custom id used for identifying room within Fishjam. Must be unique across all rooms. If not provided, random UUID is generated."""
+    """
+    Custom id used for identifying room within Fishjam.
+    Must be unique across all rooms. If not provided, random UUID is generated.
+    """
     video_codec: Literal["h264", "vp8"] = None
     """Enforces video codec for each peer in the room"""
     webhook_url: str = None
