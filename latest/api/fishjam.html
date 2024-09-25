@@ -143,7 +143,8 @@
     <li><a href="#testing">Testing</a></li>
     <li><a href="#format-lint">Format &amp; Lint</a></li>
     <li><a href="#documentation">Documentation</a></li>
-    <li><a href="#copyright-and-license">Copyright and License</a></li>
+    <li><a href="#license">License</a></li>
+    <li><a href="#fishjam-cloud-is-created-by-software-mansion">Fishjam Cloud is created by Software Mansion</a></li>
   </ul></li>
 </ul>
 
@@ -749,7 +750,9 @@
     <main class="pdoc">
             <section class="module-info">
 
-                        <div class="docstring"><h1 id="fishjam-python-server-sdk">Fishjam Python Server SDK</h1>
+                        <div class="docstring"><p><img src="./.github/images/fishjam-card.png" width="100%"></p>
+
+<h1 id="fishjam-python-server-sdk">Fishjam Python Server SDK</h1>
 
 <p><a href="https://dl.circleci.com/status-badge/redirect/gh/fishjam-cloud/python-server-sdk/tree/main"><img src="https://dl.circleci.com/status-badge/img/gh/fishjam-cloud/python-server-sdk/tree/main.svg?style=svg" alt="CircleCI" /></a></p>
 
@@ -764,8 +767,7 @@
 
 <h2 id="usage">Usage</h2>
 
-<p>The SDK exports two main classes for interacting with Fishjam server:
-<code><a href="#RoomApi">RoomApi</a></code> and <code><a href="#Notifier">Notifier</a></code>.</p>
+<p>The SDK exports two main classes for interacting with Fishjam server: <code><a href="#RoomApi">RoomApi</a></code> and <code><a href="#Notifier">Notifier</a></code>.</p>
 
 <p><code><a href="#RoomApi">RoomApi</a></code> wraps http REST api calls, while <code><a href="#Notifier">Notifier</a></code> is responsible for receiving real-time updates from the server.</p>
 
@@ -801,13 +803,15 @@
 </code></pre>
 </div>
 
-<p>All methods in <code><a href="#RoomApi">RoomApi</a></code> may raise one of the exceptions deriving from <code><a href="fishjam/errors.html#HTTPError">fishjam.errors.HTTPError</a></code>. They are defined in <code><a href="fishjam/errors.html">fishjam.errors</a></code>.</p>
+<p>All methods in <code><a href="#RoomApi">RoomApi</a></code> may raise one of the exceptions deriving from <code><a href="fishjam/errors.html#HTTPError">fishjam.errors.HTTPError</a></code>. They are defined in
+<code><a href="fishjam/errors.html">fishjam.errors</a></code>.</p>
 
 <h4 id="notifier">Notifier</h4>
 
 <p>Notifier allows for receiving real-time updates from the Fishjam Server.</p>
 
-<p>You can read more about notifications in the <a href="https://fishjam-cloud.github.io/fishjam-docs/next/getting_started/notifications">Fishjam Docs</a>.</p>
+<p>You can read more about notifications in the
+<a href="https://fishjam-cloud.github.io/fishjam-docs/next/getting_started/notifications">Fishjam Docs</a>.</p>
 
 <p>Create <code><a href="#Notifier">Notifier</a></code> instance</p>
 
@@ -855,7 +859,9 @@
 
 <h4 id="cluster-of-fishjams">Cluster of Fishjams</h4>
 
-<p>The cluster of fishjams has got embedded load balancer, which means that a new room will be created on fishjam with the least usage. At the moment to modify this specific room you must communicate with the fishjam on which this room was created.</p>
+<p>The cluster of fishjams has got embedded load balancer, which means that a new room will be created on fishjam with the
+least usage. At the moment to modify this specific room you must communicate with the fishjam on which this room was
+created.</p>
 
 <div class="pdoc-code codehilite">
 <pre><span></span><code><span class="n">room_api</span> <span class="o">=</span> <span class="n">RoomApi</span><span class="p">(</span><span class="n">server_address</span><span class="o">=</span><span class="s1">&#39;localhost:5002&#39;</span><span class="p">)</span>
@@ -920,13 +926,18 @@
 <li>run <code>poetry run update-client</code></li>
 </ul>
 
-<h2 id="copyright-and-license">Copyright and License</h2>
-
-<p>Copyright 2023, <a href="https://swmansion.com/?utm_source=git&utm_medium=readme&utm_campaign=fishjam">Software Mansion</a></p>
-
-<p><a href="https://swmansion.com/?utm_source=git&utm_medium=readme&utm_campaign=fishjam"><img src="https://logo.swmansion.com/logo?color=white&variant=desktop&width=200&tag=membrane-github" alt="Software Mansion" /></a></p>
+<h2 id="license">License</h2>
 
 <p>Licensed under the <a href="LICENSE">Apache License, Version 2.0</a></p>
+
+<h2 id="fishjam-cloud-is-created-by-software-mansion">Fishjam Cloud is created by Software Mansion</h2>
+
+<p>Since 2012 <a href="https://swmansion.com">Software Mansion</a> is a software agency with experience in building web and mobile
+apps. We are Core React Native Contributors and experts in dealing with all kinds of React Native issues. We can help
+you build your next dream product –
+<a href="https://swmansion.com/contact/projects?utm_source=fishjam&utm_medium=python-readme">Hire us</a>.</p>
+
+<p><a href="https://swmansion.com/contact/projects?utm_source=fishjam&utm_medium=python-readme"><img src="https://logo.swmansion.com/logo?color=white&variant=desktop&width=200&tag=react-client" alt="Software Mansion" /></a></p>
 </div>
 
                         <input id="mod-fishjam-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
