@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "fishjam-server-sdk"
 version = "0.5.0"
-description = "Python server SDK for the Fishjam media server"
+description = "Python server SDK for the Fishjam Cloud"
 authors = ["Fishjam Team"]
 homepage = "https://github.com/fishjam-cloud/python-server-sdk"
 documentation = "https://fishjam-cloud.github.io/python-server-sdk/fishjam"
