@@ -1,3 +1,5 @@
+<img src="./.github/images/fishjam-card.png" width="100%">
+
 # Fishjam Python Server SDK
 
 [![CircleCI](https://dl.circleci.com/status-badge/img/gh/fishjam-cloud/python-server-sdk/tree/main.svg?style=svg)](https://dl.circleci.com/status-badge/redirect/gh/fishjam-cloud/python-server-sdk/tree/main)
@@ -14,8 +16,7 @@ pip install fishjam-server-sdk
 
 ## Usage
 
-The SDK exports two main classes for interacting with Fishjam server:
-`RoomApi` and `Notifier`.
+The SDK exports two main classes for interacting with Fishjam server: `RoomApi` and `Notifier`.
 
 `RoomApi` wraps http REST api calls, while `Notifier` is responsible for receiving real-time updates from the server.
 
@@ -49,15 +50,18 @@ component_hls = room_api.add_component(room.id, options=ComponentOptionsHLS())
 # ComponentHLS(id='5f062447-a9f7-45ed-8d1b-511f77dc78ae', properties=ComponentPropertiesHLS(low_latency=False, persistent=False, playable=False, subscribe_mode=<ComponentPropertiesHLSSubscribeMode.AUTO: 'auto'>, target_window_duration=None), type='hls')
 ```
 
-All methods in `RoomApi` may raise one of the exceptions deriving from `fishjam.errors.HTTPError`. They are defined in `fishjam.errors`.
+All methods in `RoomApi` may raise one of the exceptions deriving from `fishjam.errors.HTTPError`. They are defined in
+`fishjam.errors`.
 
 #### Notifier
 
 Notifier allows for receiving real-time updates from the Fishjam Server.
 
-You can read more about notifications in the [Fishjam Docs](https://fishjam-cloud.github.io/fishjam-docs/next/getting_started/notifications).
+You can read more about notifications in the
+[Fishjam Docs](https://fishjam-cloud.github.io/fishjam-docs/next/getting_started/notifications).
 
 Create `Notifier` instance
+
 ```python
 from fishjam import Notifier
 
@@ -65,6 +69,7 @@ notifier = Notifier(server_address='localhost:5002', server_api_token='developme
 ```
 
 Then define handlers for incoming messages
+
 ```python
 @notifier.on_server_notification
 def handle_notification(server_notification):
@@ -76,6 +81,7 @@ def handle_metrics(metrics_report):
 ```
 
 After that you can start the notifier
+
 ```python
 async def test_notifier():
     notifier_task = asyncio.create_task(notifier.connect())
@@ -97,7 +103,9 @@ asyncio.run(test_notifier())
 
 #### Cluster of Fishjams
 
-The cluster of fishjams has got embedded load balancer, which means that a new room will be created on fishjam with the least usage. At the moment to modify this specific room you must communicate with the fishjam on which this room was created.
+The cluster of fishjams has got embedded load balancer, which means that a new room will be created on fishjam with the
+least usage. At the moment to modify this specific room you must communicate with the fishjam on which this room was
+created.
 
 ```python
 room_api = RoomApi(server_address='localhost:5002')
@@ -121,37 +129,49 @@ _hls_component = new_room_api.add_component(
 ## Testing
 
 You can test the SDK by running
+
 ```console
 poetry run ci_test
 ```
 
 In local development you can use
+
 ```console
 poetry run local_test
 ```
 
 ## Format & Lint
+
 You can format code by running
+
 ```console
 poetry run format
 ```
 
 You can check linter by running
+
 ```console
 poetry run lint
 ```
 
 ## Documentation
+
 Documentation is generated via openapi-python-client.
 
 To update documentation you need to:
+
 - in `poetry_scripts.py` change branch from which openapi.yaml should be downloaded
 - run `poetry run update-client`
 
-## Copyright and License
-
-Copyright 2023, [Software Mansion](https://swmansion.com/?utm_source=git&utm_medium=readme&utm_campaign=fishjam)
-
-[![Software Mansion](https://logo.swmansion.com/logo?color=white&variant=desktop&width=200&tag=membrane-github)](https://swmansion.com/?utm_source=git&utm_medium=readme&utm_campaign=fishjam)
+## License
 
 Licensed under the [Apache License, Version 2.0](LICENSE)
+
+## Fishjam Cloud is created by Software Mansion
+
+Since 2012 [Software Mansion](https://swmansion.com) is a software agency with experience in building web and mobile
+apps. We are Core React Native Contributors and experts in dealing with all kinds of React Native issues. We can help
+you build your next dream product –
+[Hire us](https://swmansion.com/contact/projects?utm_source=fishjam&utm_medium=python-readme).
+
+[![Software Mansion](https://logo.swmansion.com/logo?color=white&variant=desktop&width=200&tag=react-client)](https://swmansion.com/contact/projects?utm_source=fishjam&utm_medium=python-readme)
