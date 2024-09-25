@@ -129,7 +129,7 @@ class RoomApi(BaseApi):
 
         return Room(config=room.config, id=room.id, peers=room.peers)
 
-    def get_all_rooms(self) -> list[Room]:
+    def get_all_rooms(self) -> List[Room]:
         """Returns list of all rooms"""
 
         rooms = self._request(room_get_all_rooms).data
