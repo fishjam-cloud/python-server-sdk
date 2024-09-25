@@ -25,20 +25,16 @@ class Notifier:
     Allows for receiving WebSocket messages from Fishjam.
     """
 
-    def __init__(
-        self,
-        server_address: str = "localhost:5002",
-        server_api_token: str = "development",
-        secure: bool = False,
-    ):
+    def __init__(self, fishjam_url: str, management_token: str):
         """
         Create Notifier instance, providing the fishjam address and api token.
         Set secure to `True` for `wss` and `False` for `ws` connection (default).
         """
 
-        protocol = "wss" if secure else "ws"
-        self._server_address = f"{protocol}://{server_address}/socket/server/websocket"
-        self._server_api_token = server_api_token
+        self._server_address = (
+            f"{fishjam_url.replace('http', 'ws')}/socket/server/websocket"
+        )
+        self._server_api_token = management_token
         self._websocket = None
         self._ready = False
 

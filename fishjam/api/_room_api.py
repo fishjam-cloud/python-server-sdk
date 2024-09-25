@@ -2,236 +2,159 @@
 RoomApi used to manage rooms
 """
 
-from typing import List, Literal, Tuple, Union
+from dataclasses import dataclass
+from typing import Tuple, NewType, List, Literal
 
-from fishjam._openapi_client.api.room import add_component as room_add_component
+
 from fishjam._openapi_client.api.room import add_peer as room_add_peer
 from fishjam._openapi_client.api.room import create_room as room_create_room
-from fishjam._openapi_client.api.room import delete_component as room_delete_component
 from fishjam._openapi_client.api.room import delete_peer as room_delete_peer
 from fishjam._openapi_client.api.room import delete_room as room_delete_room
 from fishjam._openapi_client.api.room import get_all_rooms as room_get_all_rooms
 from fishjam._openapi_client.api.room import get_room as room_get_room
-from fishjam._openapi_client.api.room import subscribe_to
-from fishjam._openapi_client.api.sip import dial as sip_dial
-from fishjam._openapi_client.api.sip import end_call as sip_end_call
 from fishjam._openapi_client.models import (
-    AddComponentJsonBody,
     AddPeerJsonBody,
-    ComponentFile,
-    ComponentHLS,
-    ComponentOptionsFile,
-    ComponentOptionsHLS,
-    ComponentOptionsRecording,
-    ComponentOptionsRTSP,
-    ComponentOptionsSIP,
-    ComponentRecording,
-    ComponentRTSP,
-    ComponentSIP,
-    DialConfig,
-    PeerDetailsResponseData,
-    PeerOptionsWebRTC,
-    Room,
     RoomConfig,
-    RoomConfigVideoCodec,
-    SubscriptionConfig,
+    Peer,
+    PeerOptionsWebRTC,
 )
+from fishjam._openapi_client.models.room_config_video_codec import RoomConfigVideoCodec
+from fishjam._openapi_client.models.peer_options_web_rtc_metadata import (
+    PeerOptionsWebRTCMetadata,
+)
+
 from fishjam.api._base_api import BaseApi
+
+PeerToken = NewType("PeerToken", str)
+
+
+@dataclass
+class Room:
+    """Description of the room state"""
+
+    config: RoomConfig
+    """Room configuration"""
+    id: str
+    """Room ID"""
+    peers: List[Peer]
+    """List of all peers"""
+
+
+@dataclass
+class RoomOptions:
+    """Description of a room options"""
+
+    max_peers: int = None
+    """Maximum amount of peers allowed into the room"""
+    peer_disconnected_timeout: int = None
+    """Duration (in seconds) after which the peer will be removed if it is disconnected. If not provided, this feature is disabled."""
+    peerless_purge_timeout: int = None
+    """Duration (in seconds) after which the room will be removed if no peers are connected. If not provided, this feature is disabled."""
+    room_id: str = None
+    """Custom id used for identifying room within Fishjam. Must be unique across all rooms. If not provided, random UUID is generated."""
+    video_codec: Literal["h264", "vp8"] = None
+    """Enforces video codec for each peer in the room"""
+    webhook_url: str = None
+    """URL where Fishjam notifications will be sent"""
+
+
+@dataclass
+class PeerOptions:
+    """Options specific to the Peer"""
+
+    enable_simulcast: bool = True
+    """Enables the peer to use simulcast"""
+    metadata: dict = None
+    """Peer metadata"""
 
 
 class RoomApi(BaseApi):
     """Allows for managing rooms"""
 
-    def __init__(
-        self,
-        server_address: str = "localhost:5002",
-        server_api_token: str = "development",
-        secure: bool = False,
-    ):
+    def __init__(self, fishjam_url: str, management_token: str):
         """
-        Create RoomApi instance, providing the fishjam address and api token.
-        Set secure to `True` for `https` and `False` for `http` connection (default).
+        Create RoomApi instance, providing the fishjam url and managment token.
         """
-        super().__init__(
-            server_address=server_address,
-            server_api_token=server_api_token,
-            secure=secure,
-        )
+        super().__init__(fishjam_url=fishjam_url, management_token=management_token)
 
-    def create_room(
-        self,
-        room_id: str = None,
-        max_peers: int = None,
-        video_codec: Literal["h264", "vp8"] = None,
-        webhook_url: str = None,
-        peerless_purge_timeout: int = None,
-        peer_disconnected_timeout: int = None,
-    ) -> Tuple[str, Room]:
+    def create_peer(
+        self, room_id: str, options: PeerOptions = PeerOptions()
+    ) -> Tuple[Peer, PeerToken]:
+        """
+        Creates peer in the room
+
+        Returns a tuple (`Peer`, `PeerToken`) - the token is needed by Peer
+        to authenticate to Fishjam.
+
+        The possible options to pass for peer are `PeerOptions`.
+        """
+
+        peer_type = "webrtc"
+        peer_metadata = self.__parse_peer_metadata(options.metadata)
+        peer_options = PeerOptionsWebRTC(
+            enable_simulcast=options.enable_simulcast, metadata=peer_metadata
+        )
+        json_body = AddPeerJsonBody(type=peer_type, options=peer_options)
+
+        resp = self._request(room_add_peer, room_id=room_id, json_body=json_body)
+
+        return (resp.data.peer, resp.data.token)
+
+    def create_room(self, options: RoomOptions = RoomOptions()) -> Room:
         """
         Creates a new room
-
-        Returns a tuple (`fishjam_address`, `Room`) - the address of the Fishjam
-        in which the room has been created and the created `Room`
-
-        The returned address may be different from the current `RoomApi` instance.
-        In such case, a new `RoomApi` instance has to be created using
-        the returned address in order to interact with the room.
+        Returns the created `Room`
         """
 
-        if video_codec is not None:
-            video_codec = RoomConfigVideoCodec(video_codec)
-        else:
-            video_codec = None
+        codec = None
+        if options.video_codec:
+            codec = RoomConfigVideoCodec(options.video_codec)
 
-        room_config = RoomConfig(
-            room_id=room_id,
-            max_peers=max_peers,
-            video_codec=video_codec,
-            webhook_url=webhook_url,
-            peerless_purge_timeout=peerless_purge_timeout,
-            peer_disconnected_timeout=peer_disconnected_timeout,
+        config = RoomConfig(
+            max_peers=options.max_peers,
+            peer_disconnected_timeout=options.peer_disconnected_timeout,
+            peerless_purge_timeout=options.peerless_purge_timeout,
+            room_id=options.room_id,
+            video_codec=codec,
+            webhook_url=options.webhook_url,
         )
+        room = self._request(room_create_room, json_body=config).data.room
 
-        resp = self._request(room_create_room, json_body=room_config)
-        return (resp.data.fishjam_address, resp.data.room)
+        return Room(config=room.config, id=room.id, peers=room.peers)
 
-    def delete_room(self, room_id: str) -> None:
-        """Deletes a room"""
-
-        return self._request(room_delete_room, room_id=room_id)
-
-    def get_all_rooms(self) -> list:
+    def get_all_rooms(self) -> list[Room]:
         """Returns list of all rooms"""
 
-        return self._request(room_get_all_rooms).data
+        rooms = self._request(room_get_all_rooms).data
+
+        return [
+            Room(config=room.config, id=room.id, peers=room.peers) for room in rooms
+        ]
 
     def get_room(self, room_id: str) -> Room:
         """Returns room with the given id"""
 
-        return self._request(room_get_room, room_id=room_id).data
+        room = self._request(room_get_room, room_id=room_id).data
 
-    def add_peer(
-        self, room_id: str, options: PeerOptionsWebRTC
-    ) -> PeerDetailsResponseData:
-        """
-        Creates peer in the room
-
-        Currently only `webrtc` peer is supported
-
-        Returns a tuple (`peer_token`, `Peer`) - the token needed by Peer
-        to authenticate to Fishjam and the new `Peer`.
-
-        The possible options to pass for peer are `PeerOptionsWebRTC`.
-        """
-
-        peer_type = "webrtc"
-        json_body = AddPeerJsonBody(type=peer_type, options=options)
-
-        resp = self._request(room_add_peer, room_id=room_id, json_body=json_body)
-        return PeerDetailsResponseData(
-            peer=resp.data.peer,
-            token=resp.data.token,
-            peer_websocket_url=resp.data.peer_websocket_url,
-        )
+        return Room(config=room.config, id=room.id, peers=room.peers)
 
     def delete_peer(self, room_id: str, peer_id: str) -> None:
         """Deletes peer"""
 
         return self._request(room_delete_peer, id=peer_id, room_id=room_id)
 
-    def add_component(
-        self,
-        room_id: str,
-        options: Union[
-            ComponentOptionsFile,
-            ComponentOptionsHLS,
-            ComponentOptionsRecording,
-            ComponentOptionsRTSP,
-            ComponentOptionsSIP,
-        ],
-    ) -> Union[
-        ComponentFile, ComponentHLS, ComponentRecording, ComponentRTSP, ComponentSIP
-    ]:
-        """
-        Creates component in the room.
-        Currently there are 4 different components:
-        * File Component for which the options are `ComponentOptionsFile`
-        * HLS Component which options are `ComponentOptionsHLS`
-        * Recording Component which options are `ComponentOptionsRecording`
-        * RTSP Component which options are `ComponentOptionsRTSP`
-        * SIP Component which options are `ComponentOptionsSIP`
-        """
+    def delete_room(self, room_id: str) -> None:
+        """Deletes a room"""
 
-        if isinstance(options, ComponentOptionsFile):
-            component_type = "file"
-        elif isinstance(options, ComponentOptionsHLS):
-            component_type = "hls"
-        elif isinstance(options, ComponentOptionsRecording):
-            component_type = "recording"
-        elif isinstance(options, ComponentOptionsRTSP):
-            component_type = "rtsp"
-        elif isinstance(options, ComponentOptionsSIP):
-            component_type = "sip"
-        else:
-            raise ValueError(
-                "options must be ComponentOptionsFile, ComponentOptionsHLS,"
-                "ComponentOptionsRTSP, ComponentOptionsRecording or ComponentOptionsSIP"
-            )
+        return self._request(room_delete_room, room_id=room_id)
 
-        json_body = AddComponentJsonBody(type=component_type, options=options)
+    def __parse_peer_metadata(self, metadata: dict) -> PeerOptionsWebRTCMetadata:
+        peer_metadata = PeerOptionsWebRTCMetadata()
 
-        return self._request(
-            room_add_component, room_id=room_id, json_body=json_body
-        ).data
+        if not metadata:
+            return peer_metadata
 
-    def delete_component(self, room_id: str, component_id: str) -> None:
-        """Deletes component"""
+        for key, value in metadata.items():
+            peer_metadata.additional_properties[key] = value
 
-        return self._request(room_delete_component, id=component_id, room_id=room_id)
-
-    def subscribe(self, room_id: str, component_id: str, origins: List[str]):
-        """
-        In order to subscribe the component to peers/components,
-        the component should be initialized with the subscribe_mode set to manual.
-        This mode proves beneficial when you do not wish to record or stream
-        all the available streams within a room.
-        It allows for selective addition instead –
-        you can manually select specific streams.
-        For instance, you could opt to record only the stream of an event's host.
-        """
-
-        return self._request(
-            subscribe_to,
-            room_id=room_id,
-            component_id=component_id,
-            json_body=SubscriptionConfig(origins=origins),
-        )
-
-    def sip_dial(self, room_id: str, component_id: str, phone_number: str):
-        """
-        Starts a phone call from a specified component to a provided phone number.
-
-        This is asynchronous operation.
-        In case of providing incorrect phone number you will receive
-        notification `ComponentCrashed`.
-        """
-
-        return self._request(
-            sip_dial,
-            room_id=room_id,
-            component_id=component_id,
-            json_body=DialConfig(phone_number=phone_number),
-        )
-
-    def sip_end_call(self, room_id: str, component_id: str):
-        """
-        End a phone call on a specified SIP component.
-
-        This is asynchronous operation.
-        """
-
-        return self._request(
-            sip_end_call,
-            room_id=room_id,
-            component_id=component_id,
-        )
+        return peer_metadata
