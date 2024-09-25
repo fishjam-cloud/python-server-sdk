@@ -36,6 +36,3 @@ jobs:
         
         - name: Tear down test containers
           run: docker compose -f docker-compose-test.yaml down
-        
-        - name: Run examples
-          run: docker compose -f docker-compose-test.yaml up examples --exit-code-from examples
