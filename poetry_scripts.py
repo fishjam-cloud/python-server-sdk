@@ -1,4 +1,3 @@
-import os
 import shutil
 import subprocess
 import sys
@@ -29,18 +28,6 @@ def run_tests():
         --exit-code-from test"
     )
     check_exit_code("docker compose -f docker-compose-test.yaml down")
-
-
-def run_examples():
-    print("Start examples")
-
-    examples = os.listdir("./examples")
-
-    for example in examples:
-        check_exit_code(f"python ./examples/{example}")
-        print(f"After example from file: {example}")
-    print("All examples run without errors")
-
 
 def run_local_test():
     check_exit_code('poetry run pytest -m "not file_component_sources"')
