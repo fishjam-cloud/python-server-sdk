@@ -9,7 +9,7 @@ from multiprocessing import Process, Queue
 import pytest
 import requests
 
-from fishjam import Notifier, RoomApi, RoomOptions
+from fishjam import Notifier, FishjamClient, RoomOptions
 from fishjam.events import (
     ServerMessageMetricsReport,
     ServerMessagePeerAdded,
@@ -77,7 +77,7 @@ class TestConnectingToServer:
 
 @pytest.fixture
 def room_api():
-    return RoomApi(fishjam_url=FISHJAM_URL, management_token=SERVER_API_TOKEN)
+    return FishjamClient(fishjam_url=FISHJAM_URL, management_token=SERVER_API_TOKEN)
 
 
 @pytest.fixture
@@ -89,7 +89,9 @@ def notifier():
 
 class TestReceivingNotifications:
     @pytest.mark.asyncio
-    async def test_room_created_deleted(self, room_api: RoomApi, notifier: Notifier):
+    async def test_room_created_deleted(
+        self, room_api: FishjamClient, notifier: Notifier
+    ):
         event_checks = [ServerMessageRoomCreated, ServerMessageRoomDeleted]
         assert_task = asyncio.create_task(assert_events(notifier, event_checks.copy()))
 
@@ -109,7 +111,7 @@ class TestReceivingNotifications:
 
     @pytest.mark.asyncio
     async def test_peer_connected_disconnected(
-        self, room_api: RoomApi, notifier: Notifier
+        self, room_api: FishjamClient, notifier: Notifier
     ):
         event_checks = [
             ServerMessageRoomCreated,
@@ -145,7 +147,7 @@ class TestReceivingNotifications:
 
     @pytest.mark.asyncio
     async def test_peer_connected_disconnected_deleted(
-        self, room_api: RoomApi, notifier: Notifier
+        self, room_api: FishjamClient, notifier: Notifier
     ):
         event_checks = [
             ServerMessageRoomCreated,
@@ -184,7 +186,7 @@ class TestReceivingNotifications:
 
     @pytest.mark.asyncio
     async def test_peer_connected_room_deleted(
-        self, room_api: RoomApi, notifier: Notifier
+        self, room_api: FishjamClient, notifier: Notifier
     ):
         event_checks = [
             ServerMessageRoomCreated,
@@ -223,7 +225,9 @@ class TestReceivingNotifications:
 
 class TestReceivingMetrics:
     @pytest.mark.asyncio
-    async def test_metrics_with_one_peer(self, room_api: RoomApi, notifier: Notifier):
+    async def test_metrics_with_one_peer(
+        self, room_api: FishjamClient, notifier: Notifier
+    ):
         room = room_api.create_room()
         _peer, token = room_api.create_peer(room.id)
 

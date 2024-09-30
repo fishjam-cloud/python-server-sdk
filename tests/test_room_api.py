@@ -8,7 +8,7 @@ import pytest
 
 from fishjam import (
     PeerOptions,
-    RoomApi,
+    FishjamClient,
     RoomOptions,
 )
 from fishjam._openapi_client.models import (
@@ -16,7 +16,7 @@ from fishjam._openapi_client.models import (
     RoomConfig,
     RoomConfigVideoCodec,
 )
-from fishjam.api._room_api import Peer, Room
+from fishjam.api._fishjam_client import Peer, Room
 from fishjam.errors import (
     BadRequestError,
     NotFoundError,
@@ -34,13 +34,15 @@ CODEC_H264 = "h264"
 
 class TestAuthentication:
     def test_invalid_token(self):
-        room_api = RoomApi(fishjam_url=FISHJAM_URL, management_token="invalid")
+        room_api = FishjamClient(fishjam_url=FISHJAM_URL, management_token="invalid")
 
         with pytest.raises(UnauthorizedError):
             room_api.create_room()
 
     def test_valid_token(self):
-        room_api = RoomApi(fishjam_url=FISHJAM_URL, management_token=MANAGEMENT_TOKEN)
+        room_api = FishjamClient(
+            fishjam_url=FISHJAM_URL, management_token=MANAGEMENT_TOKEN
+        )
 
         room = room_api.create_room()
         all_rooms = room_api.get_all_rooms()
@@ -50,7 +52,7 @@ class TestAuthentication:
 
 @pytest.fixture
 def room_api():
-    return RoomApi(fishjam_url=FISHJAM_URL, management_token=MANAGEMENT_TOKEN)
+    return FishjamClient(fishjam_url=FISHJAM_URL, management_token=MANAGEMENT_TOKEN)
 
 
 class TestCreateRoom:
@@ -155,7 +157,7 @@ class TestGetAllRooms:
 
 
 class TestGetRoom:
-    def test_valid(self, room_api: RoomApi):
+    def test_valid(self, room_api: FishjamClient):
         room = room_api.create_room()
 
         assert Room(
@@ -171,7 +173,7 @@ class TestGetRoom:
             ),
         ) == room_api.get_room(room.id)
 
-    def test_invalid(self, room_api: RoomApi):
+    def test_invalid(self, room_api: FishjamClient):
         with pytest.raises(NotFoundError):
             room_api.get_room("invalid_id")
 
@@ -193,7 +195,7 @@ class TestCreateParticipant:
         room = room_api.get_room(room_id)
         assert peer in room.peers
 
-    def test_with_specified_options(self, room_api: RoomApi):
+    def test_with_specified_options(self, room_api: FishjamClient):
         options = PeerOptions(enable_simulcast=True)
 
         room = room_api.create_room()
@@ -201,20 +203,20 @@ class TestCreateParticipant:
 
         self._assert_peer_created(room_api, peer, room.id)
 
-    def test_with_metadata(self, room_api: RoomApi):
+    def test_with_metadata(self, room_api: FishjamClient):
         options = PeerOptions(metadata={"is_test": True})
         room = room_api.create_room()
         peer, _token = room_api.create_peer(room.id, options=options)
 
         self._assert_peer_created(room_api, peer, room.id, {"is_test": True})
 
-    def test_default_options(self, room_api: RoomApi):
+    def test_default_options(self, room_api: FishjamClient):
         room = room_api.create_room()
         peer, _token = room_api.create_peer(room.id)
 
         self._assert_peer_created(room_api, peer, room.id)
 
-    def test_peer_limit_reached(self, room_api: RoomApi):
+    def test_peer_limit_reached(self, room_api: FishjamClient):
         config = RoomOptions(max_peers=1)
         room = room_api.create_room(config)
         peer, _token = room_api.create_peer(room.id)
@@ -226,14 +228,14 @@ class TestCreateParticipant:
 
 
 class TestDeleteParticipant:
-    def test_valid(self, room_api: RoomApi):
+    def test_valid(self, room_api: FishjamClient):
         room = room_api.create_room()
         peer, _token = room_api.create_peer(room.id)
         room_api.delete_peer(room.id, peer.id)
 
         assert [] == room_api.get_room(room.id).peers
 
-    def test_invalid(self, room_api: RoomApi):
+    def test_invalid(self, room_api: FishjamClient):
         room = room_api.create_room()
 
         with pytest.raises(NotFoundError):

@@ -15,14 +15,16 @@ from fishjam import errors, events
 # API
 from fishjam._webhook_notifier import receive_binary
 from fishjam._ws_notifier import Notifier
-from fishjam.api._room_api import PeerOptions, RoomApi, RoomOptions
+from fishjam.api._fishjam_client import PeerOptions, FishjamClient, RoomOptions, Peer, Room
 
 __all__ = [
-    "RoomApi",
+    "FishjamClient",
     "Notifier",
     "receive_binary",
     "PeerOptions",
     "RoomOptions",
+    "Room",
+    "Peer",
     "events",
     "errors",
 ]

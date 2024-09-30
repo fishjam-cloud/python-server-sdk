@@ -1,5 +1,5 @@
 """
-RoomApi used to manage rooms
+Fishjam client used to manage rooms
 """
 
 from dataclasses import dataclass
@@ -21,7 +21,7 @@ from fishjam._openapi_client.models.peer_options_web_rtc_metadata import (
     PeerOptionsWebRTCMetadata,
 )
 from fishjam._openapi_client.models.room_config_video_codec import RoomConfigVideoCodec
-from fishjam.api._base_api import BaseApi
+from fishjam.api._client import Client
 
 PeerToken = NewType("PeerToken", str)
 
@@ -75,12 +75,12 @@ class PeerOptions:
     """Peer metadata"""
 
 
-class RoomApi(BaseApi):
+class FishjamClient(Client):
     """Allows for managing rooms"""
 
     def __init__(self, fishjam_url: str, management_token: str):
         """
-        Create RoomApi instance, providing the fishjam url and managment token.
+        Create FishjamClient instance, providing the fishjam url and managment token.
         """
         super().__init__(fishjam_url=fishjam_url, management_token=management_token)
 

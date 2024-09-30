@@ -4,7 +4,7 @@ from fishjam._openapi_client.types import Response
 from fishjam.errors import HTTPError
 
 
-class BaseApi:
+class Client:
     def __init__(self, fishjam_url: str, management_token: str):
         self.client = AuthenticatedClient(f"{fishjam_url}", token=management_token)
 
