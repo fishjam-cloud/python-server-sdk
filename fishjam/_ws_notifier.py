@@ -9,7 +9,20 @@ import betterproto
 from websockets import client
 from websockets.exceptions import ConnectionClosed
 
-from fishjam.events import ServerMessageMetricsReport
+from fishjam.events import (
+    ServerMessagePeerAdded,
+    ServerMessagePeerConnected,
+    ServerMessagePeerCrashed,
+    ServerMessagePeerDeleted,
+    ServerMessagePeerDisconnected,
+    ServerMessagePeerMetadataUpdated,
+    ServerMessageRoomCrashed,
+    ServerMessageRoomCreated,
+    ServerMessageRoomDeleted,
+    ServerMessageTrackAdded,
+    ServerMessageTrackMetadataUpdated,
+    ServerMessageTrackRemoved,
+)
 from fishjam.events._protos.fishjam import (
     ServerMessage,
     ServerMessageAuthenticated,
@@ -19,59 +32,64 @@ from fishjam.events._protos.fishjam import (
     ServerMessageSubscribeResponse,
 )
 
+ALLOWED_NOTIFICATION = (
+    ServerMessageRoomCreated,
+    ServerMessageRoomDeleted,
+    ServerMessageRoomCrashed,
+    ServerMessagePeerAdded,
+    ServerMessagePeerDeleted,
+    ServerMessagePeerConnected,
+    ServerMessagePeerDisconnected,
+    ServerMessagePeerMetadataUpdated,
+    ServerMessagePeerCrashed,
+    ServerMessageTrackAdded,
+    ServerMessageTrackRemoved,
+    ServerMessageTrackMetadataUpdated,
+)
 
-class Notifier:
+
+class FishjamNotifier:
     """
     Allows for receiving WebSocket messages from Fishjam.
     """
 
     def __init__(self, fishjam_url: str, management_token: str):
         """
-        Create Notifier instance, providing the fishjam address and api token.
-        Set secure to `True` for `wss` and `False` for `ws` connection (default).
+        Create FishjamNotifier instance, providing the fishjam url and management token.
         """
 
-        self._server_address = (
+        self._fishjam_url = (
             f"{fishjam_url.replace('http', 'ws')}/socket/server/websocket"
         )
-        self._server_api_token = management_token
+        self._management_token = management_token
         self._websocket = None
         self._ready = False
 
         self._ready_event: asyncio.Event = None
 
         self._notification_handler: Callable = None
-        self._metrics_handler: Callable = None
 
     def on_server_notification(self, handler: Callable[[Any], None]):
         """
-        Decorator used for defining handler for ServerNotifications
-        i.e. all messages other than `ServerMessageMetricsReport`.
+        Decorator used for defining handler for Fishjam Notifications
         """
         self._notification_handler = handler
         return handler
 
-    def on_metrics(self, handler: Callable[[ServerMessageMetricsReport], None]):
-        """
-        Decorator used for defining handler for `ServerMessageMetricsReport`.
-        """
-        self._metrics_handler = handler
-        return handler
-
     async def connect(self):
         """
-        A coroutine which connects Notifier to Fishjam and listens for all incoming
-        messages from the Fishjam.
+        A coroutine which connects FishjamNotifier to Fishjam and listens for
+        all incoming messages from the Fishjam.
 
         It runs until the connection isn't closed.
 
         The incoming messages are handled by the functions defined using the
-        `on_server_notification` and `on_metrics` decorators.
+        `on_server_notification` decorator.
 
-        The handlers have to be defined before calling `connect`,
+        The handler have to be defined before calling `connect`,
         otherwise the messages won't be received.
         """
-        async with client.connect(self._server_address) as websocket:
+        async with client.connect(self._fishjam_url) as websocket:
             try:
                 self._websocket = websocket
                 await self._authenticate()
@@ -79,11 +97,6 @@ class Notifier:
                 if self._notification_handler:
                     await self._subscribe_event(
                         event=ServerMessageEventType.EVENT_TYPE_SERVER_NOTIFICATION
-                    )
-
-                if self._metrics_handler:
-                    await self._subscribe_event(
-                        event=ServerMessageEventType.EVENT_TYPE_METRICS
                     )
 
                 self._ready = True
@@ -110,7 +123,7 @@ class Notifier:
 
     async def _authenticate(self):
         msg = ServerMessage(
-            auth_request=ServerMessageAuthRequest(token=self._server_api_token)
+            auth_request=ServerMessageAuthRequest(token=self._management_token)
         )
         await self._websocket.send(bytes(msg))
 
@@ -132,9 +145,7 @@ class Notifier:
             message = ServerMessage().parse(message)
             _which, message = betterproto.which_one_of(message, "content")
 
-            if isinstance(message, ServerMessageMetricsReport):
-                self._metrics_handler(message)
-            else:
+            if isinstance(message, ALLOWED_NOTIFICATION):
                 self._notification_handler(message)
 
     async def _subscribe_event(self, event: ServerMessageEventType):

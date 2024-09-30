@@ -9,9 +9,8 @@ from multiprocessing import Process, Queue
 import pytest
 import requests
 
-from fishjam import FishjamClient, Notifier, RoomOptions
+from fishjam import FishjamClient, FishjamNotifier, RoomOptions
 from fishjam.events import (
-    ServerMessageMetricsReport,
     ServerMessagePeerAdded,
     ServerMessagePeerConnected,
     ServerMessagePeerDeleted,
@@ -19,7 +18,7 @@ from fishjam.events import (
     ServerMessageRoomCreated,
     ServerMessageRoomDeleted,
 )
-from tests.support.asyncio_utils import assert_events, assert_metrics, cancel
+from tests.support.asyncio_utils import assert_events, cancel
 from tests.support.peer_socket import PeerSocket
 from tests.support.webhook_notifier import run_server
 
@@ -56,7 +55,9 @@ def start_server():
 class TestConnectingToServer:
     @pytest.mark.asyncio
     async def test_valid_credentials(self):
-        notifier = Notifier(fishjam_url=FISHJAM_URL, management_token=SERVER_API_TOKEN)
+        notifier = FishjamNotifier(
+            fishjam_url=FISHJAM_URL, management_token=SERVER_API_TOKEN
+        )
 
         notifier_task = asyncio.create_task(notifier.connect())
         await notifier.wait_ready()
@@ -67,7 +68,9 @@ class TestConnectingToServer:
 
     @pytest.mark.asyncio
     async def test_invalid_credentials(self):
-        notifier = Notifier(fishjam_url=FISHJAM_URL, management_token="wrong_token")
+        notifier = FishjamNotifier(
+            fishjam_url=FISHJAM_URL, management_token="wrong_token"
+        )
 
         task = asyncio.create_task(notifier.connect())
 
@@ -82,7 +85,9 @@ def room_api():
 
 @pytest.fixture
 def notifier():
-    notifier = Notifier(fishjam_url=FISHJAM_URL, management_token=SERVER_API_TOKEN)
+    notifier = FishjamNotifier(
+        fishjam_url=FISHJAM_URL, management_token=SERVER_API_TOKEN
+    )
 
     return notifier
 
@@ -90,7 +95,7 @@ def notifier():
 class TestReceivingNotifications:
     @pytest.mark.asyncio
     async def test_room_created_deleted(
-        self, room_api: FishjamClient, notifier: Notifier
+        self, room_api: FishjamClient, notifier: FishjamNotifier
     ):
         event_checks = [ServerMessageRoomCreated, ServerMessageRoomDeleted]
         assert_task = asyncio.create_task(assert_events(notifier, event_checks.copy()))
@@ -111,7 +116,7 @@ class TestReceivingNotifications:
 
     @pytest.mark.asyncio
     async def test_peer_connected_disconnected(
-        self, room_api: FishjamClient, notifier: Notifier
+        self, room_api: FishjamClient, notifier: FishjamNotifier
     ):
         event_checks = [
             ServerMessageRoomCreated,
@@ -147,7 +152,7 @@ class TestReceivingNotifications:
 
     @pytest.mark.asyncio
     async def test_peer_connected_disconnected_deleted(
-        self, room_api: FishjamClient, notifier: Notifier
+        self, room_api: FishjamClient, notifier: FishjamNotifier
     ):
         event_checks = [
             ServerMessageRoomCreated,
@@ -186,7 +191,7 @@ class TestReceivingNotifications:
 
     @pytest.mark.asyncio
     async def test_peer_connected_room_deleted(
-        self, room_api: FishjamClient, notifier: Notifier
+        self, room_api: FishjamClient, notifier: FishjamNotifier
     ):
         event_checks = [
             ServerMessageRoomCreated,
@@ -221,26 +226,3 @@ class TestReceivingNotifications:
     def assert_event(self, event):
         data = queue.get(timeout=2.5)
         assert data == event or isinstance(data, event)
-
-
-class TestReceivingMetrics:
-    @pytest.mark.asyncio
-    async def test_metrics_with_one_peer(
-        self, room_api: FishjamClient, notifier: Notifier
-    ):
-        room = room_api.create_room()
-        _peer, token = room_api.create_peer(room.id)
-
-        peer_socket = PeerSocket(fishjam_url=FISHJAM_URL)
-        peer_task = asyncio.create_task(peer_socket.connect(token))
-
-        await peer_socket.wait_ready()
-
-        assert_task = asyncio.create_task(
-            assert_metrics(notifier, [ServerMessageMetricsReport])
-        )
-        notifier_task = asyncio.create_task(notifier.connect())
-
-        await assert_task
-        await cancel(peer_task)
-        await cancel(notifier_task)
