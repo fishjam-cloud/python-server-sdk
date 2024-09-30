@@ -9,7 +9,7 @@ from multiprocessing import Process, Queue
 import pytest
 import requests
 
-from fishjam import Notifier, FishjamClient, RoomOptions
+from fishjam import FishjamClient, Notifier, RoomOptions
 from fishjam.events import (
     ServerMessageMetricsReport,
     ServerMessagePeerAdded,

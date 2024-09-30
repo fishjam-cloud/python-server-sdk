@@ -1,10 +1,9 @@
 import logging
-from flask import Flask
 
-from routes import setup_routes
 from arguments import parse_arguments
+from flask import Flask
 from room_service import RoomService
-
+from routes import setup_routes
 
 app = Flask(__name__)
 app.logger.setLevel(logging.INFO)

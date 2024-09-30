@@ -1,7 +1,9 @@
 from dataclasses import asdict
-from flask import jsonify, Flask, request
-from fishjam import receive_binary
+
+from flask import Flask, jsonify, request
 from room_service import RoomService
+
+from fishjam import receive_binary
 
 
 def setup_routes(app: Flask, room_service: RoomService):

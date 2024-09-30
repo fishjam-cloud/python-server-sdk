@@ -7,8 +7,8 @@ import uuid
 import pytest
 
 from fishjam import (
-    PeerOptions,
     FishjamClient,
+    PeerOptions,
     RoomOptions,
 )
 from fishjam._openapi_client.models import (

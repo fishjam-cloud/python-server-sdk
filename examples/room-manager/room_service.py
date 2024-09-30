@@ -1,15 +1,15 @@
-from logging import Logger
-from dataclasses import dataclass
-from typing import List
 from argparse import Namespace
+from dataclasses import dataclass
+from logging import Logger
+from typing import List
 
 import betterproto
 
-from fishjam import FishjamClient, Room, RoomOptions, PeerOptions
-from fishjam.events._protos.fishjam import ServerMessageRoomDeleted as RoomDeleted
-from fishjam.events._protos.fishjam import ServerMessageRoomCrashed as RoomCrashed
-from fishjam.events._protos.fishjam import ServerMessagePeerDeleted as PeerDeleted
-from fishjam.events._protos.fishjam import ServerMessagePeerCrashed as PeerCrashed
+from fishjam import FishjamClient, PeerOptions, Room, RoomOptions
+from fishjam.events import ServerMessagePeerCrashed as PeerCrashed
+from fishjam.events import ServerMessagePeerDeleted as PeerDeleted
+from fishjam.events import ServerMessageRoomCrashed as RoomCrashed
+from fishjam.events import ServerMessageRoomDeleted as RoomDeleted
 
 
 @dataclass
