@@ -33,8 +33,8 @@ class RoomService:
             management_token=args.management_token,
         )
         self.websocket_url = args.fishjam_url.replace("http", "ws")
-        self.room_name_to_room_id = {}
-        self.peer_name_to_access = {}
+        self.room_name_to_room_id: dict[str, str] = {}
+        self.peer_name_to_access: dict[str, PeerAccess] = {}
         self.logger = logger
         self.config = args
 
@@ -47,7 +47,7 @@ class RoomService:
             "Got room: %s", {"name": room_name, "id": room.id, "peers": room.peers}
         )
 
-        if not peer_in_room:
+        if not peer_access or not peer_in_room:
             return self.__create_peer(room_name, username)
 
         self.logger.info("Peer and room exist: %s, %s", username, room_name)
@@ -63,13 +63,11 @@ class RoomService:
             case _:
                 pass
 
-        return
-
     def __find_or_create_room(self, room_name: str) -> Room:
         if room_name in self.room_name_to_room_id:
             self.logger.info("Room %s, already exists in the Fishjam", room_name)
 
-            room_id = self.room_name_to_room_id.get(room_name)
+            room_id = self.room_name_to_room_id[room_name]
             return self.fishjam_client.get_room(room_id=room_id)
 
         options = RoomOptions(
@@ -86,7 +84,7 @@ class RoomService:
         return new_room
 
     def __create_peer(self, room_name: str, peer_name: str) -> PeerAccess:
-        room_id = self.room_name_to_room_id.get(room_name)
+        room_id = self.room_name_to_room_id[room_name]
 
         options = PeerOptions(
             enable_simulcast=self.config.enable_simulcast,

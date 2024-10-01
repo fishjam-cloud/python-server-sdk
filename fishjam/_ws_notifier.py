@@ -3,7 +3,7 @@ Notifier listening to WebSocket events
 """
 
 import asyncio
-from typing import Any, Callable
+from typing import Any, Callable, Literal, cast
 
 import betterproto
 from websockets import client
@@ -61,13 +61,13 @@ class FishjamNotifier:
         self._fishjam_url = (
             f"{fishjam_url.replace('http', 'ws')}/socket/server/websocket"
         )
-        self._management_token = management_token
-        self._websocket = None
-        self._ready = False
+        self._management_token: str = management_token
+        self._websocket: client.WebSocketClientProtocol | None = None
+        self._ready: bool = False
 
-        self._ready_event: asyncio.Event = None
+        self._ready_event: asyncio.Event | None = None
 
-        self._notification_handler: Callable = None
+        self._notification_handler: Callable | None = None
 
     def on_server_notification(self, handler: Callable[[Any], None]):
         """
@@ -107,7 +107,7 @@ class FishjamNotifier:
             finally:
                 self._websocket = None
 
-    async def wait_ready(self) -> True:
+    async def wait_ready(self) -> Literal[True]:
         """
         Waits until the notifier is connected and authenticated to Fishjam.
 
@@ -119,19 +119,22 @@ class FishjamNotifier:
         if self._ready_event is None:
             self._ready_event = asyncio.Event()
 
-        await self._ready_event.wait()
+        return await self._ready_event.wait()
 
     async def _authenticate(self):
+        if not self._websocket:
+            raise RuntimeError("Websocket is not connected")
+
         msg = ServerMessage(
             auth_request=ServerMessageAuthRequest(token=self._management_token)
         )
         await self._websocket.send(bytes(msg))
 
         try:
-            message = await self._websocket.recv()
+            message = cast(bytes, await self._websocket.recv())
         except ConnectionClosed as exception:
             if "invalid token" in str(exception):
-                raise RuntimeError("Invalid server_api_token") from exception
+                raise RuntimeError("Invalid management token") from exception
             raise
 
         message = ServerMessage().parse(message)
@@ -140,8 +143,13 @@ class FishjamNotifier:
         assert isinstance(message, ServerMessageAuthenticated)
 
     async def _receive_loop(self):
+        if not self._websocket:
+            raise RuntimeError("Websocket is not connected")
+        if not self._notification_handler:
+            raise RuntimeError("Notification handler is not defined")
+
         while True:
-            message = await self._websocket.recv()
+            message = cast(bytes, await self._websocket.recv())
             message = ServerMessage().parse(message)
             _which, message = betterproto.which_one_of(message, "content")
 
@@ -149,10 +157,13 @@ class FishjamNotifier:
                 self._notification_handler(message)
 
     async def _subscribe_event(self, event: ServerMessageEventType):
+        if not self._websocket:
+            raise RuntimeError("Websocket is not connected")
+
         request = ServerMessage(subscribe_request=ServerMessageSubscribeRequest(event))
 
         await self._websocket.send(bytes(request))
-        message = await self._websocket.recv()
+        message = cast(bytes, await self._websocket.recv())
         message = ServerMessage().parse(message)
         _which, message = betterproto.which_one_of(message, "content")
         assert isinstance(message, ServerMessageSubscribeResponse)

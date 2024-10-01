@@ -3,7 +3,7 @@ Fishjam client used to manage rooms
 """
 
 from dataclasses import dataclass
-from typing import List, Literal, NewType, Tuple
+from typing import Any, List, Literal, NewType, Tuple
 
 from fishjam._openapi_client.api.room import add_peer as room_add_peer
 from fishjam._openapi_client.api.room import create_room as room_create_room
@@ -42,26 +42,26 @@ class Room:
 class RoomOptions:
     """Description of a room options"""
 
-    max_peers: int = None
+    max_peers: int | None = None
     """Maximum amount of peers allowed into the room"""
-    peer_disconnected_timeout: int = None
+    peer_disconnected_timeout: int | None = None
     """
     Duration (in seconds) after which the peer will be removed if it is disconnected.
     If not provided, this feature is disabled.
     """
-    peerless_purge_timeout: int = None
+    peerless_purge_timeout: int | None = None
     """
     Duration (in seconds) after which the room will be removed 
     if no peers are connected. If not provided, this feature is disabled.
     """
-    room_id: str = None
+    room_id: str | None = None
     """
     Custom id used for identifying room within Fishjam.
     Must be unique across all rooms. If not provided, random UUID is generated.
     """
-    video_codec: Literal["h264", "vp8"] = None
+    video_codec: Literal["h264", "vp8"] | None = None
     """Enforces video codec for each peer in the room"""
-    webhook_url: str = None
+    webhook_url: str | None = None
     """URL where Fishjam notifications will be sent"""
 
 
@@ -71,7 +71,7 @@ class PeerOptions:
 
     enable_simulcast: bool = True
     """Enables the peer to use simulcast"""
-    metadata: dict = None
+    metadata: dict[str, Any] | None = None
     """Peer metadata"""
 
 
@@ -85,7 +85,7 @@ class FishjamClient(Client):
         super().__init__(fishjam_url=fishjam_url, management_token=management_token)
 
     def create_peer(
-        self, room_id: str, options: PeerOptions = PeerOptions()
+        self, room_id: str, options: PeerOptions | None = None
     ) -> Tuple[Peer, PeerToken]:
         """
         Creates peer in the room
@@ -95,6 +95,7 @@ class FishjamClient(Client):
 
         The possible options to pass for peer are `PeerOptions`.
         """
+        options = options or PeerOptions()
 
         peer_type = "webrtc"
         peer_metadata = self.__parse_peer_metadata(options.metadata)
@@ -107,11 +108,12 @@ class FishjamClient(Client):
 
         return (resp.data.peer, resp.data.token)
 
-    def create_room(self, options: RoomOptions = RoomOptions()) -> Room:
+    def create_room(self, options: RoomOptions | None = None) -> Room:
         """
         Creates a new room
         Returns the created `Room`
         """
+        options = options or RoomOptions()
 
         codec = None
         if options.video_codec:
@@ -155,7 +157,7 @@ class FishjamClient(Client):
 
         return self._request(room_delete_room, room_id=room_id)
 
-    def __parse_peer_metadata(self, metadata: dict) -> PeerOptionsWebRTCMetadata:
+    def __parse_peer_metadata(self, metadata: dict | None) -> PeerOptionsWebRTCMetadata:
         peer_metadata = PeerOptionsWebRTCMetadata()
 
         if not metadata:

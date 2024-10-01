@@ -59,6 +59,10 @@ class TestConnectingToServer:
             fishjam_url=FISHJAM_URL, management_token=SERVER_API_TOKEN
         )
 
+        @notifier.on_server_notification
+        def handle_notitifcation(_notification):
+            pass
+
         notifier_task = asyncio.create_task(notifier.connect())
         await notifier.wait_ready()
         # pylint: disable=protected-access

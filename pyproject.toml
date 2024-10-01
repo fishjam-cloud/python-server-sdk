@@ -19,6 +19,7 @@ betterproto = "2.0.0b6"
 httpx = ">=0.20.0,<0.26.0"
 attrs = ">=21.3.0"
 flask = "^3.0.3"
+pyright = "^1.1.382.post1"
 
 [tool.poetry.group.dev.dependencies]
 betterproto = { version = "= 2.0.0b6", extras = ["compiler"] }
@@ -62,3 +63,9 @@ ignore = []
 markers = [
     "file_component_sources: Tests requiring files uploaded for File Component"
 ]
+
+[tool.pyright]
+exclude = ["**/venv", "**/__pycache__", ".pytest_cache", ".ruff_cache", "lib", "fishjam/_openapi_client", "tests"]
+typeCheckingMode = "basic"
+venv = "venv"
+venvPath = "."

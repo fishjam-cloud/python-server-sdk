@@ -21,6 +21,8 @@ jobs:
         run: poetry run lint
       - name: Check format
         run: poetry run format_check
+      - name: Type checker
+        run: poetry run pyright
   
   test:
       runs-on: ubuntu-latest

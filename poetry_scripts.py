@@ -9,6 +9,9 @@ def check_exit_code(command):
         command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
     )
 
+    if not process.stdout:
+        raise RuntimeError("Process has no STDOUT")
+
     while True:
         output = process.stdout.readline()
         if output == b"" and process.poll() is not None:
@@ -28,6 +31,7 @@ def run_tests():
         --exit-code-from test"
     )
     check_exit_code("docker compose -f docker-compose-test.yaml down")
+
 
 def run_local_test():
     check_exit_code('poetry run pytest -m "not file_component_sources"')

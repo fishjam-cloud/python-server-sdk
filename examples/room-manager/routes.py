@@ -1,6 +1,6 @@
 from dataclasses import asdict
 
-from flask import Flask, jsonify, request
+from flask import Flask, abort, jsonify, request
 from room_service import RoomService
 
 from fishjam import receive_binary
@@ -23,6 +23,9 @@ def setup_routes(app: Flask, room_service: RoomService):
     def get_room_query():
         room_name = request.args.get("roomName")
         peer_name = request.args.get("peerName")
+
+        if not room_name or not peer_name:
+            return abort(400)
 
         access_data = room_service.get_peer_access(room_name, peer_name)
         response = asdict(access_data)
