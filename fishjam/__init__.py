@@ -10,7 +10,7 @@
 # pylint: disable=locally-disabled, no-name-in-module, import-error
 
 # Exceptions and Server Messages
-from fishjam import errors, events
+from fishjam import errors, events, peer, room
 
 # API
 from fishjam._webhook_notifier import receive_binary
@@ -33,6 +33,8 @@ __all__ = [
     "Peer",
     "events",
     "errors",
+    "room",
+    "peer",
 ]
 
 __docformat__ = "restructuredtext"

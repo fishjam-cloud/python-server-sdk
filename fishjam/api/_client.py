@@ -1,5 +1,8 @@
+from typing import cast
+
 from fishjam._openapi_client.client import AuthenticatedClient
 from fishjam._openapi_client.models import Error
+from fishjam._openapi_client.types import Response
 from fishjam.errors import HTTPError
 
 
@@ -11,6 +14,7 @@ class Client:
         response = method.sync_detailed(client=self.client, **kwargs)
 
         if isinstance(response.parsed, Error):
+            response = cast(Response[Error], response)
             raise HTTPError.from_response(response)
 
         return response.parsed

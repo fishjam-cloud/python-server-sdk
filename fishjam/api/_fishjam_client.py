@@ -3,7 +3,7 @@ Fishjam client used to manage rooms
 """
 
 from dataclasses import dataclass
-from typing import Any, List, Literal, NewType, Tuple
+from typing import Any, List, Literal, Tuple, cast
 
 from fishjam._openapi_client.api.room import add_peer as room_add_peer
 from fishjam._openapi_client.api.room import create_room as room_create_room
@@ -14,16 +14,18 @@ from fishjam._openapi_client.api.room import get_room as room_get_room
 from fishjam._openapi_client.models import (
     AddPeerJsonBody,
     Peer,
+    PeerDetailsResponse,
     PeerOptionsWebRTC,
     RoomConfig,
+    RoomCreateDetailsResponse,
+    RoomDetailsResponse,
+    RoomsListingResponse,
 )
 from fishjam._openapi_client.models.peer_options_web_rtc_metadata import (
     PeerOptionsWebRTCMetadata,
 )
 from fishjam._openapi_client.models.room_config_video_codec import RoomConfigVideoCodec
 from fishjam.api._client import Client
-
-PeerToken = NewType("PeerToken", str)
 
 
 @dataclass
@@ -86,7 +88,7 @@ class FishjamClient(Client):
 
     def create_peer(
         self, room_id: str, options: PeerOptions | None = None
-    ) -> Tuple[Peer, PeerToken]:
+    ) -> Tuple[Peer, str]:
         """
         Creates peer in the room
 
@@ -104,7 +106,10 @@ class FishjamClient(Client):
         )
         json_body = AddPeerJsonBody(type=peer_type, options=peer_options)
 
-        resp = self._request(room_add_peer, room_id=room_id, json_body=json_body)
+        resp = cast(
+            PeerDetailsResponse,
+            self._request(room_add_peer, room_id=room_id, json_body=json_body),
+        )
 
         return (resp.data.peer, resp.data.token)
 
@@ -127,14 +132,17 @@ class FishjamClient(Client):
             video_codec=codec,
             webhook_url=options.webhook_url,
         )
-        room = self._request(room_create_room, json_body=config).data.room
+
+        room = cast(
+            RoomCreateDetailsResponse, self._request(room_create_room, json_body=config)
+        ).data.room
 
         return Room(config=room.config, id=room.id, peers=room.peers)
 
     def get_all_rooms(self) -> List[Room]:
         """Returns list of all rooms"""
 
-        rooms = self._request(room_get_all_rooms).data
+        rooms = cast(RoomsListingResponse, self._request(room_get_all_rooms)).data
 
         return [
             Room(config=room.config, id=room.id, peers=room.peers) for room in rooms
@@ -143,7 +151,9 @@ class FishjamClient(Client):
     def get_room(self, room_id: str) -> Room:
         """Returns room with the given id"""
 
-        room = self._request(room_get_room, room_id=room_id).data
+        room = cast(
+            RoomDetailsResponse, self._request(room_get_room, room_id=room_id)
+        ).data
 
         return Room(config=room.config, id=room.id, peers=room.peers)
 
