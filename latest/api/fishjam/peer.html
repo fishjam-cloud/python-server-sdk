@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Errors - Fishjam Python Server SDK</title>
+        <title>Peer - Fishjam Python Server SDK</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -59,7 +59,7 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="errors.html" class="dropdown-item active" aria-current="page">Errors</a>
+    <a href="errors.html" class="dropdown-item">Errors</a>
 </li>
             
 <li>
@@ -67,7 +67,7 @@
 </li>
             
 <li>
-    <a href="peer.html" class="dropdown-item">Peer</a>
+    <a href="peer.html" class="dropdown-item active" aria-current="page">Peer</a>
 </li>
             
 <li>
@@ -81,12 +81,12 @@
 
                     <ul class="nav navbar-nav ms-md-auto">
                             <li class="nav-item">
-                                <a rel="prev" href="../fishjam.html" class="nav-link">
+                                <a rel="prev" href="events.html" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="events.html" class="nav-link">
+                                <a rel="next" href="room.html" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -156,38 +156,14 @@
             <h2>API Documentation</h2>
                 <ul class="memberlist">
             <li>
-                    <a class="class" href="#HTTPError">HTTPError</a>
+                    <a class="class" href="#PeerStatus">PeerStatus</a>
                             <ul class="memberlist">
-                </ul>
-
-            </li>
-            <li>
-                    <a class="class" href="#BadRequestError">BadRequestError</a>
-                            <ul class="memberlist">
-                </ul>
-
-            </li>
-            <li>
-                    <a class="class" href="#UnauthorizedError">UnauthorizedError</a>
-                            <ul class="memberlist">
-                </ul>
-
-            </li>
-            <li>
-                    <a class="class" href="#NotFoundError">NotFoundError</a>
-                            <ul class="memberlist">
-                </ul>
-
-            </li>
-            <li>
-                    <a class="class" href="#ServiceUnavailableError">ServiceUnavailableError</a>
-                            <ul class="memberlist">
-                </ul>
-
-            </li>
-            <li>
-                    <a class="class" href="#InternalServerError">InternalServerError</a>
-                            <ul class="memberlist">
+                        <li>
+                                <a class="variable" href="#PeerStatus.CONNECTED">CONNECTED</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PeerStatus.DISCONNECTED">DISCONNECTED</a>
+                        </li>
                 </ul>
 
             </li>
@@ -206,285 +182,123 @@
             <section class="module-info">
 
 
-                        <input id="mod-errors-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                        <input id="mod-peer-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 
-                        <label class="view-source-button" for="mod-errors-view-source"><span>View Source</span></label>
+                        <label class="view-source-button" for="mod-peer-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">from</span> <span class="nn">http</span> <span class="kn">import</span> <span class="n">HTTPStatus</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="kn">from</span> <span class="nn">fishjam._openapi_client.models</span> <span class="kn">import</span> <span class="n">Error</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="kn">from</span> <span class="nn">fishjam._openapi_client.types</span> <span class="kn">import</span> <span class="n">Response</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="k">class</span> <span class="nc">HTTPError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>    <span class="k">def</span> <span class="nf">from_response</span><span class="p">(</span><span class="n">response</span><span class="p">:</span> <span class="n">Response</span><span class="p">[</span><span class="n">Error</span><span class="p">]):</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">response</span><span class="o">.</span><span class="n">parsed</span><span class="p">:</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Got endpoint error reponse without parsed field&quot;</span><span class="p">)</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>        <span class="n">errors</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">parsed</span><span class="o">.</span><span class="n">errors</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>        <span class="k">match</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">:</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">BAD_REQUEST</span><span class="p">:</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>                <span class="k">return</span> <span class="n">BadRequestError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">UNAUTHORIZED</span><span class="p">:</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>                <span class="k">return</span> <span class="n">UnauthorizedError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">NOT_FOUND</span><span class="p">:</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>                <span class="k">return</span> <span class="n">NotFoundError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">SERVICE_UNAVAILABLE</span><span class="p">:</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>                <span class="k">return</span> <span class="n">ServiceUnavailableError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>            <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>                <span class="k">return</span> <span class="n">InternalServerError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a><span class="k">class</span> <span class="nc">BadRequestError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a><span class="k">class</span> <span class="nc">UnauthorizedError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a><span class="k">class</span> <span class="nc">NotFoundError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>
-</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="k">class</span> <span class="nc">ServiceUnavailableError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>
-</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a><span class="k">class</span> <span class="nc">InternalServerError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">1</span></a><span class="kn">from</span> <span class="nn">fishjam._openapi_client.models</span> <span class="kn">import</span> <span class="n">PeerStatus</span>
+</span><span id="L-2"><a href="#L-2"><span class="linenos">2</span></a>
+</span><span id="L-3"><a href="#L-3"><span class="linenos">3</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PeerStatus&quot;</span><span class="p">]</span>
 </span></pre></div>
 
 
             </section>
-                <section id="HTTPError">
-                            <input id="HTTPError-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                <section id="PeerStatus">
+                            <input id="PeerStatus-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr class">
 
     <span class="def">class</span>
-    <span class="name">HTTPError</span><wbr>(<span class="base">builtins.Exception</span>):
+    <span class="name">PeerStatus</span><wbr>(<span class="base">builtins.str</span>, <span class="base">enum.Enum</span>):
 
-                <label class="view-source-button" for="HTTPError-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="PeerStatus-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#HTTPError"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="HTTPError-8"><a href="#HTTPError-8"><span class="linenos"> 8</span></a><span class="k">class</span> <span class="nc">HTTPError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-</span><span id="HTTPError-9"><a href="#HTTPError-9"><span class="linenos"> 9</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;&quot;&quot;&quot;</span>
-</span><span id="HTTPError-10"><a href="#HTTPError-10"><span class="linenos">10</span></a>
-</span><span id="HTTPError-11"><a href="#HTTPError-11"><span class="linenos">11</span></a>    <span class="nd">@staticmethod</span>
-</span><span id="HTTPError-12"><a href="#HTTPError-12"><span class="linenos">12</span></a>    <span class="k">def</span> <span class="nf">from_response</span><span class="p">(</span><span class="n">response</span><span class="p">:</span> <span class="n">Response</span><span class="p">[</span><span class="n">Error</span><span class="p">]):</span>
-</span><span id="HTTPError-13"><a href="#HTTPError-13"><span class="linenos">13</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="HTTPError-14"><a href="#HTTPError-14"><span class="linenos">14</span></a>
-</span><span id="HTTPError-15"><a href="#HTTPError-15"><span class="linenos">15</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">response</span><span class="o">.</span><span class="n">parsed</span><span class="p">:</span>
-</span><span id="HTTPError-16"><a href="#HTTPError-16"><span class="linenos">16</span></a>            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Got endpoint error reponse without parsed field&quot;</span><span class="p">)</span>
-</span><span id="HTTPError-17"><a href="#HTTPError-17"><span class="linenos">17</span></a>
-</span><span id="HTTPError-18"><a href="#HTTPError-18"><span class="linenos">18</span></a>        <span class="n">errors</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">parsed</span><span class="o">.</span><span class="n">errors</span>
-</span><span id="HTTPError-19"><a href="#HTTPError-19"><span class="linenos">19</span></a>
-</span><span id="HTTPError-20"><a href="#HTTPError-20"><span class="linenos">20</span></a>        <span class="k">match</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">:</span>
-</span><span id="HTTPError-21"><a href="#HTTPError-21"><span class="linenos">21</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">BAD_REQUEST</span><span class="p">:</span>
-</span><span id="HTTPError-22"><a href="#HTTPError-22"><span class="linenos">22</span></a>                <span class="k">return</span> <span class="n">BadRequestError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="HTTPError-23"><a href="#HTTPError-23"><span class="linenos">23</span></a>
-</span><span id="HTTPError-24"><a href="#HTTPError-24"><span class="linenos">24</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">UNAUTHORIZED</span><span class="p">:</span>
-</span><span id="HTTPError-25"><a href="#HTTPError-25"><span class="linenos">25</span></a>                <span class="k">return</span> <span class="n">UnauthorizedError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="HTTPError-26"><a href="#HTTPError-26"><span class="linenos">26</span></a>
-</span><span id="HTTPError-27"><a href="#HTTPError-27"><span class="linenos">27</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">NOT_FOUND</span><span class="p">:</span>
-</span><span id="HTTPError-28"><a href="#HTTPError-28"><span class="linenos">28</span></a>                <span class="k">return</span> <span class="n">NotFoundError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="HTTPError-29"><a href="#HTTPError-29"><span class="linenos">29</span></a>
-</span><span id="HTTPError-30"><a href="#HTTPError-30"><span class="linenos">30</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">SERVICE_UNAVAILABLE</span><span class="p">:</span>
-</span><span id="HTTPError-31"><a href="#HTTPError-31"><span class="linenos">31</span></a>                <span class="k">return</span> <span class="n">ServiceUnavailableError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="HTTPError-32"><a href="#HTTPError-32"><span class="linenos">32</span></a>
-</span><span id="HTTPError-33"><a href="#HTTPError-33"><span class="linenos">33</span></a>            <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
-</span><span id="HTTPError-34"><a href="#HTTPError-34"><span class="linenos">34</span></a>                <span class="k">return</span> <span class="n">InternalServerError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+    <a class="headerlink" href="#PeerStatus"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerStatus-5"><a href="#PeerStatus-5"><span class="linenos"> 5</span></a><span class="k">class</span> <span class="nc">PeerStatus</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+</span><span id="PeerStatus-6"><a href="#PeerStatus-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Informs about the peer status&quot;&quot;&quot;</span>
+</span><span id="PeerStatus-7"><a href="#PeerStatus-7"><span class="linenos"> 7</span></a>
+</span><span id="PeerStatus-8"><a href="#PeerStatus-8"><span class="linenos"> 8</span></a>    <span class="n">CONNECTED</span> <span class="o">=</span> <span class="s2">&quot;connected&quot;</span>
+</span><span id="PeerStatus-9"><a href="#PeerStatus-9"><span class="linenos"> 9</span></a>    <span class="n">DISCONNECTED</span> <span class="o">=</span> <span class="s2">&quot;disconnected&quot;</span>
+</span><span id="PeerStatus-10"><a href="#PeerStatus-10"><span class="linenos">10</span></a>
+</span><span id="PeerStatus-11"><a href="#PeerStatus-11"><span class="linenos">11</span></a>    <span class="k">def</span> <span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="PeerStatus-12"><a href="#PeerStatus-12"><span class="linenos">12</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 </span></pre></div>
 
 
+            <div class="docstring"><p>Informs about the peer status</p>
+</div>
 
 
-                            <div class="inherited">
-                                <h5>Inherited Members</h5>
-                                <dl>
-                                    <div><dt>builtins.Exception</dt>
-                                <dd id="HTTPError.__init__" class="function">Exception</dd>
+                            <div id="PeerStatus.CONNECTED" class="classattr">
+                                <div class="attr variable">
+            <span class="name">CONNECTED</span>        =
+<span class="default_value">&lt;<a href="#PeerStatus.CONNECTED">PeerStatus.CONNECTED</a>: &#39;connected&#39;&gt;</span>
 
-            </div>
-            <div><dt>builtins.BaseException</dt>
-                                <dd id="HTTPError.with_traceback" class="function">with_traceback</dd>
-                <dd id="HTTPError.args" class="variable">args</dd>
 
-            </div>
-                                </dl>
+    </div>
+    <a class="headerlink" href="#PeerStatus.CONNECTED"></a>
+
+
+
                             </div>
-                </section>
-                <section id="BadRequestError">
-                            <input id="BadRequestError-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
+                            <div id="PeerStatus.DISCONNECTED" class="classattr">
+                                <div class="attr variable">
+            <span class="name">DISCONNECTED</span>        =
+<span class="default_value">&lt;<a href="#PeerStatus.DISCONNECTED">PeerStatus.DISCONNECTED</a>: &#39;disconnected&#39;&gt;</span>
 
-    <span class="def">class</span>
-    <span class="name">BadRequestError</span><wbr>(<span class="base"><a href="#HTTPError">HTTPError</a></span>):
-
-                <label class="view-source-button" for="BadRequestError-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#BadRequestError"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="BadRequestError-37"><a href="#BadRequestError-37"><span class="linenos">37</span></a><span class="k">class</span> <span class="nc">BadRequestError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="BadRequestError-38"><a href="#BadRequestError-38"><span class="linenos">38</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="BadRequestError-39"><a href="#BadRequestError-39"><span class="linenos">39</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="BadRequestError-40"><a href="#BadRequestError-40"><span class="linenos">40</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span></pre></div>
+    <a class="headerlink" href="#PeerStatus.DISCONNECTED"></a>
 
 
 
-
+                            </div>
                             <div class="inherited">
                                 <h5>Inherited Members</h5>
                                 <dl>
-                                    <div><dt>builtins.BaseException</dt>
-                                <dd id="BadRequestError.with_traceback" class="function">with_traceback</dd>
-                <dd id="BadRequestError.args" class="variable">args</dd>
+                                    <div><dt>enum.Enum</dt>
+                                <dd id="PeerStatus.name" class="variable">name</dd>
+                <dd id="PeerStatus.value" class="variable">value</dd>
 
             </div>
-                                </dl>
-                            </div>
-                </section>
-                <section id="UnauthorizedError">
-                            <input id="UnauthorizedError-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-
-    <span class="def">class</span>
-    <span class="name">UnauthorizedError</span><wbr>(<span class="base"><a href="#HTTPError">HTTPError</a></span>):
-
-                <label class="view-source-button" for="UnauthorizedError-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#UnauthorizedError"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="UnauthorizedError-43"><a href="#UnauthorizedError-43"><span class="linenos">43</span></a><span class="k">class</span> <span class="nc">UnauthorizedError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="UnauthorizedError-44"><a href="#UnauthorizedError-44"><span class="linenos">44</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="UnauthorizedError-45"><a href="#UnauthorizedError-45"><span class="linenos">45</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="UnauthorizedError-46"><a href="#UnauthorizedError-46"><span class="linenos">46</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span></pre></div>
-
-
-
-
-                            <div class="inherited">
-                                <h5>Inherited Members</h5>
-                                <dl>
-                                    <div><dt>builtins.BaseException</dt>
-                                <dd id="UnauthorizedError.with_traceback" class="function">with_traceback</dd>
-                <dd id="UnauthorizedError.args" class="variable">args</dd>
-
-            </div>
-                                </dl>
-                            </div>
-                </section>
-                <section id="NotFoundError">
-                            <input id="NotFoundError-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-
-    <span class="def">class</span>
-    <span class="name">NotFoundError</span><wbr>(<span class="base"><a href="#HTTPError">HTTPError</a></span>):
-
-                <label class="view-source-button" for="NotFoundError-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#NotFoundError"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="NotFoundError-49"><a href="#NotFoundError-49"><span class="linenos">49</span></a><span class="k">class</span> <span class="nc">NotFoundError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="NotFoundError-50"><a href="#NotFoundError-50"><span class="linenos">50</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="NotFoundError-51"><a href="#NotFoundError-51"><span class="linenos">51</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="NotFoundError-52"><a href="#NotFoundError-52"><span class="linenos">52</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span></pre></div>
-
-
-
-
-                            <div class="inherited">
-                                <h5>Inherited Members</h5>
-                                <dl>
-                                    <div><dt>builtins.BaseException</dt>
-                                <dd id="NotFoundError.with_traceback" class="function">with_traceback</dd>
-                <dd id="NotFoundError.args" class="variable">args</dd>
-
-            </div>
-                                </dl>
-                            </div>
-                </section>
-                <section id="ServiceUnavailableError">
-                            <input id="ServiceUnavailableError-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-
-    <span class="def">class</span>
-    <span class="name">ServiceUnavailableError</span><wbr>(<span class="base"><a href="#HTTPError">HTTPError</a></span>):
-
-                <label class="view-source-button" for="ServiceUnavailableError-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#ServiceUnavailableError"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServiceUnavailableError-55"><a href="#ServiceUnavailableError-55"><span class="linenos">55</span></a><span class="k">class</span> <span class="nc">ServiceUnavailableError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="ServiceUnavailableError-56"><a href="#ServiceUnavailableError-56"><span class="linenos">56</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="ServiceUnavailableError-57"><a href="#ServiceUnavailableError-57"><span class="linenos">57</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="ServiceUnavailableError-58"><a href="#ServiceUnavailableError-58"><span class="linenos">58</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span></pre></div>
-
-
-
-
-                            <div class="inherited">
-                                <h5>Inherited Members</h5>
-                                <dl>
-                                    <div><dt>builtins.BaseException</dt>
-                                <dd id="ServiceUnavailableError.with_traceback" class="function">with_traceback</dd>
-                <dd id="ServiceUnavailableError.args" class="variable">args</dd>
-
-            </div>
-                                </dl>
-                            </div>
-                </section>
-                <section id="InternalServerError">
-                            <input id="InternalServerError-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-
-    <span class="def">class</span>
-    <span class="name">InternalServerError</span><wbr>(<span class="base"><a href="#HTTPError">HTTPError</a></span>):
-
-                <label class="view-source-button" for="InternalServerError-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#InternalServerError"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="InternalServerError-61"><a href="#InternalServerError-61"><span class="linenos">61</span></a><span class="k">class</span> <span class="nc">InternalServerError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="InternalServerError-62"><a href="#InternalServerError-62"><span class="linenos">62</span></a>    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="InternalServerError-63"><a href="#InternalServerError-63"><span class="linenos">63</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="InternalServerError-64"><a href="#InternalServerError-64"><span class="linenos">64</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span></pre></div>
-
-
-
-
-                            <div class="inherited">
-                                <h5>Inherited Members</h5>
-                                <dl>
-                                    <div><dt>builtins.BaseException</dt>
-                                <dd id="InternalServerError.with_traceback" class="function">with_traceback</dd>
-                <dd id="InternalServerError.args" class="variable">args</dd>
+            <div><dt>builtins.str</dt>
+                                <dd id="PeerStatus.encode" class="function">encode</dd>
+                <dd id="PeerStatus.replace" class="function">replace</dd>
+                <dd id="PeerStatus.split" class="function">split</dd>
+                <dd id="PeerStatus.rsplit" class="function">rsplit</dd>
+                <dd id="PeerStatus.join" class="function">join</dd>
+                <dd id="PeerStatus.capitalize" class="function">capitalize</dd>
+                <dd id="PeerStatus.casefold" class="function">casefold</dd>
+                <dd id="PeerStatus.title" class="function">title</dd>
+                <dd id="PeerStatus.center" class="function">center</dd>
+                <dd id="PeerStatus.count" class="function">count</dd>
+                <dd id="PeerStatus.expandtabs" class="function">expandtabs</dd>
+                <dd id="PeerStatus.find" class="function">find</dd>
+                <dd id="PeerStatus.partition" class="function">partition</dd>
+                <dd id="PeerStatus.index" class="function">index</dd>
+                <dd id="PeerStatus.ljust" class="function">ljust</dd>
+                <dd id="PeerStatus.lower" class="function">lower</dd>
+                <dd id="PeerStatus.lstrip" class="function">lstrip</dd>
+                <dd id="PeerStatus.rfind" class="function">rfind</dd>
+                <dd id="PeerStatus.rindex" class="function">rindex</dd>
+                <dd id="PeerStatus.rjust" class="function">rjust</dd>
+                <dd id="PeerStatus.rstrip" class="function">rstrip</dd>
+                <dd id="PeerStatus.rpartition" class="function">rpartition</dd>
+                <dd id="PeerStatus.splitlines" class="function">splitlines</dd>
+                <dd id="PeerStatus.strip" class="function">strip</dd>
+                <dd id="PeerStatus.swapcase" class="function">swapcase</dd>
+                <dd id="PeerStatus.translate" class="function">translate</dd>
+                <dd id="PeerStatus.upper" class="function">upper</dd>
+                <dd id="PeerStatus.startswith" class="function">startswith</dd>
+                <dd id="PeerStatus.endswith" class="function">endswith</dd>
+                <dd id="PeerStatus.removeprefix" class="function">removeprefix</dd>
+                <dd id="PeerStatus.removesuffix" class="function">removesuffix</dd>
+                <dd id="PeerStatus.isascii" class="function">isascii</dd>
+                <dd id="PeerStatus.islower" class="function">islower</dd>
+                <dd id="PeerStatus.isupper" class="function">isupper</dd>
+                <dd id="PeerStatus.istitle" class="function">istitle</dd>
+                <dd id="PeerStatus.isspace" class="function">isspace</dd>
+                <dd id="PeerStatus.isdecimal" class="function">isdecimal</dd>
+                <dd id="PeerStatus.isdigit" class="function">isdigit</dd>
+                <dd id="PeerStatus.isnumeric" class="function">isnumeric</dd>
+                <dd id="PeerStatus.isalpha" class="function">isalpha</dd>
+                <dd id="PeerStatus.isalnum" class="function">isalnum</dd>
+                <dd id="PeerStatus.isidentifier" class="function">isidentifier</dd>
+                <dd id="PeerStatus.isprintable" class="function">isprintable</dd>
+                <dd id="PeerStatus.zfill" class="function">zfill</dd>
+                <dd id="PeerStatus.format" class="function">format</dd>
+                <dd id="PeerStatus.format_map" class="function">format_map</dd>
+                <dd id="PeerStatus.maketrans" class="function">maketrans</dd>
 
             </div>
                                 </dl>
