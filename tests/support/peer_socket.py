@@ -14,15 +14,17 @@ from tests.support.protos.fishjam import (
 
 
 class PeerSocket:
-    def __init__(self, socket_address, auto_close=False):
-        self._socket_address = socket_address
+    def __init__(self, fishjam_url, auto_close=False):
+        self._socket_address = (
+            f"{fishjam_url.replace('http', 'ws')}/socket/peer/websocket"
+        )
 
         self._ready = False
         self._ready_event = None
         self._auto_close = auto_close
 
     async def connect(self, token):
-        async with client.connect(f"ws://{self._socket_address}") as websocket:
+        async with client.connect(self._socket_address) as websocket:
             msg = PeerMessage(auth_request=PeerMessageAuthRequest(token=token))
             await websocket.send(bytes(msg))
 

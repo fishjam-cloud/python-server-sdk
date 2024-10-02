@@ -44,10 +44,13 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, str]]:
+) -> Optional[Union[Any, Error, str]]:
     if response.status_code == HTTPStatus.OK:
         response_200 = cast(str, response.json())
         return response_200
+    if response.status_code == HTTPStatus.MOVED_PERMANENTLY:
+        response_301 = cast(Any, None)
+        return response_301
     if response.status_code == HTTPStatus.BAD_REQUEST:
         response_400 = Error.from_dict(response.json())
 
@@ -56,6 +59,10 @@ def _parse_response(
         response_404 = Error.from_dict(response.json())
 
         return response_404
+    if response.status_code == HTTPStatus.SERVICE_UNAVAILABLE:
+        response_503 = Error.from_dict(response.json())
+
+        return response_503
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -64,7 +71,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, str]]:
+) -> Response[Union[Any, Error, str]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -82,7 +89,7 @@ def sync_detailed(
     field_hls_part: Union[Unset, None, int] = UNSET,
     field_hls_skip: Union[Unset, None, str] = UNSET,
     range_: Union[Unset, str] = UNSET,
-) -> Response[Union[Error, str]]:
+) -> Response[Union[Any, Error, str]]:
     """Retrieve HLS Content
 
     Args:
@@ -99,7 +106,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, str]]
+        Response[Union[Any, Error, str]]
     """
 
     kwargs = _get_kwargs(
@@ -127,7 +134,7 @@ def sync(
     field_hls_part: Union[Unset, None, int] = UNSET,
     field_hls_skip: Union[Unset, None, str] = UNSET,
     range_: Union[Unset, str] = UNSET,
-) -> Optional[Union[Error, str]]:
+) -> Optional[Union[Any, Error, str]]:
     """Retrieve HLS Content
 
     Args:
@@ -144,7 +151,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, str]
+        Union[Any, Error, str]
     """
 
     return sync_detailed(
@@ -167,7 +174,7 @@ async def asyncio_detailed(
     field_hls_part: Union[Unset, None, int] = UNSET,
     field_hls_skip: Union[Unset, None, str] = UNSET,
     range_: Union[Unset, str] = UNSET,
-) -> Response[Union[Error, str]]:
+) -> Response[Union[Any, Error, str]]:
     """Retrieve HLS Content
 
     Args:
@@ -184,7 +191,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, str]]
+        Response[Union[Any, Error, str]]
     """
 
     kwargs = _get_kwargs(
@@ -210,7 +217,7 @@ async def asyncio(
     field_hls_part: Union[Unset, None, int] = UNSET,
     field_hls_skip: Union[Unset, None, str] = UNSET,
     range_: Union[Unset, str] = UNSET,
-) -> Optional[Union[Error, str]]:
+) -> Optional[Union[Any, Error, str]]:
     """Retrieve HLS Content
 
     Args:
@@ -227,7 +234,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, str]
+        Union[Any, Error, str]
     """
 
     return (

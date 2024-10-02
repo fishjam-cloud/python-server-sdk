@@ -6,43 +6,28 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.room_config import RoomConfig
-from ...models.room_create_details_response import RoomCreateDetailsResponse
+from ...models.shutdown_status_response import ShutdownStatusResponse
 from ...types import Response
 
 
-def _get_kwargs(
-    *,
-    json_body: RoomConfig,
-) -> Dict[str, Any]:
-    json_json_body = json_body.to_dict()
-
+def _get_kwargs() -> Dict[str, Any]:
     return {
-        "method": "post",
-        "url": "/room",
-        "json": json_json_body,
+        "method": "get",
+        "url": "/shutdown/status",
     }
 
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, RoomCreateDetailsResponse]]:
-    if response.status_code == HTTPStatus.CREATED:
-        response_201 = RoomCreateDetailsResponse.from_dict(response.json())
+) -> Optional[Union[Error, ShutdownStatusResponse]]:
+    if response.status_code == HTTPStatus.OK:
+        response_200 = ShutdownStatusResponse.from_dict(response.json())
 
-        return response_201
-    if response.status_code == HTTPStatus.BAD_REQUEST:
-        response_400 = Error.from_dict(response.json())
-
-        return response_400
+        return response_200
     if response.status_code == HTTPStatus.UNAUTHORIZED:
         response_401 = Error.from_dict(response.json())
 
         return response_401
-    if response.status_code == HTTPStatus.SERVICE_UNAVAILABLE:
-        response_503 = Error.from_dict(response.json())
-
-        return response_503
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -51,7 +36,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, RoomCreateDetailsResponse]]:
+) -> Response[Union[Error, ShutdownStatusResponse]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -63,24 +48,18 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    json_body: RoomConfig,
-) -> Response[Union[Error, RoomCreateDetailsResponse]]:
-    """Creates a room
-
-    Args:
-        json_body (RoomConfig): Room configuration
+) -> Response[Union[Error, ShutdownStatusResponse]]:
+    """Returns status information for the shutdown process of Fishjam.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, RoomCreateDetailsResponse]]
+        Response[Union[Error, ShutdownStatusResponse]]
     """
 
-    kwargs = _get_kwargs(
-        json_body=json_body,
-    )
+    kwargs = _get_kwargs()
 
     response = client.get_httpx_client().request(
         **kwargs,
@@ -92,48 +71,37 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    json_body: RoomConfig,
-) -> Optional[Union[Error, RoomCreateDetailsResponse]]:
-    """Creates a room
-
-    Args:
-        json_body (RoomConfig): Room configuration
+) -> Optional[Union[Error, ShutdownStatusResponse]]:
+    """Returns status information for the shutdown process of Fishjam.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, RoomCreateDetailsResponse]
+        Union[Error, ShutdownStatusResponse]
     """
 
     return sync_detailed(
         client=client,
-        json_body=json_body,
     ).parsed
 
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    json_body: RoomConfig,
-) -> Response[Union[Error, RoomCreateDetailsResponse]]:
-    """Creates a room
-
-    Args:
-        json_body (RoomConfig): Room configuration
+) -> Response[Union[Error, ShutdownStatusResponse]]:
+    """Returns status information for the shutdown process of Fishjam.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, RoomCreateDetailsResponse]]
+        Response[Union[Error, ShutdownStatusResponse]]
     """
 
-    kwargs = _get_kwargs(
-        json_body=json_body,
-    )
+    kwargs = _get_kwargs()
 
     response = await client.get_async_httpx_client().request(**kwargs)
 
@@ -143,24 +111,19 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    json_body: RoomConfig,
-) -> Optional[Union[Error, RoomCreateDetailsResponse]]:
-    """Creates a room
-
-    Args:
-        json_body (RoomConfig): Room configuration
+) -> Optional[Union[Error, ShutdownStatusResponse]]:
+    """Returns status information for the shutdown process of Fishjam.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, RoomCreateDetailsResponse]
+        Union[Error, ShutdownStatusResponse]
     """
 
     return (
         await asyncio_detailed(
             client=client,
-            json_body=json_body,
         )
     ).parsed

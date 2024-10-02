@@ -2,17 +2,13 @@
 
 import asyncio
 
-from fishjam import Notifier
+from fishjam import FishjamNotifier
 
 ASSERTION_TIMEOUT = 5.0
 
 
-async def assert_events(notifier: Notifier, event_checks: list):
+async def assert_events(notifier: FishjamNotifier, event_checks: list):
     await _assert_messages(notifier.on_server_notification, event_checks)
-
-
-async def assert_metrics(notifier: Notifier, metrics_checks: list):
-    await _assert_messages(notifier.on_metrics, metrics_checks)
 
 
 async def _assert_messages(notifier_callback, message_checks):

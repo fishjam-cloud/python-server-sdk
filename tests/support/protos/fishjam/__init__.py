@@ -19,6 +19,9 @@ class PeerMessage(betterproto.Message):
         2, group="content"
     )
     media_event: "PeerMessageMediaEvent" = betterproto.message_field(3, group="content")
+    rtc_stats_report: "PeerMessageRtcStatsReport" = betterproto.message_field(
+        4, group="content"
+    )
 
 
 @dataclass(eq=False, repr=False)
@@ -38,5 +41,15 @@ class PeerMessageAuthRequest(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class PeerMessageMediaEvent(betterproto.Message):
     """Any type of WebRTC messages passed betweend FJ and peer"""
+
+    data: str = betterproto.string_field(1)
+
+
+@dataclass(eq=False, repr=False)
+class PeerMessageRtcStatsReport(betterproto.Message):
+    """
+    PeerConnection stats sent by peer https://developer.mozilla.org/en-
+    US/docs/Web/API/RTCStatsReport#the_statistic_types
+    """
 
     data: str = betterproto.string_field(1)

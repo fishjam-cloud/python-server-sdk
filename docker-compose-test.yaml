@@ -20,7 +20,7 @@ services:
       FJ_PORT: 5002
       FJ_SECRET_KEY_BASE: "super-secret-key"
       FJ_SIP_IP: "127.0.0.1"
-      FJ_COMPONENTS_USED: rtsp file hls recording sip
+      FJ_COMPONENTS_USED: "rtsp file hls recording sip"
     ports:
       - "5002:5002"
       - "49999:49999"
@@ -30,7 +30,7 @@ services:
 
   test:
     container_name: test
-    image: "cimg/python:${PYTHON_VERSION:-3.8}"
+    image: "cimg/python:${PYTHON_VERSION:-3.10}"
     command: sh -c "cd /app && \ poetry config virtualenvs.in-project false && \ poetry install --no-ansi && \ poetry run pytest -s"
     environment:
       DOCKER_TEST: "TRUE"
@@ -44,7 +44,7 @@ services:
 
   examples:
     container_name: examples
-    image: "cimg/python:${PYTHON_VERSION:-3.8}"
+    image: "cimg/python:${PYTHON_VERSION:-3.10}"
     command: sh -c "cd /app && \ poetry config virtualenvs.in-project false && \ poetry cache clear pypi --all && \ poetry install --no-ansi && \ poetry run examples"
     environment:
       DOCKER_TEST: "TRUE"

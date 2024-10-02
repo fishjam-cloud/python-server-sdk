@@ -1,5 +1,6 @@
 from http import HTTPStatus
 
+from fishjam._openapi_client.models import Error
 from fishjam._openapi_client.types import Response
 
 
@@ -7,20 +8,29 @@ class HTTPError(Exception):
     """"""
 
     @staticmethod
-    def from_response(response: Response):
+    def from_response(response: Response[Error]):
         """@private"""
+
+        if not response.parsed:
+            raise RuntimeError("Got endpoint error reponse without parsed field")
+
         errors = response.parsed.errors
-        if response.status_code == HTTPStatus.BAD_REQUEST:
-            return BadRequestError(errors)
 
-        if response.status_code == HTTPStatus.UNAUTHORIZED:
-            return UnauthorizedError(errors)
+        match response.status_code:
+            case HTTPStatus.BAD_REQUEST:
+                return BadRequestError(errors)
 
-        if response.status_code == HTTPStatus.NOT_FOUND:
-            return NotFoundError(errors)
+            case HTTPStatus.UNAUTHORIZED:
+                return UnauthorizedError(errors)
 
-        if response.status_code == HTTPStatus.SERVICE_UNAVAILABLE:
-            return ServiceUnavailableError(errors)
+            case HTTPStatus.NOT_FOUND:
+                return NotFoundError(errors)
+
+            case HTTPStatus.SERVICE_UNAVAILABLE:
+                return ServiceUnavailableError(errors)
+
+            case _:
+                return InternalServerError(errors)
 
 
 class BadRequestError(HTTPError):
@@ -42,6 +52,12 @@ class NotFoundError(HTTPError):
 
 
 class ServiceUnavailableError(HTTPError):
+    def __init__(self, errors):
+        """@private"""
+        super().__init__(errors)
+
+
+class InternalServerError(HTTPError):
     def __init__(self, errors):
         """@private"""
         super().__init__(errors)

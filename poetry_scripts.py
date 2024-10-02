@@ -1,4 +1,3 @@
-import os
 import shutil
 import subprocess
 import sys
@@ -9,6 +8,9 @@ def check_exit_code(command):
     process = subprocess.Popen(
         command, shell=True, stdout=subprocess.PIPE, stderr=subprocess.STDOUT
     )
+
+    if not process.stdout:
+        raise RuntimeError("Process has no STDOUT")
 
     while True:
         output = process.stdout.readline()
@@ -29,17 +31,6 @@ def run_tests():
         --exit-code-from test"
     )
     check_exit_code("docker compose -f docker-compose-test.yaml down")
-
-
-def run_examples():
-    print("Start examples")
-
-    examples = os.listdir("./examples")
-
-    for example in examples:
-        check_exit_code(f"python ./examples/{example}")
-        print(f"After example from file: {example}")
-    print("All examples run without errors")
 
 
 def run_local_test():
