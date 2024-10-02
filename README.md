@@ -15,9 +15,9 @@ pip install fishjam-server-sdk
 ## Usage
 
 The SDK exports two main classes for interacting with Fishjam server:
-`FishjamClient` and `Notifier`.
+`FishjamClient` and `FishjamNotifier`.
 
-`FishjamClient` wraps http REST api calls, while `Notifier` is responsible for receiving real-time updates from the server.
+`FishjamClient` wraps http REST api calls, while `FishjamNotifier` is responsible for receiving real-time updates from the server.
 
 #### FishjamClient
 
@@ -34,31 +34,31 @@ You can use it to interact with Fishjam Cloud to manage rooms and peers
 ```python
 # Create a room
 options = RoomOptions(video_codec="h264", webhook_url="http://localhost:5000/webhook")
-room = room_api.create_room(options=options)
+room = fishjam_client.create_room(options=options)
 
 # Room(components=[], config=RoomConfig(max_peers=None, video_codec=<RoomConfigVideoCodec.H264: 'h264'>, webhook_url='http://localhost:5000/webhook'), id='1d905478-ccfc-44d6-a6e7-8ccb1b38d955', peers=[])
 
 # Add peer to the room
-peer, token = room_api.create_peer(room.id)
+peer, token = fishjam_client.create_peer(room.id)
 
 # Peer(id='b1232c7e-c969-4450-acdf-ea24f3cdd7f6', status=<PeerStatus.DISCONNECTED: 'disconnected'>, type='webrtc'), 'M8TUGhj-L11KpyG-2zBPIo'
 ```
 
 All methods in `FishjamClient` may raise one of the exceptions deriving from `fishjam.errors.HTTPError`. They are defined in `fishjam.errors`.
 
-#### Notifier
+#### FishjamNotifier
 
-Notifier allows for receiving real-time updates from the Fishjam Server.
+FishjamNotifier allows for receiving real-time updates from the Fishjam Server.
 
 You can read more about notifications in the
 [Fishjam Docs](https://fishjam-cloud.github.io/fishjam-docs/next/getting_started/notifications).
 
-Create `Notifier` instance
+Create `FishjamNotifier` instance
 
 ```python
-from fishjam import Notifier
+from fishjam import FishjamNotifier
 
-notifier = Notifier(fishjam_url='localhost:5002', management_token='development')
+fishjam_notifier = FishjamNotifier(fishjam_url='localhost:5002', management_token='development')
 ```
 
 Then define a handler for incoming messages
@@ -72,10 +72,10 @@ After that you can start the notifier
 
 ```python
 async def test_notifier():
-    notifier_task = asyncio.create_task(notifier.connect())
+    notifier_task = asyncio.create_task(fishjam_notifier.connect())
 
     # Wait for notifier to be ready to receive messages
-    await notifier.wait_ready()
+    await fishjam_notifier.wait_ready()
 
     # Create a room to trigger a server notification
     fishjam_client = FishjamClient()
