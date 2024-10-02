@@ -9,20 +9,6 @@ import betterproto
 from websockets import client
 from websockets.exceptions import ConnectionClosed
 
-from fishjam.events import (
-    ServerMessagePeerAdded,
-    ServerMessagePeerConnected,
-    ServerMessagePeerCrashed,
-    ServerMessagePeerDeleted,
-    ServerMessagePeerDisconnected,
-    ServerMessagePeerMetadataUpdated,
-    ServerMessageRoomCrashed,
-    ServerMessageRoomCreated,
-    ServerMessageRoomDeleted,
-    ServerMessageTrackAdded,
-    ServerMessageTrackMetadataUpdated,
-    ServerMessageTrackRemoved,
-)
 from fishjam.events._protos.fishjam import (
     ServerMessage,
     ServerMessageAuthenticated,
@@ -31,21 +17,7 @@ from fishjam.events._protos.fishjam import (
     ServerMessageSubscribeRequest,
     ServerMessageSubscribeResponse,
 )
-
-ALLOWED_NOTIFICATION = (
-    ServerMessageRoomCreated,
-    ServerMessageRoomDeleted,
-    ServerMessageRoomCrashed,
-    ServerMessagePeerAdded,
-    ServerMessagePeerDeleted,
-    ServerMessagePeerConnected,
-    ServerMessagePeerDisconnected,
-    ServerMessagePeerMetadataUpdated,
-    ServerMessagePeerCrashed,
-    ServerMessageTrackAdded,
-    ServerMessageTrackRemoved,
-    ServerMessageTrackMetadataUpdated,
-)
+from fishjam.events.allowed_notification import ALLOWED_NOTIFICATION
 
 
 class FishjamNotifier:

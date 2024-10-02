@@ -13,15 +13,15 @@ from fishjam.events import ServerMessageRoomDeleted as RoomDeleted
 
 
 @dataclass
-class Info:
+class Resource:
     id: str
     name: str
 
 
 @dataclass
 class PeerAccess:
-    room: Info
-    peer: Info
+    room: Resource
+    peer: Resource
     peer_token: str
     websocket_url: str
 
@@ -50,7 +50,7 @@ class RoomService:
         if not peer_access or not peer_in_room:
             return self.__create_peer(room_name, username)
 
-        self.logger.info("Peer and room exist: %s, %s", username, room_name)
+        self.logger.info("Peer exist: %s", username)
 
         return peer_access
 
@@ -93,8 +93,8 @@ class RoomService:
         peer, token = self.fishjam_client.create_peer(room_id, options=options)
 
         peer_access = PeerAccess(
-            room=Info(id=room_id, name=room_name),
-            peer=Info(id=peer.id, name=peer_name),
+            room=Resource(id=room_id, name=room_name),
+            peer=Resource(id=peer.id, name=peer_name),
             peer_token=token,
             websocket_url=self.websocket_url,
         )
@@ -149,18 +149,14 @@ class RoomService:
         return filtered_peer_accesses
 
     def __find_room_name(self, room_id: str) -> str | None:
-        room_name = None
-
         for name, r_id in self.room_name_to_room_id.items():
             if room_id == r_id:
-                room_name = name
-                break
+                return name
 
-        return room_name
+        return None
 
     def __is_in_room(self, room: Room, peer_access: PeerAccess | None) -> bool:
         if not peer_access:
             return False
 
-        peers = map(lambda peer: peer.id == peer_access.peer.id, room.peers)
-        return bool(peers)
+        return any(peer.id == peer_access.peer.id for peer in room.peers)

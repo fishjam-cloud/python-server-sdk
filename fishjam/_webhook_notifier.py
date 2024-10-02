@@ -7,36 +7,8 @@ from typing import Union
 
 import betterproto
 
-from fishjam.events import (
-    ServerMessagePeerAdded,
-    ServerMessagePeerConnected,
-    ServerMessagePeerCrashed,
-    ServerMessagePeerDeleted,
-    ServerMessagePeerDisconnected,
-    ServerMessagePeerMetadataUpdated,
-    ServerMessageRoomCrashed,
-    ServerMessageRoomCreated,
-    ServerMessageRoomDeleted,
-    ServerMessageTrackAdded,
-    ServerMessageTrackMetadataUpdated,
-    ServerMessageTrackRemoved,
-)
 from fishjam.events._protos.fishjam import ServerMessage
-
-ALLOWED_NOTIFICATION = (
-    ServerMessageRoomCreated,
-    ServerMessageRoomDeleted,
-    ServerMessageRoomCrashed,
-    ServerMessagePeerAdded,
-    ServerMessagePeerDeleted,
-    ServerMessagePeerConnected,
-    ServerMessagePeerDisconnected,
-    ServerMessagePeerMetadataUpdated,
-    ServerMessagePeerCrashed,
-    ServerMessageTrackAdded,
-    ServerMessageTrackRemoved,
-    ServerMessageTrackMetadataUpdated,
-)
+from fishjam.events.allowed_notification import ALLOWED_NOTIFICATION
 
 
 def receive_binary(binary: bytes) -> Union[betterproto.Message, None]:
