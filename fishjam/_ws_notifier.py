@@ -17,7 +17,7 @@ from fishjam.events._protos.fishjam import (
     ServerMessageSubscribeRequest,
     ServerMessageSubscribeResponse,
 )
-from fishjam.events.allowed_notification import ALLOWED_NOTIFICATION
+from fishjam.events.allowed_notifications import ALLOWED_NOTIFICATIONS
 
 
 class FishjamNotifier:
@@ -125,7 +125,7 @@ class FishjamNotifier:
             message = ServerMessage().parse(message)
             _which, message = betterproto.which_one_of(message, "content")
 
-            if isinstance(message, ALLOWED_NOTIFICATION):
+            if isinstance(message, ALLOWED_NOTIFICATIONS):
                 self._notification_handler(message)
 
     async def _subscribe_event(self, event: ServerMessageEventType):

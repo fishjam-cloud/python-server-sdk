@@ -13,7 +13,7 @@ from fishjam.events import (
     ServerMessageTrackRemoved,
 )
 
-ALLOWED_NOTIFICATION = (
+ALLOWED_NOTIFICATIONS = (
     ServerMessageRoomCreated,
     ServerMessageRoomDeleted,
     ServerMessageRoomCrashed,
