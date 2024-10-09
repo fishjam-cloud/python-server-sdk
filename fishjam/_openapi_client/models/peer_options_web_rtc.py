@@ -19,7 +19,7 @@ class PeerOptionsWebRTC:
     enable_simulcast: Union[Unset, bool] = True
     """Enables the peer to use simulcast"""
     metadata: Union[Unset, "PeerOptionsWebRTCMetadata"] = UNSET
-    """"""
+    """Custom peer metadata"""
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
     """@private"""
 

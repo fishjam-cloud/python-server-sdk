@@ -78,10 +78,12 @@ def generate_docs():
 
 
 def update_client():
+    if len(sys.argv) < 2:
+        raise RuntimeError("Missing fishjam openapi.yaml raw url positional argument")
+
     check_exit_code(
-        "openapi-python-client update\
-            --url https://raw.githubusercontent.com/fishjam-cloud/"
-        "fishjam/main/openapi.yaml \
+        f"openapi-python-client update \
+            --url {sys.argv[1]} \
             --config openapi-python-client-config.yaml \
             --custom-template-path=templates/openapi"
     )
