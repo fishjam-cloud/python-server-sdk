@@ -8,7 +8,7 @@ T = TypeVar("T", bound="PeerOptionsWebRTCMetadata")
 
 @_attrs_define
 class PeerOptionsWebRTCMetadata:
-    """ """
+    """Custom peer metadata"""
 
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
     """@private"""
