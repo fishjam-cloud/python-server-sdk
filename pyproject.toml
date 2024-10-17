@@ -21,7 +21,7 @@ attrs = ">=21.3.0"
 
 [tool.poetry.group.dev.dependencies]
 betterproto = { version = "= 2.0.0b6", extras = ["compiler"] }
-pdoc = "^14.1.0"
+pdoc = "^15.0.0"
 mkdocs = "^1.5.3"
 mike = "^2.0.0"
 openapi-python-client = "^0.16.0"
