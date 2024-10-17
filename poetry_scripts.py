@@ -72,9 +72,9 @@ def generate_docs():
 
     shutil.copytree(input, out)
 
-    # ...and rename the .html files to .md so that mkdocs picks them up!
-    for f in out.glob("**/*.html"):
-        f.rename(f.with_suffix(".md"))
+    # # ...and rename the .html files to .md so that mkdocs picks them up!
+    # for f in out.glob("**/*.html"):
+    #     f.rename(f.with_suffix(".md"))
 
 
 def update_client():

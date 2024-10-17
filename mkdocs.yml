@@ -15,11 +15,11 @@ plugins:
 
 theme: 
   name: mkdocs
-  navigation_depth: 0
+  navigation_depth: 5
 
 extra_javascript:
   - js/custom.js
-  - js/search.js
+  - api/search.js
 
 extra_css:
   - css/custom.css
