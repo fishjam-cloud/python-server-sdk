@@ -19,7 +19,6 @@ theme:
 
 extra_javascript:
   - js/custom.js
-  - js/search.js
 
 extra_css:
   - css/custom.css
