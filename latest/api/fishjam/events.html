@@ -1,3 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="light">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Events - Fishjam Python Server SDK</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/fontawesome.min.css" rel="stylesheet">
+        <link href="../../css/brands.min.css" rel="stylesheet">
+        <link href="../../css/solid.min.css" rel="stylesheet">
+        <link href="../../css/v4-font-face.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link id="hljs-light" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css" >
+        <link id="hljs-dark" rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github-dark.min.css" disabled>
+        <link href="../../css/custom.css" rel="stylesheet">
+        <link href="../../css/version-select.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../index.html">Fishjam Python Server SDK</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target="#navbar-collapse" aria-controls="navbar-collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="nav-item">
+                                <a href="../../index.html" class="nav-link">Home</a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="../../server_notifications.html" class="nav-link">Server Notifications</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                                <a href="#" class="nav-link dropdown-toggle active" aria-current="page" role="button" data-bs-toggle="dropdown"  aria-expanded="false">Api</a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../index.html" class="dropdown-item">Index</a>
+</li>
+                                    
+<li>
+    <a href="../fishjam.html" class="dropdown-item">Fishjam</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Fishjam</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="errors.html" class="dropdown-item">Errors</a>
+</li>
+            
+<li>
+    <a href="events.html" class="dropdown-item active" aria-current="page">Events</a>
+</li>
+            
+<li>
+    <a href="peer.html" class="dropdown-item">Peer</a>
+</li>
+            
+<li>
+    <a href="room.html" class="dropdown-item">Room</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ms-md-auto">
+                            <li class="nav-item">
+                                <a rel="prev" href="errors.html" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="peer.html" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-bs-toggle="collapse" data-bs-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-body-tertiary">
+        <ul class="nav flex-column">
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -287,7 +401,7 @@
     </nav>
     <main class="pdoc">
             <section class="module-info">
-                
+
                         <div class="docstring"><h1 id="server-notifications">Server Notifications</h1>
 
 <p>Fishjam sends server side notifications whenever some important event occurs, e.g.:</p>
@@ -374,14 +488,14 @@
 
                             <div id="ServerMessageRoomCreated.__init__" class="classattr">
                                 <div class="attr function">
-            
+
         <span class="name">ServerMessageRoomCreated</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageRoomCreated.__init__"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageRoomCreated.room_id" class="classattr">
@@ -389,11 +503,11 @@
             <span class="name">room_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageRoomCreated.room_id"></a>
-    
-    
+
+
 
                             </div>
                             <div class="inherited">
@@ -441,14 +555,14 @@
 
                             <div id="ServerMessageRoomDeleted.__init__" class="classattr">
                                 <div class="attr function">
-            
+
         <span class="name">ServerMessageRoomDeleted</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageRoomDeleted.__init__"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageRoomDeleted.room_id" class="classattr">
@@ -456,11 +570,11 @@
             <span class="name">room_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageRoomDeleted.room_id"></a>
-    
-    
+
+
 
                             </div>
                             <div class="inherited">
@@ -508,14 +622,14 @@
 
                             <div id="ServerMessageRoomCrashed.__init__" class="classattr">
                                 <div class="attr function">
-            
+
         <span class="name">ServerMessageRoomCrashed</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageRoomCrashed.__init__"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageRoomCrashed.room_id" class="classattr">
@@ -523,11 +637,11 @@
             <span class="name">room_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageRoomCrashed.room_id"></a>
-    
-    
+
+
 
                             </div>
                             <div class="inherited">
@@ -576,14 +690,14 @@
 
                             <div id="ServerMessagePeerAdded.__init__" class="classattr">
                                 <div class="attr function">
-            
+
         <span class="name">ServerMessagePeerAdded</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>, </span><span class="param"><span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerAdded.__init__"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessagePeerAdded.room_id" class="classattr">
@@ -591,11 +705,11 @@
             <span class="name">room_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerAdded.room_id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessagePeerAdded.peer_id" class="classattr">
@@ -603,11 +717,11 @@
             <span class="name">peer_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerAdded.peer_id"></a>
-    
-    
+
+
 
                             </div>
                             <div class="inherited">
@@ -656,14 +770,14 @@
 
                             <div id="ServerMessagePeerConnected.__init__" class="classattr">
                                 <div class="attr function">
-            
+
         <span class="name">ServerMessagePeerConnected</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>, </span><span class="param"><span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerConnected.__init__"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessagePeerConnected.room_id" class="classattr">
@@ -671,11 +785,11 @@
             <span class="name">room_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerConnected.room_id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessagePeerConnected.peer_id" class="classattr">
@@ -683,11 +797,11 @@
             <span class="name">peer_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerConnected.peer_id"></a>
-    
-    
+
+
 
                             </div>
                             <div class="inherited">
@@ -736,14 +850,14 @@
 
                             <div id="ServerMessagePeerDeleted.__init__" class="classattr">
                                 <div class="attr function">
-            
+
         <span class="name">ServerMessagePeerDeleted</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>, </span><span class="param"><span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerDeleted.__init__"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessagePeerDeleted.room_id" class="classattr">
@@ -751,11 +865,11 @@
             <span class="name">room_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerDeleted.room_id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessagePeerDeleted.peer_id" class="classattr">
@@ -763,11 +877,11 @@
             <span class="name">peer_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerDeleted.peer_id"></a>
-    
-    
+
+
 
                             </div>
                             <div class="inherited">
@@ -816,14 +930,14 @@
 
                             <div id="ServerMessagePeerDisconnected.__init__" class="classattr">
                                 <div class="attr function">
-            
+
         <span class="name">ServerMessagePeerDisconnected</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>, </span><span class="param"><span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerDisconnected.__init__"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessagePeerDisconnected.room_id" class="classattr">
@@ -831,11 +945,11 @@
             <span class="name">room_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerDisconnected.room_id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessagePeerDisconnected.peer_id" class="classattr">
@@ -843,11 +957,11 @@
             <span class="name">peer_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerDisconnected.peer_id"></a>
-    
-    
+
+
 
                             </div>
                             <div class="inherited">
@@ -897,14 +1011,14 @@
 
                             <div id="ServerMessagePeerMetadataUpdated.__init__" class="classattr">
                                 <div class="attr function">
-            
-        <span class="name">ServerMessagePeerMetadataUpdated</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">metadata</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
-        
+        <span class="name">ServerMessagePeerMetadataUpdated</span><span class="signature pdoc-code multiline">(<span class="param"> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">metadata</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerMetadataUpdated.__init__"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessagePeerMetadataUpdated.room_id" class="classattr">
@@ -912,11 +1026,11 @@
             <span class="name">room_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerMetadataUpdated.room_id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessagePeerMetadataUpdated.peer_id" class="classattr">
@@ -924,11 +1038,11 @@
             <span class="name">peer_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerMetadataUpdated.peer_id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessagePeerMetadataUpdated.metadata" class="classattr">
@@ -936,11 +1050,11 @@
             <span class="name">metadata</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerMetadataUpdated.metadata"></a>
-    
-    
+
+
 
                             </div>
                             <div class="inherited">
@@ -990,14 +1104,14 @@
 
                             <div id="ServerMessagePeerCrashed.__init__" class="classattr">
                                 <div class="attr function">
-            
-        <span class="name">ServerMessagePeerCrashed</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">reason</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
-        
+        <span class="name">ServerMessagePeerCrashed</span><span class="signature pdoc-code multiline">(<span class="param"> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">reason</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerCrashed.__init__"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessagePeerCrashed.room_id" class="classattr">
@@ -1005,11 +1119,11 @@
             <span class="name">room_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerCrashed.room_id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessagePeerCrashed.peer_id" class="classattr">
@@ -1017,11 +1131,11 @@
             <span class="name">peer_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerCrashed.peer_id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessagePeerCrashed.reason" class="classattr">
@@ -1029,11 +1143,11 @@
             <span class="name">reason</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessagePeerCrashed.reason"></a>
-    
-    
+
+
 
                             </div>
                             <div class="inherited">
@@ -1083,14 +1197,14 @@
 
                             <div id="ServerMessageTrack.__init__" class="classattr">
                                 <div class="attr function">
-            
-        <span class="name">ServerMessageTrack</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="nb">id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">	<span class="nb">type</span><span class="p">:</span> <span class="n"><a href="#ServerMessageTrackType">ServerMessageTrackType</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">metadata</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
-        
+        <span class="name">ServerMessageTrack</span><span class="signature pdoc-code multiline">(<span class="param">   <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="nb">type</span><span class="p">:</span> <span class="n"><a href="#ServerMessageTrackType">ServerMessageTrackType</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">   <span class="n">metadata</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+
+
     </div>
     <a class="headerlink" href="#ServerMessageTrack.__init__"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageTrack.id" class="classattr">
@@ -1098,11 +1212,11 @@
             <span class="name">id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrack.id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageTrack.type" class="classattr">
@@ -1110,11 +1224,11 @@
             <span class="name">type</span><span class="annotation">: <a href="#ServerMessageTrackType">ServerMessageTrackType</a></span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrack.type"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageTrack.metadata" class="classattr">
@@ -1122,11 +1236,11 @@
             <span class="name">metadata</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrack.metadata"></a>
-    
-    
+
+
 
                             </div>
                             <div class="inherited">
@@ -1151,7 +1265,7 @@
                 <section id="ServerMessageTrackType">
                             <input id="ServerMessageTrackType-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr class">
-            
+
     <span class="def">class</span>
     <span class="name">ServerMessageTrackType</span><wbr>(<span class="base">betterproto.Enum</span>):
 
@@ -1177,11 +1291,11 @@
             <span class="name">TRACK_TYPE_UNSPECIFIED</span>        =
 <span class="default_value">&lt;<a href="#ServerMessageTrackType.TRACK_TYPE_UNSPECIFIED">ServerMessageTrackType.TRACK_TYPE_UNSPECIFIED</a>: 0&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackType.TRACK_TYPE_UNSPECIFIED"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageTrackType.TRACK_TYPE_VIDEO" class="classattr">
@@ -1189,11 +1303,11 @@
             <span class="name">TRACK_TYPE_VIDEO</span>        =
 <span class="default_value">&lt;<a href="#ServerMessageTrackType.TRACK_TYPE_VIDEO">ServerMessageTrackType.TRACK_TYPE_VIDEO</a>: 1&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackType.TRACK_TYPE_VIDEO"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageTrackType.TRACK_TYPE_AUDIO" class="classattr">
@@ -1201,11 +1315,11 @@
             <span class="name">TRACK_TYPE_AUDIO</span>        =
 <span class="default_value">&lt;<a href="#ServerMessageTrackType.TRACK_TYPE_AUDIO">ServerMessageTrackType.TRACK_TYPE_AUDIO</a>: 2&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackType.TRACK_TYPE_AUDIO"></a>
-    
-    
+
+
 
                             </div>
                             <div class="inherited">
@@ -1266,14 +1380,14 @@
 
                             <div id="ServerMessageTrackAdded.__init__" class="classattr">
                                 <div class="attr function">
-            
-        <span class="name">ServerMessageTrackAdded</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">track</span><span class="p">:</span> <span class="n"><a href="#ServerMessageTrack">ServerMessageTrack</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
-        
+        <span class="name">ServerMessageTrackAdded</span><span class="signature pdoc-code multiline">(<span class="param">  <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">track</span><span class="p">:</span> <span class="n"><a href="#ServerMessageTrack">ServerMessageTrack</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackAdded.__init__"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageTrackAdded.room_id" class="classattr">
@@ -1281,11 +1395,11 @@
             <span class="name">room_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackAdded.room_id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageTrackAdded.peer_id" class="classattr">
@@ -1293,11 +1407,11 @@
             <span class="name">peer_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackAdded.peer_id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageTrackAdded.component_id" class="classattr">
@@ -1305,11 +1419,11 @@
             <span class="name">component_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackAdded.component_id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageTrackAdded.track" class="classattr">
@@ -1317,11 +1431,11 @@
             <span class="name">track</span><span class="annotation">: <a href="#ServerMessageTrack">ServerMessageTrack</a></span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackAdded.track"></a>
-    
-    
+
+
 
                             </div>
                             <div class="inherited">
@@ -1372,14 +1486,14 @@
 
                             <div id="ServerMessageTrackMetadataUpdated.__init__" class="classattr">
                                 <div class="attr function">
-            
-        <span class="name">ServerMessageTrackMetadataUpdated</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">track</span><span class="p">:</span> <span class="n"><a href="#ServerMessageTrack">ServerMessageTrack</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
-        
+        <span class="name">ServerMessageTrackMetadataUpdated</span><span class="signature pdoc-code multiline">(<span class="param">    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">track</span><span class="p">:</span> <span class="n"><a href="#ServerMessageTrack">ServerMessageTrack</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackMetadataUpdated.__init__"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageTrackMetadataUpdated.room_id" class="classattr">
@@ -1387,11 +1501,11 @@
             <span class="name">room_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackMetadataUpdated.room_id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageTrackMetadataUpdated.peer_id" class="classattr">
@@ -1399,11 +1513,11 @@
             <span class="name">peer_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackMetadataUpdated.peer_id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageTrackMetadataUpdated.component_id" class="classattr">
@@ -1411,11 +1525,11 @@
             <span class="name">component_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackMetadataUpdated.component_id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageTrackMetadataUpdated.track" class="classattr">
@@ -1423,11 +1537,11 @@
             <span class="name">track</span><span class="annotation">: <a href="#ServerMessageTrack">ServerMessageTrack</a></span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackMetadataUpdated.track"></a>
-    
-    
+
+
 
                             </div>
                             <div class="inherited">
@@ -1478,14 +1592,14 @@
 
                             <div id="ServerMessageTrackRemoved.__init__" class="classattr">
                                 <div class="attr function">
-            
-        <span class="name">ServerMessageTrackRemoved</span><span class="signature pdoc-code multiline">(<span class="param">	<span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">	<span class="n">track</span><span class="p">:</span> <span class="n"><a href="#ServerMessageTrack">ServerMessageTrack</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
-        
+        <span class="name">ServerMessageTrackRemoved</span><span class="signature pdoc-code multiline">(<span class="param">    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">track</span><span class="p">:</span> <span class="n"><a href="#ServerMessageTrack">ServerMessageTrack</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackRemoved.__init__"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageTrackRemoved.room_id" class="classattr">
@@ -1493,11 +1607,11 @@
             <span class="name">room_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackRemoved.room_id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageTrackRemoved.peer_id" class="classattr">
@@ -1505,11 +1619,11 @@
             <span class="name">peer_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackRemoved.peer_id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageTrackRemoved.component_id" class="classattr">
@@ -1517,11 +1631,11 @@
             <span class="name">component_id</span><span class="annotation">: str</span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackRemoved.component_id"></a>
-    
-    
+
+
 
                             </div>
                             <div id="ServerMessageTrackRemoved.track" class="classattr">
@@ -1529,11 +1643,11 @@
             <span class="name">track</span><span class="annotation">: <a href="#ServerMessageTrack">ServerMessageTrack</a></span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
-        
+
     </div>
     <a class="headerlink" href="#ServerMessageTrackRemoved.track"></a>
-    
-    
+
+
 
                             </div>
                             <div class="inherited">
@@ -1738,4 +1852,63 @@
         }
     });
 </script></body>
+</html></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/bootstrap.bundle.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../js/custom.js"></script>
+        <script src="../../js/version-select.js"></script>
+
+        <div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
 </html>
