@@ -1,4 +1,4 @@
-<img src="./.github/images/fishjam-card.png" width="100%">
+<img src="./images/fishjam-card.png" width="100%">
 
 # Fishjam Python Server SDK
 

@@ -26,13 +26,14 @@
         {% endif %}
     {% endblock %}
 
-    {% block search_box %}
-        {% if search and all_modules|length > 1 %}
+    {# TODO: search box doesn't work with mkdocs theme #}
+    {# {% block search_box %} #}
+        {# {% if search and all_modules|length > 1 %} #}
             {# we set a pattern here so that we can use the :valid CSS selector #}
-            <input type="search" placeholder="Search..." role="searchbox" aria-label="search"
-                   pattern=".+" required>
-        {% endif %}
-    {% endblock %}
+            {# <input type="search" placeholder="Search..." role="searchbox" aria-label="search" #}
+                   {# pattern=".+" required> #}
+        {# {% endif %} #}
+    {# {% endblock %} #}
 
     {% block nav_index %}
         {% set index = module.docstring | to_markdown | to_html | attr("toc_html") %}
