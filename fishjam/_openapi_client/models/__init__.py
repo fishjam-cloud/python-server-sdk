@@ -45,6 +45,8 @@ from .peer_details_response import PeerDetailsResponse
 from .peer_details_response_data import PeerDetailsResponseData
 from .peer_options_web_rtc import PeerOptionsWebRTC
 from .peer_options_web_rtc_metadata import PeerOptionsWebRTCMetadata
+from .peer_refresh_token_response import PeerRefreshTokenResponse
+from .peer_refresh_token_response_data import PeerRefreshTokenResponseData
 from .peer_status import PeerStatus
 from .recording_list_response import RecordingListResponse
 from .room import Room
@@ -100,6 +102,8 @@ __all__ = (
     "PeerDetailsResponseData",
     "PeerOptionsWebRTC",
     "PeerOptionsWebRTCMetadata",
+    "PeerRefreshTokenResponse",
+    "PeerRefreshTokenResponseData",
     "PeerStatus",
     "RecordingListResponse",
     "Room",
