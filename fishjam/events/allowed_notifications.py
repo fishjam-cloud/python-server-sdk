@@ -1,3 +1,5 @@
+from typing import Union
+
 from fishjam.events import (
     ServerMessagePeerAdded,
     ServerMessagePeerConnected,
@@ -27,3 +29,18 @@ ALLOWED_NOTIFICATIONS = (
     ServerMessageTrackRemoved,
     ServerMessageTrackMetadataUpdated,
 )
+
+AllowedNotification = Union[
+    ServerMessageRoomCreated,
+    ServerMessageRoomDeleted,
+    ServerMessageRoomCrashed,
+    ServerMessagePeerAdded,
+    ServerMessagePeerDeleted,
+    ServerMessagePeerConnected,
+    ServerMessagePeerDisconnected,
+    ServerMessagePeerMetadataUpdated,
+    ServerMessagePeerCrashed,
+    ServerMessageTrackAdded,
+    ServerMessageTrackRemoved,
+    ServerMessageTrackMetadataUpdated,
+]

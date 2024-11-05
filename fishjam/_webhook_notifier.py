@@ -8,10 +8,13 @@ from typing import Union
 import betterproto
 
 from fishjam.events._protos.fishjam import ServerMessage
-from fishjam.events.allowed_notifications import ALLOWED_NOTIFICATIONS
+from fishjam.events.allowed_notifications import (
+    ALLOWED_NOTIFICATIONS,
+    AllowedNotification,
+)
 
 
-def receive_binary(binary: bytes) -> Union[betterproto.Message, None]:
+def receive_binary(binary: bytes) -> Union[AllowedNotification, None]:
     """
     Transform received protobuf notification to adequate notification instance.
     The available notifications are listed in `fishjam.events` module.
