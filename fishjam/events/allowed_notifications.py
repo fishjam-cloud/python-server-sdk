@@ -30,7 +30,7 @@ ALLOWED_NOTIFICATIONS = (
     ServerMessageTrackMetadataUpdated,
 )
 
-AllowedNotifications = Union[
+AllowedNotification = Union[
     ServerMessageRoomCreated,
     ServerMessageRoomDeleted,
     ServerMessageRoomCrashed,

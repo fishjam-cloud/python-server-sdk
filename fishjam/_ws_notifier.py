@@ -19,7 +19,7 @@ from fishjam.events._protos.fishjam import (
 )
 from fishjam.events.allowed_notifications import (
     ALLOWED_NOTIFICATIONS,
-    AllowedNotifications,
+    AllowedNotification,
 )
 
 
@@ -44,7 +44,7 @@ class FishjamNotifier:
 
         self._notification_handler: Callable | None = None
 
-    def on_server_notification(self, handler: Callable[[AllowedNotifications], None]):
+    def on_server_notification(self, handler: Callable[[AllowedNotification], None]):
         """
         Decorator used for defining handler for Fishjam Notifications
         """
