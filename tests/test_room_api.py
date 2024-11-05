@@ -178,7 +178,7 @@ class TestGetRoom:
             room_api.get_room("invalid_id")
 
 
-class TestCreateParticipant:
+class TestCreatePeer:
     def _assert_peer_created(
         self, room_api, webrtc_peer, room_id, server_metadata=None
     ):
@@ -227,7 +227,7 @@ class TestCreateParticipant:
             room_api.create_peer(room.id)
 
 
-class TestDeleteParticipant:
+class TestDeletePeer:
     def test_valid(self, room_api: FishjamClient):
         room = room_api.create_room()
         peer, _token = room_api.create_peer(room.id)
@@ -240,3 +240,18 @@ class TestDeleteParticipant:
 
         with pytest.raises(NotFoundError):
             room_api.delete_peer(room.id, peer_id="invalid_peer_id")
+
+
+class TestRefreshPeerToken:
+    def test_valid(self, room_api: FishjamClient):
+        room = room_api.create_room()
+        peer, token = room_api.create_peer(room.id)
+        refreshed_token = room_api.refresh_peer_token(room.id, peer.id)
+
+        assert token != refreshed_token
+
+    def test_invalid(self, room_api: FishjamClient):
+        room = room_api.create_room()
+
+        with pytest.raises(NotFoundError):
+            room_api.refresh_peer_token(room.id, peer_id="invalid_peer_id")

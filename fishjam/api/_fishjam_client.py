@@ -11,11 +11,13 @@ from fishjam._openapi_client.api.room import delete_peer as room_delete_peer
 from fishjam._openapi_client.api.room import delete_room as room_delete_room
 from fishjam._openapi_client.api.room import get_all_rooms as room_get_all_rooms
 from fishjam._openapi_client.api.room import get_room as room_get_room
+from fishjam._openapi_client.api.room import refresh_token as room_refresh_token
 from fishjam._openapi_client.models import (
     AddPeerJsonBody,
     Peer,
     PeerDetailsResponse,
     PeerOptionsWebRTC,
+    PeerRefreshTokenResponse,
     RoomConfig,
     RoomCreateDetailsResponse,
     RoomDetailsResponse,
@@ -166,6 +168,16 @@ class FishjamClient(Client):
         """Deletes a room"""
 
         return self._request(room_delete_room, room_id=room_id)
+
+    def refresh_peer_token(self, room_id: str, peer_id: str) -> str:
+        """Refreshes peer token"""
+
+        response = cast(
+            PeerRefreshTokenResponse,
+            self._request(room_refresh_token, id=peer_id, room_id=room_id),
+        )
+
+        return response.data.token
 
     def __parse_peer_metadata(self, metadata: dict | None) -> PeerOptionsWebRTCMetadata:
         peer_metadata = PeerOptionsWebRTCMetadata()
