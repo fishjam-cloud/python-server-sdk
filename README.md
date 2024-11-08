@@ -100,7 +100,7 @@ poetry install
 ## Generating protobuf
 
 To generate Python protobuf definitions run
-```
+```console
 poetry run ./compile_protos.sh
 ```
 
