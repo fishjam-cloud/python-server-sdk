@@ -88,6 +88,20 @@ asyncio.run(test_notifier())
 # Received a notification: ServerMessageRoomCreated(room_id='69a3fd1a-6a4d-47bc-ae54-0c72b0d05e29')
 ```
 
+## Local development
+
+It's best to user python virtual enviroment. Create by running
+```console
+python3 -m venv .venv
+source .venv/bin/activate
+```
+
+Then install poetry and dependencies
+```console
+pip install poetry
+poetry install
+```
+
 ## Testing
 
 You can test the SDK by running
