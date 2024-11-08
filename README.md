@@ -90,16 +90,18 @@ asyncio.run(test_notifier())
 
 ## Local development
 
-It's best to user python virtual enviroment. Create by running
+The project is managed using [poetry](https://python-poetry.org/). Make sure to have it installed first.
+
+Then install the dependencies
 ```console
-python3 -m venv .venv
-source .venv/bin/activate
+poetry install
 ```
 
-Then install poetry and dependencies
-```console
-pip install poetry
-poetry install
+## Generating protobuf
+
+To generate Python protobuf definitions run
+```
+poetry run ./compile_protos.sh
 ```
 
 ## Testing
