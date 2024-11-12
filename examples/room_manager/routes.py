@@ -1,10 +1,9 @@
 from dataclasses import asdict
 
 from flask import Flask, abort, jsonify, request
+from room_service import RoomService
 
 from fishjam import receive_binary
-
-from .room_service import RoomService
 
 
 def setup_routes(app: Flask, room_service: RoomService):

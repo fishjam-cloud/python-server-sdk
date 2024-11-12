@@ -1,3 +1,4 @@
+import os
 import shutil
 import subprocess
 import sys
@@ -57,8 +58,8 @@ def generate_docs():
     check_exit_code(
         "pdoc \
     --include-undocumented \
-    --favicon https://logo.swmansion.com/membrane/\?width\=100\&variant\=signetDark\
-    --logo https://logo.swmansion.com/membrane/\?width\=70\&variant\=signetDark\
+    --favicon https://logo.swmansion.com/membrane/\\?width\\=100\\&variant\\=signetDark\
+    --logo https://logo.swmansion.com/membrane/\\?width\\=70\\&variant\\=signetDark\
     -t templates/doc \
     -o doc \
     fishjam"
@@ -90,3 +91,18 @@ def update_client():
             --config openapi-python-client-config.yaml \
             --custom-template-path=templates/openapi"
     )
+
+
+def start_room_manager():
+    current_path = os.getcwd()
+    current_folder = os.path.basename(current_path)
+
+    match current_folder:
+        case "room_manager":
+            main_path = "main.py"
+        case "examples":
+            main_path = "room_manager/main.py"
+        case "python-server-sdk":
+            main_path = "examples/room_manager/main.py"
+
+    subprocess.run(["python", main_path] + sys.argv[1:], check=False)

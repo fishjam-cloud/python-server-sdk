@@ -48,6 +48,7 @@ lint = "poetry_scripts:run_linter"
 fix_lint = "poetry_scripts:run_linter_fix"
 generate_docs = "poetry_scripts:generate_docs"
 update_client = "poetry_scripts:update_client"
+room_manager = "poetry_scripts:start_room_manager"
 
 [tool.ruff]
 select = ["F", "I"]
