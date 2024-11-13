@@ -88,6 +88,22 @@ asyncio.run(test_notifier())
 # Received a notification: ServerMessageRoomCreated(room_id='69a3fd1a-6a4d-47bc-ae54-0c72b0d05e29')
 ```
 
+## Local development
+
+The project is managed using [poetry](https://python-poetry.org/). Make sure to have it installed first.
+
+Then install the dependencies
+```console
+poetry install
+```
+
+## Generating protobuf
+
+To generate Python protobuf definitions run
+```console
+poetry run ./compile_proto.sh
+```
+
 ## Testing
 
 You can test the SDK by running
