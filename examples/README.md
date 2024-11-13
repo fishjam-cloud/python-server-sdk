@@ -5,7 +5,7 @@ All available options are defined in [arguments.py](room_manager/arguments.py).
 
 ```sh
 poetry install
-poetry run room_manager 
+poetry run room_manager # Room Manager has to be started in the project root directory
 ```
 
 ## How does it work?

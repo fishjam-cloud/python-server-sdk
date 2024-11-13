@@ -97,12 +97,11 @@ def start_room_manager():
     current_path = os.getcwd()
     current_folder = os.path.basename(current_path)
 
-    match current_folder:
-        case "room_manager":
-            main_path = "main.py"
-        case "examples":
-            main_path = "room_manager/main.py"
-        case "python-server-sdk":
-            main_path = "examples/room_manager/main.py"
+    if current_folder != "python-server-sdk":
+        raise RuntimeError(
+            "Room Manager has to be start from the `python-server-sdk` directory."
+        )
 
-    subprocess.run(["python", main_path] + sys.argv[1:], check=False)
+    subprocess.run(
+        ["python", "-m", "examples.room_manager.main"] + sys.argv[1:], check=False
+    )
