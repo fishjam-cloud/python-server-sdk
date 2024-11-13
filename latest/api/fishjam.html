@@ -150,6 +150,8 @@
   <ul>
     <li><a href="#installation">Installation</a></li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#local-development">Local development</a></li>
+    <li><a href="#generating-protobuf">Generating protobuf</a></li>
     <li><a href="#testing">Testing</a></li>
     <li><a href="#format-lint">Format &amp; Lint</a></li>
     <li><a href="#documentation">Documentation</a></li>
@@ -410,6 +412,26 @@
 <span class="n">asyncio</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">test_notifier</span><span class="p">())</span>
 
 <span class="c1"># Received a notification: ServerMessageRoomCreated(room_id=&#39;69a3fd1a-6a4d-47bc-ae54-0c72b0d05e29&#39;)</span>
+</code></pre>
+</div>
+
+<h2 id="local-development">Local development</h2>
+
+<p>The project is managed using <a href="https://python-poetry.org/">poetry</a>. Make sure to have it installed first.</p>
+
+<p>Then install the dependencies</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="go">poetry install</span>
+</code></pre>
+</div>
+
+<h2 id="generating-protobuf">Generating protobuf</h2>
+
+<p>To generate Python protobuf definitions run</p>
+
+<div class="pdoc-code codehilite">
+<pre><span></span><code><span class="go">poetry run ./compile_proto.sh</span>
 </code></pre>
 </div>
 
