@@ -3,7 +3,7 @@
 ## Running (in dev mode)
 All available options are defined in [arguments.py](room_manager/arguments.py).
 
-```sh
+```console
 poetry install
 poetry run room_manager # Room Manager has to be started in the project root directory
 ```
@@ -14,13 +14,11 @@ Fishjam Room Manager serves the purpose of a simple backend that allows users to
 Users must provide a room name and their username to obtain an authentication token that allows them to connect to a Fishjam instance.
 Room Manager manages the room names and user names by itself by keeping the mappings in memory.
 
-As of now, it exposes 3 endpoints.
+As of now, it exposes 2 endpoints.
 
 ### '/api/rooms/:roomName/users/:username'
 
-Simple as that - send a plain GET request and receive an auth token.
-Room Manager will search its memory for the username for the requested room and return a token.
-Otherwise, it will create a new one.
+Returns authentication token for a username in a given room. If the user doesn't exist yet, it will be created.
 
 ### '/api/rooms/webhook'
 

@@ -99,7 +99,7 @@ def start_room_manager():
 
     if current_folder != "python-server-sdk":
         raise RuntimeError(
-            "Room Manager has to be start from the `python-server-sdk` directory."
+            "Room Manager has to be started from the `python-server-sdk` directory."
         )
 
     subprocess.run(
