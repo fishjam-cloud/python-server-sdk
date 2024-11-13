@@ -48,6 +48,7 @@ lint = "poetry_scripts:run_linter"
 fix_lint = "poetry_scripts:run_linter_fix"
 generate_docs = "poetry_scripts:generate_docs"
 update_client = "poetry_scripts:update_client"
+room_manager = "poetry_scripts:start_room_manager"
 
 [tool.ruff]
 select = ["F", "I"]
@@ -65,7 +66,7 @@ markers = [
 ]
 
 [tool.pyright]
-exclude = ["**/venv", "**/__pycache__", ".pytest_cache", ".ruff_cache", "lib", "fishjam/_openapi_client", "tests"]
+exclude = ["**/.venv", "**/__pycache__", ".pytest_cache", ".ruff_cache", "lib", "fishjam/_openapi_client", "tests"]
 typeCheckingMode = "basic"
-venv = "venv"
+venv = ".venv"
 venvPath = "."

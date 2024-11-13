@@ -1,3 +1,4 @@
+import os
 import shutil
 import subprocess
 import sys
@@ -57,8 +58,8 @@ def generate_docs():
     check_exit_code(
         "pdoc \
     --include-undocumented \
-    --favicon https://logo.swmansion.com/membrane/\?width\=100\&variant\=signetDark\
-    --logo https://logo.swmansion.com/membrane/\?width\=70\&variant\=signetDark\
+    --favicon https://logo.swmansion.com/membrane/\\?width\\=100\\&variant\\=signetDark\
+    --logo https://logo.swmansion.com/membrane/\\?width\\=70\\&variant\\=signetDark\
     -t templates/doc \
     -o doc \
     fishjam"
@@ -89,4 +90,18 @@ def update_client():
             --url {sys.argv[1]} \
             --config openapi-python-client-config.yaml \
             --custom-template-path=templates/openapi"
+    )
+
+
+def start_room_manager():
+    current_path = os.getcwd()
+    current_folder = os.path.basename(current_path)
+
+    if current_folder != "python-server-sdk":
+        raise RuntimeError(
+            "Room Manager has to be started from the `python-server-sdk` directory."
+        )
+
+    subprocess.run(
+        ["python", "-m", "examples.room_manager.main"] + sys.argv[1:], check=False
     )

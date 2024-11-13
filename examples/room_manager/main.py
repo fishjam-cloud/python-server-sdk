@@ -17,4 +17,4 @@ if __name__ == "__main__":
 
     setup_routes(app, room_service)
 
-    app.run()
+    app.run(port=args.port)
