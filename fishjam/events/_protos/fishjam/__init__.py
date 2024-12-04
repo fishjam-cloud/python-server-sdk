@@ -9,7 +9,7 @@ import betterproto
 
 
 class ServerMessageEventType(betterproto.Enum):
-    """Defines message groups for which client can subscribe"""
+    """Defines message groups for which peer can subscribe"""
 
     EVENT_TYPE_UNSPECIFIED = 0
     EVENT_TYPE_SERVER_NOTIFICATION = 1
@@ -26,7 +26,7 @@ class ServerMessageTrackType(betterproto.Enum):
 
 @dataclass(eq=False, repr=False)
 class ServerMessage(betterproto.Message):
-    """Defines any type of message passed between FJ and server client"""
+    """Defines any type of message passed between FJ and server peer"""
 
     room_crashed: "ServerMessageRoomCrashed" = betterproto.message_field(
         1, group="content"
@@ -158,14 +158,14 @@ class ServerMessageAuthenticated(betterproto.Message):
 
 @dataclass(eq=False, repr=False)
 class ServerMessageAuthRequest(betterproto.Message):
-    """Request sent by client, to authenticate to FJ server"""
+    """Request sent by peer, to authenticate to FJ server"""
 
     token: str = betterproto.string_field(1)
 
 
 @dataclass(eq=False, repr=False)
 class ServerMessageSubscribeRequest(betterproto.Message):
-    """Request sent by client to subsribe for certain message type"""
+    """Request sent by peer to subsribe for certain message type"""
 
     event_type: "ServerMessageEventType" = betterproto.enum_field(1)
 
