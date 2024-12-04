@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "fishjam-server-sdk"
-version = "0.7.0"
+version = "0.8.0"
 description = "Python server SDK for the Fishjam Cloud"
 authors = ["Fishjam Team"]
 homepage = "https://github.com/fishjam-cloud/python-server-sdk"
@@ -62,11 +62,19 @@ ignore = []
 
 [tool.pytest.ini_options]
 markers = [
-    "file_component_sources: Tests requiring files uploaded for File Component"
+  "file_component_sources: Tests requiring files uploaded for File Component",
 ]
 
 [tool.pyright]
-exclude = ["**/.venv", "**/__pycache__", ".pytest_cache", ".ruff_cache", "lib", "fishjam/_openapi_client", "tests"]
+exclude = [
+  "**/.venv",
+  "**/__pycache__",
+  ".pytest_cache",
+  ".ruff_cache",
+  "lib",
+  "fishjam/_openapi_client",
+  "tests",
+]
 typeCheckingMode = "basic"
 venv = ".venv"
 venvPath = "."
