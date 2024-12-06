@@ -2,7 +2,7 @@
 
 # Fishjam Python Server SDK
 
-Python server SDK for the [Fishjam Cloud](https://fishjam.io/).
+Python server SDK for the [Fishjam](https://fishjam.io/).
 
 Read the docs [here](https://fishjam-cloud.github.io/python-server-sdk)
 
@@ -29,7 +29,7 @@ from fishjam import FishjamClient
 fishjam_client = FishjamClient(fishjam_url="localhost:5002", management_token="development")
 ```
 
-You can use it to interact with Fishjam Cloud to manage rooms and peers
+You can use it to interact with Fishjam to manage rooms and peers
 
 ```python
 # Create a room
@@ -62,6 +62,7 @@ fishjam_notifier = FishjamNotifier(fishjam_url='localhost:5002', management_toke
 ```
 
 Then define a handler for incoming messages
+
 ```python
 @notifier.on_server_notification
 def handle_notification(server_notification):
@@ -93,6 +94,7 @@ asyncio.run(test_notifier())
 The project is managed using [poetry](https://python-poetry.org/). Make sure to have it installed first.
 
 Then install the dependencies
+
 ```console
 poetry install
 ```
@@ -100,6 +102,7 @@ poetry install
 ## Generating protobuf
 
 To generate Python protobuf definitions run
+
 ```console
 poetry run ./compile_proto.sh
 ```
@@ -145,7 +148,7 @@ To update documentation you need to:
 
 Licensed under the [Apache License, Version 2.0](LICENSE)
 
-## Fishjam Cloud is created by Software Mansion
+## Fishjam is created by Software Mansion
 
 Since 2012 [Software Mansion](https://swmansion.com) is a software agency with experience in building web and mobile
 apps. We are Core React Native Contributors and experts in dealing with all kinds of React Native issues. We can help
