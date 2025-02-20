@@ -19,8 +19,6 @@ class RoomConfig:
     """Duration (in seconds) after which the peer will be removed if it is disconnected. If not provided, this feature is disabled."""
     peerless_purge_timeout: Union[Unset, None, int] = UNSET
     """Duration (in seconds) after which the room will be removed if no peers are connected. If not provided, this feature is disabled."""
-    room_id: Union[Unset, None, str] = UNSET
-    """Custom id used for identifying room within Fishjam. Must be unique across all rooms. If not provided, random UUID is generated."""
     video_codec: Union[Unset, None, RoomConfigVideoCodec] = UNSET
     """Enforces video codec for each peer in the room"""
     webhook_url: Union[Unset, None, str] = UNSET
@@ -33,7 +31,6 @@ class RoomConfig:
         max_peers = self.max_peers
         peer_disconnected_timeout = self.peer_disconnected_timeout
         peerless_purge_timeout = self.peerless_purge_timeout
-        room_id = self.room_id
         video_codec: Union[Unset, None, str] = UNSET
         if not isinstance(self.video_codec, Unset):
             video_codec = self.video_codec.value if self.video_codec else None
@@ -49,8 +46,6 @@ class RoomConfig:
             field_dict["peerDisconnectedTimeout"] = peer_disconnected_timeout
         if peerless_purge_timeout is not UNSET:
             field_dict["peerlessPurgeTimeout"] = peerless_purge_timeout
-        if room_id is not UNSET:
-            field_dict["roomId"] = room_id
         if video_codec is not UNSET:
             field_dict["videoCodec"] = video_codec
         if webhook_url is not UNSET:
@@ -68,8 +63,6 @@ class RoomConfig:
 
         peerless_purge_timeout = d.pop("peerlessPurgeTimeout", UNSET)
 
-        room_id = d.pop("roomId", UNSET)
-
         _video_codec = d.pop("videoCodec", UNSET)
         video_codec: Union[Unset, None, RoomConfigVideoCodec]
         if _video_codec is None:
@@ -85,7 +78,6 @@ class RoomConfig:
             max_peers=max_peers,
             peer_disconnected_timeout=peer_disconnected_timeout,
             peerless_purge_timeout=peerless_purge_timeout,
-            room_id=room_id,
             video_codec=video_codec,
             webhook_url=webhook_url,
         )
