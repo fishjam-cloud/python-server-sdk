@@ -23,7 +23,7 @@ class PeerAccess:
     room: Resource
     peer: Resource
     peer_token: str
-    websocket_url: str
+    url: str
 
 
 class RoomService:
@@ -32,7 +32,7 @@ class RoomService:
             fishjam_url=args.fishjam_url,
             management_token=args.management_token,
         )
-        self.websocket_url = args.fishjam_url.replace("http", "ws")
+        self.url = args.fishjam_url.replace("http", "ws")
         self.room_name_to_room_id: dict[str, str] = {}
         self.peer_name_to_access: dict[str, PeerAccess] = {}
         self.logger = logger
@@ -96,7 +96,7 @@ class RoomService:
             room=Resource(id=room_id, name=room_name),
             peer=Resource(id=peer.id, name=peer_name),
             peer_token=token,
-            websocket_url=self.websocket_url,
+            url=self.url,
         )
 
         self.peer_name_to_access[peer_name] = peer_access

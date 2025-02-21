@@ -2,7 +2,7 @@
 # sources: protos/fishjam/server_notifications.proto
 # plugin: python-betterproto
 # This file has been @generated
-
+import warnings
 from dataclasses import dataclass
 
 import betterproto
@@ -91,6 +91,13 @@ class ServerMessage(betterproto.Message):
     peer_deleted: "ServerMessagePeerDeleted" = betterproto.message_field(
         21, group="content"
     )
+
+    def __post_init__(self) -> None:
+        super().__post_init__()
+        if self.is_set("metrics_report"):
+            warnings.warn(
+                "ServerMessage.metrics_report is deprecated", DeprecationWarning
+            )
 
 
 @dataclass(eq=False, repr=False)
