@@ -58,13 +58,13 @@ class TestCreateRoom:
     def test_no_params(self, room_api):
         room = room_api.create_room()
 
-        config = config=RoomConfig(
-                max_peers=None,
-                video_codec=None,
-                webhook_url=None,
-                peerless_purge_timeout=None,
-                peer_disconnected_timeout=None,
-            )
+        config = RoomConfig(
+            max_peers=None,
+            video_codec=None,
+            webhook_url=None,
+            peerless_purge_timeout=None,
+            peer_disconnected_timeout=None,
+        )
         config.__setitem__("roomId", room.config.__getitem__("roomId"))
 
         assert room == Room(
@@ -80,12 +80,12 @@ class TestCreateRoom:
         room = room_api.create_room(options)
 
         config = RoomConfig(
-                max_peers=MAX_PEERS,
-                video_codec=RoomConfigVideoCodec(CODEC_H264),
-                webhook_url=None,
-                peerless_purge_timeout=None,
-                peer_disconnected_timeout=None,
-            )
+            max_peers=MAX_PEERS,
+            video_codec=RoomConfigVideoCodec(CODEC_H264),
+            webhook_url=None,
+            peerless_purge_timeout=None,
+            peer_disconnected_timeout=None,
+        )
         config.__setitem__("roomId", room.config.__getitem__("roomId"))
 
         assert room == Room(
@@ -138,12 +138,12 @@ class TestGetRoom:
         room = room_api.create_room()
 
         config = RoomConfig(
-                max_peers=None,
-                video_codec=None,
-                webhook_url=None,
-                peerless_purge_timeout=None,
-                peer_disconnected_timeout=None,
-            )
+            max_peers=None,
+            video_codec=None,
+            webhook_url=None,
+            peerless_purge_timeout=None,
+            peer_disconnected_timeout=None,
+        )
         config.__setitem__("roomId", room.config.__getitem__("roomId"))
 
         assert Room(
