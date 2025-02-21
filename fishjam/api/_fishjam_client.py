@@ -58,11 +58,6 @@ class RoomOptions:
     Duration (in seconds) after which the room will be removed 
     if no peers are connected. If not provided, this feature is disabled.
     """
-    room_id: str | None = None
-    """
-    Custom id used for identifying room within Fishjam.
-    Must be unique across all rooms. If not provided, random UUID is generated.
-    """
     video_codec: Literal["h264", "vp8"] | None = None
     """Enforces video codec for each peer in the room"""
     webhook_url: str | None = None
@@ -130,7 +125,6 @@ class FishjamClient(Client):
             max_peers=options.max_peers,
             peer_disconnected_timeout=options.peer_disconnected_timeout,
             peerless_purge_timeout=options.peerless_purge_timeout,
-            room_id=options.room_id,
             video_codec=codec,
             webhook_url=options.webhook_url,
         )

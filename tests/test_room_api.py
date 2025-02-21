@@ -59,15 +59,17 @@ class TestCreateRoom:
     def test_no_params(self, room_api):
         room = room_api.create_room()
 
-        assert room == Room(
-            config=RoomConfig(
-                room_id=room.id,
+        config = config=RoomConfig(
                 max_peers=None,
                 video_codec=None,
                 webhook_url=None,
                 peerless_purge_timeout=None,
                 peer_disconnected_timeout=None,
-            ),
+            )
+        config.__setitem__("roomId", room.config.__getitem__("roomId"))
+
+        assert room == Room(
+            config=config,
             id=room.id,
             peers=[],
         )
@@ -78,15 +80,17 @@ class TestCreateRoom:
         options = RoomOptions(max_peers=MAX_PEERS, video_codec=CODEC_H264)
         room = room_api.create_room(options)
 
-        assert room == Room(
-            config=RoomConfig(
-                room_id=room.id,
+        config = RoomConfig(
                 max_peers=MAX_PEERS,
                 video_codec=RoomConfigVideoCodec(CODEC_H264),
                 webhook_url=None,
                 peerless_purge_timeout=None,
                 peer_disconnected_timeout=None,
-            ),
+            )
+        config.__setitem__("roomId", room.config.__getitem__("roomId"))
+
+        assert room == Room(
+            config=config,
             id=room.id,
             peers=[],
         )
@@ -104,36 +108,6 @@ class TestCreateRoom:
             options = RoomOptions(video_codec="h420")
             room_api.create_room(options)
 
-    def test_valid_room_id(self, room_api):
-        options = RoomOptions(room_id=str(uuid.uuid4()))
-        room = room_api.create_room(options)
-
-        assert room == Room(
-            config=RoomConfig(
-                room_id=room.id,
-                max_peers=None,
-                video_codec=None,
-                webhook_url=None,
-                peerless_purge_timeout=None,
-                peer_disconnected_timeout=None,
-            ),
-            id=options.room_id,
-            peers=[],
-        )
-        assert room in room_api.get_all_rooms()
-
-    def test_duplicated_room_id(self, room_api):
-        options = RoomOptions(room_id=str(uuid.uuid4()))
-        _room = room_api.create_room(options)
-
-        with pytest.raises(BadRequestError) as exception_info:
-            _room = room_api.create_room(options)
-
-        assert (
-            str(exception_info.value)
-            == f'Cannot add room with id "{options.room_id}" - room already exists'
-        )
-
 
 class TestDeleteRoom:
     def test_valid(self, room_api):
@@ -142,9 +116,13 @@ class TestDeleteRoom:
         room_api.delete_room(room.id)
         assert room not in room_api.get_all_rooms()
 
-    def test_invalid(self, room_api):
-        with pytest.raises(NotFoundError):
+    def test_invalid_id(self, room_api):
+        with pytest.raises(BadRequestError):
             room_api.delete_room("invalid_id")
+
+    def test_id_not_found(self, room_api):
+        with pytest.raises(NotFoundError):
+            room_api.delete_room("515c8b52-168b-4b39-a227-4d6b4f102a56")
 
 
 class TestGetAllRooms:
@@ -160,22 +138,28 @@ class TestGetRoom:
     def test_valid(self, room_api: FishjamClient):
         room = room_api.create_room()
 
-        assert Room(
-            peers=[],
-            id=room.id,
-            config=RoomConfig(
-                room_id=room.id,
+        config = RoomConfig(
                 max_peers=None,
                 video_codec=None,
                 webhook_url=None,
                 peerless_purge_timeout=None,
                 peer_disconnected_timeout=None,
-            ),
+            )
+        config.__setitem__("roomId", room.config.__getitem__("roomId"))
+
+        assert Room(
+            peers=[],
+            id=room.id,
+            config=config,
         ) == room_api.get_room(room.id)
 
     def test_invalid(self, room_api: FishjamClient):
-        with pytest.raises(NotFoundError):
+        with pytest.raises(BadRequestError):
             room_api.get_room("invalid_id")
+
+    def test_id_not_found(self, room_api):
+        with pytest.raises(NotFoundError):
+            room_api.get_room("515c8b52-168b-4b39-a227-4d6b4f102a56")
 
 
 class TestCreatePeer:
