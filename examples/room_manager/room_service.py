@@ -22,7 +22,7 @@ class Resource:
 class PeerAccess:
     room: Resource
     peer: Resource
-    peerToken: str
+    peer_token: str
     url: str
 
 
@@ -95,7 +95,7 @@ class RoomService:
         peer_access = PeerAccess(
             room=Resource(id=room_id, name=room_name),
             peer=Resource(id=peer.id, name=peer_name),
-            peerToken=token,
+            peer_token=token,
             url=self.url,
         )
 

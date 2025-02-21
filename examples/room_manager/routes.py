@@ -17,6 +17,7 @@ def setup_routes(app: Flask, room_service: RoomService):
     def get_room_params(room_name, peer_name):
         access_data = room_service.get_peer_access(room_name, peer_name)
         response = asdict(access_data)
+        response["peerToken"] = response.pop("peer_token")
 
         return jsonify(response)
 
