@@ -3,6 +3,7 @@ from typing import Any, Dict, List, Type, TypeVar, Union
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..models.room_config_room_type import RoomConfigRoomType
 from ..models.room_config_video_codec import RoomConfigVideoCodec
 from ..types import UNSET, Unset
 
@@ -19,6 +20,8 @@ class RoomConfig:
     """Duration (in seconds) after which the peer will be removed if it is disconnected. If not provided, this feature is disabled."""
     peerless_purge_timeout: Union[Unset, None, int] = UNSET
     """Duration (in seconds) after which the room will be removed if no peers are connected. If not provided, this feature is disabled."""
+    room_type: Union[Unset, None, RoomConfigRoomType] = UNSET
+    """None"""
     video_codec: Union[Unset, None, RoomConfigVideoCodec] = UNSET
     """Enforces video codec for each peer in the room"""
     webhook_url: Union[Unset, None, str] = UNSET
@@ -31,6 +34,10 @@ class RoomConfig:
         max_peers = self.max_peers
         peer_disconnected_timeout = self.peer_disconnected_timeout
         peerless_purge_timeout = self.peerless_purge_timeout
+        room_type: Union[Unset, None, str] = UNSET
+        if not isinstance(self.room_type, Unset):
+            room_type = self.room_type.value if self.room_type else None
+
         video_codec: Union[Unset, None, str] = UNSET
         if not isinstance(self.video_codec, Unset):
             video_codec = self.video_codec.value if self.video_codec else None
@@ -46,6 +53,8 @@ class RoomConfig:
             field_dict["peerDisconnectedTimeout"] = peer_disconnected_timeout
         if peerless_purge_timeout is not UNSET:
             field_dict["peerlessPurgeTimeout"] = peerless_purge_timeout
+        if room_type is not UNSET:
+            field_dict["roomType"] = room_type
         if video_codec is not UNSET:
             field_dict["videoCodec"] = video_codec
         if webhook_url is not UNSET:
@@ -63,6 +72,15 @@ class RoomConfig:
 
         peerless_purge_timeout = d.pop("peerlessPurgeTimeout", UNSET)
 
+        _room_type = d.pop("roomType", UNSET)
+        room_type: Union[Unset, None, RoomConfigRoomType]
+        if _room_type is None:
+            room_type = None
+        elif isinstance(_room_type, Unset):
+            room_type = UNSET
+        else:
+            room_type = RoomConfigRoomType(_room_type)
+
         _video_codec = d.pop("videoCodec", UNSET)
         video_codec: Union[Unset, None, RoomConfigVideoCodec]
         if _video_codec is None:
@@ -78,6 +96,7 @@ class RoomConfig:
             max_peers=max_peers,
             peer_disconnected_timeout=peer_disconnected_timeout,
             peerless_purge_timeout=peerless_purge_timeout,
+            room_type=room_type,
             video_codec=video_codec,
             webhook_url=webhook_url,
         )
