@@ -1,4 +1,4 @@
-""" Contains all the data models used in inputs/outputs """
+"""Contains all the data models used in inputs/outputs"""
 
 from .add_component_json_body import AddComponentJsonBody
 from .add_peer_json_body import AddPeerJsonBody
@@ -51,6 +51,7 @@ from .peer_status import PeerStatus
 from .recording_list_response import RecordingListResponse
 from .room import Room
 from .room_config import RoomConfig
+from .room_config_room_type import RoomConfigRoomType
 from .room_config_video_codec import RoomConfigVideoCodec
 from .room_create_details_response import RoomCreateDetailsResponse
 from .room_create_details_response_data import RoomCreateDetailsResponseData
@@ -108,6 +109,7 @@ __all__ = (
     "RecordingListResponse",
     "Room",
     "RoomConfig",
+    "RoomConfigRoomType",
     "RoomConfigVideoCodec",
     "RoomCreateDetailsResponse",
     "RoomCreateDetailsResponseData",
