@@ -20,7 +20,7 @@ class RoomConfig:
     """Duration (in seconds) after which the peer will be removed if it is disconnected. If not provided, this feature is disabled."""
     peerless_purge_timeout: Union[Unset, None, int] = UNSET
     """Duration (in seconds) after which the room will be removed if no peers are connected. If not provided, this feature is disabled."""
-    room_type: Union[Unset, None, RoomConfigRoomType] = UNSET
+    room_type: Union[Unset, RoomConfigRoomType] = RoomConfigRoomType.FULL_FEATURE
     """The use-case of the room. If not provided, this defaults to full_feature."""
     video_codec: Union[Unset, None, RoomConfigVideoCodec] = UNSET
     """Enforces video codec for each peer in the room"""
@@ -34,9 +34,9 @@ class RoomConfig:
         max_peers = self.max_peers
         peer_disconnected_timeout = self.peer_disconnected_timeout
         peerless_purge_timeout = self.peerless_purge_timeout
-        room_type: Union[Unset, None, str] = UNSET
+        room_type: Union[Unset, str] = UNSET
         if not isinstance(self.room_type, Unset):
-            room_type = self.room_type.value if self.room_type else None
+            room_type = self.room_type.value
 
         video_codec: Union[Unset, None, str] = UNSET
         if not isinstance(self.video_codec, Unset):
@@ -73,10 +73,8 @@ class RoomConfig:
         peerless_purge_timeout = d.pop("peerlessPurgeTimeout", UNSET)
 
         _room_type = d.pop("roomType", UNSET)
-        room_type: Union[Unset, None, RoomConfigRoomType]
-        if _room_type is None:
-            room_type = None
-        elif isinstance(_room_type, Unset):
+        room_type: Union[Unset, RoomConfigRoomType]
+        if isinstance(_room_type, Unset):
             room_type = UNSET
         else:
             room_type = RoomConfigRoomType(_room_type)
