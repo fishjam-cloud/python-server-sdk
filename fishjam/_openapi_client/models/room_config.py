@@ -21,7 +21,7 @@ class RoomConfig:
     peerless_purge_timeout: Union[Unset, None, int] = UNSET
     """Duration (in seconds) after which the room will be removed if no peers are connected. If not provided, this feature is disabled."""
     room_type: Union[Unset, None, RoomConfigRoomType] = UNSET
-    """None"""
+    """The use-case of the room. If not provided, this defaults to full_feature."""
     video_codec: Union[Unset, None, RoomConfigVideoCodec] = UNSET
     """Enforces video codec for each peer in the room"""
     webhook_url: Union[Unset, None, str] = UNSET

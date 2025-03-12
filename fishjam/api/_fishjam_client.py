@@ -62,6 +62,8 @@ class RoomOptions:
     """Enforces video codec for each peer in the room"""
     webhook_url: str | None = None
     """URL where Fishjam notifications will be sent"""
+    room_type: Literal["full_feature", "audio_only", "broadcaster"] | None = None
+    """The use-case of the room. If not provided, this defaults to full_feature."""
 
 
 @dataclass
@@ -127,6 +129,7 @@ class FishjamClient(Client):
             peerless_purge_timeout=options.peerless_purge_timeout,
             video_codec=codec,
             webhook_url=options.webhook_url,
+            room_type=options.room_type,
         )
 
         room = cast(
