@@ -28,6 +28,14 @@ services:
     volumes:
       - ./tests/fixtures:/app/fishjam_resources/file_component_sources
 
+  fishjam-prep:
+    image: curlimages/curl:8.12.1
+    command: >
+      curl --fail-with-body -XPOST http://fishjam:5002/admin/user --json '{"id": "testuser", "token": "development"}'
+    depends_on:
+      fishjam:
+        condition: service_healthy
+
   test:
     container_name: test
     image: "cimg/python:${PYTHON_VERSION:-3.10}"
@@ -39,8 +47,8 @@ services:
     volumes:
       - .:/app
     depends_on:
-      fishjam:
-        condition: service_healthy
+      fishjam-prep:
+        condition: service_completed_successfully
 
   examples:
     container_name: examples
@@ -52,5 +60,5 @@ services:
     volumes:
       - .:/app
     depends_on:
-      fishjam:
-        condition: service_healthy
+      fishjam-prep:
+        condition: service_completed_successfully
