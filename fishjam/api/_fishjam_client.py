@@ -19,6 +19,7 @@ from fishjam._openapi_client.models import (
     PeerOptionsWebRTC,
     PeerRefreshTokenResponse,
     RoomConfig,
+    RoomConfigRoomType,
     RoomCreateDetailsResponse,
     RoomDetailsResponse,
     RoomsListingResponse,
@@ -129,7 +130,7 @@ class FishjamClient(Client):
             peerless_purge_timeout=options.peerless_purge_timeout,
             video_codec=codec,
             webhook_url=options.webhook_url,
-            room_type=options.room_type,
+            room_type=options.room_type and RoomConfigRoomType(options.room_type),
         )
 
         room = cast(
