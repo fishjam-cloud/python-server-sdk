@@ -13,6 +13,7 @@ from fishjam import (
 from fishjam._openapi_client.models import (
     PeerStatus,
     RoomConfig,
+    RoomConfigRoomType,
     RoomConfigVideoCodec,
 )
 from fishjam.api._fishjam_client import Peer, Room
@@ -29,6 +30,7 @@ MANAGEMENT_TOKEN = "development"
 
 MAX_PEERS = 10
 CODEC_H264 = "h264"
+AUDIO_ONLY = "audio_only"
 
 
 class TestAuthentication:
@@ -76,7 +78,11 @@ class TestCreateRoom:
         assert room in room_api.get_all_rooms()
 
     def test_valid_params(self, room_api):
-        options = RoomOptions(max_peers=MAX_PEERS, video_codec=CODEC_H264)
+        options = RoomOptions(
+            max_peers=MAX_PEERS,
+            video_codec=CODEC_H264,
+            room_type=AUDIO_ONLY,
+        )
         room = room_api.create_room(options)
 
         config = RoomConfig(
@@ -85,6 +91,7 @@ class TestCreateRoom:
             webhook_url=None,
             peerless_purge_timeout=None,
             peer_disconnected_timeout=None,
+            room_type=RoomConfigRoomType(AUDIO_ONLY),
         )
         config.__setitem__("roomId", room.config.__getitem__("roomId"))
 

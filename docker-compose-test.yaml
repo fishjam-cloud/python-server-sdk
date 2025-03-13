@@ -5,18 +5,14 @@ services:
     restart: on-failure
     healthcheck:
       test: >
-        curl --fail -H "authorization: Bearer development" http://fishjam:5002/room || exit 1
+        curl --fail-with-body -H "Authorization: Bearer 12345" http://fishjam:5002/admin/health
       interval: 3s
       retries: 2
       timeout: 2s
       start_period: 30s
     environment:
       FJ_HOST: "fishjam:5002"
-      FJ_INTEGRATED_TURN_IP: "${INTEGRATED_TURN_IP:-127.0.0.1}"
-      FJ_INTEGRATED_TURN_LISTEN_IP: "0.0.0.0"
-      FJ_INTEGRATED_TURN_PORT_RANGE: "50000-50050"
-      FJ_INTEGRATED_TCP_TURN_PORT: "49999"
-      FJ_SERVER_API_TOKEN: "development"
+      FJ_ADMIN_TOKEN: "12345"
       FJ_PORT: 5002
       FJ_SECRET_KEY_BASE: "super-secret-key"
       FJ_SIP_IP: "127.0.0.1"
@@ -28,29 +24,24 @@ services:
     volumes:
       - ./tests/fixtures:/app/fishjam_resources/file_component_sources
 
-  test:
-    container_name: test
-    image: "cimg/python:${PYTHON_VERSION:-3.10}"
-    command: sh -c "cd /app && \ poetry config virtualenvs.in-project false && \ poetry install --no-ansi && \ poetry run pytest -s"
-    environment:
-      DOCKER_TEST: "TRUE"
-    ports:
-      - "5000:5000"
-    volumes:
-      - .:/app
+  fishjam-prep:
+    image: curlimages/curl:8.12.1
+    command: >
+      curl --fail-with-body -H "Authorization: Bearer 12345" -XPOST http://fishjam:5002/admin/user --json '{"id": "testuser", "token": "development"}'
     depends_on:
       fishjam:
         condition: service_healthy
 
-  examples:
-    container_name: examples
-    image: "cimg/python:${PYTHON_VERSION:-3.10}"
-    command: sh -c "cd /app && \ poetry config virtualenvs.in-project false && \ poetry cache clear pypi --all && \ poetry install --no-ansi && \ poetry run examples"
+  test:
+    container_name: test
+    build:
+      context: .
+      dockerfile: tests/Dockerfile
+      args:
+        PYTHON_VERSION: ${PYTHON_VERSION:-3.10}
+    command: poetry run pytest
     environment:
       DOCKER_TEST: "TRUE"
-      CI_LIMIT: "10"
-    volumes:
-      - .:/app
     depends_on:
-      fishjam:
-        condition: service_healthy
+      fishjam-prep:
+        condition: service_completed_successfully
