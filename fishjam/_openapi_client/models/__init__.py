@@ -1,4 +1,4 @@
-"""Contains all the data models used in inputs/outputs"""
+""" Contains all the data models used in inputs/outputs """
 
 from .add_component_json_body import AddComponentJsonBody
 from .add_peer_json_body import AddPeerJsonBody
@@ -66,6 +66,8 @@ from .sip_credentials import SIPCredentials
 from .subscription_config import SubscriptionConfig
 from .track import Track
 from .track_type import TrackType
+from .user import User
+from .user_listing_response import UserListingResponse
 
 __all__ = (
     "AddComponentJsonBody",
@@ -126,4 +128,6 @@ __all__ = (
     "SubscriptionConfig",
     "Track",
     "TrackType",
+    "User",
+    "UserListingResponse",
 )

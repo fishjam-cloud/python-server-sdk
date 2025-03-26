@@ -1,33 +1,33 @@
-from typing import Any, Dict, List, Optional, Type, TypeVar
+from typing import Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="ComponentPropertiesFile")
+T = TypeVar("T", bound="User")
 
 
 @_attrs_define
-class ComponentPropertiesFile:
-    """Properties specific to the File component"""
+class User:
+    """Description of the user state"""
 
-    file_path: str
-    """Relative path to track file. Must be either opus encapsulated in Ogg or raw h264"""
-    framerate: Optional[int]
-    """Framerate of video in a file. It is only valid for video track"""
+    token: str
+    """User token, has to be in UUID format"""
+    user_id: str
+    """User ID"""
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
     """@private"""
 
     def to_dict(self) -> Dict[str, Any]:
         """@private"""
-        file_path = self.file_path
-        framerate = self.framerate
+        token = self.token
+        user_id = self.user_id
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
-                "filePath": file_path,
-                "framerate": framerate,
+                "token": token,
+                "user_id": user_id,
             }
         )
 
@@ -37,17 +37,17 @@ class ComponentPropertiesFile:
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         """@private"""
         d = src_dict.copy()
-        file_path = d.pop("filePath")
+        token = d.pop("token")
 
-        framerate = d.pop("framerate")
+        user_id = d.pop("user_id")
 
-        component_properties_file = cls(
-            file_path=file_path,
-            framerate=framerate,
+        user = cls(
+            token=token,
+            user_id=user_id,
         )
 
-        component_properties_file.additional_properties = d
-        return component_properties_file
+        user.additional_properties = d
+        return user
 
     @property
     def additional_keys(self) -> List[str]:

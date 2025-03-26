@@ -6,6 +6,7 @@ from typing import List
 import betterproto
 
 from fishjam import FishjamClient, PeerOptions, Room, RoomOptions
+from fishjam._openapi_client.models import RoomConfigRoomType
 from fishjam.events import ServerMessagePeerCrashed as PeerCrashed
 from fishjam.events import ServerMessagePeerDeleted as PeerDeleted
 from fishjam.events import ServerMessageRoomCrashed as RoomCrashed
@@ -38,8 +39,13 @@ class RoomService:
         self.logger = logger
         self.config = args
 
-    def get_peer_access(self, room_name: str, username: str) -> PeerAccess:
-        room = self.__find_or_create_room(room_name)
+    def get_peer_access(
+        self,
+        room_name: str,
+        username: str,
+        room_type: RoomConfigRoomType | None,
+    ) -> PeerAccess:
+        room = self.__find_or_create_room(room_name, room_type)
         peer_access = self.peer_name_to_access.get(username)
         peer_in_room = self.__is_in_room(room, peer_access)
 
@@ -63,7 +69,9 @@ class RoomService:
             case _:
                 pass
 
-    def __find_or_create_room(self, room_name: str) -> Room:
+    def __find_or_create_room(
+        self, room_name: str, room_type: RoomConfigRoomType | None
+    ) -> Room:
         if room_name in self.room_name_to_room_id:
             self.logger.info("Room %s, already exists in the Fishjam", room_name)
 
@@ -74,7 +82,9 @@ class RoomService:
             max_peers=self.config.max_peers,
             webhook_url=self.config.webhook_url,
             peerless_purge_timeout=self.config.peerless_purge_timeout,
+            room_type=room_type.value if room_type else "full_feature",
         )
+
         new_room = self.fishjam_client.create_room(options=options)
 
         self.room_name_to_room_id[room_name] = new_room.id
