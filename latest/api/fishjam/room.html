@@ -192,6 +192,21 @@
                 </ul>
 
             </li>
+            <li>
+                    <a class="class" href="#RoomConfigRoomType">RoomConfigRoomType</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="variable" href="#RoomConfigRoomType.AUDIO_ONLY">AUDIO_ONLY</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#RoomConfigRoomType.BROADCASTER">BROADCASTER</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#RoomConfigRoomType.FULL_FEATURE">FULL_FEATURE</a>
+                        </li>
+                </ul>
+
+            </li>
     </ul>
 
 
@@ -211,9 +226,13 @@
 
                         <label class="view-source-button" for="mod-room-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">fishjam._openapi_client.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">RoomConfig</span><span class="p">,</span> <span class="n">RoomConfigVideoCodec</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos">2</span></a>
-</span><span id="L-3"><a href="#L-3"><span class="linenos">3</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;RoomConfig&quot;</span><span class="p">,</span> <span class="s2">&quot;RoomConfigVideoCodec&quot;</span><span class="p">]</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">fishjam._openapi_client.models</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span id="L-2"><a href="#L-2"><span class="linenos">2</span></a>    <span class="n">RoomConfig</span><span class="p">,</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos">3</span></a>    <span class="n">RoomConfigRoomType</span><span class="p">,</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos">4</span></a>    <span class="n">RoomConfigVideoCodec</span><span class="p">,</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos">5</span></a><span class="p">)</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos">6</span></a>
+</span><span id="L-7"><a href="#L-7"><span class="linenos">7</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;RoomConfig&quot;</span><span class="p">,</span> <span class="s2">&quot;RoomConfigVideoCodec&quot;</span><span class="p">,</span> <span class="s2">&quot;RoomConfigRoomType&quot;</span><span class="p">]</span>
 </span></pre></div>
 
 
@@ -348,7 +367,7 @@
                                         <input id="RoomConfig.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
 
-        <span class="name">RoomConfig</span><span class="signature pdoc-code multiline">(<span class="param">   <span class="n">max_peers</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">peer_disconnected_timeout</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">peerless_purge_timeout</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">   <span class="n">room_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">models</span><span class="o">.</span><span class="n">room_config_room_type</span><span class="o">.</span><span class="n">RoomConfigRoomType</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">RoomConfigRoomType</span><span class="o">.</span><span class="n">FULL_FEATURE</span><span class="p">:</span> <span class="s1">&#39;full_feature&#39;</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">video_codec</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="n"><a href="#RoomConfigVideoCodec">RoomConfigVideoCodec</a></span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">  <span class="n">webhook_url</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">RoomConfig</span><span class="signature pdoc-code multiline">(<span class="param">   <span class="n">max_peers</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">peer_disconnected_timeout</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">peerless_purge_timeout</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">   <span class="n">room_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n"><a href="#RoomConfigRoomType">RoomConfigRoomType</a></span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n"><a href="#RoomConfigRoomType.FULL_FEATURE">RoomConfigRoomType.FULL_FEATURE</a></span><span class="p">:</span> <span class="s1">&#39;full_feature&#39;</span><span class="o">&gt;</span>,</span><span class="param">   <span class="n">video_codec</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="n"><a href="#RoomConfigVideoCodec">RoomConfigVideoCodec</a></span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">  <span class="n">webhook_url</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
                 <label class="view-source-button" for="RoomConfig.__init__-view-source"><span>View Source</span></label>
 
@@ -411,7 +430,7 @@
                             </div>
                             <div id="RoomConfig.room_type" class="classattr">
                                 <div class="attr variable">
-            <span class="name">room_type</span><span class="annotation">: Union[fishjam._openapi_client.types.Unset, fishjam._openapi_client.models.room_config_room_type.RoomConfigRoomType]</span>
+            <span class="name">room_type</span><span class="annotation">: Union[fishjam._openapi_client.types.Unset, <a href="#RoomConfigRoomType">RoomConfigRoomType</a>]</span>
 
 
     </div>
@@ -555,6 +574,130 @@
                 <dd id="RoomConfigVideoCodec.format" class="function">format</dd>
                 <dd id="RoomConfigVideoCodec.format_map" class="function">format_map</dd>
                 <dd id="RoomConfigVideoCodec.maketrans" class="function">maketrans</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="RoomConfigRoomType">
+                            <input id="RoomConfigRoomType-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+
+    <span class="def">class</span>
+    <span class="name">RoomConfigRoomType</span><wbr>(<span class="base">builtins.str</span>, <span class="base">enum.Enum</span>):
+
+                <label class="view-source-button" for="RoomConfigRoomType-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#RoomConfigRoomType"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="RoomConfigRoomType-5"><a href="#RoomConfigRoomType-5"><span class="linenos"> 5</span></a><span class="k">class</span><span class="w"> </span><span class="nc">RoomConfigRoomType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+</span><span id="RoomConfigRoomType-6"><a href="#RoomConfigRoomType-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The use-case of the room. If not provided, this defaults to full_feature.&quot;&quot;&quot;</span>
+</span><span id="RoomConfigRoomType-7"><a href="#RoomConfigRoomType-7"><span class="linenos"> 7</span></a>
+</span><span id="RoomConfigRoomType-8"><a href="#RoomConfigRoomType-8"><span class="linenos"> 8</span></a>    <span class="n">AUDIO_ONLY</span> <span class="o">=</span> <span class="s2">&quot;audio_only&quot;</span>
+</span><span id="RoomConfigRoomType-9"><a href="#RoomConfigRoomType-9"><span class="linenos"> 9</span></a>    <span class="n">BROADCASTER</span> <span class="o">=</span> <span class="s2">&quot;broadcaster&quot;</span>
+</span><span id="RoomConfigRoomType-10"><a href="#RoomConfigRoomType-10"><span class="linenos">10</span></a>    <span class="n">FULL_FEATURE</span> <span class="o">=</span> <span class="s2">&quot;full_feature&quot;</span>
+</span><span id="RoomConfigRoomType-11"><a href="#RoomConfigRoomType-11"><span class="linenos">11</span></a>
+</span><span id="RoomConfigRoomType-12"><a href="#RoomConfigRoomType-12"><span class="linenos">12</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="RoomConfigRoomType-13"><a href="#RoomConfigRoomType-13"><span class="linenos">13</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>The use-case of the room. If not provided, this defaults to full_feature.</p>
+</div>
+
+
+                            <div id="RoomConfigRoomType.AUDIO_ONLY" class="classattr">
+                                <div class="attr variable">
+            <span class="name">AUDIO_ONLY</span>        =
+<span class="default_value">&lt;<a href="#RoomConfigRoomType.AUDIO_ONLY">RoomConfigRoomType.AUDIO_ONLY</a>: &#39;audio_only&#39;&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#RoomConfigRoomType.AUDIO_ONLY"></a>
+
+
+
+                            </div>
+                            <div id="RoomConfigRoomType.BROADCASTER" class="classattr">
+                                <div class="attr variable">
+            <span class="name">BROADCASTER</span>        =
+<span class="default_value">&lt;<a href="#RoomConfigRoomType.BROADCASTER">RoomConfigRoomType.BROADCASTER</a>: &#39;broadcaster&#39;&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#RoomConfigRoomType.BROADCASTER"></a>
+
+
+
+                            </div>
+                            <div id="RoomConfigRoomType.FULL_FEATURE" class="classattr">
+                                <div class="attr variable">
+            <span class="name">FULL_FEATURE</span>        =
+<span class="default_value">&lt;<a href="#RoomConfigRoomType.FULL_FEATURE">RoomConfigRoomType.FULL_FEATURE</a>: &#39;full_feature&#39;&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#RoomConfigRoomType.FULL_FEATURE"></a>
+
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>enum.Enum</dt>
+                                <dd id="RoomConfigRoomType.name" class="variable">name</dd>
+                <dd id="RoomConfigRoomType.value" class="variable">value</dd>
+
+            </div>
+            <div><dt>builtins.str</dt>
+                                <dd id="RoomConfigRoomType.encode" class="function">encode</dd>
+                <dd id="RoomConfigRoomType.replace" class="function">replace</dd>
+                <dd id="RoomConfigRoomType.split" class="function">split</dd>
+                <dd id="RoomConfigRoomType.rsplit" class="function">rsplit</dd>
+                <dd id="RoomConfigRoomType.join" class="function">join</dd>
+                <dd id="RoomConfigRoomType.capitalize" class="function">capitalize</dd>
+                <dd id="RoomConfigRoomType.casefold" class="function">casefold</dd>
+                <dd id="RoomConfigRoomType.title" class="function">title</dd>
+                <dd id="RoomConfigRoomType.center" class="function">center</dd>
+                <dd id="RoomConfigRoomType.count" class="function">count</dd>
+                <dd id="RoomConfigRoomType.expandtabs" class="function">expandtabs</dd>
+                <dd id="RoomConfigRoomType.find" class="function">find</dd>
+                <dd id="RoomConfigRoomType.partition" class="function">partition</dd>
+                <dd id="RoomConfigRoomType.index" class="function">index</dd>
+                <dd id="RoomConfigRoomType.ljust" class="function">ljust</dd>
+                <dd id="RoomConfigRoomType.lower" class="function">lower</dd>
+                <dd id="RoomConfigRoomType.lstrip" class="function">lstrip</dd>
+                <dd id="RoomConfigRoomType.rfind" class="function">rfind</dd>
+                <dd id="RoomConfigRoomType.rindex" class="function">rindex</dd>
+                <dd id="RoomConfigRoomType.rjust" class="function">rjust</dd>
+                <dd id="RoomConfigRoomType.rstrip" class="function">rstrip</dd>
+                <dd id="RoomConfigRoomType.rpartition" class="function">rpartition</dd>
+                <dd id="RoomConfigRoomType.splitlines" class="function">splitlines</dd>
+                <dd id="RoomConfigRoomType.strip" class="function">strip</dd>
+                <dd id="RoomConfigRoomType.swapcase" class="function">swapcase</dd>
+                <dd id="RoomConfigRoomType.translate" class="function">translate</dd>
+                <dd id="RoomConfigRoomType.upper" class="function">upper</dd>
+                <dd id="RoomConfigRoomType.startswith" class="function">startswith</dd>
+                <dd id="RoomConfigRoomType.endswith" class="function">endswith</dd>
+                <dd id="RoomConfigRoomType.removeprefix" class="function">removeprefix</dd>
+                <dd id="RoomConfigRoomType.removesuffix" class="function">removesuffix</dd>
+                <dd id="RoomConfigRoomType.isascii" class="function">isascii</dd>
+                <dd id="RoomConfigRoomType.islower" class="function">islower</dd>
+                <dd id="RoomConfigRoomType.isupper" class="function">isupper</dd>
+                <dd id="RoomConfigRoomType.istitle" class="function">istitle</dd>
+                <dd id="RoomConfigRoomType.isspace" class="function">isspace</dd>
+                <dd id="RoomConfigRoomType.isdecimal" class="function">isdecimal</dd>
+                <dd id="RoomConfigRoomType.isdigit" class="function">isdigit</dd>
+                <dd id="RoomConfigRoomType.isnumeric" class="function">isnumeric</dd>
+                <dd id="RoomConfigRoomType.isalpha" class="function">isalpha</dd>
+                <dd id="RoomConfigRoomType.isalnum" class="function">isalnum</dd>
+                <dd id="RoomConfigRoomType.isidentifier" class="function">isidentifier</dd>
+                <dd id="RoomConfigRoomType.isprintable" class="function">isprintable</dd>
+                <dd id="RoomConfigRoomType.zfill" class="function">zfill</dd>
+                <dd id="RoomConfigRoomType.format" class="function">format</dd>
+                <dd id="RoomConfigRoomType.format_map" class="function">format_map</dd>
+                <dd id="RoomConfigRoomType.maketrans" class="function">maketrans</dd>
 
             </div>
                                 </dl>
