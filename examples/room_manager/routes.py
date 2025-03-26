@@ -3,6 +3,7 @@ from dataclasses import asdict
 from flask import Flask, abort, jsonify, request
 
 from fishjam import receive_binary
+from fishjam.room import RoomConfigRoomType
 
 from .room_service import RoomService
 
@@ -15,7 +16,13 @@ def setup_routes(app: Flask, room_service: RoomService):
 
     @app.get("/api/rooms/<room_name>/users/<peer_name>")
     def get_room_params(room_name, peer_name):
-        access_data = room_service.get_peer_access(room_name, peer_name)
+        raw_room_type = request.args.get("roomType")
+        try:
+            room_type = RoomConfigRoomType(raw_room_type) if raw_room_type else None
+        except ValueError:
+            return abort(400)
+
+        access_data = room_service.get_peer_access(room_name, peer_name, room_type)
         response = asdict(access_data)
 
         response["peerToken"] = response.pop("peer_token")
@@ -25,12 +32,18 @@ def setup_routes(app: Flask, room_service: RoomService):
     @app.get("/api/rooms")
     def get_room_query():
         room_name = request.args.get("roomName")
+        raw_room_type = request.args.get("roomType")
         peer_name = request.args.get("peerName")
 
         if not room_name or not peer_name:
             return abort(400)
 
-        access_data = room_service.get_peer_access(room_name, peer_name)
+        try:
+            room_type = RoomConfigRoomType(raw_room_type) if raw_room_type else None
+        except ValueError:
+            return abort(400)
+
+        access_data = room_service.get_peer_access(room_name, peer_name, room_type)
         response = asdict(access_data)
 
         response["peerToken"] = response.pop("peer_token")
