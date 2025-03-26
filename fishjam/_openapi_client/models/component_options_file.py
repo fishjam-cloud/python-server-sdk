@@ -13,7 +13,7 @@ class ComponentOptionsFile:
     """Options specific to the File component"""
 
     file_path: str
-    """Path to track file. Must be either OPUS encapsulated in Ogg or raw h264"""
+    """Path to track file. Must be either opus encapsulated in Ogg or raw h264"""
     framerate: Union[Unset, None, int] = UNSET
     """Framerate of video in a file. It is only valid for video track"""
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)

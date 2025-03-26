@@ -1,12 +1,14 @@
 import logging
 
 from flask import Flask
+from flask_cors import CORS
 
 from .arguments import parse_arguments
 from .room_service import RoomService
 from .routes import setup_routes
 
 app = Flask(__name__)
+CORS(app)
 app.logger.setLevel(logging.INFO)
 
 

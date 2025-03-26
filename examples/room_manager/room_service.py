@@ -45,9 +45,7 @@ class RoomService:
         username: str,
         room_type: RoomConfigRoomType | None,
     ) -> PeerAccess:
-        room = self.__find_or_create_room(
-            room_name, room_type or RoomConfigRoomType.FULL_FEATURE
-        )
+        room = self.__find_or_create_room(room_name, room_type)
         peer_access = self.peer_name_to_access.get(username)
         peer_in_room = self.__is_in_room(room, peer_access)
 
@@ -72,7 +70,7 @@ class RoomService:
                 pass
 
     def __find_or_create_room(
-        self, room_name: str, room_type: RoomConfigRoomType
+        self, room_name: str, room_type: RoomConfigRoomType | None
     ) -> Room:
         if room_name in self.room_name_to_room_id:
             self.logger.info("Room %s, already exists in the Fishjam", room_name)
@@ -84,8 +82,9 @@ class RoomService:
             max_peers=self.config.max_peers,
             webhook_url=self.config.webhook_url,
             peerless_purge_timeout=self.config.peerless_purge_timeout,
-            room_type=room_type.value,
+            room_type=room_type.value if room_type else "full_feature",
         )
+
         new_room = self.fishjam_client.create_room(options=options)
 
         self.room_name_to_room_id[room_name] = new_room.id
