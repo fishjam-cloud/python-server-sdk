@@ -35,13 +35,6 @@ def setup_routes(app: Flask, room_service: RoomService):
 
         return jsonify(response)
 
-    @app.get("/api/rooms/<room_name>/start-recording")
-    def start_recording():
-        response = jsonify({"error": "Not yet implemented"})
-        response.status_code = 501
-
-        return response
-
     @app.post("/api/rooms/webhook")
     def webhook():
         notification = receive_binary(request.data)
