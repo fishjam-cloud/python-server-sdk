@@ -14,21 +14,6 @@ def setup_routes(app: Flask, room_service: RoomService):
         status = "OK"
         return jsonify({"status": status})
 
-    @app.get("/api/rooms/<room_name>/users/<peer_name>")
-    def get_room_params(room_name, peer_name):
-        raw_room_type = request.args.get("roomType")
-        try:
-            room_type = RoomConfigRoomType(raw_room_type) if raw_room_type else None
-        except ValueError:
-            return abort(400)
-
-        access_data = room_service.get_peer_access(room_name, peer_name, room_type)
-        response = asdict(access_data)
-
-        response["peerToken"] = response.pop("peer_token")
-
-        return jsonify(response)
-
     @app.get("/api/rooms")
     def get_room_query():
         room_name = request.args.get("roomName")
@@ -49,13 +34,6 @@ def setup_routes(app: Flask, room_service: RoomService):
         response["peerToken"] = response.pop("peer_token")
 
         return jsonify(response)
-
-    @app.get("/api/rooms/<room_name>/start-recording")
-    def startRecording():
-        response = jsonify({"error": "Not yet implemented"})
-        response.status_code = 501
-
-        return response
 
     @app.post("/api/rooms/webhook")
     def webhook():
