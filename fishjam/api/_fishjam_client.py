@@ -12,6 +12,7 @@ from fishjam._openapi_client.api.room import delete_room as room_delete_room
 from fishjam._openapi_client.api.room import get_all_rooms as room_get_all_rooms
 from fishjam._openapi_client.api.room import get_room as room_get_room
 from fishjam._openapi_client.api.room import refresh_token as room_refresh_token
+from fishjam._openapi_client.api.viewer import generate_token as viewer_generate_token
 from fishjam._openapi_client.models import (
     AddPeerJsonBody,
     Peer,
@@ -23,6 +24,7 @@ from fishjam._openapi_client.models import (
     RoomCreateDetailsResponse,
     RoomDetailsResponse,
     RoomsListingResponse,
+    ViewerToken,
 )
 from fishjam._openapi_client.models.peer_options_web_rtc_metadata import (
     PeerOptionsWebRTCMetadata,
@@ -49,16 +51,6 @@ class RoomOptions:
 
     max_peers: int | None = None
     """Maximum amount of peers allowed into the room"""
-    peer_disconnected_timeout: int | None = None
-    """
-    Duration (in seconds) after which the peer will be removed if it is disconnected.
-    If not provided, this feature is disabled.
-    """
-    peerless_purge_timeout: int | None = None
-    """
-    Duration (in seconds) after which the room will be removed 
-    if no peers are connected. If not provided, this feature is disabled.
-    """
     video_codec: Literal["h264", "vp8"] | None = None
     """Enforces video codec for each peer in the room"""
     webhook_url: str | None = None
@@ -126,8 +118,6 @@ class FishjamClient(Client):
 
         config = RoomConfig(
             max_peers=options.max_peers,
-            peer_disconnected_timeout=options.peer_disconnected_timeout,
-            peerless_purge_timeout=options.peerless_purge_timeout,
             video_codec=codec,
             webhook_url=options.webhook_url,
             room_type=RoomConfigRoomType(options.room_type),
@@ -176,6 +166,15 @@ class FishjamClient(Client):
         )
 
         return response.data.token
+
+    def create_livestream_viewer_token(self, room_id: str) -> str:
+        """Generates viewer token for livestream rooms"""
+
+        response = cast(
+            ViewerToken, self._request(viewer_generate_token, room_id=room_id)
+        )
+
+        return response.token
 
     def __parse_peer_metadata(self, metadata: dict | None) -> PeerOptionsWebRTCMetadata:
         peer_metadata = PeerOptionsWebRTCMetadata()

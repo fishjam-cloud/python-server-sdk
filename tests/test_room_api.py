@@ -245,3 +245,17 @@ class TestRefreshPeerToken:
 
         with pytest.raises(NotFoundError):
             room_api.refresh_peer_token(room.id, peer_id="invalid_peer_id")
+
+
+class TestCreateLivestreamViewerToken:
+    def test_valid(self, room_api: FishjamClient):
+        room = room_api.create_room(RoomOptions(room_type="broadcaster"))
+        viewer_token = room_api.create_livestream_viewer_token(room.id)
+
+        assert isinstance(viewer_token, str)
+
+    def test_invalid(self, room_api: FishjamClient):
+        room = room_api.create_room()
+
+        with pytest.raises(BadRequestError):
+            room_api.room_api.create_livestream_viewer_token(room.id)
