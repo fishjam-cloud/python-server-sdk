@@ -31,6 +31,7 @@ MANAGEMENT_TOKEN = "development"
 MAX_PEERS = 10
 CODEC_H264 = "h264"
 AUDIO_ONLY = "audio_only"
+FULL_FEATURE = "full_feature"
 
 
 class TestAuthentication:
@@ -64,10 +65,12 @@ class TestCreateRoom:
             max_peers=None,
             video_codec=None,
             webhook_url=None,
-            peerless_purge_timeout=None,
-            peer_disconnected_timeout=None,
+            room_type=RoomConfigRoomType(FULL_FEATURE),
         )
         config.__setitem__("roomId", room.config.__getitem__("roomId"))
+        config.__setitem__(
+            "peerlessPurgeTimeout", room.config.__getitem__("peerlessPurgeTimeout")
+        )
 
         assert room == Room(
             config=config,
@@ -89,11 +92,12 @@ class TestCreateRoom:
             max_peers=MAX_PEERS,
             video_codec=RoomConfigVideoCodec(CODEC_H264),
             webhook_url=None,
-            peerless_purge_timeout=None,
-            peer_disconnected_timeout=None,
             room_type=RoomConfigRoomType(AUDIO_ONLY),
         )
         config.__setitem__("roomId", room.config.__getitem__("roomId"))
+        config.__setitem__(
+            "peerlessPurgeTimeout", room.config.__getitem__("peerlessPurgeTimeout")
+        )
 
         assert room == Room(
             config=config,
@@ -148,10 +152,12 @@ class TestGetRoom:
             max_peers=None,
             video_codec=None,
             webhook_url=None,
-            peerless_purge_timeout=None,
-            peer_disconnected_timeout=None,
+            room_type=RoomConfigRoomType(FULL_FEATURE),
         )
         config.__setitem__("roomId", room.config.__getitem__("roomId"))
+        config.__setitem__(
+            "peerlessPurgeTimeout", room.config.__getitem__("peerlessPurgeTimeout")
+        )
 
         assert Room(
             peers=[],
@@ -258,4 +264,4 @@ class TestCreateLivestreamViewerToken:
         room = room_api.create_room()
 
         with pytest.raises(BadRequestError):
-            room_api.room_api.create_livestream_viewer_token(room.id)
+            room_api.create_livestream_viewer_token(room.id)
