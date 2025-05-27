@@ -1,9 +1,7 @@
-from typing import Any, Dict, List, Type, TypeVar, Union
+from typing import Any, Dict, List, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
-
-from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="ViewerToken")
 
@@ -12,7 +10,7 @@ T = TypeVar("T", bound="ViewerToken")
 class ViewerToken:
     """Token for authorizing broadcaster viewer connection"""
 
-    token: Union[Unset, str] = UNSET
+    token: str
     """None"""
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
     """@private"""
@@ -23,9 +21,11 @@ class ViewerToken:
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({})
-        if token is not UNSET:
-            field_dict["token"] = token
+        field_dict.update(
+            {
+                "token": token,
+            }
+        )
 
         return field_dict
 
@@ -33,7 +33,7 @@ class ViewerToken:
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         """@private"""
         d = src_dict.copy()
-        token = d.pop("token", UNSET)
+        token = d.pop("token")
 
         viewer_token = cls(
             token=token,
