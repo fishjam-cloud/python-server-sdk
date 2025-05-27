@@ -255,7 +255,7 @@ class TestRefreshPeerToken:
 
 class TestCreateLivestreamViewerToken:
     def test_valid(self, room_api: FishjamClient):
-        room = room_api.create_room(RoomOptions(room_type="broadcaster"))
+        room = room_api.create_room(RoomOptions(room_type="livestream"))
         viewer_token = room_api.create_livestream_viewer_token(room.id)
 
         assert isinstance(viewer_token, str)
