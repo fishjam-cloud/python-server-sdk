@@ -1,11 +1,12 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union, cast
+from typing import Any, Dict, Optional, Union
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
+from ...models.viewer_token import ViewerToken
 from ...types import Response
 
 
@@ -22,9 +23,10 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, str]]:
+) -> Optional[Union[Error, ViewerToken]]:
     if response.status_code == HTTPStatus.CREATED:
-        response_201 = cast(str, response.json())
+        response_201 = ViewerToken.from_dict(response.json())
+
         return response_201
     if response.status_code == HTTPStatus.BAD_REQUEST:
         response_400 = Error.from_dict(response.json())
@@ -50,7 +52,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, str]]:
+) -> Response[Union[Error, ViewerToken]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -63,8 +65,8 @@ def sync_detailed(
     room_id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Response[Union[Error, str]]:
-    """Generate token for single viewer
+) -> Response[Union[Error, ViewerToken]]:
+    """Generate single broadcaster access token
 
     Args:
         room_id (str):
@@ -74,7 +76,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, str]]
+        Response[Union[Error, ViewerToken]]
     """
 
     kwargs = _get_kwargs(
@@ -92,8 +94,8 @@ def sync(
     room_id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Optional[Union[Error, str]]:
-    """Generate token for single viewer
+) -> Optional[Union[Error, ViewerToken]]:
+    """Generate single broadcaster access token
 
     Args:
         room_id (str):
@@ -103,7 +105,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, str]
+        Union[Error, ViewerToken]
     """
 
     return sync_detailed(
@@ -116,8 +118,8 @@ async def asyncio_detailed(
     room_id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Response[Union[Error, str]]:
-    """Generate token for single viewer
+) -> Response[Union[Error, ViewerToken]]:
+    """Generate single broadcaster access token
 
     Args:
         room_id (str):
@@ -127,7 +129,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, str]]
+        Response[Union[Error, ViewerToken]]
     """
 
     kwargs = _get_kwargs(
@@ -143,8 +145,8 @@ async def asyncio(
     room_id: str,
     *,
     client: Union[AuthenticatedClient, Client],
-) -> Optional[Union[Error, str]]:
-    """Generate token for single viewer
+) -> Optional[Union[Error, ViewerToken]]:
+    """Generate single broadcaster access token
 
     Args:
         room_id (str):
@@ -154,7 +156,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, str]
+        Union[Error, ViewerToken]
     """
 
     return (

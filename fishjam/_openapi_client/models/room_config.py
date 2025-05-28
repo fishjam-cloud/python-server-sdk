@@ -16,10 +16,6 @@ class RoomConfig:
 
     max_peers: Union[Unset, None, int] = UNSET
     """Maximum amount of peers allowed into the room"""
-    peer_disconnected_timeout: Union[Unset, None, int] = UNSET
-    """Duration (in seconds) after which the peer will be removed if it is disconnected. If not provided, this feature is disabled."""
-    peerless_purge_timeout: Union[Unset, None, int] = UNSET
-    """Duration (in seconds) after which the room will be removed if no peers are connected. If not provided, this feature is disabled."""
     room_type: Union[Unset, RoomConfigRoomType] = RoomConfigRoomType.FULL_FEATURE
     """The use-case of the room. If not provided, this defaults to full_feature."""
     video_codec: Union[Unset, None, RoomConfigVideoCodec] = UNSET
@@ -32,8 +28,6 @@ class RoomConfig:
     def to_dict(self) -> Dict[str, Any]:
         """@private"""
         max_peers = self.max_peers
-        peer_disconnected_timeout = self.peer_disconnected_timeout
-        peerless_purge_timeout = self.peerless_purge_timeout
         room_type: Union[Unset, str] = UNSET
         if not isinstance(self.room_type, Unset):
             room_type = self.room_type.value
@@ -49,10 +43,6 @@ class RoomConfig:
         field_dict.update({})
         if max_peers is not UNSET:
             field_dict["maxPeers"] = max_peers
-        if peer_disconnected_timeout is not UNSET:
-            field_dict["peerDisconnectedTimeout"] = peer_disconnected_timeout
-        if peerless_purge_timeout is not UNSET:
-            field_dict["peerlessPurgeTimeout"] = peerless_purge_timeout
         if room_type is not UNSET:
             field_dict["roomType"] = room_type
         if video_codec is not UNSET:
@@ -67,10 +57,6 @@ class RoomConfig:
         """@private"""
         d = src_dict.copy()
         max_peers = d.pop("maxPeers", UNSET)
-
-        peer_disconnected_timeout = d.pop("peerDisconnectedTimeout", UNSET)
-
-        peerless_purge_timeout = d.pop("peerlessPurgeTimeout", UNSET)
 
         _room_type = d.pop("roomType", UNSET)
         room_type: Union[Unset, RoomConfigRoomType]
@@ -92,8 +78,6 @@ class RoomConfig:
 
         room_config = cls(
             max_peers=max_peers,
-            peer_disconnected_timeout=peer_disconnected_timeout,
-            peerless_purge_timeout=peerless_purge_timeout,
             room_type=room_type,
             video_codec=video_codec,
             webhook_url=webhook_url,

@@ -68,6 +68,7 @@ from .track import Track
 from .track_type import TrackType
 from .user import User
 from .user_listing_response import UserListingResponse
+from .viewer_token import ViewerToken
 
 __all__ = (
     "AddComponentJsonBody",
@@ -130,4 +131,5 @@ __all__ = (
     "TrackType",
     "User",
     "UserListingResponse",
+    "ViewerToken",
 )

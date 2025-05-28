@@ -155,45 +155,6 @@ class TestReceivingNotifications:
             self.assert_event(event)
 
     @pytest.mark.asyncio
-    async def test_peer_connected_disconnected_deleted(
-        self, room_api: FishjamClient, notifier: FishjamNotifier
-    ):
-        event_checks = [
-            ServerMessageRoomCreated,
-            ServerMessagePeerAdded,
-            ServerMessagePeerConnected,
-            ServerMessagePeerDisconnected,
-            ServerMessagePeerDeleted,
-            ServerMessageRoomDeleted,
-        ]
-
-        assert_task = asyncio.create_task(assert_events(notifier, event_checks.copy()))
-
-        notifier_task = asyncio.create_task(notifier.connect())
-        await notifier.wait_ready()
-
-        options = RoomOptions(
-            webhook_url=WEBHOOK_URL,
-            peerless_purge_timeout=2,
-            peer_disconnected_timeout=1,
-        )
-        room = room_api.create_room(options=options)
-
-        _peer, token = room_api.create_peer(room.id)
-
-        peer_socket = PeerSocket(fishjam_url=FISHJAM_URL, auto_close=True)
-        peer_task = asyncio.create_task(peer_socket.connect(token))
-
-        await peer_socket.wait_ready()
-
-        await assert_task
-        await cancel(peer_task)
-        await cancel(notifier_task)
-
-        for event in event_checks:
-            self.assert_event(event)
-
-    @pytest.mark.asyncio
     async def test_peer_connected_room_deleted(
         self, room_api: FishjamClient, notifier: FishjamNotifier
     ):

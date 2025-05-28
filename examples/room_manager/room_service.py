@@ -81,7 +81,6 @@ class RoomService:
         options = RoomOptions(
             max_peers=self.config.max_peers,
             webhook_url=self.config.webhook_url,
-            peerless_purge_timeout=self.config.peerless_purge_timeout,
             room_type=room_type.value if room_type else "full_feature",
         )
 

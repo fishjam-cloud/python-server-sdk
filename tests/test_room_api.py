@@ -31,6 +31,7 @@ MANAGEMENT_TOKEN = "development"
 MAX_PEERS = 10
 CODEC_H264 = "h264"
 AUDIO_ONLY = "audio_only"
+FULL_FEATURE = "full_feature"
 
 
 class TestAuthentication:
@@ -64,10 +65,12 @@ class TestCreateRoom:
             max_peers=None,
             video_codec=None,
             webhook_url=None,
-            peerless_purge_timeout=None,
-            peer_disconnected_timeout=None,
+            room_type=RoomConfigRoomType(FULL_FEATURE),
         )
         config.__setitem__("roomId", room.config.__getitem__("roomId"))
+        config.__setitem__(
+            "peerlessPurgeTimeout", room.config.__getitem__("peerlessPurgeTimeout")
+        )
 
         assert room == Room(
             config=config,
@@ -89,11 +92,12 @@ class TestCreateRoom:
             max_peers=MAX_PEERS,
             video_codec=RoomConfigVideoCodec(CODEC_H264),
             webhook_url=None,
-            peerless_purge_timeout=None,
-            peer_disconnected_timeout=None,
             room_type=RoomConfigRoomType(AUDIO_ONLY),
         )
         config.__setitem__("roomId", room.config.__getitem__("roomId"))
+        config.__setitem__(
+            "peerlessPurgeTimeout", room.config.__getitem__("peerlessPurgeTimeout")
+        )
 
         assert room == Room(
             config=config,
@@ -148,10 +152,12 @@ class TestGetRoom:
             max_peers=None,
             video_codec=None,
             webhook_url=None,
-            peerless_purge_timeout=None,
-            peer_disconnected_timeout=None,
+            room_type=RoomConfigRoomType(FULL_FEATURE),
         )
         config.__setitem__("roomId", room.config.__getitem__("roomId"))
+        config.__setitem__(
+            "peerlessPurgeTimeout", room.config.__getitem__("peerlessPurgeTimeout")
+        )
 
         assert Room(
             peers=[],
@@ -245,3 +251,17 @@ class TestRefreshPeerToken:
 
         with pytest.raises(NotFoundError):
             room_api.refresh_peer_token(room.id, peer_id="invalid_peer_id")
+
+
+class TestCreateLivestreamViewerToken:
+    def test_valid(self, room_api: FishjamClient):
+        room = room_api.create_room(RoomOptions(room_type="livestream"))
+        viewer_token = room_api.create_livestream_viewer_token(room.id)
+
+        assert isinstance(viewer_token, str)
+
+    def test_invalid(self, room_api: FishjamClient):
+        room = room_api.create_room()
+
+        with pytest.raises(BadRequestError):
+            room_api.create_livestream_viewer_token(room.id)
