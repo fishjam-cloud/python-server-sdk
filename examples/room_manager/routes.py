@@ -1,5 +1,4 @@
 from dataclasses import asdict
-from typing import Literal, get_args
 
 from flask import Flask, abort, jsonify, request
 
