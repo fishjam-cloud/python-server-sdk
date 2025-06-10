@@ -55,7 +55,9 @@ class RoomOptions:
     """Enforces video codec for each peer in the room"""
     webhook_url: str | None = None
     """URL where Fishjam notifications will be sent"""
-    room_type: Literal["conference", "audio_only", "livestream"] = "conference"
+    room_type: Literal[
+        "conference", "audio_only", "livestream", "full_feature", "broadcaster"
+    ] = "conference"
     """The use-case of the room. If not provided, this defaults to conference."""
 
 
