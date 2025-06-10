@@ -81,7 +81,7 @@ class RoomService:
         options = RoomOptions(
             max_peers=self.config.max_peers,
             webhook_url=self.config.webhook_url,
-            room_type=room_type.value if room_type else "full_feature",
+            room_type=room_type.value if room_type else "conference",
         )
 
         new_room = self.fishjam_client.create_room(options=options)

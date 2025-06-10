@@ -31,7 +31,8 @@ MANAGEMENT_TOKEN = "development"
 MAX_PEERS = 10
 CODEC_H264 = "h264"
 AUDIO_ONLY = "audio_only"
-FULL_FEATURE = "full_feature"
+CONFERENCE = "conference"
+LIVESTREAM = "livestream"
 
 
 class TestAuthentication:
@@ -65,7 +66,7 @@ class TestCreateRoom:
             max_peers=None,
             video_codec=None,
             webhook_url=None,
-            room_type=RoomConfigRoomType(FULL_FEATURE),
+            room_type=RoomConfigRoomType(CONFERENCE),
         )
         config.__setitem__("roomId", room.config.__getitem__("roomId"))
         config.__setitem__(
@@ -152,7 +153,7 @@ class TestGetRoom:
             max_peers=None,
             video_codec=None,
             webhook_url=None,
-            room_type=RoomConfigRoomType(FULL_FEATURE),
+            room_type=RoomConfigRoomType(CONFERENCE),
         )
         config.__setitem__("roomId", room.config.__getitem__("roomId"))
         config.__setitem__(
@@ -255,7 +256,7 @@ class TestRefreshPeerToken:
 
 class TestCreateLivestreamViewerToken:
     def test_valid(self, room_api: FishjamClient):
-        room = room_api.create_room(RoomOptions(room_type="livestream"))
+        room = room_api.create_room(RoomOptions(room_type=LIVESTREAM))
         viewer_token = room_api.create_livestream_viewer_token(room.id)
 
         assert isinstance(viewer_token, str)

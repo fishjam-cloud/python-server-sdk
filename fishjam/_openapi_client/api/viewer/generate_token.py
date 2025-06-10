@@ -66,7 +66,7 @@ def sync_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
 ) -> Response[Union[Error, ViewerToken]]:
-    """Generate single broadcaster access token
+    """Generate single livestream access token
 
     Args:
         room_id (str):
@@ -95,7 +95,7 @@ def sync(
     *,
     client: Union[AuthenticatedClient, Client],
 ) -> Optional[Union[Error, ViewerToken]]:
-    """Generate single broadcaster access token
+    """Generate single livestream access token
 
     Args:
         room_id (str):
@@ -119,7 +119,7 @@ async def asyncio_detailed(
     *,
     client: Union[AuthenticatedClient, Client],
 ) -> Response[Union[Error, ViewerToken]]:
-    """Generate single broadcaster access token
+    """Generate single livestream access token
 
     Args:
         room_id (str):
@@ -146,7 +146,7 @@ async def asyncio(
     *,
     client: Union[AuthenticatedClient, Client],
 ) -> Optional[Union[Error, ViewerToken]]:
-    """Generate single broadcaster access token
+    """Generate single livestream access token
 
     Args:
         room_id (str):

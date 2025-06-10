@@ -16,8 +16,8 @@ class RoomConfig:
 
     max_peers: Union[Unset, None, int] = UNSET
     """Maximum amount of peers allowed into the room"""
-    room_type: Union[Unset, RoomConfigRoomType] = RoomConfigRoomType.FULL_FEATURE
-    """The use-case of the room. If not provided, this defaults to full_feature."""
+    room_type: Union[Unset, RoomConfigRoomType] = RoomConfigRoomType.CONFERENCE
+    """The use-case of the room. If not provided, this defaults to conference."""
     video_codec: Union[Unset, None, RoomConfigVideoCodec] = UNSET
     """Enforces video codec for each peer in the room"""
     webhook_url: Union[Unset, None, str] = UNSET
