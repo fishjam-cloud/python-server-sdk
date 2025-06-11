@@ -56,9 +56,9 @@ class RoomOptions:
     webhook_url: str | None = None
     """URL where Fishjam notifications will be sent"""
     room_type: Literal[
-        "full_feature", "audio_only", "broadcaster", "livestream"
-    ] = "full_feature"
-    """The use-case of the room. If not provided, this defaults to full_feature."""
+        "conference", "audio_only", "livestream", "full_feature", "broadcaster"
+    ] = "conference"
+    """The use-case of the room. If not provided, this defaults to conference."""
 
 
 @dataclass
@@ -117,9 +117,6 @@ class FishjamClient(Client):
         codec = None
         if options.video_codec:
             codec = RoomConfigVideoCodec(options.video_codec)
-
-        if options.room_type == "livestream":
-            options.room_type = "broadcaster"
 
         config = RoomConfig(
             max_peers=options.max_peers,

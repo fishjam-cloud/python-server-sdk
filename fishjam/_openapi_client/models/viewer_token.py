@@ -8,7 +8,7 @@ T = TypeVar("T", bound="ViewerToken")
 
 @_attrs_define
 class ViewerToken:
-    """Token for authorizing broadcaster viewer connection"""
+    """Token for authorizing livestream viewer connection"""
 
     token: str
     """None"""
