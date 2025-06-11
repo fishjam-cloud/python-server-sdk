@@ -196,7 +196,13 @@
                                 <a class="variable" href="#RoomConfigRoomType.BROADCASTER">BROADCASTER</a>
                         </li>
                         <li>
+                                <a class="variable" href="#RoomConfigRoomType.CONFERENCE">CONFERENCE</a>
+                        </li>
+                        <li>
                                 <a class="variable" href="#RoomConfigRoomType.FULL_FEATURE">FULL_FEATURE</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#RoomConfigRoomType.LIVESTREAM">LIVESTREAM</a>
                         </li>
                 </ul>
 
@@ -248,8 +254,8 @@
 </span><span id="RoomConfig-17"><a href="#RoomConfig-17"><span class="linenos"> 17</span></a>
 </span><span id="RoomConfig-18"><a href="#RoomConfig-18"><span class="linenos"> 18</span></a>    <span class="n">max_peers</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
 </span><span id="RoomConfig-19"><a href="#RoomConfig-19"><span class="linenos"> 19</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Maximum amount of peers allowed into the room&quot;&quot;&quot;</span>
-</span><span id="RoomConfig-20"><a href="#RoomConfig-20"><span class="linenos"> 20</span></a>    <span class="n">room_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="n">RoomConfigRoomType</span><span class="p">]</span> <span class="o">=</span> <span class="n">RoomConfigRoomType</span><span class="o">.</span><span class="n">FULL_FEATURE</span>
-</span><span id="RoomConfig-21"><a href="#RoomConfig-21"><span class="linenos"> 21</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The use-case of the room. If not provided, this defaults to full_feature.&quot;&quot;&quot;</span>
+</span><span id="RoomConfig-20"><a href="#RoomConfig-20"><span class="linenos"> 20</span></a>    <span class="n">room_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="n">RoomConfigRoomType</span><span class="p">]</span> <span class="o">=</span> <span class="n">RoomConfigRoomType</span><span class="o">.</span><span class="n">CONFERENCE</span>
+</span><span id="RoomConfig-21"><a href="#RoomConfig-21"><span class="linenos"> 21</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The use-case of the room. If not provided, this defaults to conference.&quot;&quot;&quot;</span>
 </span><span id="RoomConfig-22"><a href="#RoomConfig-22"><span class="linenos"> 22</span></a>    <span class="n">video_codec</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">RoomConfigVideoCodec</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
 </span><span id="RoomConfig-23"><a href="#RoomConfig-23"><span class="linenos"> 23</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Enforces video codec for each peer in the room&quot;&quot;&quot;</span>
 </span><span id="RoomConfig-24"><a href="#RoomConfig-24"><span class="linenos"> 24</span></a>    <span class="n">webhook_url</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
@@ -345,7 +351,7 @@
                                         <input id="RoomConfig.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
 
-        <span class="name">RoomConfig</span><span class="signature pdoc-code multiline">(<span class="param">   <span class="n">max_peers</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">room_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n"><a href="#RoomConfigRoomType">RoomConfigRoomType</a></span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n"><a href="#RoomConfigRoomType.FULL_FEATURE">RoomConfigRoomType.FULL_FEATURE</a></span><span class="p">:</span> <span class="s1">&#39;full_feature&#39;</span><span class="o">&gt;</span>,</span><span class="param">   <span class="n">video_codec</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="n"><a href="#RoomConfigVideoCodec">RoomConfigVideoCodec</a></span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">  <span class="n">webhook_url</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">RoomConfig</span><span class="signature pdoc-code multiline">(<span class="param">   <span class="n">max_peers</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">room_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n"><a href="#RoomConfigRoomType">RoomConfigRoomType</a></span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n"><a href="#RoomConfigRoomType.CONFERENCE">RoomConfigRoomType.CONFERENCE</a></span><span class="p">:</span> <span class="s1">&#39;conference&#39;</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">video_codec</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="n"><a href="#RoomConfigVideoCodec">RoomConfigVideoCodec</a></span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">  <span class="n">webhook_url</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
                 <label class="view-source-button" for="RoomConfig.__init__-view-source"><span>View Source</span></label>
 
@@ -386,7 +392,7 @@
     </div>
     <a class="headerlink" href="#RoomConfig.room_type"></a>
 
-            <div class="docstring"><p>The use-case of the room. If not provided, this defaults to full_feature.</p>
+            <div class="docstring"><p>The use-case of the room. If not provided, this defaults to conference.</p>
 </div>
 
 
@@ -541,18 +547,20 @@
     </div>
     <a class="headerlink" href="#RoomConfigRoomType"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="RoomConfigRoomType-5"><a href="#RoomConfigRoomType-5"><span class="linenos"> 5</span></a><span class="k">class</span><span class="w"> </span><span class="nc">RoomConfigRoomType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-</span><span id="RoomConfigRoomType-6"><a href="#RoomConfigRoomType-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The use-case of the room. If not provided, this defaults to full_feature.&quot;&quot;&quot;</span>
+</span><span id="RoomConfigRoomType-6"><a href="#RoomConfigRoomType-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The use-case of the room. If not provided, this defaults to conference.&quot;&quot;&quot;</span>
 </span><span id="RoomConfigRoomType-7"><a href="#RoomConfigRoomType-7"><span class="linenos"> 7</span></a>
 </span><span id="RoomConfigRoomType-8"><a href="#RoomConfigRoomType-8"><span class="linenos"> 8</span></a>    <span class="n">AUDIO_ONLY</span> <span class="o">=</span> <span class="s2">&quot;audio_only&quot;</span>
 </span><span id="RoomConfigRoomType-9"><a href="#RoomConfigRoomType-9"><span class="linenos"> 9</span></a>    <span class="n">BROADCASTER</span> <span class="o">=</span> <span class="s2">&quot;broadcaster&quot;</span>
-</span><span id="RoomConfigRoomType-10"><a href="#RoomConfigRoomType-10"><span class="linenos">10</span></a>    <span class="n">FULL_FEATURE</span> <span class="o">=</span> <span class="s2">&quot;full_feature&quot;</span>
-</span><span id="RoomConfigRoomType-11"><a href="#RoomConfigRoomType-11"><span class="linenos">11</span></a>
-</span><span id="RoomConfigRoomType-12"><a href="#RoomConfigRoomType-12"><span class="linenos">12</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="RoomConfigRoomType-13"><a href="#RoomConfigRoomType-13"><span class="linenos">13</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span><span id="RoomConfigRoomType-10"><a href="#RoomConfigRoomType-10"><span class="linenos">10</span></a>    <span class="n">CONFERENCE</span> <span class="o">=</span> <span class="s2">&quot;conference&quot;</span>
+</span><span id="RoomConfigRoomType-11"><a href="#RoomConfigRoomType-11"><span class="linenos">11</span></a>    <span class="n">FULL_FEATURE</span> <span class="o">=</span> <span class="s2">&quot;full_feature&quot;</span>
+</span><span id="RoomConfigRoomType-12"><a href="#RoomConfigRoomType-12"><span class="linenos">12</span></a>    <span class="n">LIVESTREAM</span> <span class="o">=</span> <span class="s2">&quot;livestream&quot;</span>
+</span><span id="RoomConfigRoomType-13"><a href="#RoomConfigRoomType-13"><span class="linenos">13</span></a>
+</span><span id="RoomConfigRoomType-14"><a href="#RoomConfigRoomType-14"><span class="linenos">14</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="RoomConfigRoomType-15"><a href="#RoomConfigRoomType-15"><span class="linenos">15</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>The use-case of the room. If not provided, this defaults to full_feature.</p>
+            <div class="docstring"><p>The use-case of the room. If not provided, this defaults to conference.</p>
 </div>
 
 
@@ -580,6 +588,18 @@
 
 
                             </div>
+                            <div id="RoomConfigRoomType.CONFERENCE" class="classattr">
+                                <div class="attr variable">
+            <span class="name">CONFERENCE</span>        =
+<span class="default_value">&lt;<a href="#RoomConfigRoomType.CONFERENCE">RoomConfigRoomType.CONFERENCE</a>: &#39;conference&#39;&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#RoomConfigRoomType.CONFERENCE"></a>
+
+
+
+                            </div>
                             <div id="RoomConfigRoomType.FULL_FEATURE" class="classattr">
                                 <div class="attr variable">
             <span class="name">FULL_FEATURE</span>        =
@@ -588,6 +608,18 @@
 
     </div>
     <a class="headerlink" href="#RoomConfigRoomType.FULL_FEATURE"></a>
+
+
+
+                            </div>
+                            <div id="RoomConfigRoomType.LIVESTREAM" class="classattr">
+                                <div class="attr variable">
+            <span class="name">LIVESTREAM</span>        =
+<span class="default_value">&lt;<a href="#RoomConfigRoomType.LIVESTREAM">RoomConfigRoomType.LIVESTREAM</a>: &#39;livestream&#39;&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#RoomConfigRoomType.LIVESTREAM"></a>
 
 
 
