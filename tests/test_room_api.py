@@ -154,6 +154,7 @@ class TestGetRoom:
             video_codec=None,
             webhook_url=None,
             room_type=RoomConfigRoomType(CONFERENCE),
+            public=False,
         )
         config.__setitem__("roomId", room.config.__getitem__("roomId"))
         config.__setitem__(
