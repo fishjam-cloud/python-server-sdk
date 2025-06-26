@@ -125,6 +125,7 @@ class FishjamClient(Client):
             video_codec=codec,
             webhook_url=options.webhook_url,
             room_type=RoomConfigRoomType(options.room_type),
+            public=options.public,
         )
 
         room = cast(
