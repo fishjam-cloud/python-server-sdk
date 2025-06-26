@@ -59,6 +59,8 @@ class RoomOptions:
         "conference", "audio_only", "livestream", "full_feature", "broadcaster"
     ] = "conference"
     """The use-case of the room. If not provided, this defaults to conference."""
+    public: bool = False
+    """True if livestream viewers can omit specifying a token."""
 
 
 @dataclass
