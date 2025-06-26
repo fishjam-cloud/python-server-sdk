@@ -16,7 +16,7 @@ class RoomConfig:
 
     max_peers: Union[Unset, None, int] = UNSET
     """Maximum amount of peers allowed into the room"""
-    public: Union[Unset, None, bool] = UNSET
+    public: Union[Unset, bool] = False
     """True if livestream viewers can omit specifying a token."""
     room_type: Union[Unset, RoomConfigRoomType] = RoomConfigRoomType.CONFERENCE
     """The use-case of the room. If not provided, this defaults to conference."""
