@@ -59,6 +59,8 @@ class RoomOptions:
         "conference", "audio_only", "livestream", "full_feature", "broadcaster"
     ] = "conference"
     """The use-case of the room. If not provided, this defaults to conference."""
+    public: bool = False
+    """True if livestream viewers can omit specifying a token."""
 
 
 @dataclass
@@ -123,6 +125,7 @@ class FishjamClient(Client):
             video_codec=codec,
             webhook_url=options.webhook_url,
             room_type=RoomConfigRoomType(options.room_type),
+            public=options.public,
         )
 
         room = cast(

@@ -16,6 +16,8 @@ class RoomConfig:
 
     max_peers: Union[Unset, None, int] = UNSET
     """Maximum amount of peers allowed into the room"""
+    public: Union[Unset, bool] = False
+    """True if livestream viewers can omit specifying a token."""
     room_type: Union[Unset, RoomConfigRoomType] = RoomConfigRoomType.CONFERENCE
     """The use-case of the room. If not provided, this defaults to conference."""
     video_codec: Union[Unset, None, RoomConfigVideoCodec] = UNSET
@@ -28,6 +30,7 @@ class RoomConfig:
     def to_dict(self) -> Dict[str, Any]:
         """@private"""
         max_peers = self.max_peers
+        public = self.public
         room_type: Union[Unset, str] = UNSET
         if not isinstance(self.room_type, Unset):
             room_type = self.room_type.value
@@ -43,6 +46,8 @@ class RoomConfig:
         field_dict.update({})
         if max_peers is not UNSET:
             field_dict["maxPeers"] = max_peers
+        if public is not UNSET:
+            field_dict["public"] = public
         if room_type is not UNSET:
             field_dict["roomType"] = room_type
         if video_codec is not UNSET:
@@ -57,6 +62,8 @@ class RoomConfig:
         """@private"""
         d = src_dict.copy()
         max_peers = d.pop("maxPeers", UNSET)
+
+        public = d.pop("public", UNSET)
 
         _room_type = d.pop("roomType", UNSET)
         room_type: Union[Unset, RoomConfigRoomType]
@@ -78,6 +85,7 @@ class RoomConfig:
 
         room_config = cls(
             max_peers=max_peers,
+            public=public,
             room_type=room_type,
             video_codec=video_codec,
             webhook_url=webhook_url,
