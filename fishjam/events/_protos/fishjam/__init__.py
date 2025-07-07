@@ -91,6 +91,18 @@ class ServerMessage(betterproto.Message):
     peer_deleted: "ServerMessagePeerDeleted" = betterproto.message_field(
         21, group="content"
     )
+    stream_connected: "ServerMessageStreamConnected" = betterproto.message_field(
+        22, group="content"
+    )
+    stream_disconnected: "ServerMessageStreamDisconnected" = betterproto.message_field(
+        23, group="content"
+    )
+    viewer_connected: "ServerMessageViewerConnected" = betterproto.message_field(
+        24, group="content"
+    )
+    viewer_disconnected: "ServerMessageViewerConnected" = betterproto.message_field(
+        25, group="content"
+    )
 
     def __post_init__(self) -> None:
         super().__post_init__()
@@ -275,3 +287,33 @@ class ServerMessageTrackMetadataUpdated(betterproto.Message):
     peer_id: str = betterproto.string_field(2, group="endpoint_info")
     component_id: str = betterproto.string_field(3, group="endpoint_info")
     track: "ServerMessageTrack" = betterproto.message_field(4)
+
+
+@dataclass(eq=False, repr=False)
+class ServerMessageStreamConnected(betterproto.Message):
+    """Notification sent when streamer successfully connects"""
+
+    stream_id: str = betterproto.string_field(1)
+
+
+@dataclass(eq=False, repr=False)
+class ServerMessageStreamDisconnected(betterproto.Message):
+    """Notification sent when streamer disconnects"""
+
+    stream_id: str = betterproto.string_field(1)
+
+
+@dataclass(eq=False, repr=False)
+class ServerMessageViewerConnected(betterproto.Message):
+    """Notification sent when viewer successfully connects"""
+
+    stream_id: str = betterproto.string_field(1)
+    viewer_id: str = betterproto.string_field(2)
+
+
+@dataclass(eq=False, repr=False)
+class ServerMessageViewerDisconnected(betterproto.Message):
+    """Notification sent when viewer disconnects"""
+
+    stream_id: str = betterproto.string_field(1)
+    viewer_id: str = betterproto.string_field(2)
