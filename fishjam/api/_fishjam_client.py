@@ -12,7 +12,12 @@ from fishjam._openapi_client.api.room import delete_room as room_delete_room
 from fishjam._openapi_client.api.room import get_all_rooms as room_get_all_rooms
 from fishjam._openapi_client.api.room import get_room as room_get_room
 from fishjam._openapi_client.api.room import refresh_token as room_refresh_token
-from fishjam._openapi_client.api.viewer import generate_token as viewer_generate_token
+from fishjam._openapi_client.api.streamer import (
+    generate_streamer_token as streamer_generate_streamer_token,
+)
+from fishjam._openapi_client.api.viewer import (
+    generate_viewer_token as viewer_generate_viewer_token,
+)
 from fishjam._openapi_client.models import (
     AddPeerJsonBody,
     Peer,
@@ -24,6 +29,7 @@ from fishjam._openapi_client.models import (
     RoomCreateDetailsResponse,
     RoomDetailsResponse,
     RoomsListingResponse,
+    StreamerToken,
     ViewerToken,
 )
 from fishjam._openapi_client.models.peer_options_web_rtc_metadata import (
@@ -176,7 +182,17 @@ class FishjamClient(Client):
         """Generates viewer token for livestream rooms"""
 
         response = cast(
-            ViewerToken, self._request(viewer_generate_token, room_id=room_id)
+            ViewerToken, self._request(viewer_generate_viewer_token, room_id=room_id)
+        )
+
+        return response.token
+
+    def create_livestream_streamer_token(self, room_id: str) -> str:
+        """Generates streamer token for livestream rooms"""
+
+        response = cast(
+            StreamerToken,
+            self._request(streamer_generate_streamer_token, room_id=room_id),
         )
 
         return response.token
