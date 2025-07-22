@@ -141,8 +141,9 @@ Documentation is generated via openapi-python-client.
 
 To update documentation you need to:
 
-- in `poetry_scripts.py` change branch from which openapi.yaml should be downloaded
-- run `poetry run update-client`
+- Go to https://github.com/fishjam-cloud/fishjam/blob/main/openapi.yaml and open the raw file.
+- Copy the URL.
+- Run `poetry run update_client <copied-url>`
 
 ## License
 

@@ -100,7 +100,7 @@ class ServerMessage(betterproto.Message):
     viewer_connected: "ServerMessageViewerConnected" = betterproto.message_field(
         24, group="content"
     )
-    viewer_disconnected: "ServerMessageViewerConnected" = betterproto.message_field(
+    viewer_disconnected: "ServerMessageViewerDisconnected" = betterproto.message_field(
         25, group="content"
     )
 

@@ -63,6 +63,7 @@ from .s3_credentials import S3Credentials
 from .shutdown_status import ShutdownStatus
 from .shutdown_status_response import ShutdownStatusResponse
 from .sip_credentials import SIPCredentials
+from .streamer_token import StreamerToken
 from .subscription_config import SubscriptionConfig
 from .track import Track
 from .track_type import TrackType
@@ -126,6 +127,7 @@ __all__ = (
     "ShutdownStatus",
     "ShutdownStatusResponse",
     "SIPCredentials",
+    "StreamerToken",
     "SubscriptionConfig",
     "Track",
     "TrackType",

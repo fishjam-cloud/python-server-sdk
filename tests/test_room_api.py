@@ -267,3 +267,17 @@ class TestCreateLivestreamViewerToken:
 
         with pytest.raises(BadRequestError):
             room_api.create_livestream_viewer_token(room.id)
+
+
+class TestCreateLivestreamStreamerToken:
+    def test_valid(self, room_api: FishjamClient):
+        room = room_api.create_room(RoomOptions(room_type=LIVESTREAM))
+        streamer_token = room_api.create_livestream_streamer_token(room.id)
+
+        assert isinstance(streamer_token, str)
+
+    def test_invalid(self, room_api: FishjamClient):
+        room = room_api.create_room()
+
+        with pytest.raises(BadRequestError):
+            room_api.create_livestream_streamer_token(room.id)
