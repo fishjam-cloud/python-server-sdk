@@ -24,14 +24,14 @@ class PeerAccess:
     room: Resource
     peer: Resource
     peer_token: str
-    url: str
 
 
 class RoomService:
     def __init__(self, args: Namespace, logger: Logger):
         self.fishjam_client = FishjamClient(
-            fishjam_url=args.fishjam_url,
+            fishjam_id=args.fishjam_id,
             management_token=args.management_token,
+            fishjam_url=args.fishjam_url,
         )
         self.url = args.fishjam_url.replace("http", "ws")
         self.room_name_to_room_id: dict[str, str] = {}
@@ -105,7 +105,6 @@ class RoomService:
             room=Resource(id=room_id, name=room_name),
             peer=Resource(id=peer.id, name=peer_name),
             peer_token=token,
-            url=self.url,
         )
 
         self.peer_name_to_access[peer_name] = peer_access

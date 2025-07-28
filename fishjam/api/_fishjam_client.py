@@ -82,11 +82,21 @@ class PeerOptions:
 class FishjamClient(Client):
     """Allows for managing rooms"""
 
-    def __init__(self, fishjam_url: str, management_token: str):
+    def __init__(
+        self,
+        fishjam_id: str,
+        management_token: str,
+        *,
+        fishjam_url: str | None = None,
+    ):
         """
         Create FishjamClient instance, providing the fishjam url and managment token.
         """
-        super().__init__(fishjam_url=fishjam_url, management_token=management_token)
+        super().__init__(
+            fishjam_id=fishjam_id,
+            management_token=management_token,
+            fishjam_url=fishjam_url,
+        )
 
     def create_peer(
         self, room_id: str, options: PeerOptions | None = None

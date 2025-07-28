@@ -61,3 +61,7 @@ class InternalServerError(HTTPError):
     def __init__(self, errors):
         """@private"""
         super().__init__(errors)
+
+
+class MissingFishjamIdError(Exception):
+    pass
