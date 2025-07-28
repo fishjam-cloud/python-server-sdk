@@ -33,7 +33,6 @@ class RoomService:
             management_token=args.management_token,
             fishjam_url=args.fishjam_url,
         )
-        self.url = args.fishjam_url.replace("http", "ws")
         self.room_name_to_room_id: dict[str, str] = {}
         self.peer_name_to_access: dict[str, PeerAccess] = {}
         self.logger = logger
