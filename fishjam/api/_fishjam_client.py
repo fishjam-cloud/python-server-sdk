@@ -90,7 +90,7 @@ class FishjamClient(Client):
         fishjam_url: str | None = None,
     ):
         """
-        Create FishjamClient instance, providing the fishjam url and managment token.
+        Create a FishjamClient instance, providing the fishjam id and management token.
         """
         super().__init__(
             fishjam_id=fishjam_id,
