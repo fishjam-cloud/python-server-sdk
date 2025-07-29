@@ -21,6 +21,7 @@ from fishjam.events.allowed_notifications import (
     ALLOWED_NOTIFICATIONS,
     AllowedNotification,
 )
+from fishjam.utils import get_fishjam_url
 
 
 class FishjamNotifier:
@@ -28,14 +29,19 @@ class FishjamNotifier:
     Allows for receiving WebSocket messages from Fishjam.
     """
 
-    def __init__(self, fishjam_url: str, management_token: str):
+    def __init__(
+        self,
+        fishjam_id: str,
+        management_token: str,
+        *,
+        fishjam_url: str | None = None,
+    ):
         """
-        Create FishjamNotifier instance, providing the fishjam url and management token.
+        Create FishjamNotifier instance, providing the fishjam id and management token.
         """
 
-        self._fishjam_url = (
-            f"{fishjam_url.replace('http', 'ws')}/socket/server/websocket"
-        )
+        websocket_url = get_fishjam_url(fishjam_id, fishjam_url).replace("http", "ws")
+        self._fishjam_url = f"{websocket_url}/socket/server/websocket"
         self._management_token: str = management_token
         self._websocket: client.WebSocketClientProtocol | None = None
         self._ready: bool = False

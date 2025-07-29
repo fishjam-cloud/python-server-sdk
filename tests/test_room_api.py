@@ -26,6 +26,7 @@ from fishjam.errors import (
 
 HOST = "fishjam" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
 FISHJAM_URL = f"http://{HOST}:5002"
+FISHJAM_ID = ""
 MANAGEMENT_TOKEN = "development"
 
 MAX_PEERS = 10
@@ -37,15 +38,13 @@ LIVESTREAM = "livestream"
 
 class TestAuthentication:
     def test_invalid_token(self):
-        room_api = FishjamClient(fishjam_url=FISHJAM_URL, management_token="invalid")
+        room_api = FishjamClient(FISHJAM_ID, "invalid", fishjam_url=FISHJAM_URL)
 
         with pytest.raises(UnauthorizedError):
             room_api.create_room()
 
     def test_valid_token(self):
-        room_api = FishjamClient(
-            fishjam_url=FISHJAM_URL, management_token=MANAGEMENT_TOKEN
-        )
+        room_api = FishjamClient(FISHJAM_ID, MANAGEMENT_TOKEN, fishjam_url=FISHJAM_URL)
 
         room = room_api.create_room()
         all_rooms = room_api.get_all_rooms()
@@ -55,7 +54,7 @@ class TestAuthentication:
 
 @pytest.fixture
 def room_api():
-    return FishjamClient(fishjam_url=FISHJAM_URL, management_token=MANAGEMENT_TOKEN)
+    return FishjamClient(FISHJAM_ID, MANAGEMENT_TOKEN, fishjam_url=FISHJAM_URL)
 
 
 class TestCreateRoom:

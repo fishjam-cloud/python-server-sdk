@@ -24,6 +24,7 @@ from tests.support.webhook_notifier import run_server
 
 HOST = "fishjam" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
 FISHJAM_URL = f"http://{HOST}:5002"
+FISHJAM_ID = ""
 SERVER_API_TOKEN = "development"
 WEBHOOK_ADDRESS = "test" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
 WEBHOOK_URL = f"http://{WEBHOOK_ADDRESS}:5000/webhook"
@@ -56,7 +57,9 @@ class TestConnectingToServer:
     @pytest.mark.asyncio
     async def test_valid_credentials(self):
         notifier = FishjamNotifier(
-            fishjam_url=FISHJAM_URL, management_token=SERVER_API_TOKEN
+            fishjam_id=FISHJAM_ID,
+            management_token=SERVER_API_TOKEN,
+            fishjam_url=FISHJAM_URL,
         )
 
         @notifier.on_server_notification
@@ -73,7 +76,7 @@ class TestConnectingToServer:
     @pytest.mark.asyncio
     async def test_invalid_credentials(self):
         notifier = FishjamNotifier(
-            fishjam_url=FISHJAM_URL, management_token="wrong_token"
+            fishjam_id="", management_token="wrong_token", fishjam_url=FISHJAM_URL
         )
 
         task = asyncio.create_task(notifier.connect())
@@ -84,13 +87,15 @@ class TestConnectingToServer:
 
 @pytest.fixture
 def room_api():
-    return FishjamClient(fishjam_url=FISHJAM_URL, management_token=SERVER_API_TOKEN)
+    return FishjamClient(FISHJAM_ID, SERVER_API_TOKEN, fishjam_url=FISHJAM_URL)
 
 
 @pytest.fixture
 def notifier():
     notifier = FishjamNotifier(
-        fishjam_url=FISHJAM_URL, management_token=SERVER_API_TOKEN
+        fishjam_id=FISHJAM_ID,
+        management_token=SERVER_API_TOKEN,
+        fishjam_url=FISHJAM_URL,
     )
 
     return notifier
