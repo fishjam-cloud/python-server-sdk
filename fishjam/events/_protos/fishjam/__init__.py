@@ -2,7 +2,7 @@
 # sources: protos/fishjam/server_notifications.proto
 # plugin: python-betterproto
 # This file has been @generated
-import warnings
+
 from dataclasses import dataclass
 
 import betterproto
@@ -13,7 +13,6 @@ class ServerMessageEventType(betterproto.Enum):
 
     EVENT_TYPE_UNSPECIFIED = 0
     EVENT_TYPE_SERVER_NOTIFICATION = 1
-    EVENT_TYPE_METRICS = 2
 
 
 class ServerMessageTrackType(betterproto.Enum):
@@ -61,9 +60,6 @@ class ServerMessage(betterproto.Message):
     room_deleted: "ServerMessageRoomDeleted" = betterproto.message_field(
         11, group="content"
     )
-    metrics_report: "ServerMessageMetricsReport" = betterproto.message_field(
-        12, group="content"
-    )
     hls_playable: "ServerMessageHlsPlayable" = betterproto.message_field(
         13, group="content"
     )
@@ -103,13 +99,6 @@ class ServerMessage(betterproto.Message):
     viewer_disconnected: "ServerMessageViewerDisconnected" = betterproto.message_field(
         25, group="content"
     )
-
-    def __post_init__(self) -> None:
-        super().__post_init__()
-        if self.is_set("metrics_report"):
-            warnings.warn(
-                "ServerMessage.metrics_report is deprecated", DeprecationWarning
-            )
 
 
 @dataclass(eq=False, repr=False)
@@ -208,13 +197,6 @@ class ServerMessageRoomDeleted(betterproto.Message):
     """Notification sent when a room is deleted"""
 
     room_id: str = betterproto.string_field(1)
-
-
-@dataclass(eq=False, repr=False)
-class ServerMessageMetricsReport(betterproto.Message):
-    """Message containing WebRTC metrics from FJ"""
-
-    metrics: str = betterproto.string_field(1)
 
 
 @dataclass(eq=False, repr=False)
