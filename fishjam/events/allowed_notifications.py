@@ -10,9 +10,14 @@ from fishjam.events import (
     ServerMessageRoomCrashed,
     ServerMessageRoomCreated,
     ServerMessageRoomDeleted,
+    ServerMessageStreamConnected,
+    ServerMessageStreamDisconnected,
     ServerMessageTrackAdded,
+    ServerMessageTrackData,
     ServerMessageTrackMetadataUpdated,
     ServerMessageTrackRemoved,
+    ServerMessageViewerConnected,
+    ServerMessageViewerDisconnected,
 )
 
 ALLOWED_NOTIFICATIONS = (
@@ -25,9 +30,14 @@ ALLOWED_NOTIFICATIONS = (
     ServerMessagePeerDisconnected,
     ServerMessagePeerMetadataUpdated,
     ServerMessagePeerCrashed,
+    ServerMessageStreamConnected,
+    ServerMessageStreamDisconnected,
+    ServerMessageViewerConnected,
+    ServerMessageViewerDisconnected,
     ServerMessageTrackAdded,
     ServerMessageTrackRemoved,
     ServerMessageTrackMetadataUpdated,
+    ServerMessageTrackData,
 )
 
 AllowedNotification = Union[
@@ -40,7 +50,12 @@ AllowedNotification = Union[
     ServerMessagePeerDisconnected,
     ServerMessagePeerMetadataUpdated,
     ServerMessagePeerCrashed,
+    ServerMessageStreamConnected,
+    ServerMessageStreamDisconnected,
+    ServerMessageViewerConnected,
+    ServerMessageViewerDisconnected,
     ServerMessageTrackAdded,
     ServerMessageTrackRemoved,
     ServerMessageTrackMetadataUpdated,
+    ServerMessageTrackData,
 ]
