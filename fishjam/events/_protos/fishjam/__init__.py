@@ -99,6 +99,9 @@ class ServerMessage(betterproto.Message):
     viewer_disconnected: "ServerMessageViewerDisconnected" = betterproto.message_field(
         25, group="content"
     )
+    track_data: "ServerMessageTrackData" = betterproto.message_field(
+        26, group="content"
+    )
 
 
 @dataclass(eq=False, repr=False)
@@ -269,6 +272,16 @@ class ServerMessageTrackMetadataUpdated(betterproto.Message):
     peer_id: str = betterproto.string_field(2, group="endpoint_info")
     component_id: str = betterproto.string_field(3, group="endpoint_info")
     track: "ServerMessageTrack" = betterproto.message_field(4)
+
+
+@dataclass(eq=False, repr=False)
+class ServerMessageTrackData(betterproto.Message):
+    """Notification containing a chunk of a track's data stream"""
+
+    room_id: str = betterproto.string_field(1)
+    peer_id: str = betterproto.string_field(2)
+    track: "ServerMessageTrack" = betterproto.message_field(3)
+    data: bytes = betterproto.bytes_field(4)
 
 
 @dataclass(eq=False, repr=False)
