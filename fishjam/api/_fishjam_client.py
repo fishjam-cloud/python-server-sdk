@@ -22,22 +22,20 @@ from fishjam._openapi_client.models import (
     AddPeerJsonBody,
     Peer,
     PeerDetailsResponse,
+    PeerOptionsAgent,
     PeerOptionsWebRTC,
+    PeerOptionsWebRTCMetadata,
     PeerRefreshTokenResponse,
     PeerType,
     RoomConfig,
     RoomConfigRoomType,
+    RoomConfigVideoCodec,
     RoomCreateDetailsResponse,
     RoomDetailsResponse,
     RoomsListingResponse,
     StreamerToken,
     ViewerToken,
 )
-from fishjam._openapi_client.models.add_peer_json_body import PeerOptionsAgent
-from fishjam._openapi_client.models.peer_options_web_rtc_metadata import (
-    PeerOptionsWebRTCMetadata,
-)
-from fishjam._openapi_client.models.room_config_video_codec import RoomConfigVideoCodec
 from fishjam.agent import Agent
 from fishjam.api._client import Client
 
