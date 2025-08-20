@@ -58,7 +58,7 @@ def room_api():
 
 
 class TestCreateRoom:
-    def test_no_params(self, room_api):
+    def test_no_params(self, room_api: FishjamClient):
         room = room_api.create_room()
 
         config = RoomConfig(
@@ -71,6 +71,7 @@ class TestCreateRoom:
         config.__setitem__(
             "peerlessPurgeTimeout", room.config.__getitem__("peerlessPurgeTimeout")
         )
+        config.__setitem__("geoLoc", room.config.__getitem__("geoLoc"))
 
         assert room == Room(
             config=config,
@@ -98,6 +99,7 @@ class TestCreateRoom:
         config.__setitem__(
             "peerlessPurgeTimeout", room.config.__getitem__("peerlessPurgeTimeout")
         )
+        config.__setitem__("geoLoc", room.config.__getitem__("geoLoc"))
 
         assert room == Room(
             config=config,
@@ -158,6 +160,7 @@ class TestGetRoom:
         config.__setitem__(
             "peerlessPurgeTimeout", room.config.__getitem__("peerlessPurgeTimeout")
         )
+        config.__setitem__("geoLoc", room.config.__getitem__("geoLoc"))
 
         assert Room(
             peers=[],
