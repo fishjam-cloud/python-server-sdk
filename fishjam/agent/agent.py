@@ -6,7 +6,7 @@ import asyncio
 import functools
 from contextlib import suppress
 from types import TracebackType
-from typing import Any, Callable
+from typing import Any, Callable, TypeAlias, TypeVar
 
 import betterproto
 from websockets import ClientConnection, CloseCode, ConnectionClosed
@@ -20,7 +20,9 @@ from fishjam.events._protos.fishjam import (
     AgentResponseTrackData,
 )
 
-type TrackDataHandler = Callable[[AgentResponseTrackData], None]
+TrackDataHandler: TypeAlias = Callable[[AgentResponseTrackData], None]
+
+TrackDataHandlerT = TypeVar("TrackDataHandlerT", bound=TrackDataHandler)
 
 
 def _close_ok(e: ConnectionClosed):
@@ -53,7 +55,7 @@ class Agent:
 
         self._dispatch_handler = _message_handler
 
-    def on_track_data[Handler: TrackDataHandler](self, handler: Handler) -> Handler:
+    def on_track_data(self, handler: TrackDataHandlerT) -> TrackDataHandlerT:
         """
         Decorator used for defining a handler for track data messages from Fishjam.
         """
