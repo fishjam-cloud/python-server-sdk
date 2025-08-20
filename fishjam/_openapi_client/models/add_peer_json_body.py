@@ -1,9 +1,20 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    Dict,
+    List,
+    Type,
+    TypeVar,
+    Union,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..models.peer_type import PeerType
+
 if TYPE_CHECKING:
+    from ..models.peer_options_agent import PeerOptionsAgent
     from ..models.peer_options_web_rtc import PeerOptionsWebRTC
 
 
@@ -14,18 +25,26 @@ T = TypeVar("T", bound="AddPeerJsonBody")
 class AddPeerJsonBody:
     """ """
 
-    options: "PeerOptionsWebRTC"
-    """Options specific to the WebRTC peer"""
-    type: str
+    options: Union["PeerOptionsAgent", "PeerOptionsWebRTC"]
+    """Peer-specific options"""
+    type: PeerType
     """Peer type"""
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
     """@private"""
 
     def to_dict(self) -> Dict[str, Any]:
         """@private"""
-        options = self.options.to_dict()
+        from ..models.peer_options_web_rtc import PeerOptionsWebRTC
 
-        type = self.type
+        options: Dict[str, Any]
+
+        if isinstance(self.options, PeerOptionsWebRTC):
+            options = self.options.to_dict()
+
+        else:
+            options = self.options.to_dict()
+
+        type = self.type.value
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -41,12 +60,33 @@ class AddPeerJsonBody:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         """@private"""
+        from ..models.peer_options_agent import PeerOptionsAgent
         from ..models.peer_options_web_rtc import PeerOptionsWebRTC
 
         d = src_dict.copy()
-        options = PeerOptionsWebRTC.from_dict(d.pop("options"))
 
-        type = d.pop("type")
+        def _parse_options(
+            data: object,
+        ) -> Union["PeerOptionsAgent", "PeerOptionsWebRTC"]:
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemas_peer_options_type_0 = PeerOptionsWebRTC.from_dict(
+                    data
+                )
+
+                return componentsschemas_peer_options_type_0
+            except:  # noqa: E722
+                pass
+            if not isinstance(data, dict):
+                raise TypeError()
+            componentsschemas_peer_options_type_1 = PeerOptionsAgent.from_dict(data)
+
+            return componentsschemas_peer_options_type_1
+
+        options = _parse_options(d.pop("options"))
+
+        type = PeerType(d.pop("type"))
 
         add_peer_json_body = cls(
             options=options,

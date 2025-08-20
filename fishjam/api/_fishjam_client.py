@@ -5,6 +5,7 @@ Fishjam client used to manage rooms
 from dataclasses import dataclass
 from typing import Any, List, Literal, Tuple, cast
 
+from fishjam.agent import Agent
 from fishjam._openapi_client.api.room import add_peer as room_add_peer
 from fishjam._openapi_client.api.room import create_room as room_create_room
 from fishjam._openapi_client.api.room import delete_peer as room_delete_peer
@@ -24,6 +25,7 @@ from fishjam._openapi_client.models import (
     PeerDetailsResponse,
     PeerOptionsWebRTC,
     PeerRefreshTokenResponse,
+    PeerType,
     RoomConfig,
     RoomConfigRoomType,
     RoomCreateDetailsResponse,
@@ -32,6 +34,7 @@ from fishjam._openapi_client.models import (
     StreamerToken,
     ViewerToken,
 )
+from fishjam._openapi_client.models.add_peer_json_body import PeerOptionsAgent
 from fishjam._openapi_client.models.peer_options_web_rtc_metadata import (
     PeerOptionsWebRTCMetadata,
 )
@@ -99,7 +102,9 @@ class FishjamClient(Client):
         )
 
     def create_peer(
-        self, room_id: str, options: PeerOptions | None = None
+        self,
+        room_id: str,
+        options: PeerOptions | None = None,
     ) -> Tuple[Peer, str]:
         """
         Creates peer in the room
@@ -111,12 +116,11 @@ class FishjamClient(Client):
         """
         options = options or PeerOptions()
 
-        peer_type = "webrtc"
         peer_metadata = self.__parse_peer_metadata(options.metadata)
         peer_options = PeerOptionsWebRTC(
             enable_simulcast=options.enable_simulcast, metadata=peer_metadata
         )
-        json_body = AddPeerJsonBody(type=peer_type, options=peer_options)
+        json_body = AddPeerJsonBody(type=PeerType.WEBRTC, options=peer_options)
 
         resp = cast(
             PeerDetailsResponse,
@@ -124,6 +128,16 @@ class FishjamClient(Client):
         )
 
         return (resp.data.peer, resp.data.token)
+
+    def create_agent(self, room_id: str):
+        json_body = AddPeerJsonBody(type=PeerType.AGENT, options=PeerOptionsAgent())
+
+        resp = cast(
+            PeerDetailsResponse,
+            self._request(room_add_peer, room_id=room_id, json_body=json_body),
+        )
+
+        return Agent(resp.data.peer.id, resp.data.token, self._fishjam_url)
 
     def create_room(self, options: RoomOptions | None = None) -> Room:
         """

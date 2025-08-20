@@ -7,11 +7,20 @@ from .error import Error
 from .peer import Peer
 from .peer_details_response import PeerDetailsResponse
 from .peer_details_response_data import PeerDetailsResponseData
+from .peer_options_agent import PeerOptionsAgent
 from .peer_options_web_rtc import PeerOptionsWebRTC
 from .peer_options_web_rtc_metadata import PeerOptionsWebRTCMetadata
+from .peer_options_web_rtc_subscribe import PeerOptionsWebRTCSubscribe
+from .peer_options_web_rtc_subscribe_audio_format import (
+    PeerOptionsWebRTCSubscribeAudioFormat,
+)
+from .peer_options_web_rtc_subscribe_audio_sample_rate import (
+    PeerOptionsWebRTCSubscribeAudioSampleRate,
+)
 from .peer_refresh_token_response import PeerRefreshTokenResponse
 from .peer_refresh_token_response_data import PeerRefreshTokenResponseData
 from .peer_status import PeerStatus
+from .peer_type import PeerType
 from .room import Room
 from .room_config import RoomConfig
 from .room_config_room_type import RoomConfigRoomType
@@ -33,11 +42,16 @@ __all__ = (
     "Peer",
     "PeerDetailsResponse",
     "PeerDetailsResponseData",
+    "PeerOptionsAgent",
     "PeerOptionsWebRTC",
     "PeerOptionsWebRTCMetadata",
+    "PeerOptionsWebRTCSubscribe",
+    "PeerOptionsWebRTCSubscribeAudioFormat",
+    "PeerOptionsWebRTCSubscribeAudioSampleRate",
     "PeerRefreshTokenResponse",
     "PeerRefreshTokenResponseData",
     "PeerStatus",
+    "PeerType",
     "Room",
     "RoomConfig",
     "RoomConfigRoomType",

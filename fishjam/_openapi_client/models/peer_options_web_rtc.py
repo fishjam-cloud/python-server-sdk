@@ -7,6 +7,7 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.peer_options_web_rtc_metadata import PeerOptionsWebRTCMetadata
+    from ..models.peer_options_web_rtc_subscribe import PeerOptionsWebRTCSubscribe
 
 
 T = TypeVar("T", bound="PeerOptionsWebRTC")
@@ -20,6 +21,8 @@ class PeerOptionsWebRTC:
     """Enables the peer to use simulcast"""
     metadata: Union[Unset, "PeerOptionsWebRTCMetadata"] = UNSET
     """Custom peer metadata"""
+    subscribe: Union[Unset, None, "PeerOptionsWebRTCSubscribe"] = UNSET
+    """Configure server-side subscriptions to the peer's tracks"""
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
     """@private"""
 
@@ -30,6 +33,10 @@ class PeerOptionsWebRTC:
         if not isinstance(self.metadata, Unset):
             metadata = self.metadata.to_dict()
 
+        subscribe: Union[Unset, None, Dict[str, Any]] = UNSET
+        if not isinstance(self.subscribe, Unset):
+            subscribe = self.subscribe.to_dict() if self.subscribe else None
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
@@ -37,6 +44,8 @@ class PeerOptionsWebRTC:
             field_dict["enableSimulcast"] = enable_simulcast
         if metadata is not UNSET:
             field_dict["metadata"] = metadata
+        if subscribe is not UNSET:
+            field_dict["subscribe"] = subscribe
 
         return field_dict
 
@@ -44,6 +53,7 @@ class PeerOptionsWebRTC:
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         """@private"""
         from ..models.peer_options_web_rtc_metadata import PeerOptionsWebRTCMetadata
+        from ..models.peer_options_web_rtc_subscribe import PeerOptionsWebRTCSubscribe
 
         d = src_dict.copy()
         enable_simulcast = d.pop("enableSimulcast", UNSET)
@@ -55,9 +65,19 @@ class PeerOptionsWebRTC:
         else:
             metadata = PeerOptionsWebRTCMetadata.from_dict(_metadata)
 
+        _subscribe = d.pop("subscribe", UNSET)
+        subscribe: Union[Unset, None, PeerOptionsWebRTCSubscribe]
+        if _subscribe is None:
+            subscribe = None
+        elif isinstance(_subscribe, Unset):
+            subscribe = UNSET
+        else:
+            subscribe = PeerOptionsWebRTCSubscribe.from_dict(_subscribe)
+
         peer_options_web_rtc = cls(
             enable_simulcast=enable_simulcast,
             metadata=metadata,
+            subscribe=subscribe,
         )
 
         peer_options_web_rtc.additional_properties = d

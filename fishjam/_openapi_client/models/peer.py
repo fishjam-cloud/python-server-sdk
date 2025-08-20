@@ -4,6 +4,7 @@ from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
 from ..models.peer_status import PeerStatus
+from ..models.peer_type import PeerType
 
 if TYPE_CHECKING:
     from ..models.track import Track
@@ -24,7 +25,7 @@ class Peer:
     """Informs about the peer status"""
     tracks: List["Track"]
     """List of all peer's tracks"""
-    type: str
+    type: PeerType
     """Peer type"""
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
     """@private"""
@@ -41,7 +42,7 @@ class Peer:
 
             tracks.append(tracks_item)
 
-        type = self.type
+        type = self.type.value
 
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -76,7 +77,7 @@ class Peer:
 
             tracks.append(tracks_item)
 
-        type = d.pop("type")
+        type = PeerType(d.pop("type"))
 
         peer = cls(
             id=id,
