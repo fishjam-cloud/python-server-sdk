@@ -5,7 +5,6 @@ Fishjam client used to manage rooms
 from dataclasses import dataclass
 from typing import Any, List, Literal, Tuple, cast
 
-from fishjam.agent import Agent
 from fishjam._openapi_client.api.room import add_peer as room_add_peer
 from fishjam._openapi_client.api.room import create_room as room_create_room
 from fishjam._openapi_client.api.room import delete_peer as room_delete_peer
@@ -39,6 +38,7 @@ from fishjam._openapi_client.models.peer_options_web_rtc_metadata import (
     PeerOptionsWebRTCMetadata,
 )
 from fishjam._openapi_client.models.room_config_video_codec import RoomConfigVideoCodec
+from fishjam.agent import Agent
 from fishjam.api._client import Client
 
 
