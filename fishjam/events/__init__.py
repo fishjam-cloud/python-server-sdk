@@ -15,15 +15,13 @@ from fishjam.events._protos.fishjam import (
     ServerMessageRoomDeleted,
     ServerMessageStreamConnected,
     ServerMessageStreamDisconnected,
-    ServerMessageTrack,
     ServerMessageTrackAdded,
-    ServerMessageTrackData,
     ServerMessageTrackMetadataUpdated,
     ServerMessageTrackRemoved,
-    ServerMessageTrackType,
     ServerMessageViewerConnected,
     ServerMessageViewerDisconnected,
 )
+from fishjam.events._protos.fishjam.notifications import Track, TrackEncoding, TrackType
 
 __all__ = [
     "ServerMessageRoomCreated",
@@ -37,12 +35,12 @@ __all__ = [
     "ServerMessagePeerCrashed",
     "ServerMessageStreamConnected",
     "ServerMessageStreamDisconnected",
-    "ServerMessageTrack",
-    "ServerMessageTrackType",
     "ServerMessageTrackAdded",
-    "ServerMessageTrackData",
     "ServerMessageTrackMetadataUpdated",
     "ServerMessageTrackRemoved",
     "ServerMessageViewerConnected",
     "ServerMessageViewerDisconnected",
+    "Track",
+    "TrackEncoding",
+    "TrackType",
 ]
