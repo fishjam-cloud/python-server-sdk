@@ -12,6 +12,7 @@ from fishjam import (
 )
 from fishjam._openapi_client.models import (
     PeerStatus,
+    PeerType,
     RoomConfig,
     RoomConfigRoomType,
     RoomConfigVideoCodec,
@@ -185,7 +186,7 @@ class TestCreatePeer:
 
         peer = Peer(
             id=webrtc_peer.id,
-            type="webrtc",
+            type=PeerType.WEBRTC,
             status=PeerStatus("disconnected"),
             tracks=[],
             metadata={"peer": {}, "server": server_metadata},
