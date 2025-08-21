@@ -1,8 +1,8 @@
 from enum import Enum
 
 
-class PeerOptionsWebRTCSubscribeAudioFormat(str, Enum):
-    """The format to use for the output audio"""
+class SubscribeOptionsAudioFormat(str, Enum):
+    """The format of the output audio"""
 
     PCM16 = "pcm16"
 

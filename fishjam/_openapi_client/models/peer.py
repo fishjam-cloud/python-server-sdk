@@ -1,4 +1,4 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
+from typing import TYPE_CHECKING, Any, Dict, List, Optional, Type, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -7,6 +7,7 @@ from ..models.peer_status import PeerStatus
 from ..models.peer_type import PeerType
 
 if TYPE_CHECKING:
+    from ..models.subscribe_options import SubscribeOptions
     from ..models.track import Track
 
 
@@ -27,6 +28,8 @@ class Peer:
     """List of all peer's tracks"""
     type: PeerType
     """Peer type"""
+    subscribe: Optional["SubscribeOptions"]
+    """Configuration of server-side subscriptions to the peer's tracks"""
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
     """@private"""
 
@@ -44,6 +47,8 @@ class Peer:
 
         type = self.type.value
 
+        subscribe = self.subscribe.to_dict() if self.subscribe else None
+
         field_dict: Dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
@@ -53,6 +58,7 @@ class Peer:
                 "status": status,
                 "tracks": tracks,
                 "type": type,
+                "subscribe": subscribe,
             }
         )
 
@@ -61,6 +67,7 @@ class Peer:
     @classmethod
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         """@private"""
+        from ..models.subscribe_options import SubscribeOptions
         from ..models.track import Track
 
         d = src_dict.copy()
@@ -79,12 +86,20 @@ class Peer:
 
         type = PeerType(d.pop("type"))
 
+        _subscribe = d.pop("subscribe")
+        subscribe: Optional[SubscribeOptions]
+        if _subscribe is None:
+            subscribe = None
+        else:
+            subscribe = SubscribeOptions.from_dict(_subscribe)
+
         peer = cls(
             id=id,
             metadata=metadata,
             status=status,
             tracks=tracks,
             type=type,
+            subscribe=subscribe,
         )
 
         peer.additional_properties = d

@@ -34,6 +34,7 @@ from fishjam._openapi_client.models import (
     RoomDetailsResponse,
     RoomsListingResponse,
     StreamerToken,
+    SubscribeOptions,
     ViewerToken,
 )
 from fishjam.agent import Agent
@@ -78,6 +79,7 @@ class PeerOptions:
     """Enables the peer to use simulcast"""
     metadata: dict[str, Any] | None = None
     """Peer metadata"""
+    subscribe: SubscribeOptions | None = None
 
 
 class FishjamClient(Client):
@@ -116,7 +118,9 @@ class FishjamClient(Client):
 
         peer_metadata = self.__parse_peer_metadata(options.metadata)
         peer_options = PeerOptionsWebRTC(
-            enable_simulcast=options.enable_simulcast, metadata=peer_metadata
+            enable_simulcast=options.enable_simulcast,
+            metadata=peer_metadata,
+            subscribe=options.subscribe,
         )
         json_body = AddPeerJsonBody(type=PeerType.WEBRTC, options=peer_options)
 

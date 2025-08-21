@@ -1,7 +1,7 @@
 from enum import IntEnum
 
 
-class PeerOptionsWebRTCSubscribeAudioSampleRate(IntEnum):
+class SubscribeOptionsAudioSampleRate(IntEnum):
     VALUE_16000 = 16000
     VALUE_24000 = 24000
 

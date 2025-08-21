@@ -10,13 +10,6 @@ from .peer_details_response_data import PeerDetailsResponseData
 from .peer_options_agent import PeerOptionsAgent
 from .peer_options_web_rtc import PeerOptionsWebRTC
 from .peer_options_web_rtc_metadata import PeerOptionsWebRTCMetadata
-from .peer_options_web_rtc_subscribe import PeerOptionsWebRTCSubscribe
-from .peer_options_web_rtc_subscribe_audio_format import (
-    PeerOptionsWebRTCSubscribeAudioFormat,
-)
-from .peer_options_web_rtc_subscribe_audio_sample_rate import (
-    PeerOptionsWebRTCSubscribeAudioSampleRate,
-)
 from .peer_refresh_token_response import PeerRefreshTokenResponse
 from .peer_refresh_token_response_data import PeerRefreshTokenResponseData
 from .peer_status import PeerStatus
@@ -30,6 +23,9 @@ from .room_create_details_response_data import RoomCreateDetailsResponseData
 from .room_details_response import RoomDetailsResponse
 from .rooms_listing_response import RoomsListingResponse
 from .streamer_token import StreamerToken
+from .subscribe_options import SubscribeOptions
+from .subscribe_options_audio_format import SubscribeOptionsAudioFormat
+from .subscribe_options_audio_sample_rate import SubscribeOptionsAudioSampleRate
 from .track import Track
 from .track_type import TrackType
 from .viewer_token import ViewerToken
@@ -45,9 +41,6 @@ __all__ = (
     "PeerOptionsAgent",
     "PeerOptionsWebRTC",
     "PeerOptionsWebRTCMetadata",
-    "PeerOptionsWebRTCSubscribe",
-    "PeerOptionsWebRTCSubscribeAudioFormat",
-    "PeerOptionsWebRTCSubscribeAudioSampleRate",
     "PeerRefreshTokenResponse",
     "PeerRefreshTokenResponseData",
     "PeerStatus",
@@ -61,6 +54,9 @@ __all__ = (
     "RoomDetailsResponse",
     "RoomsListingResponse",
     "StreamerToken",
+    "SubscribeOptions",
+    "SubscribeOptionsAudioFormat",
+    "SubscribeOptionsAudioSampleRate",
     "Track",
     "TrackType",
     "ViewerToken",

@@ -2,20 +2,16 @@ from typing import Any, Dict, Type, TypeVar, Union
 
 from attrs import define as _attrs_define
 
-from ..models.peer_options_web_rtc_subscribe_audio_format import (
-    PeerOptionsWebRTCSubscribeAudioFormat,
-)
-from ..models.peer_options_web_rtc_subscribe_audio_sample_rate import (
-    PeerOptionsWebRTCSubscribeAudioSampleRate,
-)
+from ..models.subscribe_options_audio_format import SubscribeOptionsAudioFormat
+from ..models.subscribe_options_audio_sample_rate import SubscribeOptionsAudioSampleRate
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="PeerOptionsWebRTCSubscribe")
+T = TypeVar("T", bound="SubscribeOptions")
 
 
 @_attrs_define
-class PeerOptionsWebRTCSubscribe:
-    """Configure server-side subscriptions to the peer's tracks
+class SubscribeOptions:
+    """Configuration of server-side subscriptions to the peer's tracks
 
     Example:
         {'audioFormat': 'pcm16'}
@@ -23,13 +19,13 @@ class PeerOptionsWebRTCSubscribe:
     """
 
     audio_format: Union[
-        Unset, PeerOptionsWebRTCSubscribeAudioFormat
-    ] = PeerOptionsWebRTCSubscribeAudioFormat.PCM16
-    """The format to use for the output audio"""
+        Unset, SubscribeOptionsAudioFormat
+    ] = SubscribeOptionsAudioFormat.PCM16
+    """The format of the output audio"""
     audio_sample_rate: Union[
-        Unset, PeerOptionsWebRTCSubscribeAudioSampleRate
-    ] = PeerOptionsWebRTCSubscribeAudioSampleRate.VALUE_16000
-    """The sample rate to use for the output audio"""
+        Unset, SubscribeOptionsAudioSampleRate
+    ] = SubscribeOptionsAudioSampleRate.VALUE_16000
+    """The sample rate of the output audio"""
 
     def to_dict(self) -> Dict[str, Any]:
         """@private"""
@@ -55,24 +51,22 @@ class PeerOptionsWebRTCSubscribe:
         """@private"""
         d = src_dict.copy()
         _audio_format = d.pop("audioFormat", UNSET)
-        audio_format: Union[Unset, PeerOptionsWebRTCSubscribeAudioFormat]
+        audio_format: Union[Unset, SubscribeOptionsAudioFormat]
         if isinstance(_audio_format, Unset):
             audio_format = UNSET
         else:
-            audio_format = PeerOptionsWebRTCSubscribeAudioFormat(_audio_format)
+            audio_format = SubscribeOptionsAudioFormat(_audio_format)
 
         _audio_sample_rate = d.pop("audioSampleRate", UNSET)
-        audio_sample_rate: Union[Unset, PeerOptionsWebRTCSubscribeAudioSampleRate]
+        audio_sample_rate: Union[Unset, SubscribeOptionsAudioSampleRate]
         if isinstance(_audio_sample_rate, Unset):
             audio_sample_rate = UNSET
         else:
-            audio_sample_rate = PeerOptionsWebRTCSubscribeAudioSampleRate(
-                _audio_sample_rate
-            )
+            audio_sample_rate = SubscribeOptionsAudioSampleRate(_audio_sample_rate)
 
-        peer_options_web_rtc_subscribe = cls(
+        subscribe_options = cls(
             audio_format=audio_format,
             audio_sample_rate=audio_sample_rate,
         )
 
-        return peer_options_web_rtc_subscribe
+        return subscribe_options

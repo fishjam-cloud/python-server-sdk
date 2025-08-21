@@ -7,7 +7,7 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.peer_options_web_rtc_metadata import PeerOptionsWebRTCMetadata
-    from ..models.peer_options_web_rtc_subscribe import PeerOptionsWebRTCSubscribe
+    from ..models.subscribe_options import SubscribeOptions
 
 
 T = TypeVar("T", bound="PeerOptionsWebRTC")
@@ -21,8 +21,8 @@ class PeerOptionsWebRTC:
     """Enables the peer to use simulcast"""
     metadata: Union[Unset, "PeerOptionsWebRTCMetadata"] = UNSET
     """Custom peer metadata"""
-    subscribe: Union[Unset, None, "PeerOptionsWebRTCSubscribe"] = UNSET
-    """Configure server-side subscriptions to the peer's tracks"""
+    subscribe: Union[Unset, None, "SubscribeOptions"] = UNSET
+    """Configuration of server-side subscriptions to the peer's tracks"""
     additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
     """@private"""
 
@@ -53,7 +53,7 @@ class PeerOptionsWebRTC:
     def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
         """@private"""
         from ..models.peer_options_web_rtc_metadata import PeerOptionsWebRTCMetadata
-        from ..models.peer_options_web_rtc_subscribe import PeerOptionsWebRTCSubscribe
+        from ..models.subscribe_options import SubscribeOptions
 
         d = src_dict.copy()
         enable_simulcast = d.pop("enableSimulcast", UNSET)
@@ -66,13 +66,13 @@ class PeerOptionsWebRTC:
             metadata = PeerOptionsWebRTCMetadata.from_dict(_metadata)
 
         _subscribe = d.pop("subscribe", UNSET)
-        subscribe: Union[Unset, None, PeerOptionsWebRTCSubscribe]
+        subscribe: Union[Unset, None, SubscribeOptions]
         if _subscribe is None:
             subscribe = None
         elif isinstance(_subscribe, Unset):
             subscribe = UNSET
         else:
-            subscribe = PeerOptionsWebRTCSubscribe.from_dict(_subscribe)
+            subscribe = SubscribeOptions.from_dict(_subscribe)
 
         peer_options_web_rtc = cls(
             enable_simulcast=enable_simulcast,
