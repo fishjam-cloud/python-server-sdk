@@ -25,6 +25,7 @@ from fishjam._openapi_client.models import (
     PeerOptionsAgent,
     PeerOptionsWebRTC,
     PeerOptionsWebRTCMetadata,
+    PeerOptionsWebRTCSubscribeOptions,
     PeerRefreshTokenResponse,
     PeerType,
     RoomConfig,
@@ -120,7 +121,7 @@ class FishjamClient(Client):
         peer_options = PeerOptionsWebRTC(
             enable_simulcast=options.enable_simulcast,
             metadata=peer_metadata,
-            subscribe=options.subscribe,
+            subscribe=self.__parse_subscribe_options(options.subscribe),
         )
         json_body = AddPeerJsonBody(type=PeerType.WEBRTC, options=peer_options)
 
@@ -233,3 +234,11 @@ class FishjamClient(Client):
             peer_metadata.additional_properties[key] = value
 
         return peer_metadata
+
+    def __parse_subscribe_options(
+        self,
+        options: SubscribeOptions | None,
+    ) -> PeerOptionsWebRTCSubscribeOptions | None:
+        if options is None:
+            return None
+        return PeerOptionsWebRTCSubscribeOptions.from_dict(options.to_dict())

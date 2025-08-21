@@ -10,6 +10,13 @@ from .peer_details_response_data import PeerDetailsResponseData
 from .peer_options_agent import PeerOptionsAgent
 from .peer_options_web_rtc import PeerOptionsWebRTC
 from .peer_options_web_rtc_metadata import PeerOptionsWebRTCMetadata
+from .peer_options_web_rtc_subscribe_options import PeerOptionsWebRTCSubscribeOptions
+from .peer_options_web_rtc_subscribe_options_audio_format import (
+    PeerOptionsWebRTCSubscribeOptionsAudioFormat,
+)
+from .peer_options_web_rtc_subscribe_options_audio_sample_rate import (
+    PeerOptionsWebRTCSubscribeOptionsAudioSampleRate,
+)
 from .peer_refresh_token_response import PeerRefreshTokenResponse
 from .peer_refresh_token_response_data import PeerRefreshTokenResponseData
 from .peer_status import PeerStatus
@@ -41,6 +48,9 @@ __all__ = (
     "PeerOptionsAgent",
     "PeerOptionsWebRTC",
     "PeerOptionsWebRTCMetadata",
+    "PeerOptionsWebRTCSubscribeOptions",
+    "PeerOptionsWebRTCSubscribeOptionsAudioFormat",
+    "PeerOptionsWebRTCSubscribeOptionsAudioSampleRate",
     "PeerRefreshTokenResponse",
     "PeerRefreshTokenResponseData",
     "PeerStatus",
