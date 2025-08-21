@@ -21,6 +21,7 @@ from fishjam.api._fishjam_client import (
     PeerOptions,
     Room,
     RoomOptions,
+    SubscribeOptions,
 )
 
 __all__ = [
@@ -28,6 +29,7 @@ __all__ = [
     "FishjamNotifier",
     "receive_binary",
     "PeerOptions",
+    "SubscribeOptions",
     "RoomOptions",
     "Room",
     "Peer",

@@ -41,7 +41,7 @@ class Agent:
         """
 
         self.id = id
-        self._socket_url = f"{fishjam_url}/socket/agent/websocket"
+        self._socket_url = f"{fishjam_url}/socket/agent/websocket".replace("http", "ws")
         self._token = token
         self._msg_loop: asyncio.Task[None] | None = None
 
@@ -90,8 +90,9 @@ class Agent:
         if not self._msg_loop:
             return
 
-        if self._msg_loop.cancel(code):
-            with suppress(asyncio.CancelledError):
+        with suppress(TimeoutError):
+            self._msg_loop.cancel(code)
+            async with asyncio.timeout(0):
                 await self._msg_loop
 
         self._msg_loop = None

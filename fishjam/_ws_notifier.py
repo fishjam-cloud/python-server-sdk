@@ -3,7 +3,7 @@ Notifier listening to WebSocket events
 """
 
 import asyncio
-from typing import Callable, cast
+from typing import Any, Callable, Coroutine, cast
 
 import betterproto
 from websockets.asyncio import client
@@ -22,6 +22,11 @@ from fishjam.events.allowed_notifications import (
     AllowedNotification,
 )
 from fishjam.utils import get_fishjam_url
+
+NotificationHandler = (
+    Callable[[AllowedNotification], None]
+    | Callable[[AllowedNotification], Coroutine[Any, Any, None]]
+)
 
 
 class FishjamNotifier:
@@ -48,9 +53,9 @@ class FishjamNotifier:
 
         self._ready_event: asyncio.Event | None = None
 
-        self._notification_handler: Callable | None = None
+        self._notification_handler: NotificationHandler | None = None
 
-    def on_server_notification(self, handler: Callable[[AllowedNotification], None]):
+    def on_server_notification(self, handler: NotificationHandler):
         """
         Decorator used for defining handler for Fishjam Notifications
         """
@@ -135,7 +140,9 @@ class FishjamNotifier:
             _which, message = betterproto.which_one_of(message, "content")
 
             if isinstance(message, ALLOWED_NOTIFICATIONS):
-                self._notification_handler(message)
+                res = self._notification_handler(message)
+                if asyncio.iscoroutine(res):
+                    await res
 
     async def _subscribe_event(self, event: ServerMessageEventType):
         if not self._websocket:

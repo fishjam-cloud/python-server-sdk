@@ -8,9 +8,9 @@ jobs:
     strategy: &python-matrix
       matrix:
         python-version:
-          - "3.10"
           - "3.11"
           - "3.12"
+          - "3.13"
     name: static-checks
     steps:
       - name: Checkout code
@@ -28,7 +28,7 @@ jobs:
           enable-cache: true
 
       - name: Install project dependencies
-        run: uv sync --locked --all-extras --dev
+        run: uv sync --locked --all-extras --dev --all-packages
 
       - name: Format
         run: uv run format_check

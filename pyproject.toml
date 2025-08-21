@@ -3,7 +3,7 @@ name = "fishjam-server-sdk"
 version = "0.20.0"
 description = "Python server SDK for the Fishjam"
 authors = [{ name = "Fishjam Team", email = "contact@fishjam.io" }]
-requires-python = ">=3.10"
+requires-python = ">=3.11"
 readme = "README.md"
 license = "Apache-2.0"
 dependencies = [
@@ -12,7 +12,7 @@ dependencies = [
     "aenum>=3.1.15,<4",
     "python-dateutil>=2.8.2,<3",
     "betterproto==2.0.0b6",
-    "httpx>=0.20.0,<0.26.0",
+    "httpx>=0.28.0,<0.29.0",
     "attrs>=21.3.0",
     "flask-cors>=6.0.1,<7",
 ]
@@ -38,8 +38,8 @@ dev = [
     "pdoc>=15.0.0,<16",
     "mkdocs>=1.5.3,<2",
     "mike>=2.0.0,<3",
-    "openapi-python-client>=0.16.0,<0.17",
-    "ruff>=0.1.7,<0.2",
+    "openapi-python-client>=0.25.0,<0.26",
+    "ruff>=0.2,<0.3",
     "flask>=3.0.3,<4",
     "pyright>=1.1.383,<2",
 ]
@@ -53,6 +53,9 @@ test = [
 [tool.uv]
 default-groups = ["dev", "test"]
 
+[tool.uv.workspace]
+members = ["examples/transcription", "."]
+
 [tool.hatch.build.targets.sdist]
 include = ["fishjam"]
 
@@ -63,14 +66,11 @@ include = ["fishjam"]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
-[tool.ruff]
-select = ["F", "I"]
-
 [tool.ruff.lint]
 select = ["F", "I", "E"]
 ignore = []
 
-[tool.ruff.extend-per-file-ignores]
+[tool.ruff.lint.extend-per-file-ignores]
 "fishjam/_openapi_client/**" = ["E501"]
 
 [tool.pytest.ini_options]
