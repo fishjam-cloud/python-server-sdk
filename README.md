@@ -91,12 +91,12 @@ asyncio.run(test_notifier())
 
 ## Local development
 
-The project is managed using [poetry](https://python-poetry.org/). Make sure to have it installed first.
+The project is managed using [uv](https://docs.astral.sh/uv/). Make sure to have it installed first.
 
 Then install the dependencies
 
 ```console
-poetry install
+uv sync
 ```
 
 ## Generating protobuf
@@ -104,7 +104,7 @@ poetry install
 To generate Python protobuf definitions run
 
 ```console
-poetry run ./compile_proto.sh
+uv run ./compile_proto.sh
 ```
 
 ## Testing
@@ -112,13 +112,13 @@ poetry run ./compile_proto.sh
 You can test the SDK by running
 
 ```console
-poetry run ci_test
+uv run ci_test
 ```
 
 In local development you can use
 
 ```console
-poetry run local_test
+uv run local_test
 ```
 
 ## Format & Lint
@@ -126,13 +126,13 @@ poetry run local_test
 You can format code by running
 
 ```console
-poetry run format
+uv run format
 ```
 
 You can check linter by running
 
 ```console
-poetry run lint
+uv run lint
 ```
 
 ## Documentation
@@ -143,7 +143,7 @@ To update documentation you need to:
 
 - Go to https://github.com/fishjam-cloud/fishjam/blob/main/openapi.yaml and open the raw file.
 - Copy the URL.
-- Run `poetry run update_client <copied-url>`
+- Run `uv run update_client <copied-url>`
 
 ## License
 

@@ -1,20 +1,19 @@
+ARG UV_VERSION=0.8
 ARG PYTHON_VERSION=3.10
+FROM ghcr.io/astral-sh/uv:$UV_VERSION AS uv-image
 
-FROM python:$PYTHON_VERSION-slim as builder
+ARG PYTHON_VERSION
+FROM python:$PYTHON_VERSION-slim AS builder
 
-ARG POETRY_VERSION=2.1
-
-ENV POETRY_HOME=/opt/poetry
-ENV POETRY_VIRTUALENVS_IN_PROJECT=1
-ENV POETRY_VIRTUALENVS_CREATE=1
-ENV PYTHONDONTWRITEBYTECODE=1
-ENV PYTHONUNBUFFERED=1
-ENV POETRY_CACHE_DIR=/opt/.cache
-
-RUN pip install "poetry==${POETRY_VERSION}"
+COPY --from=uv-image /uv /uvx /bin/
 
 WORKDIR /app
 
-COPY pyproject.toml poetry.lock /app/
-RUN poetry install --with=dev --no-root && rm -rf $POETRY_CACHE_DIR
+RUN --mount=type=cache,target=/root/.cache/uv \
+    --mount=type=bind,source=uv.lock,target=uv.lock \
+    --mount=type=bind,source=pyproject.toml,target=pyproject.toml \
+    uv sync --locked --no-install-project
+
 COPY . /app/
+RUN --mount=type=cache,target=/root/.cache/uv \
+    uv sync --locked

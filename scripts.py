@@ -35,7 +35,7 @@ def run_tests():
 
 
 def run_local_test():
-    check_exit_code('poetry run pytest -m "not file_component_sources" -vv')
+    check_exit_code('uv run pytest -m "not file_component_sources" -vv')
 
 
 def run_formatter():
