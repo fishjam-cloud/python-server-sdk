@@ -8,33 +8,39 @@ on:
   workflow_dispatch:
     inputs:
       code_branch_tag:
-        description: 'The branch or tag to run the workflow from'
+        description: "The branch or tag to run the workflow from"
         required: true
-        default: 'main'
+        default: "main"
 
 jobs:
   # Build the documentation and upload the static HTML files as an artifact.
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           ref: ${{ github.event.inputs.ref }}
-      - uses: actions/setup-python@v4
+
+      - uses: actions/setup-python@v5
         with:
-          python-version: '3.12'
-      - uses: abatilo/actions-poetry@v2
-      - run: poetry install
-      - run: poetry run generate_docs
+          python-version-file: "pyproject.toml"
+
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version-file: "pyproject.toml"
+          enable-cache: true
+
+      - run: uv install
+      - run: uv run generate_docs
       - run: git fetch origin gh-pages --depth=1
       - run: git config user.name ci-bot
       - run: git config user.email ci-bot@example.com
-      - run: poetry run mike deploy latest
+      - run: uv run mike deploy latest
       - run: git checkout gh-pages
-            
+
       # Push changes to gh-pages branch
       - name: Push changes
         uses: ad-m/github-push-action@master
         with:
-            github_token: ${{ secrets.GITHUB_TOKEN }}
-            branch: gh-pages
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
