@@ -5,7 +5,7 @@
 All available options are defined in [arguments.py](room_manager/arguments.py).
 
 ```console
-uv sync
+uv sync --all-packages
 uv run room_manager # Room Manager has to be started in the project root directory
 ```
 

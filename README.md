@@ -96,7 +96,7 @@ The project is managed using [uv](https://docs.astral.sh/uv/). Make sure to have
 Then install the dependencies
 
 ```console
-uv sync
+uv sync --all-packages
 ```
 
 ## Generating protobuf
