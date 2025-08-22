@@ -1,8 +1,6 @@
-""" Contains all the data models used in inputs/outputs """
+"""Contains all the data models used in inputs/outputs"""
 
 from .add_peer_body import AddPeerBody
-from .broadcaster_verify_token_response import BroadcasterVerifyTokenResponse
-from .broadcaster_verify_token_response_data import BroadcasterVerifyTokenResponseData
 from .error import Error
 from .peer import Peer
 from .peer_details_response import PeerDetailsResponse
@@ -39,8 +37,6 @@ from .viewer_token import ViewerToken
 
 __all__ = (
     "AddPeerBody",
-    "BroadcasterVerifyTokenResponse",
-    "BroadcasterVerifyTokenResponseData",
     "Error",
     "Peer",
     "PeerDetailsResponse",
