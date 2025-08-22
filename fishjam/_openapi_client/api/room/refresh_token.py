@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Optional, Union
 
 import httpx
 
@@ -13,8 +13,8 @@ from ...types import Response
 def _get_kwargs(
     room_id: str,
     id: str,
-) -> Dict[str, Any]:
-    return {
+) -> dict[str, Any]:
+    _kwargs: dict[str, Any] = {
         "method": "post",
         "url": "/room/{room_id}/peer/{id}/refresh_token".format(
             room_id=room_id,
@@ -22,27 +22,29 @@ def _get_kwargs(
         ),
     }
 
+    return _kwargs
+
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
 ) -> Optional[Union[Error, PeerRefreshTokenResponse]]:
-    if response.status_code == HTTPStatus.CREATED:
+    if response.status_code == 201:
         response_201 = PeerRefreshTokenResponse.from_dict(response.json())
 
         return response_201
-    if response.status_code == HTTPStatus.BAD_REQUEST:
+    if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
         return response_400
-    if response.status_code == HTTPStatus.UNAUTHORIZED:
+    if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
         return response_401
-    if response.status_code == HTTPStatus.NOT_FOUND:
+    if response.status_code == 404:
         response_404 = Error.from_dict(response.json())
 
         return response_404
-    if response.status_code == HTTPStatus.SERVICE_UNAVAILABLE:
+    if response.status_code == 503:
         response_503 = Error.from_dict(response.json())
 
         return response_503

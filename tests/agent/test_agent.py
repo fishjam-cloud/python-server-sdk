@@ -1,14 +1,17 @@
 import asyncio
 import os
+from contextlib import suppress
 
 import pytest
+import pytest_asyncio
 
 from fishjam import FishjamClient, FishjamNotifier
 from fishjam.agent.agent import Agent
 from fishjam.agent.errors import AgentAuthError
 from fishjam.api._fishjam_client import Room
-from fishjam.events import (
-    ServerMessagePeerConnected,
+from fishjam.events._protos.fishjam import (
+    ServerMessagePeerDisconnected,
+    ServerMessagePeerMetadataUpdated,
 )
 from fishjam.events.allowed_notifications import AllowedNotification
 
@@ -37,15 +40,29 @@ def agent(room: Room, room_api: FishjamClient):
     room_api.delete_peer(room.id, agent.id)
 
 
-@pytest.fixture
-def notifier():
+@pytest_asyncio.fixture
+async def notifier():
     notifier = FishjamNotifier(
         fishjam_id=FISHJAM_ID,
         management_token=SERVER_API_TOKEN,
         fishjam_url=FISHJAM_URL,
     )
 
-    return notifier
+    @notifier.on_server_notification
+    def _(notification: AllowedNotification):
+        print(f"Too fast!: {notification}")
+        pass
+
+    task = asyncio.create_task(notifier.connect())
+
+    await asyncio.sleep(2)
+
+    yield notifier
+
+    task.cancel()
+    with suppress(asyncio.TimeoutError):
+        async with asyncio.timeout(0):
+            await task
 
 
 class TestAgentApi:
@@ -55,7 +72,7 @@ class TestAgentApi:
 
         assert len(room.peers) == 1
         assert room.peers[0].id == agent.id
-        assert room.peers[0].type == "agent"
+        assert room.peers[0].type_ == "agent"
         assert room.peers[0].status == "disconnected"
 
         room_api.delete_peer(room.id, agent.id)
@@ -85,10 +102,14 @@ class TestAgentConnection:
         def _(notification: AllowedNotification):
             print(f"Received notification {notification}")
             if (
-                isinstance(notification, ServerMessagePeerConnected)
+                isinstance(notification, ServerMessagePeerMetadataUpdated)
                 and notification.peer_id == agent.id
             ):
                 connect_event.set()
+            if (
+                isinstance(notification, ServerMessagePeerDisconnected)
+                and notification.peer_id == agent.id
+            ):
                 disconnect_event.set()
 
         await agent.connect()
@@ -128,10 +149,14 @@ class TestAgentConnection:
         def _(notification: AllowedNotification):
             print(f"Received notification {notification}")
             if (
-                isinstance(notification, ServerMessagePeerConnected)
+                isinstance(notification, ServerMessagePeerMetadataUpdated)
                 and notification.peer_id == agent.id
             ):
                 connect_event.set()
+            if (
+                isinstance(notification, ServerMessagePeerDisconnected)
+                and notification.peer_id == agent.id
+            ):
                 disconnect_event.set()
 
         async with agent:

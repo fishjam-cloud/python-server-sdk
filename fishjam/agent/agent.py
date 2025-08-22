@@ -74,12 +74,8 @@ class Agent:
         await self.disconnect()
 
         websocket = await client.connect(self._socket_url)
-        try:
-            await self._authenticate(websocket)
-            self._msg_loop = asyncio.create_task(self._recv_loop(websocket))
-        except ConnectionClosed as e:
-            if not _close_ok(e):
-                raise AgentAuthError(e.reason)
+        await self._authenticate(websocket)
+        self._msg_loop = asyncio.create_task(self._recv_loop(websocket))
 
     async def disconnect(self, code: CloseCode = CloseCode.NORMAL_CLOSURE):
         """
@@ -114,7 +110,12 @@ class Agent:
 
     async def _authenticate(self, websocket: ClientConnection):
         req = AgentRequest(auth_request=AgentRequestAuthRequest(token=self._token))
-        await websocket.send(bytes(req))
+        try:
+            await websocket.send(bytes(req))
+            # Fishjam will close the socket if auth fails and send a response on success
+            await websocket.recv(decode=False)
+        except ConnectionClosed as e:
+            raise AgentAuthError(e.reason)
 
     async def _recv_loop(self, websocket: ClientConnection):
         close_code = CloseCode.NORMAL_CLOSURE

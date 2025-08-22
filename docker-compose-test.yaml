@@ -42,7 +42,7 @@ services:
       context: .
       dockerfile: tests/Dockerfile
       args:
-        PYTHON_VERSION: ${PYTHON_VERSION:-3.10}
+        PYTHON_VERSION: ${PYTHON_VERSION:-3.11}
     command: uv run pytest
     environment:
       DOCKER_TEST: "TRUE"

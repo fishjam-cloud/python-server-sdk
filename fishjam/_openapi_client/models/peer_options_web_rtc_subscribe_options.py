@@ -1,4 +1,9 @@
-from typing import Any, Dict, Type, TypeVar, Union
+from collections.abc import Mapping
+from typing import (
+    Any,
+    TypeVar,
+    Union,
+)
 
 from attrs import define as _attrs_define
 
@@ -20,19 +25,21 @@ class PeerOptionsWebRTCSubscribeOptions:
     Example:
         {'audioFormat': 'pcm16'}
 
+    Attributes:
+        audio_format (Union[Unset, PeerOptionsWebRTCSubscribeOptionsAudioFormat]): The format of the output audio
+            Default: PeerOptionsWebRTCSubscribeOptionsAudioFormat.PCM16. Example: pcm16.
+        audio_sample_rate (Union[Unset, PeerOptionsWebRTCSubscribeOptionsAudioSampleRate]): The sample rate of the
+            output audio Default: PeerOptionsWebRTCSubscribeOptionsAudioSampleRate.VALUE_16000. Example: 16000.
     """
 
     audio_format: Union[
         Unset, PeerOptionsWebRTCSubscribeOptionsAudioFormat
     ] = PeerOptionsWebRTCSubscribeOptionsAudioFormat.PCM16
-    """The format of the output audio"""
     audio_sample_rate: Union[
         Unset, PeerOptionsWebRTCSubscribeOptionsAudioSampleRate
     ] = PeerOptionsWebRTCSubscribeOptionsAudioSampleRate.VALUE_16000
-    """The sample rate of the output audio"""
 
-    def to_dict(self) -> Dict[str, Any]:
-        """@private"""
+    def to_dict(self) -> dict[str, Any]:
         audio_format: Union[Unset, str] = UNSET
         if not isinstance(self.audio_format, Unset):
             audio_format = self.audio_format.value
@@ -41,7 +48,8 @@ class PeerOptionsWebRTCSubscribeOptions:
         if not isinstance(self.audio_sample_rate, Unset):
             audio_sample_rate = self.audio_sample_rate.value
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
+
         field_dict.update({})
         if audio_format is not UNSET:
             field_dict["audioFormat"] = audio_format
@@ -51,9 +59,8 @@ class PeerOptionsWebRTCSubscribeOptions:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        """@private"""
-        d = src_dict.copy()
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
         _audio_format = d.pop("audioFormat", UNSET)
         audio_format: Union[Unset, PeerOptionsWebRTCSubscribeOptionsAudioFormat]
         if isinstance(_audio_format, Unset):

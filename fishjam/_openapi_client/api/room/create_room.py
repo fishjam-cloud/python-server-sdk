@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Optional, Union
 
 import httpx
 
@@ -13,33 +13,39 @@ from ...types import Response
 
 def _get_kwargs(
     *,
-    json_body: RoomConfig,
-) -> Dict[str, Any]:
-    json_json_body = json_body.to_dict()
+    body: RoomConfig,
+) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
 
-    return {
+    _kwargs: dict[str, Any] = {
         "method": "post",
         "url": "/room",
-        "json": json_json_body,
     }
+
+    _kwargs["json"] = body.to_dict()
+
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
+    return _kwargs
 
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
 ) -> Optional[Union[Error, RoomCreateDetailsResponse]]:
-    if response.status_code == HTTPStatus.CREATED:
+    if response.status_code == 201:
         response_201 = RoomCreateDetailsResponse.from_dict(response.json())
 
         return response_201
-    if response.status_code == HTTPStatus.BAD_REQUEST:
+    if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
         return response_400
-    if response.status_code == HTTPStatus.UNAUTHORIZED:
+    if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
         return response_401
-    if response.status_code == HTTPStatus.SERVICE_UNAVAILABLE:
+    if response.status_code == 503:
         response_503 = Error.from_dict(response.json())
 
         return response_503
@@ -63,12 +69,12 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    json_body: RoomConfig,
+    body: RoomConfig,
 ) -> Response[Union[Error, RoomCreateDetailsResponse]]:
     """Creates a room
 
     Args:
-        json_body (RoomConfig): Room configuration
+        body (RoomConfig): Room configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -79,7 +85,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        json_body=json_body,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -92,12 +98,12 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    json_body: RoomConfig,
+    body: RoomConfig,
 ) -> Optional[Union[Error, RoomCreateDetailsResponse]]:
     """Creates a room
 
     Args:
-        json_body (RoomConfig): Room configuration
+        body (RoomConfig): Room configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -109,19 +115,19 @@ def sync(
 
     return sync_detailed(
         client=client,
-        json_body=json_body,
+        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    json_body: RoomConfig,
+    body: RoomConfig,
 ) -> Response[Union[Error, RoomCreateDetailsResponse]]:
     """Creates a room
 
     Args:
-        json_body (RoomConfig): Room configuration
+        body (RoomConfig): Room configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -132,7 +138,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        json_body=json_body,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -143,12 +149,12 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    json_body: RoomConfig,
+    body: RoomConfig,
 ) -> Optional[Union[Error, RoomCreateDetailsResponse]]:
     """Creates a room
 
     Args:
-        json_body (RoomConfig): Room configuration
+        body (RoomConfig): Room configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -161,6 +167,6 @@ async def asyncio(
     return (
         await asyncio_detailed(
             client=client,
-            json_body=json_body,
+            body=body,
         )
     ).parsed

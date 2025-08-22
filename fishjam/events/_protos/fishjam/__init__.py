@@ -10,6 +10,12 @@ import betterproto
 from . import notifications
 
 
+class ServerMessagePeerType(betterproto.Enum):
+    PEER_TYPE_UNSPECIFIED = 0
+    PEER_TYPE_WEBRTC = 1
+    PEER_TYPE_AGENT = 2
+
+
 class ServerMessageEventType(betterproto.Enum):
     """Defines message groups for which peer can subscribe"""
 
@@ -193,6 +199,7 @@ class ServerMessagePeerAdded(betterproto.Message):
 
     room_id: str = betterproto.string_field(1)
     peer_id: str = betterproto.string_field(2)
+    peer_type: "ServerMessagePeerType" = betterproto.enum_field(3)
 
 
 @dataclass(eq=False, repr=False)
@@ -201,6 +208,7 @@ class ServerMessagePeerDeleted(betterproto.Message):
 
     room_id: str = betterproto.string_field(1)
     peer_id: str = betterproto.string_field(2)
+    peer_type: "ServerMessagePeerType" = betterproto.enum_field(3)
 
 
 @dataclass(eq=False, repr=False)
@@ -209,6 +217,7 @@ class ServerMessagePeerConnected(betterproto.Message):
 
     room_id: str = betterproto.string_field(1)
     peer_id: str = betterproto.string_field(2)
+    peer_type: "ServerMessagePeerType" = betterproto.enum_field(3)
 
 
 @dataclass(eq=False, repr=False)
@@ -217,6 +226,7 @@ class ServerMessagePeerDisconnected(betterproto.Message):
 
     room_id: str = betterproto.string_field(1)
     peer_id: str = betterproto.string_field(2)
+    peer_type: "ServerMessagePeerType" = betterproto.enum_field(3)
 
 
 @dataclass(eq=False, repr=False)
@@ -226,6 +236,7 @@ class ServerMessagePeerCrashed(betterproto.Message):
     room_id: str = betterproto.string_field(1)
     peer_id: str = betterproto.string_field(2)
     reason: str = betterproto.string_field(3)
+    peer_type: "ServerMessagePeerType" = betterproto.enum_field(4)
 
 
 @dataclass(eq=False, repr=False)

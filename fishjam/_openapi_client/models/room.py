@@ -1,4 +1,9 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
+from collections.abc import Mapping
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -13,29 +18,30 @@ T = TypeVar("T", bound="Room")
 
 @_attrs_define
 class Room:
-    """Description of the room state"""
+    """Description of the room state
+
+    Attributes:
+        config (RoomConfig): Room configuration
+        id (str): Room ID Example: room-1.
+        peers (list['Peer']): List of all peers
+    """
 
     config: "RoomConfig"
-    """Room configuration"""
     id: str
-    """Room ID"""
-    peers: List["Peer"]
-    """List of all peers"""
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-    """@private"""
+    peers: list["Peer"]
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-        """@private"""
+    def to_dict(self) -> dict[str, Any]:
         config = self.config.to_dict()
 
         id = self.id
+
         peers = []
         for peers_item_data in self.peers:
             peers_item = peers_item_data.to_dict()
-
             peers.append(peers_item)
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -48,12 +54,11 @@ class Room:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        """@private"""
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.peer import Peer
         from ..models.room_config import RoomConfig
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         config = RoomConfig.from_dict(d.pop("config"))
 
         id = d.pop("id")
@@ -75,8 +80,7 @@ class Room:
         return room
 
     @property
-    def additional_keys(self) -> List[str]:
-        """@private"""
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

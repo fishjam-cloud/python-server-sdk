@@ -64,7 +64,6 @@ class TestCreateRoom:
 
         config = RoomConfig(
             max_peers=None,
-            video_codec=None,
             webhook_url=None,
             room_type=RoomConfigRoomType(CONFERENCE),
         )
@@ -153,7 +152,6 @@ class TestGetRoom:
 
         config = RoomConfig(
             max_peers=None,
-            video_codec=None,
             webhook_url=None,
             room_type=RoomConfigRoomType(CONFERENCE),
         )
@@ -186,10 +184,11 @@ class TestCreatePeer:
 
         peer = Peer(
             id=webrtc_peer.id,
-            type=PeerType.WEBRTC,
+            type_=PeerType.WEBRTC,
             status=PeerStatus("disconnected"),
             tracks=[],
             metadata={"peer": {}, "server": server_metadata},
+            subscribe=None,
         )
 
         room = room_api.get_room(room_id)

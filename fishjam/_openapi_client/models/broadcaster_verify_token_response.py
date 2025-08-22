@@ -1,4 +1,9 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
+from collections.abc import Mapping
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,18 +19,19 @@ T = TypeVar("T", bound="BroadcasterVerifyTokenResponse")
 
 @_attrs_define
 class BroadcasterVerifyTokenResponse:
-    """Response containing verification information"""
+    """Response containing verification information
+
+    Attributes:
+        data (BroadcasterVerifyTokenResponseData):
+    """
 
     data: "BroadcasterVerifyTokenResponseData"
-    """"""
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-    """@private"""
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-        """@private"""
+    def to_dict(self) -> dict[str, Any]:
         data = self.data.to_dict()
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -36,13 +42,12 @@ class BroadcasterVerifyTokenResponse:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        """@private"""
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.broadcaster_verify_token_response_data import (
             BroadcasterVerifyTokenResponseData,
         )
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         data = BroadcasterVerifyTokenResponseData.from_dict(d.pop("data"))
 
         broadcaster_verify_token_response = cls(
@@ -53,8 +58,7 @@ class BroadcasterVerifyTokenResponse:
         return broadcaster_verify_token_response
 
     @property
-    def additional_keys(self) -> List[str]:
-        """@private"""
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

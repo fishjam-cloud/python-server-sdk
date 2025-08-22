@@ -1,4 +1,11 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Optional, Type, TypeVar
+from collections.abc import Mapping
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+    Union,
+    cast,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -16,66 +23,91 @@ T = TypeVar("T", bound="Peer")
 
 @_attrs_define
 class Peer:
-    """Describes peer status"""
+    """Describes peer status
+
+    Attributes:
+        id (str): Assigned peer id Example: peer-1.
+        metadata (Any): Custom metadata set by the peer Example: {'name': 'FishjamUser'}.
+        status (PeerStatus): Informs about the peer status Example: disconnected.
+        subscribe (Union['SubscribeOptions', None]): Configuration of server-side subscriptions to the peer's tracks
+            Example: {'audioFormat': 'pcm16'}.
+        tracks (list['Track']): List of all peer's tracks
+        type_ (PeerType): Peer type Example: webrtc.
+    """
 
     id: str
-    """Assigned peer id"""
     metadata: Any
-    """Custom metadata set by the peer"""
     status: PeerStatus
-    """Informs about the peer status"""
-    tracks: List["Track"]
-    """List of all peer's tracks"""
-    type: PeerType
-    """Peer type"""
-    subscribe: Optional["SubscribeOptions"]
-    """Configuration of server-side subscriptions to the peer's tracks"""
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-    """@private"""
+    subscribe: Union["SubscribeOptions", None]
+    tracks: list["Track"]
+    type_: PeerType
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-        """@private"""
+    def to_dict(self) -> dict[str, Any]:
+        from ..models.subscribe_options import SubscribeOptions
+
         id = self.id
+
         metadata = self.metadata
+
         status = self.status.value
+
+        subscribe: Union[None, dict[str, Any]]
+        if isinstance(self.subscribe, SubscribeOptions):
+            subscribe = self.subscribe.to_dict()
+        else:
+            subscribe = self.subscribe
 
         tracks = []
         for tracks_item_data in self.tracks:
             tracks_item = tracks_item_data.to_dict()
-
             tracks.append(tracks_item)
 
-        type = self.type.value
+        type_ = self.type_.value
 
-        subscribe = self.subscribe.to_dict() if self.subscribe else None
-
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
                 "id": id,
                 "metadata": metadata,
                 "status": status,
-                "tracks": tracks,
-                "type": type,
                 "subscribe": subscribe,
+                "tracks": tracks,
+                "type": type_,
             }
         )
 
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        """@private"""
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.subscribe_options import SubscribeOptions
         from ..models.track import Track
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         id = d.pop("id")
 
         metadata = d.pop("metadata")
 
         status = PeerStatus(d.pop("status"))
+
+        def _parse_subscribe(data: object) -> Union["SubscribeOptions", None]:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemas_subscribe_options_type_0 = SubscribeOptions.from_dict(
+                    data
+                )
+
+                return componentsschemas_subscribe_options_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union["SubscribeOptions", None], data)
+
+        subscribe = _parse_subscribe(d.pop("subscribe"))
 
         tracks = []
         _tracks = d.pop("tracks")
@@ -84,30 +116,22 @@ class Peer:
 
             tracks.append(tracks_item)
 
-        type = PeerType(d.pop("type"))
-
-        _subscribe = d.pop("subscribe")
-        subscribe: Optional[SubscribeOptions]
-        if _subscribe is None:
-            subscribe = None
-        else:
-            subscribe = SubscribeOptions.from_dict(_subscribe)
+        type_ = PeerType(d.pop("type"))
 
         peer = cls(
             id=id,
             metadata=metadata,
             status=status,
-            tracks=tracks,
-            type=type,
             subscribe=subscribe,
+            tracks=tracks,
+            type_=type_,
         )
 
         peer.additional_properties = d
         return peer
 
     @property
-    def additional_keys(self) -> List[str]:
-        """@private"""
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

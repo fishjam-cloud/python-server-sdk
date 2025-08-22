@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Optional, Union
 
 import httpx
 
@@ -12,23 +12,25 @@ from ...types import Response
 
 def _get_kwargs(
     token: str,
-) -> Dict[str, Any]:
-    return {
+) -> dict[str, Any]:
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/broadcaster/verify/{token}".format(
             token=token,
         ),
     }
 
+    return _kwargs
+
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
 ) -> Optional[Union[BroadcasterVerifyTokenResponse, Error]]:
-    if response.status_code == HTTPStatus.CREATED:
+    if response.status_code == 201:
         response_201 = BroadcasterVerifyTokenResponse.from_dict(response.json())
 
         return response_201
-    if response.status_code == HTTPStatus.UNAUTHORIZED:
+    if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
         return response_401

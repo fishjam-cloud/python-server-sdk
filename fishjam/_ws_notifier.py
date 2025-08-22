@@ -3,7 +3,8 @@ Notifier listening to WebSocket events
 """
 
 import asyncio
-from typing import Any, Callable, Coroutine, cast
+from collections.abc import Coroutine
+from typing import Any, Callable, cast
 
 import betterproto
 from websockets.asyncio import client

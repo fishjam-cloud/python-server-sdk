@@ -1,4 +1,9 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar
+from collections.abc import Mapping
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -12,22 +17,22 @@ T = TypeVar("T", bound="RoomsListingResponse")
 
 @_attrs_define
 class RoomsListingResponse:
-    """Response containing list of all rooms"""
+    """Response containing list of all rooms
 
-    data: List["Room"]
-    """None"""
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-    """@private"""
+    Attributes:
+        data (list['Room']):
+    """
 
-    def to_dict(self) -> Dict[str, Any]:
-        """@private"""
+    data: list["Room"]
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+
+    def to_dict(self) -> dict[str, Any]:
         data = []
         for data_item_data in self.data:
             data_item = data_item_data.to_dict()
-
             data.append(data_item)
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -38,11 +43,10 @@ class RoomsListingResponse:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        """@private"""
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.room import Room
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         data = []
         _data = d.pop("data")
         for data_item_data in _data:
@@ -58,8 +62,7 @@ class RoomsListingResponse:
         return rooms_listing_response
 
     @property
-    def additional_keys(self) -> List[str]:
-        """@private"""
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:
