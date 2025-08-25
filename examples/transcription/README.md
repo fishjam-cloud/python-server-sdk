@@ -19,7 +19,7 @@ uv sync --all-packages
 To run the app, you will need 3 environment variables:
 
 - `FISHJAM_ID`: Your Fishjam ID, which you can get on the [Fishjam website](https://fishjam.io/app)
-- `FISHJAM_MANAGEMENT_TOKEN`: Your Fishjam managemen token, which you can get on the [Fishjam website](https://fishjam.io/app)
+- `FISHJAM_MANAGEMENT_TOKEN`: Your Fishjam management token, which you can get on the [Fishjam website](https://fishjam.io/app)
 - `GEMINI_API_KEY`: An API key for the Gemini API. You can generate one on the [Gemini website](https://aistudio.google.com/app/apikey).
 
 Once you have these variables, you can run the demo with
