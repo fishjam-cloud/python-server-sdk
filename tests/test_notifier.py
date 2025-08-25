@@ -26,7 +26,7 @@ from tests.support.webhook_notifier import run_server
 HOST = "fishjam" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
 FISHJAM_URL = f"http://{HOST}:5002"
 FISHJAM_ID = ""
-SERVER_API_TOKEN = "development"
+SERVER_API_TOKEN = os.getenv("MANAGEMENT_TOKEN", "development")
 WEBHOOK_ADDRESS = "test" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
 WEBHOOK_URL = f"http://{WEBHOOK_ADDRESS}:5000/webhook"
 queue = Queue()

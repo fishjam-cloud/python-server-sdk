@@ -18,7 +18,7 @@ from fishjam.events.allowed_notifications import AllowedNotification
 HOST = "fishjam" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
 FISHJAM_URL = f"http://{HOST}:5002"
 FISHJAM_ID = ""
-SERVER_API_TOKEN = "development"
+SERVER_API_TOKEN = os.getenv("MANAGEMENT_TOKEN", "development")
 
 
 @pytest.fixture
