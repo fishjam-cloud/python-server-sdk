@@ -59,6 +59,10 @@
     <ul class="dropdown-menu">
             
 <li>
+    <a href="agent.html" class="dropdown-item">Agent</a>
+</li>
+            
+<li>
     <a href="errors.html" class="dropdown-item">Errors</a>
 </li>
             
@@ -206,6 +210,9 @@
                         <li>
                                 <a class="variable" href="#ServerMessagePeerAdded.peer_id">peer_id</a>
                         </li>
+                        <li>
+                                <a class="variable" href="#ServerMessagePeerAdded.peer_type">peer_type</a>
+                        </li>
                 </ul>
 
             </li>
@@ -220,6 +227,9 @@
                         </li>
                         <li>
                                 <a class="variable" href="#ServerMessagePeerConnected.peer_id">peer_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ServerMessagePeerConnected.peer_type">peer_type</a>
                         </li>
                 </ul>
 
@@ -236,6 +246,9 @@
                         <li>
                                 <a class="variable" href="#ServerMessagePeerDeleted.peer_id">peer_id</a>
                         </li>
+                        <li>
+                                <a class="variable" href="#ServerMessagePeerDeleted.peer_type">peer_type</a>
+                        </li>
                 </ul>
 
             </li>
@@ -250,6 +263,9 @@
                         </li>
                         <li>
                                 <a class="variable" href="#ServerMessagePeerDisconnected.peer_id">peer_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ServerMessagePeerDisconnected.peer_type">peer_type</a>
                         </li>
                 </ul>
 
@@ -269,6 +285,9 @@
                         <li>
                                 <a class="variable" href="#ServerMessagePeerMetadataUpdated.metadata">metadata</a>
                         </li>
+                        <li>
+                                <a class="variable" href="#ServerMessagePeerMetadataUpdated.peer_type">peer_type</a>
+                        </li>
                 </ul>
 
             </li>
@@ -286,6 +305,9 @@
                         </li>
                         <li>
                                 <a class="variable" href="#ServerMessagePeerCrashed.reason">reason</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ServerMessagePeerCrashed.peer_type">peer_type</a>
                         </li>
                 </ul>
 
@@ -315,39 +337,6 @@
 
             </li>
             <li>
-                    <a class="class" href="#ServerMessageTrack">ServerMessageTrack</a>
-                            <ul class="memberlist">
-                        <li>
-                                <a class="function" href="#ServerMessageTrack.__init__">ServerMessageTrack</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#ServerMessageTrack.id">id</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#ServerMessageTrack.type">type</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#ServerMessageTrack.metadata">metadata</a>
-                        </li>
-                </ul>
-
-            </li>
-            <li>
-                    <a class="class" href="#ServerMessageTrackType">ServerMessageTrackType</a>
-                            <ul class="memberlist">
-                        <li>
-                                <a class="variable" href="#ServerMessageTrackType.TRACK_TYPE_UNSPECIFIED">TRACK_TYPE_UNSPECIFIED</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#ServerMessageTrackType.TRACK_TYPE_VIDEO">TRACK_TYPE_VIDEO</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#ServerMessageTrackType.TRACK_TYPE_AUDIO">TRACK_TYPE_AUDIO</a>
-                        </li>
-                </ul>
-
-            </li>
-            <li>
                     <a class="class" href="#ServerMessageTrackAdded">ServerMessageTrackAdded</a>
                             <ul class="memberlist">
                         <li>
@@ -364,27 +353,6 @@
                         </li>
                         <li>
                                 <a class="variable" href="#ServerMessageTrackAdded.track">track</a>
-                        </li>
-                </ul>
-
-            </li>
-            <li>
-                    <a class="class" href="#ServerMessageTrackData">ServerMessageTrackData</a>
-                            <ul class="memberlist">
-                        <li>
-                                <a class="function" href="#ServerMessageTrackData.__init__">ServerMessageTrackData</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#ServerMessageTrackData.room_id">room_id</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#ServerMessageTrackData.peer_id">peer_id</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#ServerMessageTrackData.track">track</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#ServerMessageTrackData.data">data</a>
                         </li>
                 </ul>
 
@@ -461,6 +429,54 @@
                 </ul>
 
             </li>
+            <li>
+                    <a class="class" href="#Track">Track</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#Track.__init__">Track</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Track.id">id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Track.type">type</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#Track.metadata">metadata</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#TrackEncoding">TrackEncoding</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="variable" href="#TrackEncoding.TRACK_ENCODING_UNSPECIFIED">TRACK_ENCODING_UNSPECIFIED</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackEncoding.TRACK_ENCODING_PCM16">TRACK_ENCODING_PCM16</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackEncoding.TRACK_ENCODING_OPUS">TRACK_ENCODING_OPUS</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#TrackType">TrackType</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="variable" href="#TrackType.TRACK_TYPE_UNSPECIFIED">TRACK_TYPE_UNSPECIFIED</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackType.TRACK_TYPE_VIDEO">TRACK_TYPE_VIDEO</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#TrackType.TRACK_TYPE_AUDIO">TRACK_TYPE_AUDIO</a>
+                        </li>
+                </ul>
+
+            </li>
     </ul>
 
 
@@ -510,37 +526,35 @@
 </span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>    <span class="n">ServerMessageRoomDeleted</span><span class="p">,</span>
 </span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="n">ServerMessageStreamConnected</span><span class="p">,</span>
 </span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="n">ServerMessageStreamDisconnected</span><span class="p">,</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">ServerMessageTrack</span><span class="p">,</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="n">ServerMessageTrackAdded</span><span class="p">,</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">ServerMessageTrackData</span><span class="p">,</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="n">ServerMessageTrackMetadataUpdated</span><span class="p">,</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="n">ServerMessageTrackRemoved</span><span class="p">,</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="n">ServerMessageTrackType</span><span class="p">,</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="n">ServerMessageViewerConnected</span><span class="p">,</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="n">ServerMessageViewerDisconnected</span><span class="p">,</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="p">)</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>    <span class="s2">&quot;ServerMessageRoomCreated&quot;</span><span class="p">,</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="s2">&quot;ServerMessageRoomDeleted&quot;</span><span class="p">,</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="s2">&quot;ServerMessageRoomCrashed&quot;</span><span class="p">,</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="s2">&quot;ServerMessagePeerAdded&quot;</span><span class="p">,</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="s2">&quot;ServerMessagePeerConnected&quot;</span><span class="p">,</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="s2">&quot;ServerMessagePeerDeleted&quot;</span><span class="p">,</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="s2">&quot;ServerMessagePeerDisconnected&quot;</span><span class="p">,</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="s2">&quot;ServerMessagePeerMetadataUpdated&quot;</span><span class="p">,</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="s2">&quot;ServerMessagePeerCrashed&quot;</span><span class="p">,</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    <span class="s2">&quot;ServerMessageStreamConnected&quot;</span><span class="p">,</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="s2">&quot;ServerMessageStreamDisconnected&quot;</span><span class="p">,</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="s2">&quot;ServerMessageTrack&quot;</span><span class="p">,</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>    <span class="s2">&quot;ServerMessageTrackType&quot;</span><span class="p">,</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>    <span class="s2">&quot;ServerMessageTrackAdded&quot;</span><span class="p">,</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>    <span class="s2">&quot;ServerMessageTrackData&quot;</span><span class="p">,</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>    <span class="s2">&quot;ServerMessageTrackMetadataUpdated&quot;</span><span class="p">,</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>    <span class="s2">&quot;ServerMessageTrackRemoved&quot;</span><span class="p">,</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>    <span class="s2">&quot;ServerMessageViewerConnected&quot;</span><span class="p">,</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>    <span class="s2">&quot;ServerMessageViewerDisconnected&quot;</span><span class="p">,</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a><span class="p">]</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">ServerMessageTrackAdded</span><span class="p">,</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="n">ServerMessageTrackMetadataUpdated</span><span class="p">,</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">ServerMessageTrackRemoved</span><span class="p">,</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="n">ServerMessageViewerConnected</span><span class="p">,</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="n">ServerMessageViewerDisconnected</span><span class="p">,</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="p">)</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">fishjam.events._protos.fishjam.notifications</span><span class="w"> </span><span class="kn">import</span> <span class="n">Track</span><span class="p">,</span> <span class="n">TrackEncoding</span><span class="p">,</span> <span class="n">TrackType</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>    <span class="s2">&quot;ServerMessageRoomCreated&quot;</span><span class="p">,</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="s2">&quot;ServerMessageRoomDeleted&quot;</span><span class="p">,</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>    <span class="s2">&quot;ServerMessageRoomCrashed&quot;</span><span class="p">,</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="s2">&quot;ServerMessagePeerAdded&quot;</span><span class="p">,</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="s2">&quot;ServerMessagePeerConnected&quot;</span><span class="p">,</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="s2">&quot;ServerMessagePeerDeleted&quot;</span><span class="p">,</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="s2">&quot;ServerMessagePeerDisconnected&quot;</span><span class="p">,</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="s2">&quot;ServerMessagePeerMetadataUpdated&quot;</span><span class="p">,</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="s2">&quot;ServerMessagePeerCrashed&quot;</span><span class="p">,</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="s2">&quot;ServerMessageStreamConnected&quot;</span><span class="p">,</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="s2">&quot;ServerMessageStreamDisconnected&quot;</span><span class="p">,</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    <span class="s2">&quot;ServerMessageTrackAdded&quot;</span><span class="p">,</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="s2">&quot;ServerMessageTrackMetadataUpdated&quot;</span><span class="p">,</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="s2">&quot;ServerMessageTrackRemoved&quot;</span><span class="p">,</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>    <span class="s2">&quot;ServerMessageViewerConnected&quot;</span><span class="p">,</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>    <span class="s2">&quot;ServerMessageViewerDisconnected&quot;</span><span class="p">,</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>    <span class="s2">&quot;Track&quot;</span><span class="p">,</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>    <span class="s2">&quot;TrackEncoding&quot;</span><span class="p">,</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>    <span class="s2">&quot;TrackType&quot;</span><span class="p">,</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="p">]</span>
 </span></pre></div>
 
 
@@ -557,11 +571,11 @@
 
     </div>
     <a class="headerlink" href="#ServerMessageRoomCreated"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageRoomCreated-192"><a href="#ServerMessageRoomCreated-192"><span class="linenos">192</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessageRoomCreated-193"><a href="#ServerMessageRoomCreated-193"><span class="linenos">193</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageRoomCreated</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessageRoomCreated-194"><a href="#ServerMessageRoomCreated-194"><span class="linenos">194</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a room is created&quot;&quot;&quot;</span>
-</span><span id="ServerMessageRoomCreated-195"><a href="#ServerMessageRoomCreated-195"><span class="linenos">195</span></a>
-</span><span id="ServerMessageRoomCreated-196"><a href="#ServerMessageRoomCreated-196"><span class="linenos">196</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageRoomCreated-279"><a href="#ServerMessageRoomCreated-279"><span class="linenos">279</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessageRoomCreated-280"><a href="#ServerMessageRoomCreated-280"><span class="linenos">280</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageRoomCreated</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessageRoomCreated-281"><a href="#ServerMessageRoomCreated-281"><span class="linenos">281</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a room is created&quot;&quot;&quot;</span>
+</span><span id="ServerMessageRoomCreated-282"><a href="#ServerMessageRoomCreated-282"><span class="linenos">282</span></a>
+</span><span id="ServerMessageRoomCreated-283"><a href="#ServerMessageRoomCreated-283"><span class="linenos">283</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -624,11 +638,11 @@
 
     </div>
     <a class="headerlink" href="#ServerMessageRoomDeleted"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageRoomDeleted-199"><a href="#ServerMessageRoomDeleted-199"><span class="linenos">199</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessageRoomDeleted-200"><a href="#ServerMessageRoomDeleted-200"><span class="linenos">200</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageRoomDeleted</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessageRoomDeleted-201"><a href="#ServerMessageRoomDeleted-201"><span class="linenos">201</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a room is deleted&quot;&quot;&quot;</span>
-</span><span id="ServerMessageRoomDeleted-202"><a href="#ServerMessageRoomDeleted-202"><span class="linenos">202</span></a>
-</span><span id="ServerMessageRoomDeleted-203"><a href="#ServerMessageRoomDeleted-203"><span class="linenos">203</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageRoomDeleted-286"><a href="#ServerMessageRoomDeleted-286"><span class="linenos">286</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessageRoomDeleted-287"><a href="#ServerMessageRoomDeleted-287"><span class="linenos">287</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageRoomDeleted</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessageRoomDeleted-288"><a href="#ServerMessageRoomDeleted-288"><span class="linenos">288</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a room is deleted&quot;&quot;&quot;</span>
+</span><span id="ServerMessageRoomDeleted-289"><a href="#ServerMessageRoomDeleted-289"><span class="linenos">289</span></a>
+</span><span id="ServerMessageRoomDeleted-290"><a href="#ServerMessageRoomDeleted-290"><span class="linenos">290</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -691,11 +705,11 @@
 
     </div>
     <a class="headerlink" href="#ServerMessageRoomCrashed"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageRoomCrashed-108"><a href="#ServerMessageRoomCrashed-108"><span class="linenos">108</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessageRoomCrashed-109"><a href="#ServerMessageRoomCrashed-109"><span class="linenos">109</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageRoomCrashed</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessageRoomCrashed-110"><a href="#ServerMessageRoomCrashed-110"><span class="linenos">110</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a room crashes&quot;&quot;&quot;</span>
-</span><span id="ServerMessageRoomCrashed-111"><a href="#ServerMessageRoomCrashed-111"><span class="linenos">111</span></a>
-</span><span id="ServerMessageRoomCrashed-112"><a href="#ServerMessageRoomCrashed-112"><span class="linenos">112</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageRoomCrashed-190"><a href="#ServerMessageRoomCrashed-190"><span class="linenos">190</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessageRoomCrashed-191"><a href="#ServerMessageRoomCrashed-191"><span class="linenos">191</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageRoomCrashed</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessageRoomCrashed-192"><a href="#ServerMessageRoomCrashed-192"><span class="linenos">192</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a room crashes&quot;&quot;&quot;</span>
+</span><span id="ServerMessageRoomCrashed-193"><a href="#ServerMessageRoomCrashed-193"><span class="linenos">193</span></a>
+</span><span id="ServerMessageRoomCrashed-194"><a href="#ServerMessageRoomCrashed-194"><span class="linenos">194</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -758,12 +772,13 @@
 
     </div>
     <a class="headerlink" href="#ServerMessagePeerAdded"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessagePeerAdded-115"><a href="#ServerMessagePeerAdded-115"><span class="linenos">115</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessagePeerAdded-116"><a href="#ServerMessagePeerAdded-116"><span class="linenos">116</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessagePeerAdded</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessagePeerAdded-117"><a href="#ServerMessagePeerAdded-117"><span class="linenos">117</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a peer is added&quot;&quot;&quot;</span>
-</span><span id="ServerMessagePeerAdded-118"><a href="#ServerMessagePeerAdded-118"><span class="linenos">118</span></a>
-</span><span id="ServerMessagePeerAdded-119"><a href="#ServerMessagePeerAdded-119"><span class="linenos">119</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="ServerMessagePeerAdded-120"><a href="#ServerMessagePeerAdded-120"><span class="linenos">120</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessagePeerAdded-197"><a href="#ServerMessagePeerAdded-197"><span class="linenos">197</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessagePeerAdded-198"><a href="#ServerMessagePeerAdded-198"><span class="linenos">198</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessagePeerAdded</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessagePeerAdded-199"><a href="#ServerMessagePeerAdded-199"><span class="linenos">199</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a peer is added&quot;&quot;&quot;</span>
+</span><span id="ServerMessagePeerAdded-200"><a href="#ServerMessagePeerAdded-200"><span class="linenos">200</span></a>
+</span><span id="ServerMessagePeerAdded-201"><a href="#ServerMessagePeerAdded-201"><span class="linenos">201</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="ServerMessagePeerAdded-202"><a href="#ServerMessagePeerAdded-202"><span class="linenos">202</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="ServerMessagePeerAdded-203"><a href="#ServerMessagePeerAdded-203"><span class="linenos">203</span></a>    <span class="n">peer_type</span><span class="p">:</span> <span class="s2">&quot;ServerMessagePeerType&quot;</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">enum_field</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -774,7 +789,7 @@
                             <div id="ServerMessagePeerAdded.__init__" class="classattr">
                                 <div class="attr function">
 
-        <span class="name">ServerMessagePeerAdded</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>, </span><span class="param"><span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">ServerMessagePeerAdded</span><span class="signature pdoc-code multiline">(<span class="param">   <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_type</span><span class="p">:</span> <span class="n">fishjam</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_protos</span><span class="o">.</span><span class="n">fishjam</span><span class="o">.</span><span class="n">ServerMessagePeerType</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
 
     </div>
@@ -803,6 +818,18 @@
 
     </div>
     <a class="headerlink" href="#ServerMessagePeerAdded.peer_id"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessagePeerAdded.peer_type" class="classattr">
+                                <div class="attr variable">
+            <span class="name">peer_type</span><span class="annotation">: fishjam.events._protos.fishjam.ServerMessagePeerType</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessagePeerAdded.peer_type"></a>
 
 
 
@@ -838,12 +865,13 @@
 
     </div>
     <a class="headerlink" href="#ServerMessagePeerConnected"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessagePeerConnected-131"><a href="#ServerMessagePeerConnected-131"><span class="linenos">131</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessagePeerConnected-132"><a href="#ServerMessagePeerConnected-132"><span class="linenos">132</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessagePeerConnected</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessagePeerConnected-133"><a href="#ServerMessagePeerConnected-133"><span class="linenos">133</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a peer connects&quot;&quot;&quot;</span>
-</span><span id="ServerMessagePeerConnected-134"><a href="#ServerMessagePeerConnected-134"><span class="linenos">134</span></a>
-</span><span id="ServerMessagePeerConnected-135"><a href="#ServerMessagePeerConnected-135"><span class="linenos">135</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="ServerMessagePeerConnected-136"><a href="#ServerMessagePeerConnected-136"><span class="linenos">136</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessagePeerConnected-215"><a href="#ServerMessagePeerConnected-215"><span class="linenos">215</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessagePeerConnected-216"><a href="#ServerMessagePeerConnected-216"><span class="linenos">216</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessagePeerConnected</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessagePeerConnected-217"><a href="#ServerMessagePeerConnected-217"><span class="linenos">217</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a peer connects&quot;&quot;&quot;</span>
+</span><span id="ServerMessagePeerConnected-218"><a href="#ServerMessagePeerConnected-218"><span class="linenos">218</span></a>
+</span><span id="ServerMessagePeerConnected-219"><a href="#ServerMessagePeerConnected-219"><span class="linenos">219</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="ServerMessagePeerConnected-220"><a href="#ServerMessagePeerConnected-220"><span class="linenos">220</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="ServerMessagePeerConnected-221"><a href="#ServerMessagePeerConnected-221"><span class="linenos">221</span></a>    <span class="n">peer_type</span><span class="p">:</span> <span class="s2">&quot;ServerMessagePeerType&quot;</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">enum_field</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -854,7 +882,7 @@
                             <div id="ServerMessagePeerConnected.__init__" class="classattr">
                                 <div class="attr function">
 
-        <span class="name">ServerMessagePeerConnected</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>, </span><span class="param"><span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">ServerMessagePeerConnected</span><span class="signature pdoc-code multiline">(<span class="param">   <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_type</span><span class="p">:</span> <span class="n">fishjam</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_protos</span><span class="o">.</span><span class="n">fishjam</span><span class="o">.</span><span class="n">ServerMessagePeerType</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
 
     </div>
@@ -883,6 +911,18 @@
 
     </div>
     <a class="headerlink" href="#ServerMessagePeerConnected.peer_id"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessagePeerConnected.peer_type" class="classattr">
+                                <div class="attr variable">
+            <span class="name">peer_type</span><span class="annotation">: fishjam.events._protos.fishjam.ServerMessagePeerType</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessagePeerConnected.peer_type"></a>
 
 
 
@@ -918,12 +958,13 @@
 
     </div>
     <a class="headerlink" href="#ServerMessagePeerDeleted"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessagePeerDeleted-123"><a href="#ServerMessagePeerDeleted-123"><span class="linenos">123</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessagePeerDeleted-124"><a href="#ServerMessagePeerDeleted-124"><span class="linenos">124</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessagePeerDeleted</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessagePeerDeleted-125"><a href="#ServerMessagePeerDeleted-125"><span class="linenos">125</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a peer is removed&quot;&quot;&quot;</span>
-</span><span id="ServerMessagePeerDeleted-126"><a href="#ServerMessagePeerDeleted-126"><span class="linenos">126</span></a>
-</span><span id="ServerMessagePeerDeleted-127"><a href="#ServerMessagePeerDeleted-127"><span class="linenos">127</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="ServerMessagePeerDeleted-128"><a href="#ServerMessagePeerDeleted-128"><span class="linenos">128</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessagePeerDeleted-206"><a href="#ServerMessagePeerDeleted-206"><span class="linenos">206</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessagePeerDeleted-207"><a href="#ServerMessagePeerDeleted-207"><span class="linenos">207</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessagePeerDeleted</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessagePeerDeleted-208"><a href="#ServerMessagePeerDeleted-208"><span class="linenos">208</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a peer is removed&quot;&quot;&quot;</span>
+</span><span id="ServerMessagePeerDeleted-209"><a href="#ServerMessagePeerDeleted-209"><span class="linenos">209</span></a>
+</span><span id="ServerMessagePeerDeleted-210"><a href="#ServerMessagePeerDeleted-210"><span class="linenos">210</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="ServerMessagePeerDeleted-211"><a href="#ServerMessagePeerDeleted-211"><span class="linenos">211</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="ServerMessagePeerDeleted-212"><a href="#ServerMessagePeerDeleted-212"><span class="linenos">212</span></a>    <span class="n">peer_type</span><span class="p">:</span> <span class="s2">&quot;ServerMessagePeerType&quot;</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">enum_field</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -934,7 +975,7 @@
                             <div id="ServerMessagePeerDeleted.__init__" class="classattr">
                                 <div class="attr function">
 
-        <span class="name">ServerMessagePeerDeleted</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>, </span><span class="param"><span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">ServerMessagePeerDeleted</span><span class="signature pdoc-code multiline">(<span class="param"> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_type</span><span class="p">:</span> <span class="n">fishjam</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_protos</span><span class="o">.</span><span class="n">fishjam</span><span class="o">.</span><span class="n">ServerMessagePeerType</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
 
     </div>
@@ -963,6 +1004,18 @@
 
     </div>
     <a class="headerlink" href="#ServerMessagePeerDeleted.peer_id"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessagePeerDeleted.peer_type" class="classattr">
+                                <div class="attr variable">
+            <span class="name">peer_type</span><span class="annotation">: fishjam.events._protos.fishjam.ServerMessagePeerType</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessagePeerDeleted.peer_type"></a>
 
 
 
@@ -998,12 +1051,13 @@
 
     </div>
     <a class="headerlink" href="#ServerMessagePeerDisconnected"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessagePeerDisconnected-139"><a href="#ServerMessagePeerDisconnected-139"><span class="linenos">139</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessagePeerDisconnected-140"><a href="#ServerMessagePeerDisconnected-140"><span class="linenos">140</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessagePeerDisconnected</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessagePeerDisconnected-141"><a href="#ServerMessagePeerDisconnected-141"><span class="linenos">141</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a peer disconnects from FJ&quot;&quot;&quot;</span>
-</span><span id="ServerMessagePeerDisconnected-142"><a href="#ServerMessagePeerDisconnected-142"><span class="linenos">142</span></a>
-</span><span id="ServerMessagePeerDisconnected-143"><a href="#ServerMessagePeerDisconnected-143"><span class="linenos">143</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="ServerMessagePeerDisconnected-144"><a href="#ServerMessagePeerDisconnected-144"><span class="linenos">144</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessagePeerDisconnected-224"><a href="#ServerMessagePeerDisconnected-224"><span class="linenos">224</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessagePeerDisconnected-225"><a href="#ServerMessagePeerDisconnected-225"><span class="linenos">225</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessagePeerDisconnected</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessagePeerDisconnected-226"><a href="#ServerMessagePeerDisconnected-226"><span class="linenos">226</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a peer disconnects from FJ&quot;&quot;&quot;</span>
+</span><span id="ServerMessagePeerDisconnected-227"><a href="#ServerMessagePeerDisconnected-227"><span class="linenos">227</span></a>
+</span><span id="ServerMessagePeerDisconnected-228"><a href="#ServerMessagePeerDisconnected-228"><span class="linenos">228</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="ServerMessagePeerDisconnected-229"><a href="#ServerMessagePeerDisconnected-229"><span class="linenos">229</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="ServerMessagePeerDisconnected-230"><a href="#ServerMessagePeerDisconnected-230"><span class="linenos">230</span></a>    <span class="n">peer_type</span><span class="p">:</span> <span class="s2">&quot;ServerMessagePeerType&quot;</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">enum_field</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -1014,7 +1068,7 @@
                             <div id="ServerMessagePeerDisconnected.__init__" class="classattr">
                                 <div class="attr function">
 
-        <span class="name">ServerMessagePeerDisconnected</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>, </span><span class="param"><span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">ServerMessagePeerDisconnected</span><span class="signature pdoc-code multiline">(<span class="param">    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_type</span><span class="p">:</span> <span class="n">fishjam</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_protos</span><span class="o">.</span><span class="n">fishjam</span><span class="o">.</span><span class="n">ServerMessagePeerType</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
 
     </div>
@@ -1043,6 +1097,18 @@
 
     </div>
     <a class="headerlink" href="#ServerMessagePeerDisconnected.peer_id"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessagePeerDisconnected.peer_type" class="classattr">
+                                <div class="attr variable">
+            <span class="name">peer_type</span><span class="annotation">: fishjam.events._protos.fishjam.ServerMessagePeerType</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessagePeerDisconnected.peer_type"></a>
 
 
 
@@ -1078,13 +1144,14 @@
 
     </div>
     <a class="headerlink" href="#ServerMessagePeerMetadataUpdated"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessagePeerMetadataUpdated-230"><a href="#ServerMessagePeerMetadataUpdated-230"><span class="linenos">230</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessagePeerMetadataUpdated-231"><a href="#ServerMessagePeerMetadataUpdated-231"><span class="linenos">231</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessagePeerMetadataUpdated</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessagePeerMetadataUpdated-232"><a href="#ServerMessagePeerMetadataUpdated-232"><span class="linenos">232</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when peer updates its metadata&quot;&quot;&quot;</span>
-</span><span id="ServerMessagePeerMetadataUpdated-233"><a href="#ServerMessagePeerMetadataUpdated-233"><span class="linenos">233</span></a>
-</span><span id="ServerMessagePeerMetadataUpdated-234"><a href="#ServerMessagePeerMetadataUpdated-234"><span class="linenos">234</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="ServerMessagePeerMetadataUpdated-235"><a href="#ServerMessagePeerMetadataUpdated-235"><span class="linenos">235</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</span><span id="ServerMessagePeerMetadataUpdated-236"><a href="#ServerMessagePeerMetadataUpdated-236"><span class="linenos">236</span></a>    <span class="n">metadata</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessagePeerMetadataUpdated-317"><a href="#ServerMessagePeerMetadataUpdated-317"><span class="linenos">317</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessagePeerMetadataUpdated-318"><a href="#ServerMessagePeerMetadataUpdated-318"><span class="linenos">318</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessagePeerMetadataUpdated</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessagePeerMetadataUpdated-319"><a href="#ServerMessagePeerMetadataUpdated-319"><span class="linenos">319</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when peer updates its metadata&quot;&quot;&quot;</span>
+</span><span id="ServerMessagePeerMetadataUpdated-320"><a href="#ServerMessagePeerMetadataUpdated-320"><span class="linenos">320</span></a>
+</span><span id="ServerMessagePeerMetadataUpdated-321"><a href="#ServerMessagePeerMetadataUpdated-321"><span class="linenos">321</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="ServerMessagePeerMetadataUpdated-322"><a href="#ServerMessagePeerMetadataUpdated-322"><span class="linenos">322</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="ServerMessagePeerMetadataUpdated-323"><a href="#ServerMessagePeerMetadataUpdated-323"><span class="linenos">323</span></a>    <span class="n">metadata</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="ServerMessagePeerMetadataUpdated-324"><a href="#ServerMessagePeerMetadataUpdated-324"><span class="linenos">324</span></a>    <span class="n">peer_type</span><span class="p">:</span> <span class="s2">&quot;ServerMessagePeerType&quot;</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">enum_field</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -1095,7 +1162,7 @@
                             <div id="ServerMessagePeerMetadataUpdated.__init__" class="classattr">
                                 <div class="attr function">
 
-        <span class="name">ServerMessagePeerMetadataUpdated</span><span class="signature pdoc-code multiline">(<span class="param"> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">metadata</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">ServerMessagePeerMetadataUpdated</span><span class="signature pdoc-code multiline">(<span class="param"> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">metadata</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">peer_type</span><span class="p">:</span> <span class="n">fishjam</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_protos</span><span class="o">.</span><span class="n">fishjam</span><span class="o">.</span><span class="n">ServerMessagePeerType</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
 
     </div>
@@ -1140,6 +1207,18 @@
 
 
                             </div>
+                            <div id="ServerMessagePeerMetadataUpdated.peer_type" class="classattr">
+                                <div class="attr variable">
+            <span class="name">peer_type</span><span class="annotation">: fishjam.events._protos.fishjam.ServerMessagePeerType</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessagePeerMetadataUpdated.peer_type"></a>
+
+
+
+                            </div>
                             <div class="inherited">
                                 <h5>Inherited Members</h5>
                                 <dl>
@@ -1171,13 +1250,14 @@
 
     </div>
     <a class="headerlink" href="#ServerMessagePeerCrashed"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessagePeerCrashed-147"><a href="#ServerMessagePeerCrashed-147"><span class="linenos">147</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessagePeerCrashed-148"><a href="#ServerMessagePeerCrashed-148"><span class="linenos">148</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessagePeerCrashed</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessagePeerCrashed-149"><a href="#ServerMessagePeerCrashed-149"><span class="linenos">149</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a peer crashes&quot;&quot;&quot;</span>
-</span><span id="ServerMessagePeerCrashed-150"><a href="#ServerMessagePeerCrashed-150"><span class="linenos">150</span></a>
-</span><span id="ServerMessagePeerCrashed-151"><a href="#ServerMessagePeerCrashed-151"><span class="linenos">151</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="ServerMessagePeerCrashed-152"><a href="#ServerMessagePeerCrashed-152"><span class="linenos">152</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</span><span id="ServerMessagePeerCrashed-153"><a href="#ServerMessagePeerCrashed-153"><span class="linenos">153</span></a>    <span class="n">reason</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessagePeerCrashed-233"><a href="#ServerMessagePeerCrashed-233"><span class="linenos">233</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessagePeerCrashed-234"><a href="#ServerMessagePeerCrashed-234"><span class="linenos">234</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessagePeerCrashed</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessagePeerCrashed-235"><a href="#ServerMessagePeerCrashed-235"><span class="linenos">235</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a peer crashes&quot;&quot;&quot;</span>
+</span><span id="ServerMessagePeerCrashed-236"><a href="#ServerMessagePeerCrashed-236"><span class="linenos">236</span></a>
+</span><span id="ServerMessagePeerCrashed-237"><a href="#ServerMessagePeerCrashed-237"><span class="linenos">237</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="ServerMessagePeerCrashed-238"><a href="#ServerMessagePeerCrashed-238"><span class="linenos">238</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="ServerMessagePeerCrashed-239"><a href="#ServerMessagePeerCrashed-239"><span class="linenos">239</span></a>    <span class="n">reason</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span><span id="ServerMessagePeerCrashed-240"><a href="#ServerMessagePeerCrashed-240"><span class="linenos">240</span></a>    <span class="n">peer_type</span><span class="p">:</span> <span class="s2">&quot;ServerMessagePeerType&quot;</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">enum_field</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -1188,7 +1268,7 @@
                             <div id="ServerMessagePeerCrashed.__init__" class="classattr">
                                 <div class="attr function">
 
-        <span class="name">ServerMessagePeerCrashed</span><span class="signature pdoc-code multiline">(<span class="param"> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">reason</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">ServerMessagePeerCrashed</span><span class="signature pdoc-code multiline">(<span class="param"> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">reason</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">  <span class="n">peer_type</span><span class="p">:</span> <span class="n">fishjam</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_protos</span><span class="o">.</span><span class="n">fishjam</span><span class="o">.</span><span class="n">ServerMessagePeerType</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
 
     </div>
@@ -1233,6 +1313,18 @@
 
 
                             </div>
+                            <div id="ServerMessagePeerCrashed.peer_type" class="classattr">
+                                <div class="attr variable">
+            <span class="name">peer_type</span><span class="annotation">: fishjam.events._protos.fishjam.ServerMessagePeerType</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessagePeerCrashed.peer_type"></a>
+
+
+
+                            </div>
                             <div class="inherited">
                                 <h5>Inherited Members</h5>
                                 <dl>
@@ -1264,11 +1356,11 @@
 
     </div>
     <a class="headerlink" href="#ServerMessageStreamConnected"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageStreamConnected-288"><a href="#ServerMessageStreamConnected-288"><span class="linenos">288</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessageStreamConnected-289"><a href="#ServerMessageStreamConnected-289"><span class="linenos">289</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageStreamConnected</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessageStreamConnected-290"><a href="#ServerMessageStreamConnected-290"><span class="linenos">290</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when streamer successfully connects&quot;&quot;&quot;</span>
-</span><span id="ServerMessageStreamConnected-291"><a href="#ServerMessageStreamConnected-291"><span class="linenos">291</span></a>
-</span><span id="ServerMessageStreamConnected-292"><a href="#ServerMessageStreamConnected-292"><span class="linenos">292</span></a>    <span class="n">stream_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageStreamConnected-357"><a href="#ServerMessageStreamConnected-357"><span class="linenos">357</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessageStreamConnected-358"><a href="#ServerMessageStreamConnected-358"><span class="linenos">358</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageStreamConnected</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessageStreamConnected-359"><a href="#ServerMessageStreamConnected-359"><span class="linenos">359</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when streamer successfully connects&quot;&quot;&quot;</span>
+</span><span id="ServerMessageStreamConnected-360"><a href="#ServerMessageStreamConnected-360"><span class="linenos">360</span></a>
+</span><span id="ServerMessageStreamConnected-361"><a href="#ServerMessageStreamConnected-361"><span class="linenos">361</span></a>    <span class="n">stream_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -1331,11 +1423,11 @@
 
     </div>
     <a class="headerlink" href="#ServerMessageStreamDisconnected"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageStreamDisconnected-295"><a href="#ServerMessageStreamDisconnected-295"><span class="linenos">295</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessageStreamDisconnected-296"><a href="#ServerMessageStreamDisconnected-296"><span class="linenos">296</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageStreamDisconnected</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessageStreamDisconnected-297"><a href="#ServerMessageStreamDisconnected-297"><span class="linenos">297</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when streamer disconnects&quot;&quot;&quot;</span>
-</span><span id="ServerMessageStreamDisconnected-298"><a href="#ServerMessageStreamDisconnected-298"><span class="linenos">298</span></a>
-</span><span id="ServerMessageStreamDisconnected-299"><a href="#ServerMessageStreamDisconnected-299"><span class="linenos">299</span></a>    <span class="n">stream_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageStreamDisconnected-364"><a href="#ServerMessageStreamDisconnected-364"><span class="linenos">364</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessageStreamDisconnected-365"><a href="#ServerMessageStreamDisconnected-365"><span class="linenos">365</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageStreamDisconnected</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessageStreamDisconnected-366"><a href="#ServerMessageStreamDisconnected-366"><span class="linenos">366</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when streamer disconnects&quot;&quot;&quot;</span>
+</span><span id="ServerMessageStreamDisconnected-367"><a href="#ServerMessageStreamDisconnected-367"><span class="linenos">367</span></a>
+</span><span id="ServerMessageStreamDisconnected-368"><a href="#ServerMessageStreamDisconnected-368"><span class="linenos">368</span></a>    <span class="n">stream_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -1386,188 +1478,6 @@
                                 </dl>
                             </div>
                 </section>
-                <section id="ServerMessageTrack">
-                            <input id="ServerMessageTrack-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-                    <div class="decorator">@dataclass(eq=False, repr=False)</div>
-
-    <span class="def">class</span>
-    <span class="name">ServerMessageTrack</span><wbr>(<span class="base">betterproto.Message</span>):
-
-                <label class="view-source-button" for="ServerMessageTrack-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#ServerMessageTrack"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageTrack-239"><a href="#ServerMessageTrack-239"><span class="linenos">239</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessageTrack-240"><a href="#ServerMessageTrack-240"><span class="linenos">240</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageTrack</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessageTrack-241"><a href="#ServerMessageTrack-241"><span class="linenos">241</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Describes a media track&quot;&quot;&quot;</span>
-</span><span id="ServerMessageTrack-242"><a href="#ServerMessageTrack-242"><span class="linenos">242</span></a>
-</span><span id="ServerMessageTrack-243"><a href="#ServerMessageTrack-243"><span class="linenos">243</span></a>    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="ServerMessageTrack-244"><a href="#ServerMessageTrack-244"><span class="linenos">244</span></a>    <span class="nb">type</span><span class="p">:</span> <span class="s2">&quot;ServerMessageTrackType&quot;</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">enum_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</span><span id="ServerMessageTrack-245"><a href="#ServerMessageTrack-245"><span class="linenos">245</span></a>    <span class="n">metadata</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Describes a media track</p>
-</div>
-
-
-                            <div id="ServerMessageTrack.__init__" class="classattr">
-                                <div class="attr function">
-
-        <span class="name">ServerMessageTrack</span><span class="signature pdoc-code multiline">(<span class="param">   <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="nb">type</span><span class="p">:</span> <span class="n"><a href="#ServerMessageTrackType">ServerMessageTrackType</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">   <span class="n">metadata</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
-
-
-    </div>
-    <a class="headerlink" href="#ServerMessageTrack.__init__"></a>
-
-
-
-                            </div>
-                            <div id="ServerMessageTrack.id" class="classattr">
-                                <div class="attr variable">
-            <span class="name">id</span><span class="annotation">: str</span>        =
-<span class="default_value">&lt;object object&gt;</span>
-
-
-    </div>
-    <a class="headerlink" href="#ServerMessageTrack.id"></a>
-
-
-
-                            </div>
-                            <div id="ServerMessageTrack.type" class="classattr">
-                                <div class="attr variable">
-            <span class="name">type</span><span class="annotation">: <a href="#ServerMessageTrackType">ServerMessageTrackType</a></span>        =
-<span class="default_value">&lt;object object&gt;</span>
-
-
-    </div>
-    <a class="headerlink" href="#ServerMessageTrack.type"></a>
-
-
-
-                            </div>
-                            <div id="ServerMessageTrack.metadata" class="classattr">
-                                <div class="attr variable">
-            <span class="name">metadata</span><span class="annotation">: str</span>        =
-<span class="default_value">&lt;object object&gt;</span>
-
-
-    </div>
-    <a class="headerlink" href="#ServerMessageTrack.metadata"></a>
-
-
-
-                            </div>
-                            <div class="inherited">
-                                <h5>Inherited Members</h5>
-                                <dl>
-                                    <div><dt>betterproto.Message</dt>
-                                <dd id="ServerMessageTrack.SerializeToString" class="function">SerializeToString</dd>
-                <dd id="ServerMessageTrack.parse" class="function">parse</dd>
-                <dd id="ServerMessageTrack.FromString" class="function">FromString</dd>
-                <dd id="ServerMessageTrack.to_dict" class="function">to_dict</dd>
-                <dd id="ServerMessageTrack.from_dict" class="function">from_dict</dd>
-                <dd id="ServerMessageTrack.to_json" class="function">to_json</dd>
-                <dd id="ServerMessageTrack.from_json" class="function">from_json</dd>
-                <dd id="ServerMessageTrack.to_pydict" class="function">to_pydict</dd>
-                <dd id="ServerMessageTrack.from_pydict" class="function">from_pydict</dd>
-                <dd id="ServerMessageTrack.is_set" class="function">is_set</dd>
-
-            </div>
-                                </dl>
-                            </div>
-                </section>
-                <section id="ServerMessageTrackType">
-                            <input id="ServerMessageTrackType-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-
-    <span class="def">class</span>
-    <span class="name">ServerMessageTrackType</span><wbr>(<span class="base">betterproto.Enum</span>):
-
-                <label class="view-source-button" for="ServerMessageTrackType-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#ServerMessageTrackType"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageTrackType-19"><a href="#ServerMessageTrackType-19"><span class="linenos">19</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageTrackType</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
-</span><span id="ServerMessageTrackType-20"><a href="#ServerMessageTrackType-20"><span class="linenos">20</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Defines types of tracks being published by peers and component&quot;&quot;&quot;</span>
-</span><span id="ServerMessageTrackType-21"><a href="#ServerMessageTrackType-21"><span class="linenos">21</span></a>
-</span><span id="ServerMessageTrackType-22"><a href="#ServerMessageTrackType-22"><span class="linenos">22</span></a>    <span class="n">TRACK_TYPE_UNSPECIFIED</span> <span class="o">=</span> <span class="mi">0</span>
-</span><span id="ServerMessageTrackType-23"><a href="#ServerMessageTrackType-23"><span class="linenos">23</span></a>    <span class="n">TRACK_TYPE_VIDEO</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span id="ServerMessageTrackType-24"><a href="#ServerMessageTrackType-24"><span class="linenos">24</span></a>    <span class="n">TRACK_TYPE_AUDIO</span> <span class="o">=</span> <span class="mi">2</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Defines types of tracks being published by peers and component</p>
-</div>
-
-
-                            <div id="ServerMessageTrackType.TRACK_TYPE_UNSPECIFIED" class="classattr">
-                                <div class="attr variable">
-            <span class="name">TRACK_TYPE_UNSPECIFIED</span>        =
-<span class="default_value">&lt;<a href="#ServerMessageTrackType.TRACK_TYPE_UNSPECIFIED">ServerMessageTrackType.TRACK_TYPE_UNSPECIFIED</a>: 0&gt;</span>
-
-
-    </div>
-    <a class="headerlink" href="#ServerMessageTrackType.TRACK_TYPE_UNSPECIFIED"></a>
-
-
-
-                            </div>
-                            <div id="ServerMessageTrackType.TRACK_TYPE_VIDEO" class="classattr">
-                                <div class="attr variable">
-            <span class="name">TRACK_TYPE_VIDEO</span>        =
-<span class="default_value">&lt;<a href="#ServerMessageTrackType.TRACK_TYPE_VIDEO">ServerMessageTrackType.TRACK_TYPE_VIDEO</a>: 1&gt;</span>
-
-
-    </div>
-    <a class="headerlink" href="#ServerMessageTrackType.TRACK_TYPE_VIDEO"></a>
-
-
-
-                            </div>
-                            <div id="ServerMessageTrackType.TRACK_TYPE_AUDIO" class="classattr">
-                                <div class="attr variable">
-            <span class="name">TRACK_TYPE_AUDIO</span>        =
-<span class="default_value">&lt;<a href="#ServerMessageTrackType.TRACK_TYPE_AUDIO">ServerMessageTrackType.TRACK_TYPE_AUDIO</a>: 2&gt;</span>
-
-
-    </div>
-    <a class="headerlink" href="#ServerMessageTrackType.TRACK_TYPE_AUDIO"></a>
-
-
-
-                            </div>
-                            <div class="inherited">
-                                <h5>Inherited Members</h5>
-                                <dl>
-                                    <div><dt>betterproto.Enum</dt>
-                                <dd id="ServerMessageTrackType.from_string" class="function">from_string</dd>
-
-            </div>
-            <div><dt>enum.Enum</dt>
-                                <dd id="ServerMessageTrackType.name" class="variable">name</dd>
-                <dd id="ServerMessageTrackType.value" class="variable">value</dd>
-
-            </div>
-            <div><dt>builtins.int</dt>
-                                <dd id="ServerMessageTrackType.conjugate" class="function">conjugate</dd>
-                <dd id="ServerMessageTrackType.bit_length" class="function">bit_length</dd>
-                <dd id="ServerMessageTrackType.bit_count" class="function">bit_count</dd>
-                <dd id="ServerMessageTrackType.to_bytes" class="function">to_bytes</dd>
-                <dd id="ServerMessageTrackType.from_bytes" class="function">from_bytes</dd>
-                <dd id="ServerMessageTrackType.as_integer_ratio" class="function">as_integer_ratio</dd>
-                <dd id="ServerMessageTrackType.is_integer" class="function">is_integer</dd>
-                <dd id="ServerMessageTrackType.real" class="variable">real</dd>
-                <dd id="ServerMessageTrackType.imag" class="variable">imag</dd>
-                <dd id="ServerMessageTrackType.numerator" class="variable">numerator</dd>
-                <dd id="ServerMessageTrackType.denominator" class="variable">denominator</dd>
-
-            </div>
-                                </dl>
-                            </div>
-                </section>
                 <section id="ServerMessageTrackAdded">
                             <input id="ServerMessageTrackAdded-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr class">
@@ -1580,14 +1490,14 @@
 
     </div>
     <a class="headerlink" href="#ServerMessageTrackAdded"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageTrackAdded-248"><a href="#ServerMessageTrackAdded-248"><span class="linenos">248</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessageTrackAdded-249"><a href="#ServerMessageTrackAdded-249"><span class="linenos">249</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageTrackAdded</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessageTrackAdded-250"><a href="#ServerMessageTrackAdded-250"><span class="linenos">250</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when peer or component adds new track&quot;&quot;&quot;</span>
-</span><span id="ServerMessageTrackAdded-251"><a href="#ServerMessageTrackAdded-251"><span class="linenos">251</span></a>
-</span><span id="ServerMessageTrackAdded-252"><a href="#ServerMessageTrackAdded-252"><span class="linenos">252</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="ServerMessageTrackAdded-253"><a href="#ServerMessageTrackAdded-253"><span class="linenos">253</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;endpoint_info&quot;</span><span class="p">)</span>
-</span><span id="ServerMessageTrackAdded-254"><a href="#ServerMessageTrackAdded-254"><span class="linenos">254</span></a>    <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;endpoint_info&quot;</span><span class="p">)</span>
-</span><span id="ServerMessageTrackAdded-255"><a href="#ServerMessageTrackAdded-255"><span class="linenos">255</span></a>    <span class="n">track</span><span class="p">:</span> <span class="s2">&quot;ServerMessageTrack&quot;</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">message_field</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageTrackAdded-327"><a href="#ServerMessageTrackAdded-327"><span class="linenos">327</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessageTrackAdded-328"><a href="#ServerMessageTrackAdded-328"><span class="linenos">328</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageTrackAdded</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessageTrackAdded-329"><a href="#ServerMessageTrackAdded-329"><span class="linenos">329</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when peer or component adds new track&quot;&quot;&quot;</span>
+</span><span id="ServerMessageTrackAdded-330"><a href="#ServerMessageTrackAdded-330"><span class="linenos">330</span></a>
+</span><span id="ServerMessageTrackAdded-331"><a href="#ServerMessageTrackAdded-331"><span class="linenos">331</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="ServerMessageTrackAdded-332"><a href="#ServerMessageTrackAdded-332"><span class="linenos">332</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;endpoint_info&quot;</span><span class="p">)</span>
+</span><span id="ServerMessageTrackAdded-333"><a href="#ServerMessageTrackAdded-333"><span class="linenos">333</span></a>    <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;endpoint_info&quot;</span><span class="p">)</span>
+</span><span id="ServerMessageTrackAdded-334"><a href="#ServerMessageTrackAdded-334"><span class="linenos">334</span></a>    <span class="n">track</span><span class="p">:</span> <span class="s2">&quot;notifications.Track&quot;</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">message_field</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -1598,7 +1508,7 @@
                             <div id="ServerMessageTrackAdded.__init__" class="classattr">
                                 <div class="attr function">
 
-        <span class="name">ServerMessageTrackAdded</span><span class="signature pdoc-code multiline">(<span class="param">  <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">track</span><span class="p">:</span> <span class="n"><a href="#ServerMessageTrack">ServerMessageTrack</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">ServerMessageTrackAdded</span><span class="signature pdoc-code multiline">(<span class="param">  <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">track</span><span class="p">:</span> <span class="n"><a href="#Track">Track</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
 
     </div>
@@ -1645,7 +1555,7 @@
                             </div>
                             <div id="ServerMessageTrackAdded.track" class="classattr">
                                 <div class="attr variable">
-            <span class="name">track</span><span class="annotation">: <a href="#ServerMessageTrack">ServerMessageTrack</a></span>        =
+            <span class="name">track</span><span class="annotation">: <a href="#Track">Track</a></span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
 
@@ -1674,112 +1584,6 @@
                                 </dl>
                             </div>
                 </section>
-                <section id="ServerMessageTrackData">
-                            <input id="ServerMessageTrackData-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-                    <div class="decorator">@dataclass(eq=False, repr=False)</div>
-
-    <span class="def">class</span>
-    <span class="name">ServerMessageTrackData</span><wbr>(<span class="base">betterproto.Message</span>):
-
-                <label class="view-source-button" for="ServerMessageTrackData-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#ServerMessageTrackData"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageTrackData-278"><a href="#ServerMessageTrackData-278"><span class="linenos">278</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessageTrackData-279"><a href="#ServerMessageTrackData-279"><span class="linenos">279</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageTrackData</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessageTrackData-280"><a href="#ServerMessageTrackData-280"><span class="linenos">280</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification containing a chunk of a track&#39;s data stream&quot;&quot;&quot;</span>
-</span><span id="ServerMessageTrackData-281"><a href="#ServerMessageTrackData-281"><span class="linenos">281</span></a>
-</span><span id="ServerMessageTrackData-282"><a href="#ServerMessageTrackData-282"><span class="linenos">282</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="ServerMessageTrackData-283"><a href="#ServerMessageTrackData-283"><span class="linenos">283</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
-</span><span id="ServerMessageTrackData-284"><a href="#ServerMessageTrackData-284"><span class="linenos">284</span></a>    <span class="n">track</span><span class="p">:</span> <span class="s2">&quot;ServerMessageTrack&quot;</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">message_field</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</span><span id="ServerMessageTrackData-285"><a href="#ServerMessageTrackData-285"><span class="linenos">285</span></a>    <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">bytes_field</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Notification containing a chunk of a track's data stream</p>
-</div>
-
-
-                            <div id="ServerMessageTrackData.__init__" class="classattr">
-                                <div class="attr function">
-
-        <span class="name">ServerMessageTrackData</span><span class="signature pdoc-code multiline">(<span class="param">   <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">track</span><span class="p">:</span> <span class="n"><a href="#ServerMessageTrack">ServerMessageTrack</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">   <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
-
-
-    </div>
-    <a class="headerlink" href="#ServerMessageTrackData.__init__"></a>
-
-
-
-                            </div>
-                            <div id="ServerMessageTrackData.room_id" class="classattr">
-                                <div class="attr variable">
-            <span class="name">room_id</span><span class="annotation">: str</span>        =
-<span class="default_value">&lt;object object&gt;</span>
-
-
-    </div>
-    <a class="headerlink" href="#ServerMessageTrackData.room_id"></a>
-
-
-
-                            </div>
-                            <div id="ServerMessageTrackData.peer_id" class="classattr">
-                                <div class="attr variable">
-            <span class="name">peer_id</span><span class="annotation">: str</span>        =
-<span class="default_value">&lt;object object&gt;</span>
-
-
-    </div>
-    <a class="headerlink" href="#ServerMessageTrackData.peer_id"></a>
-
-
-
-                            </div>
-                            <div id="ServerMessageTrackData.track" class="classattr">
-                                <div class="attr variable">
-            <span class="name">track</span><span class="annotation">: <a href="#ServerMessageTrack">ServerMessageTrack</a></span>        =
-<span class="default_value">&lt;object object&gt;</span>
-
-
-    </div>
-    <a class="headerlink" href="#ServerMessageTrackData.track"></a>
-
-
-
-                            </div>
-                            <div id="ServerMessageTrackData.data" class="classattr">
-                                <div class="attr variable">
-            <span class="name">data</span><span class="annotation">: bytes</span>        =
-<span class="default_value">&lt;object object&gt;</span>
-
-
-    </div>
-    <a class="headerlink" href="#ServerMessageTrackData.data"></a>
-
-
-
-                            </div>
-                            <div class="inherited">
-                                <h5>Inherited Members</h5>
-                                <dl>
-                                    <div><dt>betterproto.Message</dt>
-                                <dd id="ServerMessageTrackData.SerializeToString" class="function">SerializeToString</dd>
-                <dd id="ServerMessageTrackData.parse" class="function">parse</dd>
-                <dd id="ServerMessageTrackData.FromString" class="function">FromString</dd>
-                <dd id="ServerMessageTrackData.to_dict" class="function">to_dict</dd>
-                <dd id="ServerMessageTrackData.from_dict" class="function">from_dict</dd>
-                <dd id="ServerMessageTrackData.to_json" class="function">to_json</dd>
-                <dd id="ServerMessageTrackData.from_json" class="function">from_json</dd>
-                <dd id="ServerMessageTrackData.to_pydict" class="function">to_pydict</dd>
-                <dd id="ServerMessageTrackData.from_pydict" class="function">from_pydict</dd>
-                <dd id="ServerMessageTrackData.is_set" class="function">is_set</dd>
-
-            </div>
-                                </dl>
-                            </div>
-                </section>
                 <section id="ServerMessageTrackMetadataUpdated">
                             <input id="ServerMessageTrackMetadataUpdated-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr class">
@@ -1792,14 +1596,14 @@
 
     </div>
     <a class="headerlink" href="#ServerMessageTrackMetadataUpdated"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageTrackMetadataUpdated-268"><a href="#ServerMessageTrackMetadataUpdated-268"><span class="linenos">268</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessageTrackMetadataUpdated-269"><a href="#ServerMessageTrackMetadataUpdated-269"><span class="linenos">269</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageTrackMetadataUpdated</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessageTrackMetadataUpdated-270"><a href="#ServerMessageTrackMetadataUpdated-270"><span class="linenos">270</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when metadata of a multimedia track is updated&quot;&quot;&quot;</span>
-</span><span id="ServerMessageTrackMetadataUpdated-271"><a href="#ServerMessageTrackMetadataUpdated-271"><span class="linenos">271</span></a>
-</span><span id="ServerMessageTrackMetadataUpdated-272"><a href="#ServerMessageTrackMetadataUpdated-272"><span class="linenos">272</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="ServerMessageTrackMetadataUpdated-273"><a href="#ServerMessageTrackMetadataUpdated-273"><span class="linenos">273</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;endpoint_info&quot;</span><span class="p">)</span>
-</span><span id="ServerMessageTrackMetadataUpdated-274"><a href="#ServerMessageTrackMetadataUpdated-274"><span class="linenos">274</span></a>    <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;endpoint_info&quot;</span><span class="p">)</span>
-</span><span id="ServerMessageTrackMetadataUpdated-275"><a href="#ServerMessageTrackMetadataUpdated-275"><span class="linenos">275</span></a>    <span class="n">track</span><span class="p">:</span> <span class="s2">&quot;ServerMessageTrack&quot;</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">message_field</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageTrackMetadataUpdated-347"><a href="#ServerMessageTrackMetadataUpdated-347"><span class="linenos">347</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessageTrackMetadataUpdated-348"><a href="#ServerMessageTrackMetadataUpdated-348"><span class="linenos">348</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageTrackMetadataUpdated</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessageTrackMetadataUpdated-349"><a href="#ServerMessageTrackMetadataUpdated-349"><span class="linenos">349</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when metadata of a multimedia track is updated&quot;&quot;&quot;</span>
+</span><span id="ServerMessageTrackMetadataUpdated-350"><a href="#ServerMessageTrackMetadataUpdated-350"><span class="linenos">350</span></a>
+</span><span id="ServerMessageTrackMetadataUpdated-351"><a href="#ServerMessageTrackMetadataUpdated-351"><span class="linenos">351</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="ServerMessageTrackMetadataUpdated-352"><a href="#ServerMessageTrackMetadataUpdated-352"><span class="linenos">352</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;endpoint_info&quot;</span><span class="p">)</span>
+</span><span id="ServerMessageTrackMetadataUpdated-353"><a href="#ServerMessageTrackMetadataUpdated-353"><span class="linenos">353</span></a>    <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;endpoint_info&quot;</span><span class="p">)</span>
+</span><span id="ServerMessageTrackMetadataUpdated-354"><a href="#ServerMessageTrackMetadataUpdated-354"><span class="linenos">354</span></a>    <span class="n">track</span><span class="p">:</span> <span class="s2">&quot;notifications.Track&quot;</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">message_field</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -1810,7 +1614,7 @@
                             <div id="ServerMessageTrackMetadataUpdated.__init__" class="classattr">
                                 <div class="attr function">
 
-        <span class="name">ServerMessageTrackMetadataUpdated</span><span class="signature pdoc-code multiline">(<span class="param">    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">track</span><span class="p">:</span> <span class="n"><a href="#ServerMessageTrack">ServerMessageTrack</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">ServerMessageTrackMetadataUpdated</span><span class="signature pdoc-code multiline">(<span class="param">    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">track</span><span class="p">:</span> <span class="n"><a href="#Track">Track</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
 
     </div>
@@ -1857,7 +1661,7 @@
                             </div>
                             <div id="ServerMessageTrackMetadataUpdated.track" class="classattr">
                                 <div class="attr variable">
-            <span class="name">track</span><span class="annotation">: <a href="#ServerMessageTrack">ServerMessageTrack</a></span>        =
+            <span class="name">track</span><span class="annotation">: <a href="#Track">Track</a></span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
 
@@ -1898,14 +1702,14 @@
 
     </div>
     <a class="headerlink" href="#ServerMessageTrackRemoved"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageTrackRemoved-258"><a href="#ServerMessageTrackRemoved-258"><span class="linenos">258</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessageTrackRemoved-259"><a href="#ServerMessageTrackRemoved-259"><span class="linenos">259</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageTrackRemoved</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessageTrackRemoved-260"><a href="#ServerMessageTrackRemoved-260"><span class="linenos">260</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a track is removed&quot;&quot;&quot;</span>
-</span><span id="ServerMessageTrackRemoved-261"><a href="#ServerMessageTrackRemoved-261"><span class="linenos">261</span></a>
-</span><span id="ServerMessageTrackRemoved-262"><a href="#ServerMessageTrackRemoved-262"><span class="linenos">262</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="ServerMessageTrackRemoved-263"><a href="#ServerMessageTrackRemoved-263"><span class="linenos">263</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;endpoint_info&quot;</span><span class="p">)</span>
-</span><span id="ServerMessageTrackRemoved-264"><a href="#ServerMessageTrackRemoved-264"><span class="linenos">264</span></a>    <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;endpoint_info&quot;</span><span class="p">)</span>
-</span><span id="ServerMessageTrackRemoved-265"><a href="#ServerMessageTrackRemoved-265"><span class="linenos">265</span></a>    <span class="n">track</span><span class="p">:</span> <span class="s2">&quot;ServerMessageTrack&quot;</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">message_field</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageTrackRemoved-337"><a href="#ServerMessageTrackRemoved-337"><span class="linenos">337</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessageTrackRemoved-338"><a href="#ServerMessageTrackRemoved-338"><span class="linenos">338</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageTrackRemoved</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessageTrackRemoved-339"><a href="#ServerMessageTrackRemoved-339"><span class="linenos">339</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a track is removed&quot;&quot;&quot;</span>
+</span><span id="ServerMessageTrackRemoved-340"><a href="#ServerMessageTrackRemoved-340"><span class="linenos">340</span></a>
+</span><span id="ServerMessageTrackRemoved-341"><a href="#ServerMessageTrackRemoved-341"><span class="linenos">341</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="ServerMessageTrackRemoved-342"><a href="#ServerMessageTrackRemoved-342"><span class="linenos">342</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;endpoint_info&quot;</span><span class="p">)</span>
+</span><span id="ServerMessageTrackRemoved-343"><a href="#ServerMessageTrackRemoved-343"><span class="linenos">343</span></a>    <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;endpoint_info&quot;</span><span class="p">)</span>
+</span><span id="ServerMessageTrackRemoved-344"><a href="#ServerMessageTrackRemoved-344"><span class="linenos">344</span></a>    <span class="n">track</span><span class="p">:</span> <span class="s2">&quot;notifications.Track&quot;</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">message_field</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -1916,7 +1720,7 @@
                             <div id="ServerMessageTrackRemoved.__init__" class="classattr">
                                 <div class="attr function">
 
-        <span class="name">ServerMessageTrackRemoved</span><span class="signature pdoc-code multiline">(<span class="param">    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">track</span><span class="p">:</span> <span class="n"><a href="#ServerMessageTrack">ServerMessageTrack</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">ServerMessageTrackRemoved</span><span class="signature pdoc-code multiline">(<span class="param">    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">track</span><span class="p">:</span> <span class="n"><a href="#Track">Track</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
 
     </div>
@@ -1963,7 +1767,7 @@
                             </div>
                             <div id="ServerMessageTrackRemoved.track" class="classattr">
                                 <div class="attr variable">
-            <span class="name">track</span><span class="annotation">: <a href="#ServerMessageTrack">ServerMessageTrack</a></span>        =
+            <span class="name">track</span><span class="annotation">: <a href="#Track">Track</a></span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
 
@@ -2004,12 +1808,12 @@
 
     </div>
     <a class="headerlink" href="#ServerMessageViewerConnected"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageViewerConnected-302"><a href="#ServerMessageViewerConnected-302"><span class="linenos">302</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessageViewerConnected-303"><a href="#ServerMessageViewerConnected-303"><span class="linenos">303</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageViewerConnected</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessageViewerConnected-304"><a href="#ServerMessageViewerConnected-304"><span class="linenos">304</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when viewer successfully connects&quot;&quot;&quot;</span>
-</span><span id="ServerMessageViewerConnected-305"><a href="#ServerMessageViewerConnected-305"><span class="linenos">305</span></a>
-</span><span id="ServerMessageViewerConnected-306"><a href="#ServerMessageViewerConnected-306"><span class="linenos">306</span></a>    <span class="n">stream_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="ServerMessageViewerConnected-307"><a href="#ServerMessageViewerConnected-307"><span class="linenos">307</span></a>    <span class="n">viewer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageViewerConnected-371"><a href="#ServerMessageViewerConnected-371"><span class="linenos">371</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessageViewerConnected-372"><a href="#ServerMessageViewerConnected-372"><span class="linenos">372</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageViewerConnected</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessageViewerConnected-373"><a href="#ServerMessageViewerConnected-373"><span class="linenos">373</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when viewer successfully connects&quot;&quot;&quot;</span>
+</span><span id="ServerMessageViewerConnected-374"><a href="#ServerMessageViewerConnected-374"><span class="linenos">374</span></a>
+</span><span id="ServerMessageViewerConnected-375"><a href="#ServerMessageViewerConnected-375"><span class="linenos">375</span></a>    <span class="n">stream_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="ServerMessageViewerConnected-376"><a href="#ServerMessageViewerConnected-376"><span class="linenos">376</span></a>    <span class="n">viewer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -2084,12 +1888,12 @@
 
     </div>
     <a class="headerlink" href="#ServerMessageViewerDisconnected"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageViewerDisconnected-310"><a href="#ServerMessageViewerDisconnected-310"><span class="linenos">310</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="ServerMessageViewerDisconnected-311"><a href="#ServerMessageViewerDisconnected-311"><span class="linenos">311</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageViewerDisconnected</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
-</span><span id="ServerMessageViewerDisconnected-312"><a href="#ServerMessageViewerDisconnected-312"><span class="linenos">312</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when viewer disconnects&quot;&quot;&quot;</span>
-</span><span id="ServerMessageViewerDisconnected-313"><a href="#ServerMessageViewerDisconnected-313"><span class="linenos">313</span></a>
-</span><span id="ServerMessageViewerDisconnected-314"><a href="#ServerMessageViewerDisconnected-314"><span class="linenos">314</span></a>    <span class="n">stream_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span><span id="ServerMessageViewerDisconnected-315"><a href="#ServerMessageViewerDisconnected-315"><span class="linenos">315</span></a>    <span class="n">viewer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageViewerDisconnected-379"><a href="#ServerMessageViewerDisconnected-379"><span class="linenos">379</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessageViewerDisconnected-380"><a href="#ServerMessageViewerDisconnected-380"><span class="linenos">380</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageViewerDisconnected</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessageViewerDisconnected-381"><a href="#ServerMessageViewerDisconnected-381"><span class="linenos">381</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when viewer disconnects&quot;&quot;&quot;</span>
+</span><span id="ServerMessageViewerDisconnected-382"><a href="#ServerMessageViewerDisconnected-382"><span class="linenos">382</span></a>
+</span><span id="ServerMessageViewerDisconnected-383"><a href="#ServerMessageViewerDisconnected-383"><span class="linenos">383</span></a>    <span class="n">stream_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="ServerMessageViewerDisconnected-384"><a href="#ServerMessageViewerDisconnected-384"><span class="linenos">384</span></a>    <span class="n">viewer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -2147,6 +1951,276 @@
                 <dd id="ServerMessageViewerDisconnected.to_pydict" class="function">to_pydict</dd>
                 <dd id="ServerMessageViewerDisconnected.from_pydict" class="function">from_pydict</dd>
                 <dd id="ServerMessageViewerDisconnected.is_set" class="function">is_set</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="Track">
+                            <input id="Track-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+                    <div class="decorator">@dataclass(eq=False, repr=False)</div>
+
+    <span class="def">class</span>
+    <span class="name">Track</span><wbr>(<span class="base">betterproto.Message</span>):
+
+                <label class="view-source-button" for="Track-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#Track"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Track-26"><a href="#Track-26"><span class="linenos">26</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="Track-27"><a href="#Track-27"><span class="linenos">27</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Track</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="Track-28"><a href="#Track-28"><span class="linenos">28</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Describes a media track&quot;&quot;&quot;</span>
+</span><span id="Track-29"><a href="#Track-29"><span class="linenos">29</span></a>
+</span><span id="Track-30"><a href="#Track-30"><span class="linenos">30</span></a>    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="Track-31"><a href="#Track-31"><span class="linenos">31</span></a>    <span class="nb">type</span><span class="p">:</span> <span class="s2">&quot;TrackType&quot;</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">enum_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span><span id="Track-32"><a href="#Track-32"><span class="linenos">32</span></a>    <span class="n">metadata</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Describes a media track</p>
+</div>
+
+
+                            <div id="Track.__init__" class="classattr">
+                                <div class="attr function">
+
+        <span class="name">Track</span><span class="signature pdoc-code multiline">(<span class="param">    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="nb">type</span><span class="p">:</span> <span class="n"><a href="#TrackType">TrackType</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">metadata</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+
+
+    </div>
+    <a class="headerlink" href="#Track.__init__"></a>
+
+
+
+                            </div>
+                            <div id="Track.id" class="classattr">
+                                <div class="attr variable">
+            <span class="name">id</span><span class="annotation">: str</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#Track.id"></a>
+
+
+
+                            </div>
+                            <div id="Track.type" class="classattr">
+                                <div class="attr variable">
+            <span class="name">type</span><span class="annotation">: <a href="#TrackType">TrackType</a></span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#Track.type"></a>
+
+
+
+                            </div>
+                            <div id="Track.metadata" class="classattr">
+                                <div class="attr variable">
+            <span class="name">metadata</span><span class="annotation">: str</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#Track.metadata"></a>
+
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>betterproto.Message</dt>
+                                <dd id="Track.SerializeToString" class="function">SerializeToString</dd>
+                <dd id="Track.parse" class="function">parse</dd>
+                <dd id="Track.FromString" class="function">FromString</dd>
+                <dd id="Track.to_dict" class="function">to_dict</dd>
+                <dd id="Track.from_dict" class="function">from_dict</dd>
+                <dd id="Track.to_json" class="function">to_json</dd>
+                <dd id="Track.from_json" class="function">from_json</dd>
+                <dd id="Track.to_pydict" class="function">to_pydict</dd>
+                <dd id="Track.from_pydict" class="function">from_pydict</dd>
+                <dd id="Track.is_set" class="function">is_set</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="TrackEncoding">
+                            <input id="TrackEncoding-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+
+    <span class="def">class</span>
+    <span class="name">TrackEncoding</span><wbr>(<span class="base">betterproto.Enum</span>):
+
+                <label class="view-source-button" for="TrackEncoding-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#TrackEncoding"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="TrackEncoding-20"><a href="#TrackEncoding-20"><span class="linenos">20</span></a><span class="k">class</span><span class="w"> </span><span class="nc">TrackEncoding</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+</span><span id="TrackEncoding-21"><a href="#TrackEncoding-21"><span class="linenos">21</span></a>    <span class="n">TRACK_ENCODING_UNSPECIFIED</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="TrackEncoding-22"><a href="#TrackEncoding-22"><span class="linenos">22</span></a>    <span class="n">TRACK_ENCODING_PCM16</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="TrackEncoding-23"><a href="#TrackEncoding-23"><span class="linenos">23</span></a>    <span class="n">TRACK_ENCODING_OPUS</span> <span class="o">=</span> <span class="mi">2</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>The base class for protobuf enumerations, all generated enumerations will inherit
+from this. Bases <code>enum.IntEnum</code>.</p>
+</div>
+
+
+                            <div id="TrackEncoding.TRACK_ENCODING_UNSPECIFIED" class="classattr">
+                                <div class="attr variable">
+            <span class="name">TRACK_ENCODING_UNSPECIFIED</span>        =
+<span class="default_value">&lt;<a href="#TrackEncoding.TRACK_ENCODING_UNSPECIFIED">TrackEncoding.TRACK_ENCODING_UNSPECIFIED</a>: 0&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#TrackEncoding.TRACK_ENCODING_UNSPECIFIED"></a>
+
+
+
+                            </div>
+                            <div id="TrackEncoding.TRACK_ENCODING_PCM16" class="classattr">
+                                <div class="attr variable">
+            <span class="name">TRACK_ENCODING_PCM16</span>        =
+<span class="default_value">&lt;<a href="#TrackEncoding.TRACK_ENCODING_PCM16">TrackEncoding.TRACK_ENCODING_PCM16</a>: 1&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#TrackEncoding.TRACK_ENCODING_PCM16"></a>
+
+
+
+                            </div>
+                            <div id="TrackEncoding.TRACK_ENCODING_OPUS" class="classattr">
+                                <div class="attr variable">
+            <span class="name">TRACK_ENCODING_OPUS</span>        =
+<span class="default_value">&lt;<a href="#TrackEncoding.TRACK_ENCODING_OPUS">TrackEncoding.TRACK_ENCODING_OPUS</a>: 2&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#TrackEncoding.TRACK_ENCODING_OPUS"></a>
+
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>betterproto.Enum</dt>
+                                <dd id="TrackEncoding.from_string" class="function">from_string</dd>
+
+            </div>
+            <div><dt>enum.Enum</dt>
+                                <dd id="TrackEncoding.name" class="variable">name</dd>
+                <dd id="TrackEncoding.value" class="variable">value</dd>
+
+            </div>
+            <div><dt>builtins.int</dt>
+                                <dd id="TrackEncoding.conjugate" class="function">conjugate</dd>
+                <dd id="TrackEncoding.bit_length" class="function">bit_length</dd>
+                <dd id="TrackEncoding.bit_count" class="function">bit_count</dd>
+                <dd id="TrackEncoding.to_bytes" class="function">to_bytes</dd>
+                <dd id="TrackEncoding.from_bytes" class="function">from_bytes</dd>
+                <dd id="TrackEncoding.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="TrackEncoding.is_integer" class="function">is_integer</dd>
+                <dd id="TrackEncoding.real" class="variable">real</dd>
+                <dd id="TrackEncoding.imag" class="variable">imag</dd>
+                <dd id="TrackEncoding.numerator" class="variable">numerator</dd>
+                <dd id="TrackEncoding.denominator" class="variable">denominator</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="TrackType">
+                            <input id="TrackType-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+
+    <span class="def">class</span>
+    <span class="name">TrackType</span><wbr>(<span class="base">betterproto.Enum</span>):
+
+                <label class="view-source-button" for="TrackType-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#TrackType"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="TrackType-12"><a href="#TrackType-12"><span class="linenos">12</span></a><span class="k">class</span><span class="w"> </span><span class="nc">TrackType</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+</span><span id="TrackType-13"><a href="#TrackType-13"><span class="linenos">13</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Defines types of tracks being published by peers and component&quot;&quot;&quot;</span>
+</span><span id="TrackType-14"><a href="#TrackType-14"><span class="linenos">14</span></a>
+</span><span id="TrackType-15"><a href="#TrackType-15"><span class="linenos">15</span></a>    <span class="n">TRACK_TYPE_UNSPECIFIED</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="TrackType-16"><a href="#TrackType-16"><span class="linenos">16</span></a>    <span class="n">TRACK_TYPE_VIDEO</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="TrackType-17"><a href="#TrackType-17"><span class="linenos">17</span></a>    <span class="n">TRACK_TYPE_AUDIO</span> <span class="o">=</span> <span class="mi">2</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Defines types of tracks being published by peers and component</p>
+</div>
+
+
+                            <div id="TrackType.TRACK_TYPE_UNSPECIFIED" class="classattr">
+                                <div class="attr variable">
+            <span class="name">TRACK_TYPE_UNSPECIFIED</span>        =
+<span class="default_value">&lt;<a href="#TrackType.TRACK_TYPE_UNSPECIFIED">TrackType.TRACK_TYPE_UNSPECIFIED</a>: 0&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#TrackType.TRACK_TYPE_UNSPECIFIED"></a>
+
+
+
+                            </div>
+                            <div id="TrackType.TRACK_TYPE_VIDEO" class="classattr">
+                                <div class="attr variable">
+            <span class="name">TRACK_TYPE_VIDEO</span>        =
+<span class="default_value">&lt;<a href="#TrackType.TRACK_TYPE_VIDEO">TrackType.TRACK_TYPE_VIDEO</a>: 1&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#TrackType.TRACK_TYPE_VIDEO"></a>
+
+
+
+                            </div>
+                            <div id="TrackType.TRACK_TYPE_AUDIO" class="classattr">
+                                <div class="attr variable">
+            <span class="name">TRACK_TYPE_AUDIO</span>        =
+<span class="default_value">&lt;<a href="#TrackType.TRACK_TYPE_AUDIO">TrackType.TRACK_TYPE_AUDIO</a>: 2&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#TrackType.TRACK_TYPE_AUDIO"></a>
+
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>betterproto.Enum</dt>
+                                <dd id="TrackType.from_string" class="function">from_string</dd>
+
+            </div>
+            <div><dt>enum.Enum</dt>
+                                <dd id="TrackType.name" class="variable">name</dd>
+                <dd id="TrackType.value" class="variable">value</dd>
+
+            </div>
+            <div><dt>builtins.int</dt>
+                                <dd id="TrackType.conjugate" class="function">conjugate</dd>
+                <dd id="TrackType.bit_length" class="function">bit_length</dd>
+                <dd id="TrackType.bit_count" class="function">bit_count</dd>
+                <dd id="TrackType.to_bytes" class="function">to_bytes</dd>
+                <dd id="TrackType.from_bytes" class="function">from_bytes</dd>
+                <dd id="TrackType.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="TrackType.is_integer" class="function">is_integer</dd>
+                <dd id="TrackType.real" class="variable">real</dd>
+                <dd id="TrackType.imag" class="variable">imag</dd>
+                <dd id="TrackType.numerator" class="variable">numerator</dd>
+                <dd id="TrackType.denominator" class="variable">denominator</dd>
 
             </div>
                                 </dl>

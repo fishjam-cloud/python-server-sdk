@@ -59,6 +59,10 @@
     <ul class="dropdown-menu">
             
 <li>
+    <a href="agent.html" class="dropdown-item">Agent</a>
+</li>
+            
+<li>
     <a href="errors.html" class="dropdown-item">Errors</a>
 </li>
             
@@ -174,6 +178,18 @@
                         <li>
                                 <a class="variable" href="#RoomConfig.webhook_url">webhook_url</a>
                         </li>
+                        <li>
+                                <a class="variable" href="#RoomConfig.additional_properties">additional_properties</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#RoomConfig.to_dict">to_dict</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#RoomConfig.from_dict">from_dict</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#RoomConfig.additional_keys">additional_keys</a>
+                        </li>
                 </ul>
 
             </li>
@@ -251,110 +267,145 @@
 
     </div>
     <a class="headerlink" href="#RoomConfig"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="RoomConfig-14"><a href="#RoomConfig-14"><span class="linenos"> 14</span></a><span class="nd">@_attrs_define</span>
-</span><span id="RoomConfig-15"><a href="#RoomConfig-15"><span class="linenos"> 15</span></a><span class="k">class</span><span class="w"> </span><span class="nc">RoomConfig</span><span class="p">:</span>
-</span><span id="RoomConfig-16"><a href="#RoomConfig-16"><span class="linenos"> 16</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Room configuration&quot;&quot;&quot;</span>
-</span><span id="RoomConfig-17"><a href="#RoomConfig-17"><span class="linenos"> 17</span></a>
-</span><span id="RoomConfig-18"><a href="#RoomConfig-18"><span class="linenos"> 18</span></a>    <span class="n">max_peers</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
-</span><span id="RoomConfig-19"><a href="#RoomConfig-19"><span class="linenos"> 19</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Maximum amount of peers allowed into the room&quot;&quot;&quot;</span>
-</span><span id="RoomConfig-20"><a href="#RoomConfig-20"><span class="linenos"> 20</span></a>    <span class="n">public</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
-</span><span id="RoomConfig-21"><a href="#RoomConfig-21"><span class="linenos"> 21</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;True if livestream viewers can omit specifying a token.&quot;&quot;&quot;</span>
-</span><span id="RoomConfig-22"><a href="#RoomConfig-22"><span class="linenos"> 22</span></a>    <span class="n">room_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="n">RoomConfigRoomType</span><span class="p">]</span> <span class="o">=</span> <span class="n">RoomConfigRoomType</span><span class="o">.</span><span class="n">CONFERENCE</span>
-</span><span id="RoomConfig-23"><a href="#RoomConfig-23"><span class="linenos"> 23</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The use-case of the room. If not provided, this defaults to conference.&quot;&quot;&quot;</span>
-</span><span id="RoomConfig-24"><a href="#RoomConfig-24"><span class="linenos"> 24</span></a>    <span class="n">video_codec</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">RoomConfigVideoCodec</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
-</span><span id="RoomConfig-25"><a href="#RoomConfig-25"><span class="linenos"> 25</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Enforces video codec for each peer in the room&quot;&quot;&quot;</span>
-</span><span id="RoomConfig-26"><a href="#RoomConfig-26"><span class="linenos"> 26</span></a>    <span class="n">webhook_url</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
-</span><span id="RoomConfig-27"><a href="#RoomConfig-27"><span class="linenos"> 27</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;URL where Fishjam notifications will be sent&quot;&quot;&quot;</span>
-</span><span id="RoomConfig-28"><a href="#RoomConfig-28"><span class="linenos"> 28</span></a>    <span class="n">additional_properties</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">_attrs_field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
-</span><span id="RoomConfig-29"><a href="#RoomConfig-29"><span class="linenos"> 29</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="RoomConfig-30"><a href="#RoomConfig-30"><span class="linenos"> 30</span></a>
-</span><span id="RoomConfig-31"><a href="#RoomConfig-31"><span class="linenos"> 31</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="RoomConfig-32"><a href="#RoomConfig-32"><span class="linenos"> 32</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="RoomConfig-33"><a href="#RoomConfig-33"><span class="linenos"> 33</span></a>        <span class="n">max_peers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_peers</span>
-</span><span id="RoomConfig-34"><a href="#RoomConfig-34"><span class="linenos"> 34</span></a>        <span class="n">public</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">public</span>
-</span><span id="RoomConfig-35"><a href="#RoomConfig-35"><span class="linenos"> 35</span></a>        <span class="n">room_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
-</span><span id="RoomConfig-36"><a href="#RoomConfig-36"><span class="linenos"> 36</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">room_type</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
-</span><span id="RoomConfig-37"><a href="#RoomConfig-37"><span class="linenos"> 37</span></a>            <span class="n">room_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">room_type</span><span class="o">.</span><span class="n">value</span>
-</span><span id="RoomConfig-38"><a href="#RoomConfig-38"><span class="linenos"> 38</span></a>
-</span><span id="RoomConfig-39"><a href="#RoomConfig-39"><span class="linenos"> 39</span></a>        <span class="n">video_codec</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
-</span><span id="RoomConfig-40"><a href="#RoomConfig-40"><span class="linenos"> 40</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_codec</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
-</span><span id="RoomConfig-41"><a href="#RoomConfig-41"><span class="linenos"> 41</span></a>            <span class="n">video_codec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">video_codec</span><span class="o">.</span><span class="n">value</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">video_codec</span> <span class="k">else</span> <span class="kc">None</span>
-</span><span id="RoomConfig-42"><a href="#RoomConfig-42"><span class="linenos"> 42</span></a>
-</span><span id="RoomConfig-43"><a href="#RoomConfig-43"><span class="linenos"> 43</span></a>        <span class="n">webhook_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">webhook_url</span>
-</span><span id="RoomConfig-44"><a href="#RoomConfig-44"><span class="linenos"> 44</span></a>
-</span><span id="RoomConfig-45"><a href="#RoomConfig-45"><span class="linenos"> 45</span></a>        <span class="n">field_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span id="RoomConfig-46"><a href="#RoomConfig-46"><span class="linenos"> 46</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">)</span>
-</span><span id="RoomConfig-47"><a href="#RoomConfig-47"><span class="linenos"> 47</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({})</span>
-</span><span id="RoomConfig-48"><a href="#RoomConfig-48"><span class="linenos"> 48</span></a>        <span class="k">if</span> <span class="n">max_peers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
-</span><span id="RoomConfig-49"><a href="#RoomConfig-49"><span class="linenos"> 49</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;maxPeers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_peers</span>
-</span><span id="RoomConfig-50"><a href="#RoomConfig-50"><span class="linenos"> 50</span></a>        <span class="k">if</span> <span class="n">public</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
-</span><span id="RoomConfig-51"><a href="#RoomConfig-51"><span class="linenos"> 51</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;public&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">public</span>
-</span><span id="RoomConfig-52"><a href="#RoomConfig-52"><span class="linenos"> 52</span></a>        <span class="k">if</span> <span class="n">room_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
-</span><span id="RoomConfig-53"><a href="#RoomConfig-53"><span class="linenos"> 53</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;roomType&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">room_type</span>
-</span><span id="RoomConfig-54"><a href="#RoomConfig-54"><span class="linenos"> 54</span></a>        <span class="k">if</span> <span class="n">video_codec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
-</span><span id="RoomConfig-55"><a href="#RoomConfig-55"><span class="linenos"> 55</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;videoCodec&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">video_codec</span>
-</span><span id="RoomConfig-56"><a href="#RoomConfig-56"><span class="linenos"> 56</span></a>        <span class="k">if</span> <span class="n">webhook_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
-</span><span id="RoomConfig-57"><a href="#RoomConfig-57"><span class="linenos"> 57</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;webhookUrl&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">webhook_url</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="RoomConfig-20"><a href="#RoomConfig-20"><span class="linenos"> 20</span></a><span class="nd">@_attrs_define</span>
+</span><span id="RoomConfig-21"><a href="#RoomConfig-21"><span class="linenos"> 21</span></a><span class="k">class</span><span class="w"> </span><span class="nc">RoomConfig</span><span class="p">:</span>
+</span><span id="RoomConfig-22"><a href="#RoomConfig-22"><span class="linenos"> 22</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Room configuration</span>
+</span><span id="RoomConfig-23"><a href="#RoomConfig-23"><span class="linenos"> 23</span></a>
+</span><span id="RoomConfig-24"><a href="#RoomConfig-24"><span class="linenos"> 24</span></a><span class="sd">    Attributes:</span>
+</span><span id="RoomConfig-25"><a href="#RoomConfig-25"><span class="linenos"> 25</span></a><span class="sd">        max_peers (Union[None, Unset, int]): Maximum amount of peers allowed into the room Example: 10.</span>
+</span><span id="RoomConfig-26"><a href="#RoomConfig-26"><span class="linenos"> 26</span></a><span class="sd">        public (Union[Unset, bool]): True if livestream viewers can omit specifying a token. Default: False.</span>
+</span><span id="RoomConfig-27"><a href="#RoomConfig-27"><span class="linenos"> 27</span></a><span class="sd">        room_type (Union[Unset, RoomConfigRoomType]): The use-case of the room. If not provided, this defaults to</span>
+</span><span id="RoomConfig-28"><a href="#RoomConfig-28"><span class="linenos"> 28</span></a><span class="sd">            conference. Default: RoomConfigRoomType.CONFERENCE.</span>
+</span><span id="RoomConfig-29"><a href="#RoomConfig-29"><span class="linenos"> 29</span></a><span class="sd">        video_codec (Union[Unset, RoomConfigVideoCodec]): Enforces video codec for each peer in the room Default:</span>
+</span><span id="RoomConfig-30"><a href="#RoomConfig-30"><span class="linenos"> 30</span></a><span class="sd">            RoomConfigVideoCodec.H264.</span>
+</span><span id="RoomConfig-31"><a href="#RoomConfig-31"><span class="linenos"> 31</span></a><span class="sd">        webhook_url (Union[None, Unset, str]): URL where Fishjam notifications will be sent Example:</span>
+</span><span id="RoomConfig-32"><a href="#RoomConfig-32"><span class="linenos"> 32</span></a><span class="sd">            https://backend.address.com/fishjam-notifications-endpoint.</span>
+</span><span id="RoomConfig-33"><a href="#RoomConfig-33"><span class="linenos"> 33</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="RoomConfig-34"><a href="#RoomConfig-34"><span class="linenos"> 34</span></a>
+</span><span id="RoomConfig-35"><a href="#RoomConfig-35"><span class="linenos"> 35</span></a>    <span class="n">max_peers</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Unset</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="RoomConfig-36"><a href="#RoomConfig-36"><span class="linenos"> 36</span></a>    <span class="n">public</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="RoomConfig-37"><a href="#RoomConfig-37"><span class="linenos"> 37</span></a>    <span class="n">room_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="n">RoomConfigRoomType</span><span class="p">]</span> <span class="o">=</span> <span class="n">RoomConfigRoomType</span><span class="o">.</span><span class="n">CONFERENCE</span>
+</span><span id="RoomConfig-38"><a href="#RoomConfig-38"><span class="linenos"> 38</span></a>    <span class="n">video_codec</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="n">RoomConfigVideoCodec</span><span class="p">]</span> <span class="o">=</span> <span class="n">RoomConfigVideoCodec</span><span class="o">.</span><span class="n">H264</span>
+</span><span id="RoomConfig-39"><a href="#RoomConfig-39"><span class="linenos"> 39</span></a>    <span class="n">webhook_url</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Unset</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="RoomConfig-40"><a href="#RoomConfig-40"><span class="linenos"> 40</span></a>    <span class="n">additional_properties</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">_attrs_field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+</span><span id="RoomConfig-41"><a href="#RoomConfig-41"><span class="linenos"> 41</span></a>
+</span><span id="RoomConfig-42"><a href="#RoomConfig-42"><span class="linenos"> 42</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="RoomConfig-43"><a href="#RoomConfig-43"><span class="linenos"> 43</span></a>        <span class="n">max_peers</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Unset</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+</span><span id="RoomConfig-44"><a href="#RoomConfig-44"><span class="linenos"> 44</span></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_peers</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="RoomConfig-45"><a href="#RoomConfig-45"><span class="linenos"> 45</span></a>            <span class="n">max_peers</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="RoomConfig-46"><a href="#RoomConfig-46"><span class="linenos"> 46</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="RoomConfig-47"><a href="#RoomConfig-47"><span class="linenos"> 47</span></a>            <span class="n">max_peers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_peers</span>
+</span><span id="RoomConfig-48"><a href="#RoomConfig-48"><span class="linenos"> 48</span></a>
+</span><span id="RoomConfig-49"><a href="#RoomConfig-49"><span class="linenos"> 49</span></a>        <span class="n">public</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">public</span>
+</span><span id="RoomConfig-50"><a href="#RoomConfig-50"><span class="linenos"> 50</span></a>
+</span><span id="RoomConfig-51"><a href="#RoomConfig-51"><span class="linenos"> 51</span></a>        <span class="n">room_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="RoomConfig-52"><a href="#RoomConfig-52"><span class="linenos"> 52</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">room_type</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="RoomConfig-53"><a href="#RoomConfig-53"><span class="linenos"> 53</span></a>            <span class="n">room_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">room_type</span><span class="o">.</span><span class="n">value</span>
+</span><span id="RoomConfig-54"><a href="#RoomConfig-54"><span class="linenos"> 54</span></a>
+</span><span id="RoomConfig-55"><a href="#RoomConfig-55"><span class="linenos"> 55</span></a>        <span class="n">video_codec</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="RoomConfig-56"><a href="#RoomConfig-56"><span class="linenos"> 56</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_codec</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="RoomConfig-57"><a href="#RoomConfig-57"><span class="linenos"> 57</span></a>            <span class="n">video_codec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">video_codec</span><span class="o">.</span><span class="n">value</span>
 </span><span id="RoomConfig-58"><a href="#RoomConfig-58"><span class="linenos"> 58</span></a>
-</span><span id="RoomConfig-59"><a href="#RoomConfig-59"><span class="linenos"> 59</span></a>        <span class="k">return</span> <span class="n">field_dict</span>
-</span><span id="RoomConfig-60"><a href="#RoomConfig-60"><span class="linenos"> 60</span></a>
-</span><span id="RoomConfig-61"><a href="#RoomConfig-61"><span class="linenos"> 61</span></a>    <span class="nd">@classmethod</span>
-</span><span id="RoomConfig-62"><a href="#RoomConfig-62"><span class="linenos"> 62</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="n">Type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">src_dict</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-</span><span id="RoomConfig-63"><a href="#RoomConfig-63"><span class="linenos"> 63</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="RoomConfig-64"><a href="#RoomConfig-64"><span class="linenos"> 64</span></a>        <span class="n">d</span> <span class="o">=</span> <span class="n">src_dict</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-</span><span id="RoomConfig-65"><a href="#RoomConfig-65"><span class="linenos"> 65</span></a>        <span class="n">max_peers</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;maxPeers&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">)</span>
-</span><span id="RoomConfig-66"><a href="#RoomConfig-66"><span class="linenos"> 66</span></a>
-</span><span id="RoomConfig-67"><a href="#RoomConfig-67"><span class="linenos"> 67</span></a>        <span class="n">public</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;public&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">)</span>
-</span><span id="RoomConfig-68"><a href="#RoomConfig-68"><span class="linenos"> 68</span></a>
-</span><span id="RoomConfig-69"><a href="#RoomConfig-69"><span class="linenos"> 69</span></a>        <span class="n">_room_type</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;roomType&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">)</span>
-</span><span id="RoomConfig-70"><a href="#RoomConfig-70"><span class="linenos"> 70</span></a>        <span class="n">room_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="n">RoomConfigRoomType</span><span class="p">]</span>
-</span><span id="RoomConfig-71"><a href="#RoomConfig-71"><span class="linenos"> 71</span></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_room_type</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
-</span><span id="RoomConfig-72"><a href="#RoomConfig-72"><span class="linenos"> 72</span></a>            <span class="n">room_type</span> <span class="o">=</span> <span class="n">UNSET</span>
-</span><span id="RoomConfig-73"><a href="#RoomConfig-73"><span class="linenos"> 73</span></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="RoomConfig-74"><a href="#RoomConfig-74"><span class="linenos"> 74</span></a>            <span class="n">room_type</span> <span class="o">=</span> <span class="n">RoomConfigRoomType</span><span class="p">(</span><span class="n">_room_type</span><span class="p">)</span>
-</span><span id="RoomConfig-75"><a href="#RoomConfig-75"><span class="linenos"> 75</span></a>
-</span><span id="RoomConfig-76"><a href="#RoomConfig-76"><span class="linenos"> 76</span></a>        <span class="n">_video_codec</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;videoCodec&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">)</span>
-</span><span id="RoomConfig-77"><a href="#RoomConfig-77"><span class="linenos"> 77</span></a>        <span class="n">video_codec</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="kc">None</span><span class="p">,</span> <span class="n">RoomConfigVideoCodec</span><span class="p">]</span>
-</span><span id="RoomConfig-78"><a href="#RoomConfig-78"><span class="linenos"> 78</span></a>        <span class="k">if</span> <span class="n">_video_codec</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="RoomConfig-79"><a href="#RoomConfig-79"><span class="linenos"> 79</span></a>            <span class="n">video_codec</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="RoomConfig-80"><a href="#RoomConfig-80"><span class="linenos"> 80</span></a>        <span class="k">elif</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_video_codec</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
-</span><span id="RoomConfig-81"><a href="#RoomConfig-81"><span class="linenos"> 81</span></a>            <span class="n">video_codec</span> <span class="o">=</span> <span class="n">UNSET</span>
-</span><span id="RoomConfig-82"><a href="#RoomConfig-82"><span class="linenos"> 82</span></a>        <span class="k">else</span><span class="p">:</span>
-</span><span id="RoomConfig-83"><a href="#RoomConfig-83"><span class="linenos"> 83</span></a>            <span class="n">video_codec</span> <span class="o">=</span> <span class="n">RoomConfigVideoCodec</span><span class="p">(</span><span class="n">_video_codec</span><span class="p">)</span>
+</span><span id="RoomConfig-59"><a href="#RoomConfig-59"><span class="linenos"> 59</span></a>        <span class="n">webhook_url</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Unset</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
+</span><span id="RoomConfig-60"><a href="#RoomConfig-60"><span class="linenos"> 60</span></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">webhook_url</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="RoomConfig-61"><a href="#RoomConfig-61"><span class="linenos"> 61</span></a>            <span class="n">webhook_url</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="RoomConfig-62"><a href="#RoomConfig-62"><span class="linenos"> 62</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="RoomConfig-63"><a href="#RoomConfig-63"><span class="linenos"> 63</span></a>            <span class="n">webhook_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">webhook_url</span>
+</span><span id="RoomConfig-64"><a href="#RoomConfig-64"><span class="linenos"> 64</span></a>
+</span><span id="RoomConfig-65"><a href="#RoomConfig-65"><span class="linenos"> 65</span></a>        <span class="n">field_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="RoomConfig-66"><a href="#RoomConfig-66"><span class="linenos"> 66</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">)</span>
+</span><span id="RoomConfig-67"><a href="#RoomConfig-67"><span class="linenos"> 67</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({})</span>
+</span><span id="RoomConfig-68"><a href="#RoomConfig-68"><span class="linenos"> 68</span></a>        <span class="k">if</span> <span class="n">max_peers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+</span><span id="RoomConfig-69"><a href="#RoomConfig-69"><span class="linenos"> 69</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;maxPeers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_peers</span>
+</span><span id="RoomConfig-70"><a href="#RoomConfig-70"><span class="linenos"> 70</span></a>        <span class="k">if</span> <span class="n">public</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+</span><span id="RoomConfig-71"><a href="#RoomConfig-71"><span class="linenos"> 71</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;public&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">public</span>
+</span><span id="RoomConfig-72"><a href="#RoomConfig-72"><span class="linenos"> 72</span></a>        <span class="k">if</span> <span class="n">room_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+</span><span id="RoomConfig-73"><a href="#RoomConfig-73"><span class="linenos"> 73</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;roomType&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">room_type</span>
+</span><span id="RoomConfig-74"><a href="#RoomConfig-74"><span class="linenos"> 74</span></a>        <span class="k">if</span> <span class="n">video_codec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+</span><span id="RoomConfig-75"><a href="#RoomConfig-75"><span class="linenos"> 75</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;videoCodec&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">video_codec</span>
+</span><span id="RoomConfig-76"><a href="#RoomConfig-76"><span class="linenos"> 76</span></a>        <span class="k">if</span> <span class="n">webhook_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+</span><span id="RoomConfig-77"><a href="#RoomConfig-77"><span class="linenos"> 77</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;webhookUrl&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">webhook_url</span>
+</span><span id="RoomConfig-78"><a href="#RoomConfig-78"><span class="linenos"> 78</span></a>
+</span><span id="RoomConfig-79"><a href="#RoomConfig-79"><span class="linenos"> 79</span></a>        <span class="k">return</span> <span class="n">field_dict</span>
+</span><span id="RoomConfig-80"><a href="#RoomConfig-80"><span class="linenos"> 80</span></a>
+</span><span id="RoomConfig-81"><a href="#RoomConfig-81"><span class="linenos"> 81</span></a>    <span class="nd">@classmethod</span>
+</span><span id="RoomConfig-82"><a href="#RoomConfig-82"><span class="linenos"> 82</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+</span><span id="RoomConfig-83"><a href="#RoomConfig-83"><span class="linenos"> 83</span></a>        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">src_dict</span><span class="p">)</span>
 </span><span id="RoomConfig-84"><a href="#RoomConfig-84"><span class="linenos"> 84</span></a>
-</span><span id="RoomConfig-85"><a href="#RoomConfig-85"><span class="linenos"> 85</span></a>        <span class="n">webhook_url</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;webhookUrl&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">)</span>
-</span><span id="RoomConfig-86"><a href="#RoomConfig-86"><span class="linenos"> 86</span></a>
-</span><span id="RoomConfig-87"><a href="#RoomConfig-87"><span class="linenos"> 87</span></a>        <span class="n">room_config</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
-</span><span id="RoomConfig-88"><a href="#RoomConfig-88"><span class="linenos"> 88</span></a>            <span class="n">max_peers</span><span class="o">=</span><span class="n">max_peers</span><span class="p">,</span>
-</span><span id="RoomConfig-89"><a href="#RoomConfig-89"><span class="linenos"> 89</span></a>            <span class="n">public</span><span class="o">=</span><span class="n">public</span><span class="p">,</span>
-</span><span id="RoomConfig-90"><a href="#RoomConfig-90"><span class="linenos"> 90</span></a>            <span class="n">room_type</span><span class="o">=</span><span class="n">room_type</span><span class="p">,</span>
-</span><span id="RoomConfig-91"><a href="#RoomConfig-91"><span class="linenos"> 91</span></a>            <span class="n">video_codec</span><span class="o">=</span><span class="n">video_codec</span><span class="p">,</span>
-</span><span id="RoomConfig-92"><a href="#RoomConfig-92"><span class="linenos"> 92</span></a>            <span class="n">webhook_url</span><span class="o">=</span><span class="n">webhook_url</span><span class="p">,</span>
-</span><span id="RoomConfig-93"><a href="#RoomConfig-93"><span class="linenos"> 93</span></a>        <span class="p">)</span>
-</span><span id="RoomConfig-94"><a href="#RoomConfig-94"><span class="linenos"> 94</span></a>
-</span><span id="RoomConfig-95"><a href="#RoomConfig-95"><span class="linenos"> 95</span></a>        <span class="n">room_config</span><span class="o">.</span><span class="n">additional_properties</span> <span class="o">=</span> <span class="n">d</span>
-</span><span id="RoomConfig-96"><a href="#RoomConfig-96"><span class="linenos"> 96</span></a>        <span class="k">return</span> <span class="n">room_config</span>
-</span><span id="RoomConfig-97"><a href="#RoomConfig-97"><span class="linenos"> 97</span></a>
-</span><span id="RoomConfig-98"><a href="#RoomConfig-98"><span class="linenos"> 98</span></a>    <span class="nd">@property</span>
-</span><span id="RoomConfig-99"><a href="#RoomConfig-99"><span class="linenos"> 99</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">additional_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="RoomConfig-100"><a href="#RoomConfig-100"><span class="linenos">100</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="RoomConfig-101"><a href="#RoomConfig-101"><span class="linenos">101</span></a>        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</span><span id="RoomConfig-85"><a href="#RoomConfig-85"><span class="linenos"> 85</span></a>        <span class="k">def</span><span class="w"> </span><span class="nf">_parse_max_peers</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Unset</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+</span><span id="RoomConfig-86"><a href="#RoomConfig-86"><span class="linenos"> 86</span></a>            <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="RoomConfig-87"><a href="#RoomConfig-87"><span class="linenos"> 87</span></a>                <span class="k">return</span> <span class="n">data</span>
+</span><span id="RoomConfig-88"><a href="#RoomConfig-88"><span class="linenos"> 88</span></a>            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="RoomConfig-89"><a href="#RoomConfig-89"><span class="linenos"> 89</span></a>                <span class="k">return</span> <span class="n">data</span>
+</span><span id="RoomConfig-90"><a href="#RoomConfig-90"><span class="linenos"> 90</span></a>            <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Unset</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">data</span><span class="p">)</span>
+</span><span id="RoomConfig-91"><a href="#RoomConfig-91"><span class="linenos"> 91</span></a>
+</span><span id="RoomConfig-92"><a href="#RoomConfig-92"><span class="linenos"> 92</span></a>        <span class="n">max_peers</span> <span class="o">=</span> <span class="n">_parse_max_peers</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;maxPeers&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">))</span>
+</span><span id="RoomConfig-93"><a href="#RoomConfig-93"><span class="linenos"> 93</span></a>
+</span><span id="RoomConfig-94"><a href="#RoomConfig-94"><span class="linenos"> 94</span></a>        <span class="n">public</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;public&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">)</span>
+</span><span id="RoomConfig-95"><a href="#RoomConfig-95"><span class="linenos"> 95</span></a>
+</span><span id="RoomConfig-96"><a href="#RoomConfig-96"><span class="linenos"> 96</span></a>        <span class="n">_room_type</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;roomType&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">)</span>
+</span><span id="RoomConfig-97"><a href="#RoomConfig-97"><span class="linenos"> 97</span></a>        <span class="n">room_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="n">RoomConfigRoomType</span><span class="p">]</span>
+</span><span id="RoomConfig-98"><a href="#RoomConfig-98"><span class="linenos"> 98</span></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_room_type</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="RoomConfig-99"><a href="#RoomConfig-99"><span class="linenos"> 99</span></a>            <span class="n">room_type</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="RoomConfig-100"><a href="#RoomConfig-100"><span class="linenos">100</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="RoomConfig-101"><a href="#RoomConfig-101"><span class="linenos">101</span></a>            <span class="n">room_type</span> <span class="o">=</span> <span class="n">RoomConfigRoomType</span><span class="p">(</span><span class="n">_room_type</span><span class="p">)</span>
 </span><span id="RoomConfig-102"><a href="#RoomConfig-102"><span class="linenos">102</span></a>
-</span><span id="RoomConfig-103"><a href="#RoomConfig-103"><span class="linenos">103</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-</span><span id="RoomConfig-104"><a href="#RoomConfig-104"><span class="linenos">104</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-</span><span id="RoomConfig-105"><a href="#RoomConfig-105"><span class="linenos">105</span></a>
-</span><span id="RoomConfig-106"><a href="#RoomConfig-106"><span class="linenos">106</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="RoomConfig-107"><a href="#RoomConfig-107"><span class="linenos">107</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-</span><span id="RoomConfig-108"><a href="#RoomConfig-108"><span class="linenos">108</span></a>
-</span><span id="RoomConfig-109"><a href="#RoomConfig-109"><span class="linenos">109</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="RoomConfig-110"><a href="#RoomConfig-110"><span class="linenos">110</span></a>        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-</span><span id="RoomConfig-111"><a href="#RoomConfig-111"><span class="linenos">111</span></a>
-</span><span id="RoomConfig-112"><a href="#RoomConfig-112"><span class="linenos">112</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="RoomConfig-113"><a href="#RoomConfig-113"><span class="linenos">113</span></a>        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span>
+</span><span id="RoomConfig-103"><a href="#RoomConfig-103"><span class="linenos">103</span></a>        <span class="n">_video_codec</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;videoCodec&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">)</span>
+</span><span id="RoomConfig-104"><a href="#RoomConfig-104"><span class="linenos">104</span></a>        <span class="n">video_codec</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="n">RoomConfigVideoCodec</span><span class="p">]</span>
+</span><span id="RoomConfig-105"><a href="#RoomConfig-105"><span class="linenos">105</span></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_video_codec</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="RoomConfig-106"><a href="#RoomConfig-106"><span class="linenos">106</span></a>            <span class="n">video_codec</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="RoomConfig-107"><a href="#RoomConfig-107"><span class="linenos">107</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="RoomConfig-108"><a href="#RoomConfig-108"><span class="linenos">108</span></a>            <span class="n">video_codec</span> <span class="o">=</span> <span class="n">RoomConfigVideoCodec</span><span class="p">(</span><span class="n">_video_codec</span><span class="p">)</span>
+</span><span id="RoomConfig-109"><a href="#RoomConfig-109"><span class="linenos">109</span></a>
+</span><span id="RoomConfig-110"><a href="#RoomConfig-110"><span class="linenos">110</span></a>        <span class="k">def</span><span class="w"> </span><span class="nf">_parse_webhook_url</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Unset</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+</span><span id="RoomConfig-111"><a href="#RoomConfig-111"><span class="linenos">111</span></a>            <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="RoomConfig-112"><a href="#RoomConfig-112"><span class="linenos">112</span></a>                <span class="k">return</span> <span class="n">data</span>
+</span><span id="RoomConfig-113"><a href="#RoomConfig-113"><span class="linenos">113</span></a>            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="RoomConfig-114"><a href="#RoomConfig-114"><span class="linenos">114</span></a>                <span class="k">return</span> <span class="n">data</span>
+</span><span id="RoomConfig-115"><a href="#RoomConfig-115"><span class="linenos">115</span></a>            <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Unset</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">data</span><span class="p">)</span>
+</span><span id="RoomConfig-116"><a href="#RoomConfig-116"><span class="linenos">116</span></a>
+</span><span id="RoomConfig-117"><a href="#RoomConfig-117"><span class="linenos">117</span></a>        <span class="n">webhook_url</span> <span class="o">=</span> <span class="n">_parse_webhook_url</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;webhookUrl&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">))</span>
+</span><span id="RoomConfig-118"><a href="#RoomConfig-118"><span class="linenos">118</span></a>
+</span><span id="RoomConfig-119"><a href="#RoomConfig-119"><span class="linenos">119</span></a>        <span class="n">room_config</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+</span><span id="RoomConfig-120"><a href="#RoomConfig-120"><span class="linenos">120</span></a>            <span class="n">max_peers</span><span class="o">=</span><span class="n">max_peers</span><span class="p">,</span>
+</span><span id="RoomConfig-121"><a href="#RoomConfig-121"><span class="linenos">121</span></a>            <span class="n">public</span><span class="o">=</span><span class="n">public</span><span class="p">,</span>
+</span><span id="RoomConfig-122"><a href="#RoomConfig-122"><span class="linenos">122</span></a>            <span class="n">room_type</span><span class="o">=</span><span class="n">room_type</span><span class="p">,</span>
+</span><span id="RoomConfig-123"><a href="#RoomConfig-123"><span class="linenos">123</span></a>            <span class="n">video_codec</span><span class="o">=</span><span class="n">video_codec</span><span class="p">,</span>
+</span><span id="RoomConfig-124"><a href="#RoomConfig-124"><span class="linenos">124</span></a>            <span class="n">webhook_url</span><span class="o">=</span><span class="n">webhook_url</span><span class="p">,</span>
+</span><span id="RoomConfig-125"><a href="#RoomConfig-125"><span class="linenos">125</span></a>        <span class="p">)</span>
+</span><span id="RoomConfig-126"><a href="#RoomConfig-126"><span class="linenos">126</span></a>
+</span><span id="RoomConfig-127"><a href="#RoomConfig-127"><span class="linenos">127</span></a>        <span class="n">room_config</span><span class="o">.</span><span class="n">additional_properties</span> <span class="o">=</span> <span class="n">d</span>
+</span><span id="RoomConfig-128"><a href="#RoomConfig-128"><span class="linenos">128</span></a>        <span class="k">return</span> <span class="n">room_config</span>
+</span><span id="RoomConfig-129"><a href="#RoomConfig-129"><span class="linenos">129</span></a>
+</span><span id="RoomConfig-130"><a href="#RoomConfig-130"><span class="linenos">130</span></a>    <span class="nd">@property</span>
+</span><span id="RoomConfig-131"><a href="#RoomConfig-131"><span class="linenos">131</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">additional_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="RoomConfig-132"><a href="#RoomConfig-132"><span class="linenos">132</span></a>        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</span><span id="RoomConfig-133"><a href="#RoomConfig-133"><span class="linenos">133</span></a>
+</span><span id="RoomConfig-134"><a href="#RoomConfig-134"><span class="linenos">134</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+</span><span id="RoomConfig-135"><a href="#RoomConfig-135"><span class="linenos">135</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</span><span id="RoomConfig-136"><a href="#RoomConfig-136"><span class="linenos">136</span></a>
+</span><span id="RoomConfig-137"><a href="#RoomConfig-137"><span class="linenos">137</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="RoomConfig-138"><a href="#RoomConfig-138"><span class="linenos">138</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="RoomConfig-139"><a href="#RoomConfig-139"><span class="linenos">139</span></a>
+</span><span id="RoomConfig-140"><a href="#RoomConfig-140"><span class="linenos">140</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="RoomConfig-141"><a href="#RoomConfig-141"><span class="linenos">141</span></a>        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</span><span id="RoomConfig-142"><a href="#RoomConfig-142"><span class="linenos">142</span></a>
+</span><span id="RoomConfig-143"><a href="#RoomConfig-143"><span class="linenos">143</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="RoomConfig-144"><a href="#RoomConfig-144"><span class="linenos">144</span></a>        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Room configuration</p>
+
+<p>Attributes:
+    max_peers (Union[None, Unset, int]): Maximum amount of peers allowed into the room Example: 10.
+    public (Union[Unset, bool]): True if livestream viewers can omit specifying a token. Default: False.
+    room_type (Union[Unset, RoomConfigRoomType]): The use-case of the room. If not provided, this defaults to
+        conference. Default: <a href="#RoomConfigRoomType.CONFERENCE">RoomConfigRoomType.CONFERENCE</a>.
+    video_codec (Union[Unset, RoomConfigVideoCodec]): Enforces video codec for each peer in the room Default:
+        <a href="#RoomConfigVideoCodec.H264">RoomConfigVideoCodec.H264</a>.
+    webhook_url (Union[None, Unset, str]): URL where Fishjam notifications will be sent Example:
+        <a href="https://backend.address.com/fishjam-notifications-endpoint">https://backend.address.com/fishjam-notifications-endpoint</a>.</p>
 </div>
 
 
@@ -362,7 +413,7 @@
                                         <input id="RoomConfig.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
 
-        <span class="name">RoomConfig</span><span class="signature pdoc-code multiline">(<span class="param">   <span class="n">max_peers</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">public</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>,</span><span class="param">  <span class="n">room_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n"><a href="#RoomConfigRoomType">RoomConfigRoomType</a></span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n"><a href="#RoomConfigRoomType.CONFERENCE">RoomConfigRoomType.CONFERENCE</a></span><span class="p">:</span> <span class="s1">&#39;conference&#39;</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">video_codec</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="n"><a href="#RoomConfigVideoCodec">RoomConfigVideoCodec</a></span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">  <span class="n">webhook_url</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n">NoneType</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">RoomConfig</span><span class="signature pdoc-code multiline">(<span class="param">   <span class="n">max_peers</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">NoneType</span><span class="p">,</span> <span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">public</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="nb">bool</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span>,</span><span class="param">  <span class="n">room_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n"><a href="#RoomConfigRoomType">RoomConfigRoomType</a></span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n"><a href="#RoomConfigRoomType.CONFERENCE">RoomConfigRoomType.CONFERENCE</a></span><span class="p">:</span> <span class="s1">&#39;conference&#39;</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">video_codec</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n"><a href="#RoomConfigVideoCodec">RoomConfigVideoCodec</a></span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n"><a href="#RoomConfigVideoCodec.H264">RoomConfigVideoCodec.H264</a></span><span class="p">:</span> <span class="s1">&#39;h264&#39;</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">webhook_url</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">NoneType</span><span class="p">,</span> <span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
                 <label class="view-source-button" for="RoomConfig.__init__-view-source"><span>View Source</span></label>
 
@@ -385,14 +436,12 @@
                             </div>
                             <div id="RoomConfig.max_peers" class="classattr">
                                 <div class="attr variable">
-            <span class="name">max_peers</span><span class="annotation">: Union[fishjam._openapi_client.types.Unset, NoneType, int]</span>
+            <span class="name">max_peers</span><span class="annotation">: Union[NoneType, fishjam._openapi_client.types.Unset, int]</span>
 
 
     </div>
     <a class="headerlink" href="#RoomConfig.max_peers"></a>
 
-            <div class="docstring"><p>Maximum amount of peers allowed into the room</p>
-</div>
 
 
                             </div>
@@ -404,8 +453,6 @@
     </div>
     <a class="headerlink" href="#RoomConfig.public"></a>
 
-            <div class="docstring"><p>True if livestream viewers can omit specifying a token.</p>
-</div>
 
 
                             </div>
@@ -417,34 +464,178 @@
     </div>
     <a class="headerlink" href="#RoomConfig.room_type"></a>
 
-            <div class="docstring"><p>The use-case of the room. If not provided, this defaults to conference.</p>
-</div>
 
 
                             </div>
                             <div id="RoomConfig.video_codec" class="classattr">
                                 <div class="attr variable">
-            <span class="name">video_codec</span><span class="annotation">: Union[fishjam._openapi_client.types.Unset, NoneType, <a href="#RoomConfigVideoCodec">RoomConfigVideoCodec</a>]</span>
+            <span class="name">video_codec</span><span class="annotation">: Union[fishjam._openapi_client.types.Unset, <a href="#RoomConfigVideoCodec">RoomConfigVideoCodec</a>]</span>
 
 
     </div>
     <a class="headerlink" href="#RoomConfig.video_codec"></a>
 
-            <div class="docstring"><p>Enforces video codec for each peer in the room</p>
-</div>
 
 
                             </div>
                             <div id="RoomConfig.webhook_url" class="classattr">
                                 <div class="attr variable">
-            <span class="name">webhook_url</span><span class="annotation">: Union[fishjam._openapi_client.types.Unset, NoneType, str]</span>
+            <span class="name">webhook_url</span><span class="annotation">: Union[NoneType, fishjam._openapi_client.types.Unset, str]</span>
 
 
     </div>
     <a class="headerlink" href="#RoomConfig.webhook_url"></a>
 
-            <div class="docstring"><p>URL where Fishjam notifications will be sent</p>
-</div>
+
+
+                            </div>
+                            <div id="RoomConfig.additional_properties" class="classattr">
+                                <div class="attr variable">
+            <span class="name">additional_properties</span><span class="annotation">: dict[str, typing.Any]</span>
+
+
+    </div>
+    <a class="headerlink" href="#RoomConfig.additional_properties"></a>
+
+
+
+                            </div>
+                            <div id="RoomConfig.to_dict" class="classattr">
+                                        <input id="RoomConfig.to_dict-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+
+        <span class="def">def</span>
+        <span class="name">to_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span>:</span></span>
+
+                <label class="view-source-button" for="RoomConfig.to_dict-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#RoomConfig.to_dict"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="RoomConfig.to_dict-42"><a href="#RoomConfig.to_dict-42"><span class="linenos">42</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="RoomConfig.to_dict-43"><a href="#RoomConfig.to_dict-43"><span class="linenos">43</span></a>        <span class="n">max_peers</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Unset</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span>
+</span><span id="RoomConfig.to_dict-44"><a href="#RoomConfig.to_dict-44"><span class="linenos">44</span></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">max_peers</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="RoomConfig.to_dict-45"><a href="#RoomConfig.to_dict-45"><span class="linenos">45</span></a>            <span class="n">max_peers</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="RoomConfig.to_dict-46"><a href="#RoomConfig.to_dict-46"><span class="linenos">46</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="RoomConfig.to_dict-47"><a href="#RoomConfig.to_dict-47"><span class="linenos">47</span></a>            <span class="n">max_peers</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">max_peers</span>
+</span><span id="RoomConfig.to_dict-48"><a href="#RoomConfig.to_dict-48"><span class="linenos">48</span></a>
+</span><span id="RoomConfig.to_dict-49"><a href="#RoomConfig.to_dict-49"><span class="linenos">49</span></a>        <span class="n">public</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">public</span>
+</span><span id="RoomConfig.to_dict-50"><a href="#RoomConfig.to_dict-50"><span class="linenos">50</span></a>
+</span><span id="RoomConfig.to_dict-51"><a href="#RoomConfig.to_dict-51"><span class="linenos">51</span></a>        <span class="n">room_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="RoomConfig.to_dict-52"><a href="#RoomConfig.to_dict-52"><span class="linenos">52</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">room_type</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="RoomConfig.to_dict-53"><a href="#RoomConfig.to_dict-53"><span class="linenos">53</span></a>            <span class="n">room_type</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">room_type</span><span class="o">.</span><span class="n">value</span>
+</span><span id="RoomConfig.to_dict-54"><a href="#RoomConfig.to_dict-54"><span class="linenos">54</span></a>
+</span><span id="RoomConfig.to_dict-55"><a href="#RoomConfig.to_dict-55"><span class="linenos">55</span></a>        <span class="n">video_codec</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="RoomConfig.to_dict-56"><a href="#RoomConfig.to_dict-56"><span class="linenos">56</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">video_codec</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="RoomConfig.to_dict-57"><a href="#RoomConfig.to_dict-57"><span class="linenos">57</span></a>            <span class="n">video_codec</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">video_codec</span><span class="o">.</span><span class="n">value</span>
+</span><span id="RoomConfig.to_dict-58"><a href="#RoomConfig.to_dict-58"><span class="linenos">58</span></a>
+</span><span id="RoomConfig.to_dict-59"><a href="#RoomConfig.to_dict-59"><span class="linenos">59</span></a>        <span class="n">webhook_url</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Unset</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span>
+</span><span id="RoomConfig.to_dict-60"><a href="#RoomConfig.to_dict-60"><span class="linenos">60</span></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">webhook_url</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="RoomConfig.to_dict-61"><a href="#RoomConfig.to_dict-61"><span class="linenos">61</span></a>            <span class="n">webhook_url</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="RoomConfig.to_dict-62"><a href="#RoomConfig.to_dict-62"><span class="linenos">62</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="RoomConfig.to_dict-63"><a href="#RoomConfig.to_dict-63"><span class="linenos">63</span></a>            <span class="n">webhook_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">webhook_url</span>
+</span><span id="RoomConfig.to_dict-64"><a href="#RoomConfig.to_dict-64"><span class="linenos">64</span></a>
+</span><span id="RoomConfig.to_dict-65"><a href="#RoomConfig.to_dict-65"><span class="linenos">65</span></a>        <span class="n">field_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="RoomConfig.to_dict-66"><a href="#RoomConfig.to_dict-66"><span class="linenos">66</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">)</span>
+</span><span id="RoomConfig.to_dict-67"><a href="#RoomConfig.to_dict-67"><span class="linenos">67</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({})</span>
+</span><span id="RoomConfig.to_dict-68"><a href="#RoomConfig.to_dict-68"><span class="linenos">68</span></a>        <span class="k">if</span> <span class="n">max_peers</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+</span><span id="RoomConfig.to_dict-69"><a href="#RoomConfig.to_dict-69"><span class="linenos">69</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;maxPeers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">max_peers</span>
+</span><span id="RoomConfig.to_dict-70"><a href="#RoomConfig.to_dict-70"><span class="linenos">70</span></a>        <span class="k">if</span> <span class="n">public</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+</span><span id="RoomConfig.to_dict-71"><a href="#RoomConfig.to_dict-71"><span class="linenos">71</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;public&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">public</span>
+</span><span id="RoomConfig.to_dict-72"><a href="#RoomConfig.to_dict-72"><span class="linenos">72</span></a>        <span class="k">if</span> <span class="n">room_type</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+</span><span id="RoomConfig.to_dict-73"><a href="#RoomConfig.to_dict-73"><span class="linenos">73</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;roomType&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">room_type</span>
+</span><span id="RoomConfig.to_dict-74"><a href="#RoomConfig.to_dict-74"><span class="linenos">74</span></a>        <span class="k">if</span> <span class="n">video_codec</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+</span><span id="RoomConfig.to_dict-75"><a href="#RoomConfig.to_dict-75"><span class="linenos">75</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;videoCodec&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">video_codec</span>
+</span><span id="RoomConfig.to_dict-76"><a href="#RoomConfig.to_dict-76"><span class="linenos">76</span></a>        <span class="k">if</span> <span class="n">webhook_url</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+</span><span id="RoomConfig.to_dict-77"><a href="#RoomConfig.to_dict-77"><span class="linenos">77</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;webhookUrl&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">webhook_url</span>
+</span><span id="RoomConfig.to_dict-78"><a href="#RoomConfig.to_dict-78"><span class="linenos">78</span></a>
+</span><span id="RoomConfig.to_dict-79"><a href="#RoomConfig.to_dict-79"><span class="linenos">79</span></a>        <span class="k">return</span> <span class="n">field_dict</span>
+</span></pre></div>
+
+
+
+
+                            </div>
+                            <div id="RoomConfig.from_dict" class="classattr">
+                                        <input id="RoomConfig.from_dict-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+                    <div class="decorator">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">from_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="o">~</span><span class="n">T</span><span class="p">]</span>, </span><span class="param"><span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span></span><span class="return-annotation">) -> <span class="o">~</span><span class="n">T</span>:</span></span>
+
+                <label class="view-source-button" for="RoomConfig.from_dict-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#RoomConfig.from_dict"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="RoomConfig.from_dict-81"><a href="#RoomConfig.from_dict-81"><span class="linenos"> 81</span></a>    <span class="nd">@classmethod</span>
+</span><span id="RoomConfig.from_dict-82"><a href="#RoomConfig.from_dict-82"><span class="linenos"> 82</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+</span><span id="RoomConfig.from_dict-83"><a href="#RoomConfig.from_dict-83"><span class="linenos"> 83</span></a>        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">src_dict</span><span class="p">)</span>
+</span><span id="RoomConfig.from_dict-84"><a href="#RoomConfig.from_dict-84"><span class="linenos"> 84</span></a>
+</span><span id="RoomConfig.from_dict-85"><a href="#RoomConfig.from_dict-85"><span class="linenos"> 85</span></a>        <span class="k">def</span><span class="w"> </span><span class="nf">_parse_max_peers</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Unset</span><span class="p">,</span> <span class="nb">int</span><span class="p">]:</span>
+</span><span id="RoomConfig.from_dict-86"><a href="#RoomConfig.from_dict-86"><span class="linenos"> 86</span></a>            <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="RoomConfig.from_dict-87"><a href="#RoomConfig.from_dict-87"><span class="linenos"> 87</span></a>                <span class="k">return</span> <span class="n">data</span>
+</span><span id="RoomConfig.from_dict-88"><a href="#RoomConfig.from_dict-88"><span class="linenos"> 88</span></a>            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="RoomConfig.from_dict-89"><a href="#RoomConfig.from_dict-89"><span class="linenos"> 89</span></a>                <span class="k">return</span> <span class="n">data</span>
+</span><span id="RoomConfig.from_dict-90"><a href="#RoomConfig.from_dict-90"><span class="linenos"> 90</span></a>            <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Unset</span><span class="p">,</span> <span class="nb">int</span><span class="p">],</span> <span class="n">data</span><span class="p">)</span>
+</span><span id="RoomConfig.from_dict-91"><a href="#RoomConfig.from_dict-91"><span class="linenos"> 91</span></a>
+</span><span id="RoomConfig.from_dict-92"><a href="#RoomConfig.from_dict-92"><span class="linenos"> 92</span></a>        <span class="n">max_peers</span> <span class="o">=</span> <span class="n">_parse_max_peers</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;maxPeers&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">))</span>
+</span><span id="RoomConfig.from_dict-93"><a href="#RoomConfig.from_dict-93"><span class="linenos"> 93</span></a>
+</span><span id="RoomConfig.from_dict-94"><a href="#RoomConfig.from_dict-94"><span class="linenos"> 94</span></a>        <span class="n">public</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;public&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">)</span>
+</span><span id="RoomConfig.from_dict-95"><a href="#RoomConfig.from_dict-95"><span class="linenos"> 95</span></a>
+</span><span id="RoomConfig.from_dict-96"><a href="#RoomConfig.from_dict-96"><span class="linenos"> 96</span></a>        <span class="n">_room_type</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;roomType&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">)</span>
+</span><span id="RoomConfig.from_dict-97"><a href="#RoomConfig.from_dict-97"><span class="linenos"> 97</span></a>        <span class="n">room_type</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="n">RoomConfigRoomType</span><span class="p">]</span>
+</span><span id="RoomConfig.from_dict-98"><a href="#RoomConfig.from_dict-98"><span class="linenos"> 98</span></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_room_type</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="RoomConfig.from_dict-99"><a href="#RoomConfig.from_dict-99"><span class="linenos"> 99</span></a>            <span class="n">room_type</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="RoomConfig.from_dict-100"><a href="#RoomConfig.from_dict-100"><span class="linenos">100</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="RoomConfig.from_dict-101"><a href="#RoomConfig.from_dict-101"><span class="linenos">101</span></a>            <span class="n">room_type</span> <span class="o">=</span> <span class="n">RoomConfigRoomType</span><span class="p">(</span><span class="n">_room_type</span><span class="p">)</span>
+</span><span id="RoomConfig.from_dict-102"><a href="#RoomConfig.from_dict-102"><span class="linenos">102</span></a>
+</span><span id="RoomConfig.from_dict-103"><a href="#RoomConfig.from_dict-103"><span class="linenos">103</span></a>        <span class="n">_video_codec</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;videoCodec&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">)</span>
+</span><span id="RoomConfig.from_dict-104"><a href="#RoomConfig.from_dict-104"><span class="linenos">104</span></a>        <span class="n">video_codec</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="n">RoomConfigVideoCodec</span><span class="p">]</span>
+</span><span id="RoomConfig.from_dict-105"><a href="#RoomConfig.from_dict-105"><span class="linenos">105</span></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_video_codec</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="RoomConfig.from_dict-106"><a href="#RoomConfig.from_dict-106"><span class="linenos">106</span></a>            <span class="n">video_codec</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="RoomConfig.from_dict-107"><a href="#RoomConfig.from_dict-107"><span class="linenos">107</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="RoomConfig.from_dict-108"><a href="#RoomConfig.from_dict-108"><span class="linenos">108</span></a>            <span class="n">video_codec</span> <span class="o">=</span> <span class="n">RoomConfigVideoCodec</span><span class="p">(</span><span class="n">_video_codec</span><span class="p">)</span>
+</span><span id="RoomConfig.from_dict-109"><a href="#RoomConfig.from_dict-109"><span class="linenos">109</span></a>
+</span><span id="RoomConfig.from_dict-110"><a href="#RoomConfig.from_dict-110"><span class="linenos">110</span></a>        <span class="k">def</span><span class="w"> </span><span class="nf">_parse_webhook_url</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">object</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Unset</span><span class="p">,</span> <span class="nb">str</span><span class="p">]:</span>
+</span><span id="RoomConfig.from_dict-111"><a href="#RoomConfig.from_dict-111"><span class="linenos">111</span></a>            <span class="k">if</span> <span class="n">data</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="RoomConfig.from_dict-112"><a href="#RoomConfig.from_dict-112"><span class="linenos">112</span></a>                <span class="k">return</span> <span class="n">data</span>
+</span><span id="RoomConfig.from_dict-113"><a href="#RoomConfig.from_dict-113"><span class="linenos">113</span></a>            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="RoomConfig.from_dict-114"><a href="#RoomConfig.from_dict-114"><span class="linenos">114</span></a>                <span class="k">return</span> <span class="n">data</span>
+</span><span id="RoomConfig.from_dict-115"><a href="#RoomConfig.from_dict-115"><span class="linenos">115</span></a>            <span class="k">return</span> <span class="n">cast</span><span class="p">(</span><span class="n">Union</span><span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="n">Unset</span><span class="p">,</span> <span class="nb">str</span><span class="p">],</span> <span class="n">data</span><span class="p">)</span>
+</span><span id="RoomConfig.from_dict-116"><a href="#RoomConfig.from_dict-116"><span class="linenos">116</span></a>
+</span><span id="RoomConfig.from_dict-117"><a href="#RoomConfig.from_dict-117"><span class="linenos">117</span></a>        <span class="n">webhook_url</span> <span class="o">=</span> <span class="n">_parse_webhook_url</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;webhookUrl&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">))</span>
+</span><span id="RoomConfig.from_dict-118"><a href="#RoomConfig.from_dict-118"><span class="linenos">118</span></a>
+</span><span id="RoomConfig.from_dict-119"><a href="#RoomConfig.from_dict-119"><span class="linenos">119</span></a>        <span class="n">room_config</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+</span><span id="RoomConfig.from_dict-120"><a href="#RoomConfig.from_dict-120"><span class="linenos">120</span></a>            <span class="n">max_peers</span><span class="o">=</span><span class="n">max_peers</span><span class="p">,</span>
+</span><span id="RoomConfig.from_dict-121"><a href="#RoomConfig.from_dict-121"><span class="linenos">121</span></a>            <span class="n">public</span><span class="o">=</span><span class="n">public</span><span class="p">,</span>
+</span><span id="RoomConfig.from_dict-122"><a href="#RoomConfig.from_dict-122"><span class="linenos">122</span></a>            <span class="n">room_type</span><span class="o">=</span><span class="n">room_type</span><span class="p">,</span>
+</span><span id="RoomConfig.from_dict-123"><a href="#RoomConfig.from_dict-123"><span class="linenos">123</span></a>            <span class="n">video_codec</span><span class="o">=</span><span class="n">video_codec</span><span class="p">,</span>
+</span><span id="RoomConfig.from_dict-124"><a href="#RoomConfig.from_dict-124"><span class="linenos">124</span></a>            <span class="n">webhook_url</span><span class="o">=</span><span class="n">webhook_url</span><span class="p">,</span>
+</span><span id="RoomConfig.from_dict-125"><a href="#RoomConfig.from_dict-125"><span class="linenos">125</span></a>        <span class="p">)</span>
+</span><span id="RoomConfig.from_dict-126"><a href="#RoomConfig.from_dict-126"><span class="linenos">126</span></a>
+</span><span id="RoomConfig.from_dict-127"><a href="#RoomConfig.from_dict-127"><span class="linenos">127</span></a>        <span class="n">room_config</span><span class="o">.</span><span class="n">additional_properties</span> <span class="o">=</span> <span class="n">d</span>
+</span><span id="RoomConfig.from_dict-128"><a href="#RoomConfig.from_dict-128"><span class="linenos">128</span></a>        <span class="k">return</span> <span class="n">room_config</span>
+</span></pre></div>
+
+
+
+
+                            </div>
+                            <div id="RoomConfig.additional_keys" class="classattr">
+                                        <input id="RoomConfig.additional_keys-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr variable">
+            <span class="name">additional_keys</span><span class="annotation">: list[str]</span>
+
+                <label class="view-source-button" for="RoomConfig.additional_keys-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#RoomConfig.additional_keys"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="RoomConfig.additional_keys-130"><a href="#RoomConfig.additional_keys-130"><span class="linenos">130</span></a>    <span class="nd">@property</span>
+</span><span id="RoomConfig.additional_keys-131"><a href="#RoomConfig.additional_keys-131"><span class="linenos">131</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">additional_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="RoomConfig.additional_keys-132"><a href="#RoomConfig.additional_keys-132"><span class="linenos">132</span></a>        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</span></pre></div>
+
+
 
 
                             </div>

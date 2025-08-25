@@ -59,6 +59,10 @@
     <ul class="dropdown-menu">
             
 <li>
+    <a href="agent.html" class="dropdown-item">Agent</a>
+</li>
+            
+<li>
     <a href="errors.html" class="dropdown-item">Errors</a>
 </li>
             
@@ -165,6 +169,18 @@
                 </ul>
 
             </li>
+            <li>
+                    <a class="class" href="#PeerType">PeerType</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="variable" href="#PeerType.AGENT">AGENT</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PeerType.WEBRTC">WEBRTC</a>
+                        </li>
+                </ul>
+
+            </li>
     </ul>
 
 
@@ -184,9 +200,9 @@
 
                         <label class="view-source-button" for="mod-peer-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">fishjam._openapi_client.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">PeerStatus</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">fishjam._openapi_client.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">PeerStatus</span><span class="p">,</span> <span class="n">PeerType</span>
 </span><span id="L-2"><a href="#L-2"><span class="linenos">2</span></a>
-</span><span id="L-3"><a href="#L-3"><span class="linenos">3</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PeerStatus&quot;</span><span class="p">]</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos">3</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PeerStatus&quot;</span><span class="p">,</span> <span class="s2">&quot;PeerType&quot;</span><span class="p">]</span>
 </span></pre></div>
 
 
@@ -297,6 +313,117 @@
                 <dd id="PeerStatus.format" class="function">format</dd>
                 <dd id="PeerStatus.format_map" class="function">format_map</dd>
                 <dd id="PeerStatus.maketrans" class="function">maketrans</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="PeerType">
+                            <input id="PeerType-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+
+    <span class="def">class</span>
+    <span class="name">PeerType</span><wbr>(<span class="base">builtins.str</span>, <span class="base">enum.Enum</span>):
+
+                <label class="view-source-button" for="PeerType-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#PeerType"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerType-5"><a href="#PeerType-5"><span class="linenos"> 5</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PeerType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+</span><span id="PeerType-6"><a href="#PeerType-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Peer type&quot;&quot;&quot;</span>
+</span><span id="PeerType-7"><a href="#PeerType-7"><span class="linenos"> 7</span></a>
+</span><span id="PeerType-8"><a href="#PeerType-8"><span class="linenos"> 8</span></a>    <span class="n">AGENT</span> <span class="o">=</span> <span class="s2">&quot;agent&quot;</span>
+</span><span id="PeerType-9"><a href="#PeerType-9"><span class="linenos"> 9</span></a>    <span class="n">WEBRTC</span> <span class="o">=</span> <span class="s2">&quot;webrtc&quot;</span>
+</span><span id="PeerType-10"><a href="#PeerType-10"><span class="linenos">10</span></a>
+</span><span id="PeerType-11"><a href="#PeerType-11"><span class="linenos">11</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="PeerType-12"><a href="#PeerType-12"><span class="linenos">12</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Peer type</p>
+</div>
+
+
+                            <div id="PeerType.AGENT" class="classattr">
+                                <div class="attr variable">
+            <span class="name">AGENT</span>        =
+<span class="default_value">&lt;<a href="#PeerType.AGENT">PeerType.AGENT</a>: &#39;agent&#39;&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#PeerType.AGENT"></a>
+
+
+
+                            </div>
+                            <div id="PeerType.WEBRTC" class="classattr">
+                                <div class="attr variable">
+            <span class="name">WEBRTC</span>        =
+<span class="default_value">&lt;<a href="#PeerType.WEBRTC">PeerType.WEBRTC</a>: &#39;webrtc&#39;&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#PeerType.WEBRTC"></a>
+
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>enum.Enum</dt>
+                                <dd id="PeerType.name" class="variable">name</dd>
+                <dd id="PeerType.value" class="variable">value</dd>
+
+            </div>
+            <div><dt>builtins.str</dt>
+                                <dd id="PeerType.encode" class="function">encode</dd>
+                <dd id="PeerType.replace" class="function">replace</dd>
+                <dd id="PeerType.split" class="function">split</dd>
+                <dd id="PeerType.rsplit" class="function">rsplit</dd>
+                <dd id="PeerType.join" class="function">join</dd>
+                <dd id="PeerType.capitalize" class="function">capitalize</dd>
+                <dd id="PeerType.casefold" class="function">casefold</dd>
+                <dd id="PeerType.title" class="function">title</dd>
+                <dd id="PeerType.center" class="function">center</dd>
+                <dd id="PeerType.count" class="function">count</dd>
+                <dd id="PeerType.expandtabs" class="function">expandtabs</dd>
+                <dd id="PeerType.find" class="function">find</dd>
+                <dd id="PeerType.partition" class="function">partition</dd>
+                <dd id="PeerType.index" class="function">index</dd>
+                <dd id="PeerType.ljust" class="function">ljust</dd>
+                <dd id="PeerType.lower" class="function">lower</dd>
+                <dd id="PeerType.lstrip" class="function">lstrip</dd>
+                <dd id="PeerType.rfind" class="function">rfind</dd>
+                <dd id="PeerType.rindex" class="function">rindex</dd>
+                <dd id="PeerType.rjust" class="function">rjust</dd>
+                <dd id="PeerType.rstrip" class="function">rstrip</dd>
+                <dd id="PeerType.rpartition" class="function">rpartition</dd>
+                <dd id="PeerType.splitlines" class="function">splitlines</dd>
+                <dd id="PeerType.strip" class="function">strip</dd>
+                <dd id="PeerType.swapcase" class="function">swapcase</dd>
+                <dd id="PeerType.translate" class="function">translate</dd>
+                <dd id="PeerType.upper" class="function">upper</dd>
+                <dd id="PeerType.startswith" class="function">startswith</dd>
+                <dd id="PeerType.endswith" class="function">endswith</dd>
+                <dd id="PeerType.removeprefix" class="function">removeprefix</dd>
+                <dd id="PeerType.removesuffix" class="function">removesuffix</dd>
+                <dd id="PeerType.isascii" class="function">isascii</dd>
+                <dd id="PeerType.islower" class="function">islower</dd>
+                <dd id="PeerType.isupper" class="function">isupper</dd>
+                <dd id="PeerType.istitle" class="function">istitle</dd>
+                <dd id="PeerType.isspace" class="function">isspace</dd>
+                <dd id="PeerType.isdecimal" class="function">isdecimal</dd>
+                <dd id="PeerType.isdigit" class="function">isdigit</dd>
+                <dd id="PeerType.isnumeric" class="function">isnumeric</dd>
+                <dd id="PeerType.isalpha" class="function">isalpha</dd>
+                <dd id="PeerType.isalnum" class="function">isalnum</dd>
+                <dd id="PeerType.isidentifier" class="function">isidentifier</dd>
+                <dd id="PeerType.isprintable" class="function">isprintable</dd>
+                <dd id="PeerType.zfill" class="function">zfill</dd>
+                <dd id="PeerType.format" class="function">format</dd>
+                <dd id="PeerType.format_map" class="function">format_map</dd>
+                <dd id="PeerType.maketrans" class="function">maketrans</dd>
 
             </div>
                                 </dl>
