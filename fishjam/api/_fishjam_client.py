@@ -3,7 +3,7 @@ Fishjam client used to manage rooms
 """
 
 from dataclasses import dataclass
-from typing import Any, List, Literal, Tuple, cast
+from typing import Any, Literal, cast
 
 from fishjam._openapi_client.api.room import add_peer as room_add_peer
 from fishjam._openapi_client.api.room import create_room as room_create_room
@@ -19,23 +19,27 @@ from fishjam._openapi_client.api.viewer import (
     generate_viewer_token as viewer_generate_viewer_token,
 )
 from fishjam._openapi_client.models import (
-    AddPeerJsonBody,
+    AddPeerBody,
     Peer,
     PeerDetailsResponse,
+    PeerOptionsAgent,
     PeerOptionsWebRTC,
+    PeerOptionsWebRTCMetadata,
+    PeerOptionsWebRTCSubscribeOptions,
     PeerRefreshTokenResponse,
+    PeerType,
     RoomConfig,
     RoomConfigRoomType,
+    RoomConfigVideoCodec,
     RoomCreateDetailsResponse,
     RoomDetailsResponse,
     RoomsListingResponse,
     StreamerToken,
+    SubscribeOptions,
     ViewerToken,
 )
-from fishjam._openapi_client.models.peer_options_web_rtc_metadata import (
-    PeerOptionsWebRTCMetadata,
-)
-from fishjam._openapi_client.models.room_config_video_codec import RoomConfigVideoCodec
+from fishjam._openapi_client.types import UNSET
+from fishjam.agent import Agent
 from fishjam.api._client import Client
 
 
@@ -47,7 +51,7 @@ class Room:
     """Room configuration"""
     id: str
     """Room ID"""
-    peers: List[Peer]
+    peers: list[Peer]
     """List of all peers"""
 
 
@@ -77,6 +81,7 @@ class PeerOptions:
     """Enables the peer to use simulcast"""
     metadata: dict[str, Any] | None = None
     """Peer metadata"""
+    subscribe: SubscribeOptions | None = None
 
 
 class FishjamClient(Client):
@@ -99,8 +104,10 @@ class FishjamClient(Client):
         )
 
     def create_peer(
-        self, room_id: str, options: PeerOptions | None = None
-    ) -> Tuple[Peer, str]:
+        self,
+        room_id: str,
+        options: PeerOptions | None = None,
+    ) -> tuple[Peer, str]:
         """
         Creates peer in the room
 
@@ -111,19 +118,30 @@ class FishjamClient(Client):
         """
         options = options or PeerOptions()
 
-        peer_type = "webrtc"
         peer_metadata = self.__parse_peer_metadata(options.metadata)
         peer_options = PeerOptionsWebRTC(
-            enable_simulcast=options.enable_simulcast, metadata=peer_metadata
+            enable_simulcast=options.enable_simulcast,
+            metadata=peer_metadata,
+            subscribe=self.__parse_subscribe_options(options.subscribe),
         )
-        json_body = AddPeerJsonBody(type=peer_type, options=peer_options)
+        body = AddPeerBody(type_=PeerType.WEBRTC, options=peer_options)
 
         resp = cast(
             PeerDetailsResponse,
-            self._request(room_add_peer, room_id=room_id, json_body=json_body),
+            self._request(room_add_peer, room_id=room_id, body=body),
         )
 
         return (resp.data.peer, resp.data.token)
+
+    def create_agent(self, room_id: str):
+        body = AddPeerBody(type_=PeerType.AGENT, options=PeerOptionsAgent())
+
+        resp = cast(
+            PeerDetailsResponse,
+            self._request(room_add_peer, room_id=room_id, body=body),
+        )
+
+        return Agent(resp.data.peer.id, resp.data.token, self._fishjam_url)
 
     def create_room(self, options: RoomOptions | None = None) -> Room:
         """
@@ -132,8 +150,9 @@ class FishjamClient(Client):
         """
         options = options or RoomOptions()
 
-        codec = None
-        if options.video_codec:
+        if options.video_codec is None:
+            codec = UNSET
+        else:
             codec = RoomConfigVideoCodec(options.video_codec)
 
         config = RoomConfig(
@@ -145,12 +164,12 @@ class FishjamClient(Client):
         )
 
         room = cast(
-            RoomCreateDetailsResponse, self._request(room_create_room, json_body=config)
+            RoomCreateDetailsResponse, self._request(room_create_room, body=config)
         ).data.room
 
         return Room(config=room.config, id=room.id, peers=room.peers)
 
-    def get_all_rooms(self) -> List[Room]:
+    def get_all_rooms(self) -> list[Room]:
         """Returns list of all rooms"""
 
         rooms = cast(RoomsListingResponse, self._request(room_get_all_rooms)).data
@@ -217,3 +236,11 @@ class FishjamClient(Client):
             peer_metadata.additional_properties[key] = value
 
         return peer_metadata
+
+    def __parse_subscribe_options(
+        self,
+        options: SubscribeOptions | None,
+    ) -> PeerOptionsWebRTCSubscribeOptions | None:
+        if options is None:
+            return None
+        return PeerOptionsWebRTCSubscribeOptions.from_dict(options.to_dict())

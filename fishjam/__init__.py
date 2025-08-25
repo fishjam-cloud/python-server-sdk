@@ -1,5 +1,5 @@
 """
-    .. include:: ../README.md
+.. include:: ../README.md
 """
 
 # pylint: disable=locally-disabled, no-name-in-module, import-error
@@ -10,7 +10,7 @@
 # pylint: disable=locally-disabled, no-name-in-module, import-error
 
 # Exceptions and Server Messages
-from fishjam import errors, events, peer, room
+from fishjam import agent, errors, events, peer, room
 
 # API
 from fishjam._webhook_notifier import receive_binary
@@ -21,6 +21,7 @@ from fishjam.api._fishjam_client import (
     PeerOptions,
     Room,
     RoomOptions,
+    SubscribeOptions,
 )
 
 __all__ = [
@@ -28,6 +29,7 @@ __all__ = [
     "FishjamNotifier",
     "receive_binary",
     "PeerOptions",
+    "SubscribeOptions",
     "RoomOptions",
     "Room",
     "Peer",
@@ -35,6 +37,7 @@ __all__ = [
     "errors",
     "room",
     "peer",
+    "agent",
 ]
 
 __docformat__ = "restructuredtext"

@@ -1,4 +1,10 @@
-from typing import Any, Dict, List, Type, TypeVar, Union
+from collections.abc import Mapping
+from typing import (
+    Any,
+    TypeVar,
+    Union,
+    cast,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -12,36 +18,50 @@ T = TypeVar("T", bound="RoomConfig")
 
 @_attrs_define
 class RoomConfig:
-    """Room configuration"""
+    """Room configuration
 
-    max_peers: Union[Unset, None, int] = UNSET
-    """Maximum amount of peers allowed into the room"""
+    Attributes:
+        max_peers (Union[None, Unset, int]): Maximum amount of peers allowed into the room Example: 10.
+        public (Union[Unset, bool]): True if livestream viewers can omit specifying a token. Default: False.
+        room_type (Union[Unset, RoomConfigRoomType]): The use-case of the room. If not provided, this defaults to
+            conference. Default: RoomConfigRoomType.CONFERENCE.
+        video_codec (Union[Unset, RoomConfigVideoCodec]): Enforces video codec for each peer in the room Default:
+            RoomConfigVideoCodec.H264.
+        webhook_url (Union[None, Unset, str]): URL where Fishjam notifications will be sent Example:
+            https://backend.address.com/fishjam-notifications-endpoint.
+    """
+
+    max_peers: Union[None, Unset, int] = UNSET
     public: Union[Unset, bool] = False
-    """True if livestream viewers can omit specifying a token."""
     room_type: Union[Unset, RoomConfigRoomType] = RoomConfigRoomType.CONFERENCE
-    """The use-case of the room. If not provided, this defaults to conference."""
-    video_codec: Union[Unset, None, RoomConfigVideoCodec] = UNSET
-    """Enforces video codec for each peer in the room"""
-    webhook_url: Union[Unset, None, str] = UNSET
-    """URL where Fishjam notifications will be sent"""
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-    """@private"""
+    video_codec: Union[Unset, RoomConfigVideoCodec] = RoomConfigVideoCodec.H264
+    webhook_url: Union[None, Unset, str] = UNSET
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-        """@private"""
-        max_peers = self.max_peers
+    def to_dict(self) -> dict[str, Any]:
+        max_peers: Union[None, Unset, int]
+        if isinstance(self.max_peers, Unset):
+            max_peers = UNSET
+        else:
+            max_peers = self.max_peers
+
         public = self.public
+
         room_type: Union[Unset, str] = UNSET
         if not isinstance(self.room_type, Unset):
             room_type = self.room_type.value
 
-        video_codec: Union[Unset, None, str] = UNSET
+        video_codec: Union[Unset, str] = UNSET
         if not isinstance(self.video_codec, Unset):
-            video_codec = self.video_codec.value if self.video_codec else None
+            video_codec = self.video_codec.value
 
-        webhook_url = self.webhook_url
+        webhook_url: Union[None, Unset, str]
+        if isinstance(self.webhook_url, Unset):
+            webhook_url = UNSET
+        else:
+            webhook_url = self.webhook_url
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
         if max_peers is not UNSET:
@@ -58,10 +78,17 @@ class RoomConfig:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        """@private"""
-        d = src_dict.copy()
-        max_peers = d.pop("maxPeers", UNSET)
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        d = dict(src_dict)
+
+        def _parse_max_peers(data: object) -> Union[None, Unset, int]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, int], data)
+
+        max_peers = _parse_max_peers(d.pop("maxPeers", UNSET))
 
         public = d.pop("public", UNSET)
 
@@ -73,15 +100,20 @@ class RoomConfig:
             room_type = RoomConfigRoomType(_room_type)
 
         _video_codec = d.pop("videoCodec", UNSET)
-        video_codec: Union[Unset, None, RoomConfigVideoCodec]
-        if _video_codec is None:
-            video_codec = None
-        elif isinstance(_video_codec, Unset):
+        video_codec: Union[Unset, RoomConfigVideoCodec]
+        if isinstance(_video_codec, Unset):
             video_codec = UNSET
         else:
             video_codec = RoomConfigVideoCodec(_video_codec)
 
-        webhook_url = d.pop("webhookUrl", UNSET)
+        def _parse_webhook_url(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        webhook_url = _parse_webhook_url(d.pop("webhookUrl", UNSET))
 
         room_config = cls(
             max_peers=max_peers,
@@ -95,8 +127,7 @@ class RoomConfig:
         return room_config
 
     @property
-    def additional_keys(self) -> List[str]:
-        """@private"""
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

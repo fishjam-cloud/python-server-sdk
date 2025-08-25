@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, Dict, Optional, Union
+from typing import Any, Optional, Union
 
 import httpx
 
@@ -10,21 +10,23 @@ from ...models.rooms_listing_response import RoomsListingResponse
 from ...types import Response
 
 
-def _get_kwargs() -> Dict[str, Any]:
-    return {
+def _get_kwargs() -> dict[str, Any]:
+    _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/room",
     }
+
+    return _kwargs
 
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
 ) -> Optional[Union[Error, RoomsListingResponse]]:
-    if response.status_code == HTTPStatus.OK:
+    if response.status_code == 200:
         response_200 = RoomsListingResponse.from_dict(response.json())
 
         return response_200
-    if response.status_code == HTTPStatus.UNAUTHORIZED:
+    if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
         return response_401

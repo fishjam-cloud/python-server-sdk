@@ -11,10 +11,8 @@ class Client:
     def __init__(
         self, fishjam_id: str, management_token: str, *, fishjam_url: str | None = None
     ):
-        self.client = AuthenticatedClient(
-            get_fishjam_url(fishjam_id, fishjam_url),
-            token=management_token,
-        )
+        self._fishjam_url = get_fishjam_url(fishjam_id, fishjam_url)
+        self.client = AuthenticatedClient(self._fishjam_url, token=management_token)
 
     def _request(self, method, **kwargs):
         response = method.sync_detailed(client=self.client, **kwargs)

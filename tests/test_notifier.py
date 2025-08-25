@@ -8,6 +8,7 @@ from multiprocessing import Process, Queue
 
 import pytest
 import requests
+import websockets
 
 from fishjam import FishjamClient, FishjamNotifier, RoomOptions
 from fishjam.events import (
@@ -68,8 +69,9 @@ class TestConnectingToServer:
 
         notifier_task = asyncio.create_task(notifier.connect())
         await notifier.wait_ready()
-        # pylint: disable=protected-access
-        assert notifier._websocket.open
+        assert (
+            notifier._websocket and notifier._websocket.state == websockets.State.OPEN
+        )
 
         await cancel(notifier_task)
 

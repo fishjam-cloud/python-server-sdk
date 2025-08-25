@@ -28,14 +28,14 @@ def run_tests():
     check_exit_code("docker rm -f fishjam")
     check_exit_code("docker compose -f docker-compose-test.yaml pull")
     check_exit_code(
-        "docker compose -f docker-compose-test.yaml up --remove-orphans test \
+        "docker compose -f docker-compose-test.yaml up --build --remove-orphans test \
         --exit-code-from test"
     )
     check_exit_code("docker compose -f docker-compose-test.yaml down")
 
 
 def run_local_test():
-    check_exit_code('poetry run pytest -m "not file_component_sources" -vv')
+    check_exit_code('uv run pytest -m "not file_component_sources" -vv')
 
 
 def run_formatter():
@@ -86,9 +86,12 @@ def update_client():
         raise RuntimeError("Missing fishjam openapi.yaml raw url positional argument")
 
     check_exit_code(
-        f"openapi-python-client update \
-            --url {sys.argv[1]} \
+        f"openapi-python-client generate \
+            --path {sys.argv[1]} \
             --config openapi-python-client-config.yaml \
+            --meta=none \
+            --overwrite \
+            --output-path=fishjam/_openapi_client/ \
             --custom-template-path=templates/openapi"
     )
 

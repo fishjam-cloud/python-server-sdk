@@ -19,7 +19,7 @@ The SDK exports two main classes for interacting with Fishjam server:
 
 `FishjamClient` wraps http REST api calls, while `FishjamNotifier` is responsible for receiving real-time updates from the server.
 
-#### FishjamClient
+### FishjamClient
 
 Create a `FishjamClient` instance, providing the fishjam server address and api token
 
@@ -46,7 +46,7 @@ peer, token = fishjam_client.create_peer(room.id)
 
 All methods in `FishjamClient` may raise one of the exceptions deriving from `fishjam.errors.HTTPError`. They are defined in `fishjam.errors`.
 
-#### FishjamNotifier
+### FishjamNotifier
 
 FishjamNotifier allows for receiving real-time updates from the Fishjam Server.
 
@@ -88,62 +88,6 @@ asyncio.run(test_notifier())
 
 # Received a notification: ServerMessageRoomCreated(room_id='69a3fd1a-6a4d-47bc-ae54-0c72b0d05e29')
 ```
-
-## Local development
-
-The project is managed using [poetry](https://python-poetry.org/). Make sure to have it installed first.
-
-Then install the dependencies
-
-```console
-poetry install
-```
-
-## Generating protobuf
-
-To generate Python protobuf definitions run
-
-```console
-poetry run ./compile_proto.sh
-```
-
-## Testing
-
-You can test the SDK by running
-
-```console
-poetry run ci_test
-```
-
-In local development you can use
-
-```console
-poetry run local_test
-```
-
-## Format & Lint
-
-You can format code by running
-
-```console
-poetry run format
-```
-
-You can check linter by running
-
-```console
-poetry run lint
-```
-
-## Documentation
-
-Documentation is generated via openapi-python-client.
-
-To update documentation you need to:
-
-- Go to https://github.com/fishjam-cloud/fishjam/blob/main/openapi.yaml and open the raw file.
-- Copy the URL.
-- Run `poetry run update_client <copied-url>`
 
 ## License
 

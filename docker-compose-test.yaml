@@ -18,8 +18,8 @@ services:
       FJ_SIP_IP: "127.0.0.1"
       FJ_COMPONENTS_USED: "rtsp file hls recording sip"
       FJ_BROADCASTING_ENABLED: "true"
-      FJ_BROADCASTER_URL: "http://broadcaster:4000" 
-      FJ_BROADCASTER_TOKEN: "broadcaster_token" 
+      FJ_BROADCASTER_URL: "http://broadcaster:4000"
+      FJ_BROADCASTER_TOKEN: "broadcaster_token"
       FJ_BROADCASTER_WHIP_TOKEN: "whip_token"
     ports:
       - "5002:5002"
@@ -42,8 +42,8 @@ services:
       context: .
       dockerfile: tests/Dockerfile
       args:
-        PYTHON_VERSION: ${PYTHON_VERSION:-3.10}
-    command: poetry run pytest
+        PYTHON_VERSION: ${PYTHON_VERSION:-3.11}
+    command: uv run pytest
     environment:
       DOCKER_TEST: "TRUE"
     depends_on:

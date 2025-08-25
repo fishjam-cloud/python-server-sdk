@@ -1,4 +1,10 @@
-from typing import TYPE_CHECKING, Any, Dict, List, Type, TypeVar, Union
+from collections.abc import Mapping
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+    Union,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -14,25 +20,27 @@ T = TypeVar("T", bound="PeerDetailsResponseData")
 
 @_attrs_define
 class PeerDetailsResponseData:
-    """ """
+    """
+    Attributes:
+        peer (Peer): Describes peer status
+        token (str): Token for authorizing websocket connection Example: 5cdac726-57a3-4ecb-b1d5-72a3d62ec242.
+        peer_websocket_url (Union[Unset, str]): Websocket URL to which peer has to connect Example:
+            www.fishjam.org/socket/peer.
+    """
 
     peer: "Peer"
-    """Describes peer status"""
     token: str
-    """Token for authorizing websocket connection"""
     peer_websocket_url: Union[Unset, str] = UNSET
-    """Websocket URL to which peer has to connect"""
-    additional_properties: Dict[str, Any] = _attrs_field(init=False, factory=dict)
-    """@private"""
+    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
-    def to_dict(self) -> Dict[str, Any]:
-        """@private"""
+    def to_dict(self) -> dict[str, Any]:
         peer = self.peer.to_dict()
 
         token = self.token
+
         peer_websocket_url = self.peer_websocket_url
 
-        field_dict: Dict[str, Any] = {}
+        field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update(
             {
@@ -46,11 +54,10 @@ class PeerDetailsResponseData:
         return field_dict
 
     @classmethod
-    def from_dict(cls: Type[T], src_dict: Dict[str, Any]) -> T:
-        """@private"""
+    def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.peer import Peer
 
-        d = src_dict.copy()
+        d = dict(src_dict)
         peer = Peer.from_dict(d.pop("peer"))
 
         token = d.pop("token")
@@ -67,8 +74,7 @@ class PeerDetailsResponseData:
         return peer_details_response_data
 
     @property
-    def additional_keys(self) -> List[str]:
-        """@private"""
+    def additional_keys(self) -> list[str]:
         return list(self.additional_properties.keys())
 
     def __getitem__(self, key: str) -> Any:

@@ -3,10 +3,11 @@ Notifier listening to WebSocket events
 """
 
 import asyncio
-from typing import Callable, Literal, cast
+from collections.abc import Coroutine
+from typing import Any, Callable, cast
 
 import betterproto
-from websockets import client
+from websockets.asyncio import client
 from websockets.exceptions import ConnectionClosed
 
 from fishjam.events._protos.fishjam import (
@@ -22,6 +23,11 @@ from fishjam.events.allowed_notifications import (
     AllowedNotification,
 )
 from fishjam.utils import get_fishjam_url
+
+NotificationHandler = (
+    Callable[[AllowedNotification], None]
+    | Callable[[AllowedNotification], Coroutine[Any, Any, None]]
+)
 
 
 class FishjamNotifier:
@@ -43,14 +49,14 @@ class FishjamNotifier:
         websocket_url = get_fishjam_url(fishjam_id, fishjam_url).replace("http", "ws")
         self._fishjam_url = f"{websocket_url}/socket/server/websocket"
         self._management_token: str = management_token
-        self._websocket: client.WebSocketClientProtocol | None = None
+        self._websocket: client.ClientConnection | None = None
         self._ready: bool = False
 
         self._ready_event: asyncio.Event | None = None
 
-        self._notification_handler: Callable | None = None
+        self._notification_handler: NotificationHandler | None = None
 
-    def on_server_notification(self, handler: Callable[[AllowedNotification], None]):
+    def on_server_notification(self, handler: NotificationHandler):
         """
         Decorator used for defining handler for Fishjam Notifications
         """
@@ -88,19 +94,19 @@ class FishjamNotifier:
             finally:
                 self._websocket = None
 
-    async def wait_ready(self) -> Literal[True]:
+    async def wait_ready(self) -> None:
         """
         Waits until the notifier is connected and authenticated to Fishjam.
 
-        If already connected, returns `True` immediately.
+        If already connected, returns immediately.
         """
         if self._ready:
-            return True
+            return
 
         if self._ready_event is None:
             self._ready_event = asyncio.Event()
 
-        return await self._ready_event.wait()
+        await self._ready_event.wait()
 
     async def _authenticate(self):
         if not self._websocket:
@@ -112,7 +118,7 @@ class FishjamNotifier:
         await self._websocket.send(bytes(msg))
 
         try:
-            message = cast(bytes, await self._websocket.recv())
+            message = await self._websocket.recv(decode=False)
         except ConnectionClosed as exception:
             if "invalid token" in str(exception):
                 raise RuntimeError("Invalid management token") from exception
@@ -135,7 +141,9 @@ class FishjamNotifier:
             _which, message = betterproto.which_one_of(message, "content")
 
             if isinstance(message, ALLOWED_NOTIFICATIONS):
-                self._notification_handler(message)
+                res = self._notification_handler(message)
+                if asyncio.iscoroutine(res):
+                    await res
 
     async def _subscribe_event(self, event: ServerMessageEventType):
         if not self._websocket:
