@@ -1,10 +1,11 @@
-"""Contains all the data models used in inputs/outputs"""
+""" Contains all the data models used in inputs/outputs """
 
 from .add_peer_body import AddPeerBody
 from .error import Error
 from .peer import Peer
 from .peer_details_response import PeerDetailsResponse
 from .peer_details_response_data import PeerDetailsResponseData
+from .peer_metadata import PeerMetadata
 from .peer_options_agent import PeerOptionsAgent
 from .peer_options_web_rtc import PeerOptionsWebRTC
 from .peer_options_web_rtc_metadata import PeerOptionsWebRTCMetadata
@@ -32,6 +33,7 @@ from .subscribe_options import SubscribeOptions
 from .subscribe_options_audio_format import SubscribeOptionsAudioFormat
 from .subscribe_options_audio_sample_rate import SubscribeOptionsAudioSampleRate
 from .track import Track
+from .track_metadata_type_0 import TrackMetadataType0
 from .track_type import TrackType
 from .viewer_token import ViewerToken
 
@@ -41,6 +43,7 @@ __all__ = (
     "Peer",
     "PeerDetailsResponse",
     "PeerDetailsResponseData",
+    "PeerMetadata",
     "PeerOptionsAgent",
     "PeerOptionsWebRTC",
     "PeerOptionsWebRTCMetadata",
@@ -64,6 +67,7 @@ __all__ = (
     "SubscribeOptionsAudioFormat",
     "SubscribeOptionsAudioSampleRate",
     "Track",
+    "TrackMetadataType0",
     "TrackType",
     "ViewerToken",
 )

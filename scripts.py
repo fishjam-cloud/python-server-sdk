@@ -87,7 +87,7 @@ def update_client():
 
     check_exit_code(
         f"openapi-python-client generate \
-            --path {sys.argv[1]} \
+            --url {sys.argv[1]} \
             --config openapi-python-client-config.yaml \
             --meta=none \
             --overwrite \

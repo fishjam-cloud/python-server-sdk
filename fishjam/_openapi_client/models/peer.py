@@ -14,6 +14,7 @@ from ..models.peer_status import PeerStatus
 from ..models.peer_type import PeerType
 
 if TYPE_CHECKING:
+    from ..models.peer_metadata import PeerMetadata
     from ..models.subscribe_options import SubscribeOptions
     from ..models.track import Track
 
@@ -27,7 +28,7 @@ class Peer:
 
     Attributes:
         id (str): Assigned peer id Example: peer-1.
-        metadata (Any): Custom metadata set by the peer Example: {'name': 'FishjamUser'}.
+        metadata (Union['PeerMetadata', None]): Custom metadata set by the peer Example: {'name': 'FishjamUser'}.
         status (PeerStatus): Informs about the peer status Example: disconnected.
         subscribe (Union['SubscribeOptions', None]): Configuration of server-side subscriptions to the peer's tracks
             Example: {'audioFormat': 'pcm16'}.
@@ -36,7 +37,7 @@ class Peer:
     """
 
     id: str
-    metadata: Any
+    metadata: Union["PeerMetadata", None]
     status: PeerStatus
     subscribe: Union["SubscribeOptions", None]
     tracks: list["Track"]
@@ -44,11 +45,16 @@ class Peer:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.peer_metadata import PeerMetadata
         from ..models.subscribe_options import SubscribeOptions
 
         id = self.id
 
-        metadata = self.metadata
+        metadata: Union[None, dict[str, Any]]
+        if isinstance(self.metadata, PeerMetadata):
+            metadata = self.metadata.to_dict()
+        else:
+            metadata = self.metadata
 
         status = self.status.value
 
@@ -82,13 +88,27 @@ class Peer:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.peer_metadata import PeerMetadata
         from ..models.subscribe_options import SubscribeOptions
         from ..models.track import Track
 
         d = dict(src_dict)
         id = d.pop("id")
 
-        metadata = d.pop("metadata")
+        def _parse_metadata(data: object) -> Union["PeerMetadata", None]:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemas_peer_metadata_type_0 = PeerMetadata.from_dict(data)
+
+                return componentsschemas_peer_metadata_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union["PeerMetadata", None], data)
+
+        metadata = _parse_metadata(d.pop("metadata"))
 
         status = PeerStatus(d.pop("status"))
 

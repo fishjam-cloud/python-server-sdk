@@ -11,6 +11,7 @@ from fishjam import (
     RoomOptions,
 )
 from fishjam._openapi_client.models import (
+    PeerMetadata,
     PeerStatus,
     PeerType,
     RoomConfig,
@@ -28,7 +29,7 @@ from fishjam.errors import (
 HOST = "fishjam" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
 FISHJAM_URL = f"http://{HOST}:5002"
 FISHJAM_ID = ""
-MANAGEMENT_TOKEN = "development"
+MANAGEMENT_TOKEN = os.getenv("MANAGEMENT_TOKEN", "development")
 
 MAX_PEERS = 10
 CODEC_H264 = "h264"
@@ -187,7 +188,7 @@ class TestCreatePeer:
             type_=PeerType.WEBRTC,
             status=PeerStatus("disconnected"),
             tracks=[],
-            metadata={"peer": {}, "server": server_metadata},
+            metadata=PeerMetadata.from_dict({"peer": {}, "server": server_metadata}),
             subscribe=None,
         )
 

@@ -1,11 +1,10 @@
 import logging
 
+from arguments import parse_arguments
 from flask import Flask
 from flask_cors import CORS
-
-from .arguments import parse_arguments
-from .room_service import RoomService
-from .routes import setup_routes
+from room_service import RoomService
+from routes import setup_routes
 
 app = Flask(__name__)
 CORS(app)

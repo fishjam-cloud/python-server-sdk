@@ -31,6 +31,6 @@ GEMINI_API_KEY=<your-api-token> \
 uv run fastapi dev
 ```
 
-Now, you can create peer tokens by going to <http://localhost:3000>.
+Now, you can create peer tokens by going to <http://localhost:8000>.
 You can then use the [minimal-react](https://github.com/fishjam-cloud/web-client-sdk/tree/main/examples/react-client)
 demo app to connect as these peers and see your transcriptions live in the console!

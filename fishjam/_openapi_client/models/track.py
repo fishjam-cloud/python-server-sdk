@@ -1,8 +1,10 @@
 from collections.abc import Mapping
 from typing import (
+    TYPE_CHECKING,
     Any,
     TypeVar,
     Union,
+    cast,
 )
 
 from attrs import define as _attrs_define
@@ -10,6 +12,10 @@ from attrs import field as _attrs_field
 
 from ..models.track_type import TrackType
 from ..types import UNSET, Unset
+
+if TYPE_CHECKING:
+    from ..models.track_metadata_type_0 import TrackMetadataType0
+
 
 T = TypeVar("T", bound="Track")
 
@@ -20,19 +26,27 @@ class Track:
 
     Attributes:
         id (Union[Unset, str]):
-        metadata (Union[Unset, Any]):
+        metadata (Union['TrackMetadataType0', None, Unset]):  Example: {'source': 'camera'}.
         type_ (Union[Unset, TrackType]):
     """
 
     id: Union[Unset, str] = UNSET
-    metadata: Union[Unset, Any] = UNSET
+    metadata: Union["TrackMetadataType0", None, Unset] = UNSET
     type_: Union[Unset, TrackType] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.track_metadata_type_0 import TrackMetadataType0
+
         id = self.id
 
-        metadata = self.metadata
+        metadata: Union[None, Unset, dict[str, Any]]
+        if isinstance(self.metadata, Unset):
+            metadata = UNSET
+        elif isinstance(self.metadata, TrackMetadataType0):
+            metadata = self.metadata.to_dict()
+        else:
+            metadata = self.metadata
 
         type_: Union[Unset, str] = UNSET
         if not isinstance(self.type_, Unset):
@@ -52,10 +66,27 @@ class Track:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.track_metadata_type_0 import TrackMetadataType0
+
         d = dict(src_dict)
         id = d.pop("id", UNSET)
 
-        metadata = d.pop("metadata", UNSET)
+        def _parse_metadata(data: object) -> Union["TrackMetadataType0", None, Unset]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                metadata_type_0 = TrackMetadataType0.from_dict(data)
+
+                return metadata_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union["TrackMetadataType0", None, Unset], data)
+
+        metadata = _parse_metadata(d.pop("metadata", UNSET))
 
         _type_ = d.pop("type", UNSET)
         type_: Union[Unset, TrackType]

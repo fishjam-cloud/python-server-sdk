@@ -11,6 +11,7 @@
 
 # Exceptions and Server Messages
 from fishjam import agent, errors, events, peer, room
+from fishjam._openapi_client.models import PeerMetadata
 
 # API
 from fishjam._webhook_notifier import receive_binary
@@ -28,6 +29,7 @@ __all__ = [
     "FishjamClient",
     "FishjamNotifier",
     "receive_binary",
+    "PeerMetadata",
     "PeerOptions",
     "SubscribeOptions",
     "RoomOptions",
