@@ -320,6 +320,7 @@ class ServerMessagePeerMetadataUpdated(betterproto.Message):
     room_id: str = betterproto.string_field(1)
     peer_id: str = betterproto.string_field(2)
     metadata: str = betterproto.string_field(3)
+    peer_type: "ServerMessagePeerType" = betterproto.enum_field(4)
 
 
 @dataclass(eq=False, repr=False)
