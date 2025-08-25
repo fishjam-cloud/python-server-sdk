@@ -44,6 +44,7 @@ class Agent:
         self._socket_url = f"{fishjam_url}/socket/agent/websocket".replace("http", "ws")
         self._token = token
         self._msg_loop: asyncio.Task[None] | None = None
+        self._end_event = asyncio.Event()
 
         @functools.singledispatch
         def _message_handler(content: Any) -> None:
@@ -75,7 +76,10 @@ class Agent:
 
         websocket = await client.connect(self._socket_url)
         await self._authenticate(websocket)
-        self._msg_loop = asyncio.create_task(self._recv_loop(websocket))
+
+        task = asyncio.create_task(self._recv_loop(websocket))
+
+        self._msg_loop = task
 
     async def disconnect(self, code: CloseCode = CloseCode.NORMAL_CLOSURE):
         """
@@ -83,15 +87,17 @@ class Agent:
 
         Does nothing if already disconnected.
         """
-        if not self._msg_loop:
+        if (task := self._msg_loop) is None:
             return
 
-        with suppress(TimeoutError):
-            self._msg_loop.cancel(code)
-            async with asyncio.timeout(0):
-                await self._msg_loop
+        event = self._end_event
 
+        self._end_event = asyncio.Event()
         self._msg_loop = None
+
+        task.add_done_callback(lambda _t: event.set())
+        if task.cancel(code):
+            await event.wait()
 
     async def __aenter__(self):
         await self.connect()

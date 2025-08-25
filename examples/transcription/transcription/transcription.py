@@ -59,5 +59,3 @@ class TranscriptionSession:
 
             if acc:
                 self._on_text(acc)
-
-            return session
