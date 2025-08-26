@@ -6,7 +6,8 @@ from transcription.notifier import make_notifier
 from transcription.room import RoomService, fishjam
 from transcription.worker import async_worker
 
-from fishjam import PeerOptions, SubscribeOptions
+from fishjam import PeerOptions
+from fishjam.peer import SubscribeOptions
 
 _room_service: RoomService | None = None
 

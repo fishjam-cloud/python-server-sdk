@@ -7,23 +7,29 @@ import pytest
 
 from fishjam import (
     FishjamClient,
+    Peer,
     PeerOptions,
+    Room,
     RoomOptions,
 )
-from fishjam._openapi_client.models import (
-    PeerMetadata,
-    PeerStatus,
-    PeerType,
-    RoomConfig,
-    RoomConfigRoomType,
-    RoomConfigVideoCodec,
-)
-from fishjam.api._fishjam_client import Peer, Room
 from fishjam.errors import (
     BadRequestError,
     NotFoundError,
     ServiceUnavailableError,
     UnauthorizedError,
+)
+from fishjam.peer import (
+    PeerMetadata,
+    PeerStatus,
+    PeerType,
+    SubscribeOptions,
+    SubscribeOptionsAudioFormat,
+    SubscribeOptionsAudioSampleRate,
+)
+from fishjam.room import (
+    RoomConfig,
+    RoomConfigRoomType,
+    RoomConfigVideoCodec,
 )
 
 HOST = "fishjam" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
@@ -196,7 +202,13 @@ class TestCreatePeer:
         assert peer in room.peers
 
     def test_with_specified_options(self, room_api: FishjamClient):
-        options = PeerOptions(enable_simulcast=True)
+        options = PeerOptions(
+            enable_simulcast=True,
+            subscribe=SubscribeOptions(
+                audio_format=SubscribeOptionsAudioFormat.PCM16,
+                audio_sample_rate=SubscribeOptionsAudioSampleRate.VALUE_16000,
+            ),
+        )
 
         room = room_api.create_room()
         peer, _token = room_api.create_peer(room.id, options=options)
