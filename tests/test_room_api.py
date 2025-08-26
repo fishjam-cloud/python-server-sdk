@@ -185,7 +185,12 @@ class TestGetRoom:
 
 class TestCreatePeer:
     def _assert_peer_created(
-        self, room_api, webrtc_peer, room_id, server_metadata=None
+        self,
+        room_api,
+        webrtc_peer,
+        room_id,
+        server_metadata=None,
+        subscribe=None,
     ):
         server_metadata = server_metadata or {}
 
@@ -195,25 +200,26 @@ class TestCreatePeer:
             status=PeerStatus("disconnected"),
             tracks=[],
             metadata=PeerMetadata.from_dict({"peer": {}, "server": server_metadata}),
-            subscribe=None,
+            subscribe=subscribe,
         )
 
         room = room_api.get_room(room_id)
         assert peer in room.peers
 
     def test_with_specified_options(self, room_api: FishjamClient):
+        subscribe = SubscribeOptions(
+            audio_format=SubscribeOptionsAudioFormat.PCM16,
+            audio_sample_rate=SubscribeOptionsAudioSampleRate.VALUE_16000,
+        )
         options = PeerOptions(
             enable_simulcast=True,
-            subscribe=SubscribeOptions(
-                audio_format=SubscribeOptionsAudioFormat.PCM16,
-                audio_sample_rate=SubscribeOptionsAudioSampleRate.VALUE_16000,
-            ),
+            subscribe=subscribe,
         )
 
         room = room_api.create_room()
         peer, _token = room_api.create_peer(room.id, options=options)
 
-        self._assert_peer_created(room_api, peer, room.id)
+        self._assert_peer_created(room_api, peer, room.id, subscribe=subscribe)
 
     def test_with_metadata(self, room_api: FishjamClient):
         options = PeerOptions(metadata={"is_test": True})
