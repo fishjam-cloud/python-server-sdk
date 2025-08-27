@@ -158,6 +158,27 @@
             <h2>API Documentation</h2>
                 <ul class="memberlist">
             <li>
+                    <a class="class" href="#PeerMetadata">PeerMetadata</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#PeerMetadata.__init__">PeerMetadata</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PeerMetadata.additional_properties">additional_properties</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#PeerMetadata.to_dict">to_dict</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#PeerMetadata.from_dict">from_dict</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#PeerMetadata.additional_keys">additional_keys</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
                     <a class="class" href="#PeerStatus">PeerStatus</a>
                             <ul class="memberlist">
                         <li>
@@ -181,6 +202,48 @@
                 </ul>
 
             </li>
+            <li>
+                    <a class="class" href="#SubscribeOptions">SubscribeOptions</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#SubscribeOptions.__init__">SubscribeOptions</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#SubscribeOptions.audio_format">audio_format</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#SubscribeOptions.audio_sample_rate">audio_sample_rate</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#SubscribeOptions.to_dict">to_dict</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#SubscribeOptions.from_dict">from_dict</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#SubscribeOptionsAudioFormat">SubscribeOptionsAudioFormat</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="variable" href="#SubscribeOptionsAudioFormat.PCM16">PCM16</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#SubscribeOptionsAudioSampleRate">SubscribeOptionsAudioSampleRate</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="variable" href="#SubscribeOptionsAudioSampleRate.VALUE_16000">VALUE_16000</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#SubscribeOptionsAudioSampleRate.VALUE_24000">VALUE_24000</a>
+                        </li>
+                </ul>
+
+            </li>
     </ul>
 
 
@@ -200,13 +263,185 @@
 
                         <label class="view-source-button" for="mod-peer-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">fishjam._openapi_client.models</span><span class="w"> </span><span class="kn">import</span> <span class="n">PeerStatus</span><span class="p">,</span> <span class="n">PeerType</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos">2</span></a>
-</span><span id="L-3"><a href="#L-3"><span class="linenos">3</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;PeerStatus&quot;</span><span class="p">,</span> <span class="s2">&quot;PeerType&quot;</span><span class="p">]</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">fishjam._openapi_client.models</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>    <span class="n">PeerMetadata</span><span class="p">,</span>
+</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a>    <span class="n">PeerStatus</span><span class="p">,</span>
+</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>    <span class="n">PeerType</span><span class="p">,</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    <span class="n">SubscribeOptions</span><span class="p">,</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>    <span class="n">SubscribeOptionsAudioFormat</span><span class="p">,</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>    <span class="n">SubscribeOptionsAudioSampleRate</span><span class="p">,</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a><span class="p">)</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>    <span class="s2">&quot;PeerMetadata&quot;</span><span class="p">,</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="s2">&quot;PeerStatus&quot;</span><span class="p">,</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="s2">&quot;PeerType&quot;</span><span class="p">,</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>    <span class="s2">&quot;SubscribeOptions&quot;</span><span class="p">,</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>    <span class="s2">&quot;SubscribeOptionsAudioFormat&quot;</span><span class="p">,</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="s2">&quot;SubscribeOptionsAudioSampleRate&quot;</span><span class="p">,</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a><span class="p">]</span>
 </span></pre></div>
 
 
             </section>
+                <section id="PeerMetadata">
+                            <input id="PeerMetadata-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+
+    <span class="def">class</span>
+    <span class="name">PeerMetadata</span>:
+
+                <label class="view-source-button" for="PeerMetadata-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#PeerMetadata"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata-11"><a href="#PeerMetadata-11"><span class="linenos">11</span></a><span class="nd">@_attrs_define</span>
+</span><span id="PeerMetadata-12"><a href="#PeerMetadata-12"><span class="linenos">12</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PeerMetadata</span><span class="p">:</span>
+</span><span id="PeerMetadata-13"><a href="#PeerMetadata-13"><span class="linenos">13</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom metadata set by the peer</span>
+</span><span id="PeerMetadata-14"><a href="#PeerMetadata-14"><span class="linenos">14</span></a>
+</span><span id="PeerMetadata-15"><a href="#PeerMetadata-15"><span class="linenos">15</span></a><span class="sd">    Example:</span>
+</span><span id="PeerMetadata-16"><a href="#PeerMetadata-16"><span class="linenos">16</span></a><span class="sd">        {&#39;name&#39;: &#39;FishjamUser&#39;}</span>
+</span><span id="PeerMetadata-17"><a href="#PeerMetadata-17"><span class="linenos">17</span></a>
+</span><span id="PeerMetadata-18"><a href="#PeerMetadata-18"><span class="linenos">18</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="PeerMetadata-19"><a href="#PeerMetadata-19"><span class="linenos">19</span></a>
+</span><span id="PeerMetadata-20"><a href="#PeerMetadata-20"><span class="linenos">20</span></a>    <span class="n">additional_properties</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">_attrs_field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+</span><span id="PeerMetadata-21"><a href="#PeerMetadata-21"><span class="linenos">21</span></a>
+</span><span id="PeerMetadata-22"><a href="#PeerMetadata-22"><span class="linenos">22</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="PeerMetadata-23"><a href="#PeerMetadata-23"><span class="linenos">23</span></a>        <span class="n">field_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="PeerMetadata-24"><a href="#PeerMetadata-24"><span class="linenos">24</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">)</span>
+</span><span id="PeerMetadata-25"><a href="#PeerMetadata-25"><span class="linenos">25</span></a>
+</span><span id="PeerMetadata-26"><a href="#PeerMetadata-26"><span class="linenos">26</span></a>        <span class="k">return</span> <span class="n">field_dict</span>
+</span><span id="PeerMetadata-27"><a href="#PeerMetadata-27"><span class="linenos">27</span></a>
+</span><span id="PeerMetadata-28"><a href="#PeerMetadata-28"><span class="linenos">28</span></a>    <span class="nd">@classmethod</span>
+</span><span id="PeerMetadata-29"><a href="#PeerMetadata-29"><span class="linenos">29</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+</span><span id="PeerMetadata-30"><a href="#PeerMetadata-30"><span class="linenos">30</span></a>        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">src_dict</span><span class="p">)</span>
+</span><span id="PeerMetadata-31"><a href="#PeerMetadata-31"><span class="linenos">31</span></a>        <span class="n">peer_metadata</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
+</span><span id="PeerMetadata-32"><a href="#PeerMetadata-32"><span class="linenos">32</span></a>
+</span><span id="PeerMetadata-33"><a href="#PeerMetadata-33"><span class="linenos">33</span></a>        <span class="n">peer_metadata</span><span class="o">.</span><span class="n">additional_properties</span> <span class="o">=</span> <span class="n">d</span>
+</span><span id="PeerMetadata-34"><a href="#PeerMetadata-34"><span class="linenos">34</span></a>        <span class="k">return</span> <span class="n">peer_metadata</span>
+</span><span id="PeerMetadata-35"><a href="#PeerMetadata-35"><span class="linenos">35</span></a>
+</span><span id="PeerMetadata-36"><a href="#PeerMetadata-36"><span class="linenos">36</span></a>    <span class="nd">@property</span>
+</span><span id="PeerMetadata-37"><a href="#PeerMetadata-37"><span class="linenos">37</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">additional_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="PeerMetadata-38"><a href="#PeerMetadata-38"><span class="linenos">38</span></a>        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</span><span id="PeerMetadata-39"><a href="#PeerMetadata-39"><span class="linenos">39</span></a>
+</span><span id="PeerMetadata-40"><a href="#PeerMetadata-40"><span class="linenos">40</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+</span><span id="PeerMetadata-41"><a href="#PeerMetadata-41"><span class="linenos">41</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</span><span id="PeerMetadata-42"><a href="#PeerMetadata-42"><span class="linenos">42</span></a>
+</span><span id="PeerMetadata-43"><a href="#PeerMetadata-43"><span class="linenos">43</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="PeerMetadata-44"><a href="#PeerMetadata-44"><span class="linenos">44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="PeerMetadata-45"><a href="#PeerMetadata-45"><span class="linenos">45</span></a>
+</span><span id="PeerMetadata-46"><a href="#PeerMetadata-46"><span class="linenos">46</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="PeerMetadata-47"><a href="#PeerMetadata-47"><span class="linenos">47</span></a>        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</span><span id="PeerMetadata-48"><a href="#PeerMetadata-48"><span class="linenos">48</span></a>
+</span><span id="PeerMetadata-49"><a href="#PeerMetadata-49"><span class="linenos">49</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="PeerMetadata-50"><a href="#PeerMetadata-50"><span class="linenos">50</span></a>        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Custom metadata set by the peer</p>
+
+<p>Example:
+    {'name': 'FishjamUser'}</p>
+</div>
+
+
+                            <div id="PeerMetadata.__init__" class="classattr">
+                                        <input id="PeerMetadata.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+
+        <span class="name">PeerMetadata</span><span class="signature pdoc-code condensed">()</span>
+
+                <label class="view-source-button" for="PeerMetadata.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#PeerMetadata.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata.__init__-2"><a href="#PeerMetadata.__init__-2"><span class="linenos">2</span></a><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">):</span>
+</span><span id="PeerMetadata.__init__-3"><a href="#PeerMetadata.__init__-3"><span class="linenos">3</span></a>    <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span> <span class="o">=</span> <span class="n">__attr_factory_additional_properties</span><span class="p">()</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Method generated by attrs for class PeerMetadata.</p>
+</div>
+
+
+                            </div>
+                            <div id="PeerMetadata.additional_properties" class="classattr">
+                                <div class="attr variable">
+            <span class="name">additional_properties</span><span class="annotation">: dict[str, typing.Any]</span>
+
+
+    </div>
+    <a class="headerlink" href="#PeerMetadata.additional_properties"></a>
+
+
+
+                            </div>
+                            <div id="PeerMetadata.to_dict" class="classattr">
+                                        <input id="PeerMetadata.to_dict-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+
+        <span class="def">def</span>
+        <span class="name">to_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span>:</span></span>
+
+                <label class="view-source-button" for="PeerMetadata.to_dict-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#PeerMetadata.to_dict"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata.to_dict-22"><a href="#PeerMetadata.to_dict-22"><span class="linenos">22</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="PeerMetadata.to_dict-23"><a href="#PeerMetadata.to_dict-23"><span class="linenos">23</span></a>        <span class="n">field_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="PeerMetadata.to_dict-24"><a href="#PeerMetadata.to_dict-24"><span class="linenos">24</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">)</span>
+</span><span id="PeerMetadata.to_dict-25"><a href="#PeerMetadata.to_dict-25"><span class="linenos">25</span></a>
+</span><span id="PeerMetadata.to_dict-26"><a href="#PeerMetadata.to_dict-26"><span class="linenos">26</span></a>        <span class="k">return</span> <span class="n">field_dict</span>
+</span></pre></div>
+
+
+
+
+                            </div>
+                            <div id="PeerMetadata.from_dict" class="classattr">
+                                        <input id="PeerMetadata.from_dict-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+                    <div class="decorator">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">from_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="o">~</span><span class="n">T</span><span class="p">]</span>, </span><span class="param"><span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span></span><span class="return-annotation">) -> <span class="o">~</span><span class="n">T</span>:</span></span>
+
+                <label class="view-source-button" for="PeerMetadata.from_dict-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#PeerMetadata.from_dict"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata.from_dict-28"><a href="#PeerMetadata.from_dict-28"><span class="linenos">28</span></a>    <span class="nd">@classmethod</span>
+</span><span id="PeerMetadata.from_dict-29"><a href="#PeerMetadata.from_dict-29"><span class="linenos">29</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+</span><span id="PeerMetadata.from_dict-30"><a href="#PeerMetadata.from_dict-30"><span class="linenos">30</span></a>        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">src_dict</span><span class="p">)</span>
+</span><span id="PeerMetadata.from_dict-31"><a href="#PeerMetadata.from_dict-31"><span class="linenos">31</span></a>        <span class="n">peer_metadata</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
+</span><span id="PeerMetadata.from_dict-32"><a href="#PeerMetadata.from_dict-32"><span class="linenos">32</span></a>
+</span><span id="PeerMetadata.from_dict-33"><a href="#PeerMetadata.from_dict-33"><span class="linenos">33</span></a>        <span class="n">peer_metadata</span><span class="o">.</span><span class="n">additional_properties</span> <span class="o">=</span> <span class="n">d</span>
+</span><span id="PeerMetadata.from_dict-34"><a href="#PeerMetadata.from_dict-34"><span class="linenos">34</span></a>        <span class="k">return</span> <span class="n">peer_metadata</span>
+</span></pre></div>
+
+
+
+
+                            </div>
+                            <div id="PeerMetadata.additional_keys" class="classattr">
+                                        <input id="PeerMetadata.additional_keys-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr variable">
+            <span class="name">additional_keys</span><span class="annotation">: list[str]</span>
+
+                <label class="view-source-button" for="PeerMetadata.additional_keys-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#PeerMetadata.additional_keys"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata.additional_keys-36"><a href="#PeerMetadata.additional_keys-36"><span class="linenos">36</span></a>    <span class="nd">@property</span>
+</span><span id="PeerMetadata.additional_keys-37"><a href="#PeerMetadata.additional_keys-37"><span class="linenos">37</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">additional_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="PeerMetadata.additional_keys-38"><a href="#PeerMetadata.additional_keys-38"><span class="linenos">38</span></a>        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</span></pre></div>
+
+
+
+
+                            </div>
+                </section>
                 <section id="PeerStatus">
                             <input id="PeerStatus-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr class">
@@ -424,6 +659,385 @@
                 <dd id="PeerType.format" class="function">format</dd>
                 <dd id="PeerType.format_map" class="function">format_map</dd>
                 <dd id="PeerType.maketrans" class="function">maketrans</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="SubscribeOptions">
+                            <input id="SubscribeOptions-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+
+    <span class="def">class</span>
+    <span class="name">SubscribeOptions</span>:
+
+                <label class="view-source-button" for="SubscribeOptions-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#SubscribeOptions"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="SubscribeOptions-18"><a href="#SubscribeOptions-18"><span class="linenos">18</span></a><span class="nd">@_attrs_define</span>
+</span><span id="SubscribeOptions-19"><a href="#SubscribeOptions-19"><span class="linenos">19</span></a><span class="k">class</span><span class="w"> </span><span class="nc">SubscribeOptions</span><span class="p">:</span>
+</span><span id="SubscribeOptions-20"><a href="#SubscribeOptions-20"><span class="linenos">20</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Configuration of server-side subscriptions to the peer&#39;s tracks</span>
+</span><span id="SubscribeOptions-21"><a href="#SubscribeOptions-21"><span class="linenos">21</span></a>
+</span><span id="SubscribeOptions-22"><a href="#SubscribeOptions-22"><span class="linenos">22</span></a><span class="sd">    Example:</span>
+</span><span id="SubscribeOptions-23"><a href="#SubscribeOptions-23"><span class="linenos">23</span></a><span class="sd">        {&#39;audioFormat&#39;: &#39;pcm16&#39;}</span>
+</span><span id="SubscribeOptions-24"><a href="#SubscribeOptions-24"><span class="linenos">24</span></a>
+</span><span id="SubscribeOptions-25"><a href="#SubscribeOptions-25"><span class="linenos">25</span></a><span class="sd">    Attributes:</span>
+</span><span id="SubscribeOptions-26"><a href="#SubscribeOptions-26"><span class="linenos">26</span></a><span class="sd">        audio_format (Union[Unset, SubscribeOptionsAudioFormat]): The format of the output audio Default:</span>
+</span><span id="SubscribeOptions-27"><a href="#SubscribeOptions-27"><span class="linenos">27</span></a><span class="sd">            SubscribeOptionsAudioFormat.PCM16. Example: pcm16.</span>
+</span><span id="SubscribeOptions-28"><a href="#SubscribeOptions-28"><span class="linenos">28</span></a><span class="sd">        audio_sample_rate (Union[Unset, SubscribeOptionsAudioSampleRate]): The sample rate of the output audio Default:</span>
+</span><span id="SubscribeOptions-29"><a href="#SubscribeOptions-29"><span class="linenos">29</span></a><span class="sd">            SubscribeOptionsAudioSampleRate.VALUE_16000. Example: 16000.</span>
+</span><span id="SubscribeOptions-30"><a href="#SubscribeOptions-30"><span class="linenos">30</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="SubscribeOptions-31"><a href="#SubscribeOptions-31"><span class="linenos">31</span></a>
+</span><span id="SubscribeOptions-32"><a href="#SubscribeOptions-32"><span class="linenos">32</span></a>    <span class="n">audio_format</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+</span><span id="SubscribeOptions-33"><a href="#SubscribeOptions-33"><span class="linenos">33</span></a>        <span class="n">Unset</span><span class="p">,</span> <span class="n">SubscribeOptionsAudioFormat</span>
+</span><span id="SubscribeOptions-34"><a href="#SubscribeOptions-34"><span class="linenos">34</span></a>    <span class="p">]</span> <span class="o">=</span> <span class="n">SubscribeOptionsAudioFormat</span><span class="o">.</span><span class="n">PCM16</span>
+</span><span id="SubscribeOptions-35"><a href="#SubscribeOptions-35"><span class="linenos">35</span></a>    <span class="n">audio_sample_rate</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span>
+</span><span id="SubscribeOptions-36"><a href="#SubscribeOptions-36"><span class="linenos">36</span></a>        <span class="n">Unset</span><span class="p">,</span> <span class="n">SubscribeOptionsAudioSampleRate</span>
+</span><span id="SubscribeOptions-37"><a href="#SubscribeOptions-37"><span class="linenos">37</span></a>    <span class="p">]</span> <span class="o">=</span> <span class="n">SubscribeOptionsAudioSampleRate</span><span class="o">.</span><span class="n">VALUE_16000</span>
+</span><span id="SubscribeOptions-38"><a href="#SubscribeOptions-38"><span class="linenos">38</span></a>
+</span><span id="SubscribeOptions-39"><a href="#SubscribeOptions-39"><span class="linenos">39</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="SubscribeOptions-40"><a href="#SubscribeOptions-40"><span class="linenos">40</span></a>        <span class="n">audio_format</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="SubscribeOptions-41"><a href="#SubscribeOptions-41"><span class="linenos">41</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">audio_format</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="SubscribeOptions-42"><a href="#SubscribeOptions-42"><span class="linenos">42</span></a>            <span class="n">audio_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">audio_format</span><span class="o">.</span><span class="n">value</span>
+</span><span id="SubscribeOptions-43"><a href="#SubscribeOptions-43"><span class="linenos">43</span></a>
+</span><span id="SubscribeOptions-44"><a href="#SubscribeOptions-44"><span class="linenos">44</span></a>        <span class="n">audio_sample_rate</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="SubscribeOptions-45"><a href="#SubscribeOptions-45"><span class="linenos">45</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">audio_sample_rate</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="SubscribeOptions-46"><a href="#SubscribeOptions-46"><span class="linenos">46</span></a>            <span class="n">audio_sample_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">audio_sample_rate</span><span class="o">.</span><span class="n">value</span>
+</span><span id="SubscribeOptions-47"><a href="#SubscribeOptions-47"><span class="linenos">47</span></a>
+</span><span id="SubscribeOptions-48"><a href="#SubscribeOptions-48"><span class="linenos">48</span></a>        <span class="n">field_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="SubscribeOptions-49"><a href="#SubscribeOptions-49"><span class="linenos">49</span></a>
+</span><span id="SubscribeOptions-50"><a href="#SubscribeOptions-50"><span class="linenos">50</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({})</span>
+</span><span id="SubscribeOptions-51"><a href="#SubscribeOptions-51"><span class="linenos">51</span></a>        <span class="k">if</span> <span class="n">audio_format</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+</span><span id="SubscribeOptions-52"><a href="#SubscribeOptions-52"><span class="linenos">52</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;audioFormat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">audio_format</span>
+</span><span id="SubscribeOptions-53"><a href="#SubscribeOptions-53"><span class="linenos">53</span></a>        <span class="k">if</span> <span class="n">audio_sample_rate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+</span><span id="SubscribeOptions-54"><a href="#SubscribeOptions-54"><span class="linenos">54</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;audioSampleRate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">audio_sample_rate</span>
+</span><span id="SubscribeOptions-55"><a href="#SubscribeOptions-55"><span class="linenos">55</span></a>
+</span><span id="SubscribeOptions-56"><a href="#SubscribeOptions-56"><span class="linenos">56</span></a>        <span class="k">return</span> <span class="n">field_dict</span>
+</span><span id="SubscribeOptions-57"><a href="#SubscribeOptions-57"><span class="linenos">57</span></a>
+</span><span id="SubscribeOptions-58"><a href="#SubscribeOptions-58"><span class="linenos">58</span></a>    <span class="nd">@classmethod</span>
+</span><span id="SubscribeOptions-59"><a href="#SubscribeOptions-59"><span class="linenos">59</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+</span><span id="SubscribeOptions-60"><a href="#SubscribeOptions-60"><span class="linenos">60</span></a>        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">src_dict</span><span class="p">)</span>
+</span><span id="SubscribeOptions-61"><a href="#SubscribeOptions-61"><span class="linenos">61</span></a>        <span class="n">_audio_format</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;audioFormat&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">)</span>
+</span><span id="SubscribeOptions-62"><a href="#SubscribeOptions-62"><span class="linenos">62</span></a>        <span class="n">audio_format</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="n">SubscribeOptionsAudioFormat</span><span class="p">]</span>
+</span><span id="SubscribeOptions-63"><a href="#SubscribeOptions-63"><span class="linenos">63</span></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_audio_format</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="SubscribeOptions-64"><a href="#SubscribeOptions-64"><span class="linenos">64</span></a>            <span class="n">audio_format</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="SubscribeOptions-65"><a href="#SubscribeOptions-65"><span class="linenos">65</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="SubscribeOptions-66"><a href="#SubscribeOptions-66"><span class="linenos">66</span></a>            <span class="n">audio_format</span> <span class="o">=</span> <span class="n">SubscribeOptionsAudioFormat</span><span class="p">(</span><span class="n">_audio_format</span><span class="p">)</span>
+</span><span id="SubscribeOptions-67"><a href="#SubscribeOptions-67"><span class="linenos">67</span></a>
+</span><span id="SubscribeOptions-68"><a href="#SubscribeOptions-68"><span class="linenos">68</span></a>        <span class="n">_audio_sample_rate</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;audioSampleRate&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">)</span>
+</span><span id="SubscribeOptions-69"><a href="#SubscribeOptions-69"><span class="linenos">69</span></a>        <span class="n">audio_sample_rate</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="n">SubscribeOptionsAudioSampleRate</span><span class="p">]</span>
+</span><span id="SubscribeOptions-70"><a href="#SubscribeOptions-70"><span class="linenos">70</span></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_audio_sample_rate</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="SubscribeOptions-71"><a href="#SubscribeOptions-71"><span class="linenos">71</span></a>            <span class="n">audio_sample_rate</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="SubscribeOptions-72"><a href="#SubscribeOptions-72"><span class="linenos">72</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="SubscribeOptions-73"><a href="#SubscribeOptions-73"><span class="linenos">73</span></a>            <span class="n">audio_sample_rate</span> <span class="o">=</span> <span class="n">SubscribeOptionsAudioSampleRate</span><span class="p">(</span><span class="n">_audio_sample_rate</span><span class="p">)</span>
+</span><span id="SubscribeOptions-74"><a href="#SubscribeOptions-74"><span class="linenos">74</span></a>
+</span><span id="SubscribeOptions-75"><a href="#SubscribeOptions-75"><span class="linenos">75</span></a>        <span class="n">subscribe_options</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+</span><span id="SubscribeOptions-76"><a href="#SubscribeOptions-76"><span class="linenos">76</span></a>            <span class="n">audio_format</span><span class="o">=</span><span class="n">audio_format</span><span class="p">,</span>
+</span><span id="SubscribeOptions-77"><a href="#SubscribeOptions-77"><span class="linenos">77</span></a>            <span class="n">audio_sample_rate</span><span class="o">=</span><span class="n">audio_sample_rate</span><span class="p">,</span>
+</span><span id="SubscribeOptions-78"><a href="#SubscribeOptions-78"><span class="linenos">78</span></a>        <span class="p">)</span>
+</span><span id="SubscribeOptions-79"><a href="#SubscribeOptions-79"><span class="linenos">79</span></a>
+</span><span id="SubscribeOptions-80"><a href="#SubscribeOptions-80"><span class="linenos">80</span></a>        <span class="k">return</span> <span class="n">subscribe_options</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Configuration of server-side subscriptions to the peer's tracks</p>
+
+<p>Example:
+    {'audioFormat': 'pcm16'}</p>
+
+<p>Attributes:
+    audio_format (Union[Unset, SubscribeOptionsAudioFormat]): The format of the output audio Default:
+        <a href="#SubscribeOptionsAudioFormat.PCM16">SubscribeOptionsAudioFormat.PCM16</a>. Example: pcm16.
+    audio_sample_rate (Union[Unset, SubscribeOptionsAudioSampleRate]): The sample rate of the output audio Default:
+        <a href="#SubscribeOptionsAudioSampleRate.VALUE_16000">SubscribeOptionsAudioSampleRate.VALUE_16000</a>. Example: 16000.</p>
+</div>
+
+
+                            <div id="SubscribeOptions.__init__" class="classattr">
+                                        <input id="SubscribeOptions.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+
+        <span class="name">SubscribeOptions</span><span class="signature pdoc-code multiline">(<span class="param"> <span class="n">audio_format</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n"><a href="#SubscribeOptionsAudioFormat">SubscribeOptionsAudioFormat</a></span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n"><a href="#SubscribeOptionsAudioFormat.PCM16">SubscribeOptionsAudioFormat.PCM16</a></span><span class="p">:</span> <span class="s1">&#39;pcm16&#39;</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">audio_sample_rate</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">_openapi_client</span><span class="o">.</span><span class="n">types</span><span class="o">.</span><span class="n">Unset</span><span class="p">,</span> <span class="n"><a href="#SubscribeOptionsAudioSampleRate">SubscribeOptionsAudioSampleRate</a></span><span class="p">]</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n"><a href="#SubscribeOptionsAudioSampleRate.VALUE_16000">SubscribeOptionsAudioSampleRate.VALUE_16000</a></span><span class="p">:</span> <span class="mi">16000</span><span class="o">&gt;</span></span>)</span>
+
+                <label class="view-source-button" for="SubscribeOptions.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#SubscribeOptions.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="SubscribeOptions.__init__-2"><a href="#SubscribeOptions.__init__-2"><span class="linenos">2</span></a><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">audio_format</span><span class="o">=</span><span class="n">attr_dict</span><span class="p">[</span><span class="s1">&#39;audio_format&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">default</span><span class="p">,</span> <span class="n">audio_sample_rate</span><span class="o">=</span><span class="n">attr_dict</span><span class="p">[</span><span class="s1">&#39;audio_sample_rate&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">default</span><span class="p">):</span>
+</span><span id="SubscribeOptions.__init__-3"><a href="#SubscribeOptions.__init__-3"><span class="linenos">3</span></a>    <span class="bp">self</span><span class="o">.</span><span class="n">audio_format</span> <span class="o">=</span> <span class="n">audio_format</span>
+</span><span id="SubscribeOptions.__init__-4"><a href="#SubscribeOptions.__init__-4"><span class="linenos">4</span></a>    <span class="bp">self</span><span class="o">.</span><span class="n">audio_sample_rate</span> <span class="o">=</span> <span class="n">audio_sample_rate</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Method generated by attrs for class SubscribeOptions.</p>
+</div>
+
+
+                            </div>
+                            <div id="SubscribeOptions.audio_format" class="classattr">
+                                <div class="attr variable">
+            <span class="name">audio_format</span><span class="annotation">: Union[fishjam._openapi_client.types.Unset, <a href="#SubscribeOptionsAudioFormat">SubscribeOptionsAudioFormat</a>]</span>
+
+
+    </div>
+    <a class="headerlink" href="#SubscribeOptions.audio_format"></a>
+
+
+
+                            </div>
+                            <div id="SubscribeOptions.audio_sample_rate" class="classattr">
+                                <div class="attr variable">
+            <span class="name">audio_sample_rate</span><span class="annotation">: Union[fishjam._openapi_client.types.Unset, <a href="#SubscribeOptionsAudioSampleRate">SubscribeOptionsAudioSampleRate</a>]</span>
+
+
+    </div>
+    <a class="headerlink" href="#SubscribeOptions.audio_sample_rate"></a>
+
+
+
+                            </div>
+                            <div id="SubscribeOptions.to_dict" class="classattr">
+                                        <input id="SubscribeOptions.to_dict-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+
+        <span class="def">def</span>
+        <span class="name">to_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span>:</span></span>
+
+                <label class="view-source-button" for="SubscribeOptions.to_dict-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#SubscribeOptions.to_dict"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="SubscribeOptions.to_dict-39"><a href="#SubscribeOptions.to_dict-39"><span class="linenos">39</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="SubscribeOptions.to_dict-40"><a href="#SubscribeOptions.to_dict-40"><span class="linenos">40</span></a>        <span class="n">audio_format</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="SubscribeOptions.to_dict-41"><a href="#SubscribeOptions.to_dict-41"><span class="linenos">41</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">audio_format</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="SubscribeOptions.to_dict-42"><a href="#SubscribeOptions.to_dict-42"><span class="linenos">42</span></a>            <span class="n">audio_format</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">audio_format</span><span class="o">.</span><span class="n">value</span>
+</span><span id="SubscribeOptions.to_dict-43"><a href="#SubscribeOptions.to_dict-43"><span class="linenos">43</span></a>
+</span><span id="SubscribeOptions.to_dict-44"><a href="#SubscribeOptions.to_dict-44"><span class="linenos">44</span></a>        <span class="n">audio_sample_rate</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="nb">int</span><span class="p">]</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="SubscribeOptions.to_dict-45"><a href="#SubscribeOptions.to_dict-45"><span class="linenos">45</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">audio_sample_rate</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="SubscribeOptions.to_dict-46"><a href="#SubscribeOptions.to_dict-46"><span class="linenos">46</span></a>            <span class="n">audio_sample_rate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">audio_sample_rate</span><span class="o">.</span><span class="n">value</span>
+</span><span id="SubscribeOptions.to_dict-47"><a href="#SubscribeOptions.to_dict-47"><span class="linenos">47</span></a>
+</span><span id="SubscribeOptions.to_dict-48"><a href="#SubscribeOptions.to_dict-48"><span class="linenos">48</span></a>        <span class="n">field_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="SubscribeOptions.to_dict-49"><a href="#SubscribeOptions.to_dict-49"><span class="linenos">49</span></a>
+</span><span id="SubscribeOptions.to_dict-50"><a href="#SubscribeOptions.to_dict-50"><span class="linenos">50</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({})</span>
+</span><span id="SubscribeOptions.to_dict-51"><a href="#SubscribeOptions.to_dict-51"><span class="linenos">51</span></a>        <span class="k">if</span> <span class="n">audio_format</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+</span><span id="SubscribeOptions.to_dict-52"><a href="#SubscribeOptions.to_dict-52"><span class="linenos">52</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;audioFormat&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">audio_format</span>
+</span><span id="SubscribeOptions.to_dict-53"><a href="#SubscribeOptions.to_dict-53"><span class="linenos">53</span></a>        <span class="k">if</span> <span class="n">audio_sample_rate</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">UNSET</span><span class="p">:</span>
+</span><span id="SubscribeOptions.to_dict-54"><a href="#SubscribeOptions.to_dict-54"><span class="linenos">54</span></a>            <span class="n">field_dict</span><span class="p">[</span><span class="s2">&quot;audioSampleRate&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">audio_sample_rate</span>
+</span><span id="SubscribeOptions.to_dict-55"><a href="#SubscribeOptions.to_dict-55"><span class="linenos">55</span></a>
+</span><span id="SubscribeOptions.to_dict-56"><a href="#SubscribeOptions.to_dict-56"><span class="linenos">56</span></a>        <span class="k">return</span> <span class="n">field_dict</span>
+</span></pre></div>
+
+
+
+
+                            </div>
+                            <div id="SubscribeOptions.from_dict" class="classattr">
+                                        <input id="SubscribeOptions.from_dict-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+                    <div class="decorator">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">from_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="o">~</span><span class="n">T</span><span class="p">]</span>, </span><span class="param"><span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span></span><span class="return-annotation">) -> <span class="o">~</span><span class="n">T</span>:</span></span>
+
+                <label class="view-source-button" for="SubscribeOptions.from_dict-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#SubscribeOptions.from_dict"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="SubscribeOptions.from_dict-58"><a href="#SubscribeOptions.from_dict-58"><span class="linenos">58</span></a>    <span class="nd">@classmethod</span>
+</span><span id="SubscribeOptions.from_dict-59"><a href="#SubscribeOptions.from_dict-59"><span class="linenos">59</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+</span><span id="SubscribeOptions.from_dict-60"><a href="#SubscribeOptions.from_dict-60"><span class="linenos">60</span></a>        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">src_dict</span><span class="p">)</span>
+</span><span id="SubscribeOptions.from_dict-61"><a href="#SubscribeOptions.from_dict-61"><span class="linenos">61</span></a>        <span class="n">_audio_format</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;audioFormat&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">)</span>
+</span><span id="SubscribeOptions.from_dict-62"><a href="#SubscribeOptions.from_dict-62"><span class="linenos">62</span></a>        <span class="n">audio_format</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="n">SubscribeOptionsAudioFormat</span><span class="p">]</span>
+</span><span id="SubscribeOptions.from_dict-63"><a href="#SubscribeOptions.from_dict-63"><span class="linenos">63</span></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_audio_format</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="SubscribeOptions.from_dict-64"><a href="#SubscribeOptions.from_dict-64"><span class="linenos">64</span></a>            <span class="n">audio_format</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="SubscribeOptions.from_dict-65"><a href="#SubscribeOptions.from_dict-65"><span class="linenos">65</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="SubscribeOptions.from_dict-66"><a href="#SubscribeOptions.from_dict-66"><span class="linenos">66</span></a>            <span class="n">audio_format</span> <span class="o">=</span> <span class="n">SubscribeOptionsAudioFormat</span><span class="p">(</span><span class="n">_audio_format</span><span class="p">)</span>
+</span><span id="SubscribeOptions.from_dict-67"><a href="#SubscribeOptions.from_dict-67"><span class="linenos">67</span></a>
+</span><span id="SubscribeOptions.from_dict-68"><a href="#SubscribeOptions.from_dict-68"><span class="linenos">68</span></a>        <span class="n">_audio_sample_rate</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;audioSampleRate&quot;</span><span class="p">,</span> <span class="n">UNSET</span><span class="p">)</span>
+</span><span id="SubscribeOptions.from_dict-69"><a href="#SubscribeOptions.from_dict-69"><span class="linenos">69</span></a>        <span class="n">audio_sample_rate</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="n">Unset</span><span class="p">,</span> <span class="n">SubscribeOptionsAudioSampleRate</span><span class="p">]</span>
+</span><span id="SubscribeOptions.from_dict-70"><a href="#SubscribeOptions.from_dict-70"><span class="linenos">70</span></a>        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">_audio_sample_rate</span><span class="p">,</span> <span class="n">Unset</span><span class="p">):</span>
+</span><span id="SubscribeOptions.from_dict-71"><a href="#SubscribeOptions.from_dict-71"><span class="linenos">71</span></a>            <span class="n">audio_sample_rate</span> <span class="o">=</span> <span class="n">UNSET</span>
+</span><span id="SubscribeOptions.from_dict-72"><a href="#SubscribeOptions.from_dict-72"><span class="linenos">72</span></a>        <span class="k">else</span><span class="p">:</span>
+</span><span id="SubscribeOptions.from_dict-73"><a href="#SubscribeOptions.from_dict-73"><span class="linenos">73</span></a>            <span class="n">audio_sample_rate</span> <span class="o">=</span> <span class="n">SubscribeOptionsAudioSampleRate</span><span class="p">(</span><span class="n">_audio_sample_rate</span><span class="p">)</span>
+</span><span id="SubscribeOptions.from_dict-74"><a href="#SubscribeOptions.from_dict-74"><span class="linenos">74</span></a>
+</span><span id="SubscribeOptions.from_dict-75"><a href="#SubscribeOptions.from_dict-75"><span class="linenos">75</span></a>        <span class="n">subscribe_options</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+</span><span id="SubscribeOptions.from_dict-76"><a href="#SubscribeOptions.from_dict-76"><span class="linenos">76</span></a>            <span class="n">audio_format</span><span class="o">=</span><span class="n">audio_format</span><span class="p">,</span>
+</span><span id="SubscribeOptions.from_dict-77"><a href="#SubscribeOptions.from_dict-77"><span class="linenos">77</span></a>            <span class="n">audio_sample_rate</span><span class="o">=</span><span class="n">audio_sample_rate</span><span class="p">,</span>
+</span><span id="SubscribeOptions.from_dict-78"><a href="#SubscribeOptions.from_dict-78"><span class="linenos">78</span></a>        <span class="p">)</span>
+</span><span id="SubscribeOptions.from_dict-79"><a href="#SubscribeOptions.from_dict-79"><span class="linenos">79</span></a>
+</span><span id="SubscribeOptions.from_dict-80"><a href="#SubscribeOptions.from_dict-80"><span class="linenos">80</span></a>        <span class="k">return</span> <span class="n">subscribe_options</span>
+</span></pre></div>
+
+
+
+
+                            </div>
+                </section>
+                <section id="SubscribeOptionsAudioFormat">
+                            <input id="SubscribeOptionsAudioFormat-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+
+    <span class="def">class</span>
+    <span class="name">SubscribeOptionsAudioFormat</span><wbr>(<span class="base">builtins.str</span>, <span class="base">enum.Enum</span>):
+
+                <label class="view-source-button" for="SubscribeOptionsAudioFormat-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#SubscribeOptionsAudioFormat"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="SubscribeOptionsAudioFormat-5"><a href="#SubscribeOptionsAudioFormat-5"><span class="linenos"> 5</span></a><span class="k">class</span><span class="w"> </span><span class="nc">SubscribeOptionsAudioFormat</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
+</span><span id="SubscribeOptionsAudioFormat-6"><a href="#SubscribeOptionsAudioFormat-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The format of the output audio&quot;&quot;&quot;</span>
+</span><span id="SubscribeOptionsAudioFormat-7"><a href="#SubscribeOptionsAudioFormat-7"><span class="linenos"> 7</span></a>
+</span><span id="SubscribeOptionsAudioFormat-8"><a href="#SubscribeOptionsAudioFormat-8"><span class="linenos"> 8</span></a>    <span class="n">PCM16</span> <span class="o">=</span> <span class="s2">&quot;pcm16&quot;</span>
+</span><span id="SubscribeOptionsAudioFormat-9"><a href="#SubscribeOptionsAudioFormat-9"><span class="linenos"> 9</span></a>
+</span><span id="SubscribeOptionsAudioFormat-10"><a href="#SubscribeOptionsAudioFormat-10"><span class="linenos">10</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="SubscribeOptionsAudioFormat-11"><a href="#SubscribeOptionsAudioFormat-11"><span class="linenos">11</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>The format of the output audio</p>
+</div>
+
+
+                            <div id="SubscribeOptionsAudioFormat.PCM16" class="classattr">
+                                <div class="attr variable">
+            <span class="name">PCM16</span>        =
+<span class="default_value">&lt;<a href="#SubscribeOptionsAudioFormat.PCM16">SubscribeOptionsAudioFormat.PCM16</a>: &#39;pcm16&#39;&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#SubscribeOptionsAudioFormat.PCM16"></a>
+
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>enum.Enum</dt>
+                                <dd id="SubscribeOptionsAudioFormat.name" class="variable">name</dd>
+                <dd id="SubscribeOptionsAudioFormat.value" class="variable">value</dd>
+
+            </div>
+            <div><dt>builtins.str</dt>
+                                <dd id="SubscribeOptionsAudioFormat.encode" class="function">encode</dd>
+                <dd id="SubscribeOptionsAudioFormat.replace" class="function">replace</dd>
+                <dd id="SubscribeOptionsAudioFormat.split" class="function">split</dd>
+                <dd id="SubscribeOptionsAudioFormat.rsplit" class="function">rsplit</dd>
+                <dd id="SubscribeOptionsAudioFormat.join" class="function">join</dd>
+                <dd id="SubscribeOptionsAudioFormat.capitalize" class="function">capitalize</dd>
+                <dd id="SubscribeOptionsAudioFormat.casefold" class="function">casefold</dd>
+                <dd id="SubscribeOptionsAudioFormat.title" class="function">title</dd>
+                <dd id="SubscribeOptionsAudioFormat.center" class="function">center</dd>
+                <dd id="SubscribeOptionsAudioFormat.count" class="function">count</dd>
+                <dd id="SubscribeOptionsAudioFormat.expandtabs" class="function">expandtabs</dd>
+                <dd id="SubscribeOptionsAudioFormat.find" class="function">find</dd>
+                <dd id="SubscribeOptionsAudioFormat.partition" class="function">partition</dd>
+                <dd id="SubscribeOptionsAudioFormat.index" class="function">index</dd>
+                <dd id="SubscribeOptionsAudioFormat.ljust" class="function">ljust</dd>
+                <dd id="SubscribeOptionsAudioFormat.lower" class="function">lower</dd>
+                <dd id="SubscribeOptionsAudioFormat.lstrip" class="function">lstrip</dd>
+                <dd id="SubscribeOptionsAudioFormat.rfind" class="function">rfind</dd>
+                <dd id="SubscribeOptionsAudioFormat.rindex" class="function">rindex</dd>
+                <dd id="SubscribeOptionsAudioFormat.rjust" class="function">rjust</dd>
+                <dd id="SubscribeOptionsAudioFormat.rstrip" class="function">rstrip</dd>
+                <dd id="SubscribeOptionsAudioFormat.rpartition" class="function">rpartition</dd>
+                <dd id="SubscribeOptionsAudioFormat.splitlines" class="function">splitlines</dd>
+                <dd id="SubscribeOptionsAudioFormat.strip" class="function">strip</dd>
+                <dd id="SubscribeOptionsAudioFormat.swapcase" class="function">swapcase</dd>
+                <dd id="SubscribeOptionsAudioFormat.translate" class="function">translate</dd>
+                <dd id="SubscribeOptionsAudioFormat.upper" class="function">upper</dd>
+                <dd id="SubscribeOptionsAudioFormat.startswith" class="function">startswith</dd>
+                <dd id="SubscribeOptionsAudioFormat.endswith" class="function">endswith</dd>
+                <dd id="SubscribeOptionsAudioFormat.removeprefix" class="function">removeprefix</dd>
+                <dd id="SubscribeOptionsAudioFormat.removesuffix" class="function">removesuffix</dd>
+                <dd id="SubscribeOptionsAudioFormat.isascii" class="function">isascii</dd>
+                <dd id="SubscribeOptionsAudioFormat.islower" class="function">islower</dd>
+                <dd id="SubscribeOptionsAudioFormat.isupper" class="function">isupper</dd>
+                <dd id="SubscribeOptionsAudioFormat.istitle" class="function">istitle</dd>
+                <dd id="SubscribeOptionsAudioFormat.isspace" class="function">isspace</dd>
+                <dd id="SubscribeOptionsAudioFormat.isdecimal" class="function">isdecimal</dd>
+                <dd id="SubscribeOptionsAudioFormat.isdigit" class="function">isdigit</dd>
+                <dd id="SubscribeOptionsAudioFormat.isnumeric" class="function">isnumeric</dd>
+                <dd id="SubscribeOptionsAudioFormat.isalpha" class="function">isalpha</dd>
+                <dd id="SubscribeOptionsAudioFormat.isalnum" class="function">isalnum</dd>
+                <dd id="SubscribeOptionsAudioFormat.isidentifier" class="function">isidentifier</dd>
+                <dd id="SubscribeOptionsAudioFormat.isprintable" class="function">isprintable</dd>
+                <dd id="SubscribeOptionsAudioFormat.zfill" class="function">zfill</dd>
+                <dd id="SubscribeOptionsAudioFormat.format" class="function">format</dd>
+                <dd id="SubscribeOptionsAudioFormat.format_map" class="function">format_map</dd>
+                <dd id="SubscribeOptionsAudioFormat.maketrans" class="function">maketrans</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="SubscribeOptionsAudioSampleRate">
+                            <input id="SubscribeOptionsAudioSampleRate-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+
+    <span class="def">class</span>
+    <span class="name">SubscribeOptionsAudioSampleRate</span><wbr>(<span class="base">enum.IntEnum</span>):
+
+                <label class="view-source-button" for="SubscribeOptionsAudioSampleRate-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#SubscribeOptionsAudioSampleRate"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="SubscribeOptionsAudioSampleRate-5"><a href="#SubscribeOptionsAudioSampleRate-5"><span class="linenos"> 5</span></a><span class="k">class</span><span class="w"> </span><span class="nc">SubscribeOptionsAudioSampleRate</span><span class="p">(</span><span class="n">IntEnum</span><span class="p">):</span>
+</span><span id="SubscribeOptionsAudioSampleRate-6"><a href="#SubscribeOptionsAudioSampleRate-6"><span class="linenos"> 6</span></a>    <span class="n">VALUE_16000</span> <span class="o">=</span> <span class="mi">16000</span>
+</span><span id="SubscribeOptionsAudioSampleRate-7"><a href="#SubscribeOptionsAudioSampleRate-7"><span class="linenos"> 7</span></a>    <span class="n">VALUE_24000</span> <span class="o">=</span> <span class="mi">24000</span>
+</span><span id="SubscribeOptionsAudioSampleRate-8"><a href="#SubscribeOptionsAudioSampleRate-8"><span class="linenos"> 8</span></a>
+</span><span id="SubscribeOptionsAudioSampleRate-9"><a href="#SubscribeOptionsAudioSampleRate-9"><span class="linenos"> 9</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="SubscribeOptionsAudioSampleRate-10"><a href="#SubscribeOptionsAudioSampleRate-10"><span class="linenos">10</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span></pre></div>
+
+
+
+
+                            <div id="SubscribeOptionsAudioSampleRate.VALUE_16000" class="classattr">
+                                <div class="attr variable">
+            <span class="name">VALUE_16000</span>        =
+<span class="default_value">&lt;<a href="#SubscribeOptionsAudioSampleRate.VALUE_16000">SubscribeOptionsAudioSampleRate.VALUE_16000</a>: 16000&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#SubscribeOptionsAudioSampleRate.VALUE_16000"></a>
+
+
+
+                            </div>
+                            <div id="SubscribeOptionsAudioSampleRate.VALUE_24000" class="classattr">
+                                <div class="attr variable">
+            <span class="name">VALUE_24000</span>        =
+<span class="default_value">&lt;<a href="#SubscribeOptionsAudioSampleRate.VALUE_24000">SubscribeOptionsAudioSampleRate.VALUE_24000</a>: 24000&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#SubscribeOptionsAudioSampleRate.VALUE_24000"></a>
+
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>enum.Enum</dt>
+                                <dd id="SubscribeOptionsAudioSampleRate.name" class="variable">name</dd>
+                <dd id="SubscribeOptionsAudioSampleRate.value" class="variable">value</dd>
+
+            </div>
+            <div><dt>builtins.int</dt>
+                                <dd id="SubscribeOptionsAudioSampleRate.conjugate" class="function">conjugate</dd>
+                <dd id="SubscribeOptionsAudioSampleRate.bit_length" class="function">bit_length</dd>
+                <dd id="SubscribeOptionsAudioSampleRate.bit_count" class="function">bit_count</dd>
+                <dd id="SubscribeOptionsAudioSampleRate.to_bytes" class="function">to_bytes</dd>
+                <dd id="SubscribeOptionsAudioSampleRate.from_bytes" class="function">from_bytes</dd>
+                <dd id="SubscribeOptionsAudioSampleRate.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="SubscribeOptionsAudioSampleRate.is_integer" class="function">is_integer</dd>
+                <dd id="SubscribeOptionsAudioSampleRate.real" class="variable">real</dd>
+                <dd id="SubscribeOptionsAudioSampleRate.imag" class="variable">imag</dd>
+                <dd id="SubscribeOptionsAudioSampleRate.numerator" class="variable">numerator</dd>
+                <dd id="SubscribeOptionsAudioSampleRate.denominator" class="variable">denominator</dd>
 
             </div>
                                 </dl>
