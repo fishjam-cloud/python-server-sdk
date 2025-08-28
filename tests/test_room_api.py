@@ -79,6 +79,7 @@ class TestCreateRoom:
             "peerlessPurgeTimeout", room.config.__getitem__("peerlessPurgeTimeout")
         )
         config.__setitem__("geoLoc", room.config.__getitem__("geoLoc"))
+        config.__setitem__("s3UploadConfig", room.config.__getitem__("s3UploadConfig"))
 
         assert room == Room(
             config=config,
@@ -107,6 +108,7 @@ class TestCreateRoom:
             "peerlessPurgeTimeout", room.config.__getitem__("peerlessPurgeTimeout")
         )
         config.__setitem__("geoLoc", room.config.__getitem__("geoLoc"))
+        config.__setitem__("s3UploadConfig", room.config.__getitem__("s3UploadConfig"))
 
         assert room == Room(
             config=config,
@@ -167,6 +169,7 @@ class TestGetRoom:
             "peerlessPurgeTimeout", room.config.__getitem__("peerlessPurgeTimeout")
         )
         config.__setitem__("geoLoc", room.config.__getitem__("geoLoc"))
+        config.__setitem__("s3UploadConfig", room.config.__getitem__("s3UploadConfig"))
 
         assert Room(
             peers=[],
