@@ -3,6 +3,7 @@ Notifier listening to WebSocket events
 """
 
 import asyncio
+import inspect
 from collections.abc import Coroutine
 from typing import Any, Callable, cast
 
@@ -142,7 +143,7 @@ class FishjamNotifier:
 
             if isinstance(message, ALLOWED_NOTIFICATIONS):
                 res = self._notification_handler(message)
-                if asyncio.iscoroutine(res):
+                if inspect.isawaitable(res):
                     await res
 
     async def _subscribe_event(self, event: ServerMessageEventType):

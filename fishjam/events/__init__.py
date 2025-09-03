@@ -10,6 +10,7 @@ from fishjam.events._protos.fishjam import (
     ServerMessagePeerDeleted,
     ServerMessagePeerDisconnected,
     ServerMessagePeerMetadataUpdated,
+    ServerMessagePeerType,
     ServerMessageRoomCrashed,
     ServerMessageRoomCreated,
     ServerMessageRoomDeleted,
@@ -43,4 +44,5 @@ __all__ = [
     "Track",
     "TrackEncoding",
     "TrackType",
+    "ServerMessagePeerType",
 ]
