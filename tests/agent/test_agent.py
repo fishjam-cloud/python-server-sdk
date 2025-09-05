@@ -6,7 +6,7 @@ import pytest
 import pytest_asyncio
 
 from fishjam import FishjamClient, FishjamNotifier, Room
-from fishjam.agent.agent import Agent, AudioTrackOptions
+from fishjam.agent.agent import Agent
 from fishjam.agent.errors import AgentAuthError
 from fishjam.events._protos.fishjam import (
     ServerMessagePeerDisconnected,
