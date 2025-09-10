@@ -12,6 +12,7 @@ class BackgroundWorker:
         task = self._tg.create_task(coro)
         task.add_done_callback(self._remove_task)
         self._tasks.add(task)
+        return task
 
     def _remove_task(self, task: Task[None]):
         self._tasks.discard(task)

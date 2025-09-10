@@ -1,32 +1,135 @@
-"""
-Class for implementing Fishjam agents
-"""
+from __future__ import annotations
 
-import asyncio
-import functools
-from contextlib import suppress
-from types import TracebackType
-from typing import Any, Callable, TypeAlias, TypeVar
+import json
+import uuid
+from contextlib import asynccontextmanager
+from dataclasses import dataclass
+from typing import Any, AsyncIterator, Literal
 
 import betterproto
-from websockets import ClientConnection, CloseCode, ConnectionClosed
+from websockets import ClientConnection, ConnectionClosed
 from websockets.asyncio import client
 
 from fishjam.agent.errors import AgentAuthError
 from fishjam.events._protos.fishjam import (
     AgentRequest,
+    AgentRequestAddTrack,
+    AgentRequestAddTrackCodecParameters,
     AgentRequestAuthRequest,
     AgentResponse,
-    AgentResponseTrackData,
 )
+from fishjam.events._protos.fishjam import AgentRequestTrackData as OutgoingTrackData
+from fishjam.events._protos.fishjam import AgentResponseTrackData as IncomingTrackData
+from fishjam.events._protos.fishjam.notifications import Track, TrackEncoding, TrackType
 
-TrackDataHandler: TypeAlias = Callable[[AgentResponseTrackData], None]
-
-TrackDataHandlerT = TypeVar("TrackDataHandlerT", bound=TrackDataHandler)
+IncomingAgentMessage = IncomingTrackData
 
 
-def _close_ok(e: ConnectionClosed):
-    return e.code == CloseCode.NORMAL_CLOSURE
+@dataclass
+class AudioTrackOptions:
+    """Parameters of an outgoing audio track."""
+
+    encoding: TrackEncoding = TrackEncoding.TRACK_ENCODING_UNSPECIFIED
+    """
+    The encoding of the audio source.
+    Defaults to raw 16-bit PCM.
+    """
+
+    sample_rate: Literal[16000, 24000] = 16000
+    """
+    The sample rate of the audio source.
+    Defaults to 16000.
+    """
+    channels: Literal[1, 2] = 1
+    """
+    The number of channels in the audio source.
+    Supported values are 1 (mono) and 2 (stereo).
+    Defaults to 1 (mono)
+    """
+    metadata: dict[str, Any] | None = None
+    """
+    Custom metadata for the track.
+    Must be JSON-encodable.
+    """
+
+
+@dataclass(frozen=True)
+class OutgoingTrack:
+    """
+    Represents an outgoing track of an agent connected to Fishjam,
+    created by :func:`Agent.add_track`.
+    """
+
+    id: str
+    """The global identifier of the track."""
+    session: AgentSession
+    """The agent the track belongs to."""
+    options: AudioTrackOptions
+    """The parameters used to create the track."""
+
+    async def send_chunk(self, data: bytes):
+        """
+        Send a chunk of audio to Fishjam on this track.
+
+        Peers connected to the room of the agent will receive this data.
+        """
+        message = AgentRequest(
+            track_data=OutgoingTrackData(
+                track_id=self.id,
+                data=data,
+            )
+        )
+
+        await self.session._send(message)
+
+
+class AgentSession:
+    def __init__(self, agent: Agent, websocket: ClientConnection):
+        self.agent = agent
+
+        self._ws = websocket
+        self._closed = False
+
+    async def receive(self) -> AsyncIterator[IncomingAgentMessage]:
+        """
+        Returns an infinite async iterator over the incoming messages from Fishjam to
+        the agent.
+        """
+        while message := await self._ws.recv(decode=False):
+            parsed = AgentResponse().parse(message)
+            _, msg = betterproto.which_one_of(parsed, "content")
+            match msg:
+                case IncomingTrackData() as content:
+                    yield content
+
+    async def add_track(self, options: AudioTrackOptions):
+        """
+        Adds a track to the connected agent, with the specified options and metadata.
+
+        Returns an instance of :class:`OutgoingTrack`, which can be used to send data
+        over the added track.
+        """
+        track_id = uuid.uuid4().hex
+        metadata_json = json.dumps(options.metadata)
+        message = AgentRequest(
+            add_track=AgentRequestAddTrack(
+                track=Track(
+                    id=track_id,
+                    type=TrackType.TRACK_TYPE_AUDIO,
+                    metadata=metadata_json,
+                ),
+                codec_params=AgentRequestAddTrackCodecParameters(
+                    encoding=options.encoding,
+                    sample_rate=options.sample_rate,
+                    channels=options.channels,
+                ),
+            )
+        )
+        await self._send(message)
+        return OutgoingTrack(id=track_id, session=self, options=options)
+
+    async def _send(self, message: AgentRequest):
+        await self._ws.send(bytes(message), text=False)
 
 
 class Agent:
@@ -35,34 +138,21 @@ class Agent:
     Provides callbacks for receiving audio.
     """
 
-    def __init__(self, id: str, token: str, fishjam_url: str):
+    def __init__(self, id: str, room_id: str, token: str, fishjam_url: str):
         """
-        Create FishjamAgent instance, providing the fishjam id and management token.
+        Create Agent instance, providing the fishjam id and management token.
+
+        This constructor should not be called directly.
+        Instead, you should call :func:`fishjam.FishjamClient.create_agent`.
         """
 
         self.id = id
+        self.room_id = room_id
+
         self._socket_url = f"{fishjam_url}/socket/agent/websocket".replace("http", "ws")
         self._token = token
-        self._msg_loop: asyncio.Task[None] | None = None
-        self._end_event = asyncio.Event()
 
-        @functools.singledispatch
-        def _message_handler(content: Any) -> None:
-            raise TypeError(f"Unexpected message of type #{type(content)}")
-
-        @_message_handler.register
-        def _(_content: AgentResponseTrackData):
-            return
-
-        self._dispatch_handler = _message_handler
-
-    def on_track_data(self, handler: TrackDataHandlerT) -> TrackDataHandlerT:
-        """
-        Decorator used for defining a handler for track data messages from Fishjam.
-        """
-        self._dispatch_handler.register(AgentResponseTrackData, handler)
-        return handler
-
+    @asynccontextmanager
     async def connect(self):
         """
         Connect the agent to Fishjam to start receiving messages.
@@ -72,47 +162,9 @@ class Agent:
 
         :raises AgentAuthError: authentication failed
         """
-        await self.disconnect()
-
-        websocket = await client.connect(self._socket_url)
-        await self._authenticate(websocket)
-
-        task = asyncio.create_task(self._recv_loop(websocket))
-
-        self._msg_loop = task
-
-    async def disconnect(self, code: CloseCode = CloseCode.NORMAL_CLOSURE):
-        """
-        Disconnect the agent from Fishjam.
-
-        Does nothing if already disconnected.
-        """
-        if (task := self._msg_loop) is None:
-            return
-
-        event = self._end_event
-
-        self._end_event = asyncio.Event()
-        self._msg_loop = None
-
-        task.add_done_callback(lambda _t: event.set())
-        if task.cancel(code):
-            await event.wait()
-
-    async def __aenter__(self):
-        await self.connect()
-        return self
-
-    async def __aexit__(
-        self,
-        exc_type: type[BaseException] | None,
-        exc_value: BaseException | None,
-        traceback: TracebackType | None,
-    ):
-        if exc_type is not None:
-            await self.disconnect(CloseCode.INTERNAL_ERROR)
-        else:
-            await self.disconnect()
+        async with client.connect(self._socket_url) as websocket:
+            await self._authenticate(websocket)
+            yield AgentSession(self, websocket)
 
     async def _authenticate(self, websocket: ClientConnection):
         req = AgentRequest(auth_request=AgentRequestAuthRequest(token=self._token))
@@ -120,30 +172,5 @@ class Agent:
             await websocket.send(bytes(req))
             # Fishjam will close the socket if auth fails and send a response on success
             await websocket.recv(decode=False)
-        except ConnectionClosed as e:
-            raise AgentAuthError(e.reason)
-
-    async def _recv_loop(self, websocket: ClientConnection):
-        close_code = CloseCode.NORMAL_CLOSURE
-        try:
-            while True:
-                message = await websocket.recv(decode=False)
-                message = AgentResponse().parse(message)
-
-                _which, content = betterproto.which_one_of(message, "content")
-                self._dispatch_handler(content)
-        except ConnectionClosed as e:
-            if not _close_ok(e):
-                close_code = CloseCode.INTERNAL_ERROR
-                raise
-        except asyncio.CancelledError as e:
-            # NOTE: e.args[0] is the close code supplied by disconnect()
-            # However cancellation can have other causes, which we treat as normal
-            with suppress(IndexError):
-                close_code = e.args[0]
-            raise
-        except Exception:
-            close_code = CloseCode.INTERNAL_ERROR
-            raise
-        finally:
-            await websocket.close(close_code)
+        except ConnectionClosed:
+            raise AgentAuthError(websocket.close_reason or "")

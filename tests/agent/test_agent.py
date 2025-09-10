@@ -87,51 +87,12 @@ async def wait_event(event: asyncio.Event, timeout: float = 5):
 
 class TestAgentConnection:
     @pytest.mark.asyncio
-    async def test_connect_disconnect(
-        self,
-        room_api: FishjamClient,
-        room: Room,
-        agent: Agent,
-        notifier: FishjamNotifier,
-    ):
-        connect_event = asyncio.Event()
-        disconnect_event = asyncio.Event()
-
-        @notifier.on_server_notification
-        def _(notification: AllowedNotification):
-            print(f"Received notification {notification}")
-            if (
-                isinstance(notification, ServerMessagePeerMetadataUpdated)
-                and notification.peer_id == agent.id
-            ):
-                connect_event.set()
-            if (
-                isinstance(notification, ServerMessagePeerDisconnected)
-                and notification.peer_id == agent.id
-            ):
-                disconnect_event.set()
-
-        await agent.connect()
-        await wait_event(connect_event)
-
-        room = room_api.get_room(room.id)
-        assert len(room.peers) == 1
-        assert room.peers[0].id == agent.id
-        assert room.peers[0].status == "connected"
-
-        await agent.disconnect()
-        await wait_event(disconnect_event)
-
-    @pytest.mark.asyncio
     async def test_invalid_auth(self, room_api: FishjamClient):
-        agent = Agent("fake-id", "fake-token", room_api._fishjam_url)
+        agent = Agent("fake-id", "room-id", "fake-token", room_api._fishjam_url)
 
         with pytest.raises(AgentAuthError):
-            await agent.connect()
-
-        with pytest.raises(AgentAuthError):
-            async with agent:
-                pass
+            async with agent.connect():
+                raise RuntimeError("Connect should have raised AgentAuthError.")
 
     @pytest.mark.asyncio
     async def test_context_manager(
@@ -158,7 +119,7 @@ class TestAgentConnection:
             ):
                 disconnect_event.set()
 
-        async with agent:
+        async with agent.connect():
             await wait_event(connect_event)
 
             room = room_api.get_room(room.id)

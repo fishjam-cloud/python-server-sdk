@@ -141,7 +141,7 @@ class FishjamClient(Client):
             self._request(room_add_peer, room_id=room_id, body=body),
         )
 
-        return Agent(resp.data.peer.id, resp.data.token, self._fishjam_url)
+        return Agent(resp.data.peer.id, room_id, resp.data.token, self._fishjam_url)
 
     def create_room(self, options: RoomOptions | None = None) -> Room:
         """

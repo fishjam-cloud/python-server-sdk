@@ -1,9 +1,7 @@
-# pylint: disable=locally-disabled, missing-class-docstring, missing-function-docstring, redefined-outer-name, too-few-public-methods, missing-module-docstring
-
 import asyncio
 
 import betterproto
-from websockets import client
+from websockets.asyncio import client
 from websockets.exceptions import ConnectionClosedOK
 
 from tests.support.protos.fishjam import (
@@ -29,7 +27,7 @@ class PeerSocket:
             await websocket.send(bytes(msg))
 
             try:
-                message = await websocket.recv()
+                message = await websocket.recv(decode=False)
             except ConnectionClosedOK as exception:
                 raise RuntimeError from exception
 

@@ -74,12 +74,6 @@ class TestCreateRoom:
             webhook_url=None,
             room_type=RoomConfigRoomType(CONFERENCE),
         )
-        config.__setitem__("roomId", room.config.__getitem__("roomId"))
-        config.__setitem__(
-            "peerlessPurgeTimeout", room.config.__getitem__("peerlessPurgeTimeout")
-        )
-        config.__setitem__("geoLoc", room.config.__getitem__("geoLoc"))
-        config.__setitem__("s3UploadConfig", room.config.__getitem__("s3UploadConfig"))
 
         assert room == Room(
             config=config,
@@ -103,12 +97,6 @@ class TestCreateRoom:
             webhook_url=None,
             room_type=RoomConfigRoomType(AUDIO_ONLY),
         )
-        config.__setitem__("roomId", room.config.__getitem__("roomId"))
-        config.__setitem__(
-            "peerlessPurgeTimeout", room.config.__getitem__("peerlessPurgeTimeout")
-        )
-        config.__setitem__("geoLoc", room.config.__getitem__("geoLoc"))
-        config.__setitem__("s3UploadConfig", room.config.__getitem__("s3UploadConfig"))
 
         assert room == Room(
             config=config,
@@ -164,12 +152,6 @@ class TestGetRoom:
             webhook_url=None,
             room_type=RoomConfigRoomType(CONFERENCE),
         )
-        config.__setitem__("roomId", room.config.__getitem__("roomId"))
-        config.__setitem__(
-            "peerlessPurgeTimeout", room.config.__getitem__("peerlessPurgeTimeout")
-        )
-        config.__setitem__("geoLoc", room.config.__getitem__("geoLoc"))
-        config.__setitem__("s3UploadConfig", room.config.__getitem__("s3UploadConfig"))
 
         assert Room(
             peers=[],
