@@ -477,6 +477,21 @@
                 </ul>
 
             </li>
+            <li>
+                    <a class="class" href="#ServerMessagePeerType">ServerMessagePeerType</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="variable" href="#ServerMessagePeerType.PEER_TYPE_UNSPECIFIED">PEER_TYPE_UNSPECIFIED</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ServerMessagePeerType.PEER_TYPE_WEBRTC">PEER_TYPE_WEBRTC</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ServerMessagePeerType.PEER_TYPE_AGENT">PEER_TYPE_AGENT</a>
+                        </li>
+                </ul>
+
+            </li>
     </ul>
 
 
@@ -521,40 +536,42 @@
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="n">ServerMessagePeerDeleted</span><span class="p">,</span>
 </span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>    <span class="n">ServerMessagePeerDisconnected</span><span class="p">,</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="n">ServerMessagePeerMetadataUpdated</span><span class="p">,</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="n">ServerMessageRoomCrashed</span><span class="p">,</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>    <span class="n">ServerMessageRoomCreated</span><span class="p">,</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>    <span class="n">ServerMessageRoomDeleted</span><span class="p">,</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="n">ServerMessageStreamConnected</span><span class="p">,</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="n">ServerMessageStreamDisconnected</span><span class="p">,</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">ServerMessageTrackAdded</span><span class="p">,</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="n">ServerMessageTrackMetadataUpdated</span><span class="p">,</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">ServerMessageTrackRemoved</span><span class="p">,</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="n">ServerMessageViewerConnected</span><span class="p">,</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="n">ServerMessageViewerDisconnected</span><span class="p">,</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="p">)</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">fishjam.events._protos.fishjam.notifications</span><span class="w"> </span><span class="kn">import</span> <span class="n">Track</span><span class="p">,</span> <span class="n">TrackEncoding</span><span class="p">,</span> <span class="n">TrackType</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>    <span class="s2">&quot;ServerMessageRoomCreated&quot;</span><span class="p">,</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="s2">&quot;ServerMessageRoomDeleted&quot;</span><span class="p">,</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>    <span class="s2">&quot;ServerMessageRoomCrashed&quot;</span><span class="p">,</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="s2">&quot;ServerMessagePeerAdded&quot;</span><span class="p">,</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="s2">&quot;ServerMessagePeerConnected&quot;</span><span class="p">,</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="s2">&quot;ServerMessagePeerDeleted&quot;</span><span class="p">,</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="s2">&quot;ServerMessagePeerDisconnected&quot;</span><span class="p">,</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="s2">&quot;ServerMessagePeerMetadataUpdated&quot;</span><span class="p">,</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="s2">&quot;ServerMessagePeerCrashed&quot;</span><span class="p">,</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="s2">&quot;ServerMessageStreamConnected&quot;</span><span class="p">,</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="s2">&quot;ServerMessageStreamDisconnected&quot;</span><span class="p">,</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    <span class="s2">&quot;ServerMessageTrackAdded&quot;</span><span class="p">,</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="s2">&quot;ServerMessageTrackMetadataUpdated&quot;</span><span class="p">,</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="s2">&quot;ServerMessageTrackRemoved&quot;</span><span class="p">,</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>    <span class="s2">&quot;ServerMessageViewerConnected&quot;</span><span class="p">,</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>    <span class="s2">&quot;ServerMessageViewerDisconnected&quot;</span><span class="p">,</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>    <span class="s2">&quot;Track&quot;</span><span class="p">,</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>    <span class="s2">&quot;TrackEncoding&quot;</span><span class="p">,</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>    <span class="s2">&quot;TrackType&quot;</span><span class="p">,</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="p">]</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="n">ServerMessagePeerType</span><span class="p">,</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>    <span class="n">ServerMessageRoomCrashed</span><span class="p">,</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>    <span class="n">ServerMessageRoomCreated</span><span class="p">,</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="n">ServerMessageRoomDeleted</span><span class="p">,</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="n">ServerMessageStreamConnected</span><span class="p">,</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">ServerMessageStreamDisconnected</span><span class="p">,</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="n">ServerMessageTrackAdded</span><span class="p">,</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">ServerMessageTrackMetadataUpdated</span><span class="p">,</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="n">ServerMessageTrackRemoved</span><span class="p">,</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="n">ServerMessageViewerConnected</span><span class="p">,</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="n">ServerMessageViewerDisconnected</span><span class="p">,</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a><span class="p">)</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">fishjam.events._protos.fishjam.notifications</span><span class="w"> </span><span class="kn">import</span> <span class="n">Track</span><span class="p">,</span> <span class="n">TrackEncoding</span><span class="p">,</span> <span class="n">TrackType</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="s2">&quot;ServerMessageRoomCreated&quot;</span><span class="p">,</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>    <span class="s2">&quot;ServerMessageRoomDeleted&quot;</span><span class="p">,</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="s2">&quot;ServerMessageRoomCrashed&quot;</span><span class="p">,</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="s2">&quot;ServerMessagePeerAdded&quot;</span><span class="p">,</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="s2">&quot;ServerMessagePeerConnected&quot;</span><span class="p">,</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="s2">&quot;ServerMessagePeerDeleted&quot;</span><span class="p">,</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="s2">&quot;ServerMessagePeerDisconnected&quot;</span><span class="p">,</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="s2">&quot;ServerMessagePeerMetadataUpdated&quot;</span><span class="p">,</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="s2">&quot;ServerMessagePeerCrashed&quot;</span><span class="p">,</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="s2">&quot;ServerMessageStreamConnected&quot;</span><span class="p">,</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    <span class="s2">&quot;ServerMessageStreamDisconnected&quot;</span><span class="p">,</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="s2">&quot;ServerMessageTrackAdded&quot;</span><span class="p">,</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="s2">&quot;ServerMessageTrackMetadataUpdated&quot;</span><span class="p">,</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>    <span class="s2">&quot;ServerMessageTrackRemoved&quot;</span><span class="p">,</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>    <span class="s2">&quot;ServerMessageViewerConnected&quot;</span><span class="p">,</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>    <span class="s2">&quot;ServerMessageViewerDisconnected&quot;</span><span class="p">,</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>    <span class="s2">&quot;Track&quot;</span><span class="p">,</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>    <span class="s2">&quot;TrackEncoding&quot;</span><span class="p">,</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>    <span class="s2">&quot;TrackType&quot;</span><span class="p">,</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>    <span class="s2">&quot;ServerMessagePeerType&quot;</span><span class="p">,</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a><span class="p">]</span>
 </span></pre></div>
 
 
@@ -789,7 +806,7 @@
                             <div id="ServerMessagePeerAdded.__init__" class="classattr">
                                 <div class="attr function">
 
-        <span class="name">ServerMessagePeerAdded</span><span class="signature pdoc-code multiline">(<span class="param">   <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_type</span><span class="p">:</span> <span class="n">fishjam</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_protos</span><span class="o">.</span><span class="n">fishjam</span><span class="o">.</span><span class="n">ServerMessagePeerType</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">ServerMessagePeerAdded</span><span class="signature pdoc-code multiline">(<span class="param">   <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_type</span><span class="p">:</span> <span class="n"><a href="#ServerMessagePeerType">ServerMessagePeerType</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
 
     </div>
@@ -824,7 +841,7 @@
                             </div>
                             <div id="ServerMessagePeerAdded.peer_type" class="classattr">
                                 <div class="attr variable">
-            <span class="name">peer_type</span><span class="annotation">: fishjam.events._protos.fishjam.ServerMessagePeerType</span>        =
+            <span class="name">peer_type</span><span class="annotation">: <a href="#ServerMessagePeerType">ServerMessagePeerType</a></span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
 
@@ -882,7 +899,7 @@
                             <div id="ServerMessagePeerConnected.__init__" class="classattr">
                                 <div class="attr function">
 
-        <span class="name">ServerMessagePeerConnected</span><span class="signature pdoc-code multiline">(<span class="param">   <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_type</span><span class="p">:</span> <span class="n">fishjam</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_protos</span><span class="o">.</span><span class="n">fishjam</span><span class="o">.</span><span class="n">ServerMessagePeerType</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">ServerMessagePeerConnected</span><span class="signature pdoc-code multiline">(<span class="param">   <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_type</span><span class="p">:</span> <span class="n"><a href="#ServerMessagePeerType">ServerMessagePeerType</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
 
     </div>
@@ -917,7 +934,7 @@
                             </div>
                             <div id="ServerMessagePeerConnected.peer_type" class="classattr">
                                 <div class="attr variable">
-            <span class="name">peer_type</span><span class="annotation">: fishjam.events._protos.fishjam.ServerMessagePeerType</span>        =
+            <span class="name">peer_type</span><span class="annotation">: <a href="#ServerMessagePeerType">ServerMessagePeerType</a></span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
 
@@ -975,7 +992,7 @@
                             <div id="ServerMessagePeerDeleted.__init__" class="classattr">
                                 <div class="attr function">
 
-        <span class="name">ServerMessagePeerDeleted</span><span class="signature pdoc-code multiline">(<span class="param"> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_type</span><span class="p">:</span> <span class="n">fishjam</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_protos</span><span class="o">.</span><span class="n">fishjam</span><span class="o">.</span><span class="n">ServerMessagePeerType</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">ServerMessagePeerDeleted</span><span class="signature pdoc-code multiline">(<span class="param"> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_type</span><span class="p">:</span> <span class="n"><a href="#ServerMessagePeerType">ServerMessagePeerType</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
 
     </div>
@@ -1010,7 +1027,7 @@
                             </div>
                             <div id="ServerMessagePeerDeleted.peer_type" class="classattr">
                                 <div class="attr variable">
-            <span class="name">peer_type</span><span class="annotation">: fishjam.events._protos.fishjam.ServerMessagePeerType</span>        =
+            <span class="name">peer_type</span><span class="annotation">: <a href="#ServerMessagePeerType">ServerMessagePeerType</a></span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
 
@@ -1068,7 +1085,7 @@
                             <div id="ServerMessagePeerDisconnected.__init__" class="classattr">
                                 <div class="attr function">
 
-        <span class="name">ServerMessagePeerDisconnected</span><span class="signature pdoc-code multiline">(<span class="param">    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_type</span><span class="p">:</span> <span class="n">fishjam</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_protos</span><span class="o">.</span><span class="n">fishjam</span><span class="o">.</span><span class="n">ServerMessagePeerType</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">ServerMessagePeerDisconnected</span><span class="signature pdoc-code multiline">(<span class="param">    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_type</span><span class="p">:</span> <span class="n"><a href="#ServerMessagePeerType">ServerMessagePeerType</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
 
     </div>
@@ -1103,7 +1120,7 @@
                             </div>
                             <div id="ServerMessagePeerDisconnected.peer_type" class="classattr">
                                 <div class="attr variable">
-            <span class="name">peer_type</span><span class="annotation">: fishjam.events._protos.fishjam.ServerMessagePeerType</span>        =
+            <span class="name">peer_type</span><span class="annotation">: <a href="#ServerMessagePeerType">ServerMessagePeerType</a></span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
 
@@ -1162,7 +1179,7 @@
                             <div id="ServerMessagePeerMetadataUpdated.__init__" class="classattr">
                                 <div class="attr function">
 
-        <span class="name">ServerMessagePeerMetadataUpdated</span><span class="signature pdoc-code multiline">(<span class="param"> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">metadata</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">peer_type</span><span class="p">:</span> <span class="n">fishjam</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_protos</span><span class="o">.</span><span class="n">fishjam</span><span class="o">.</span><span class="n">ServerMessagePeerType</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">ServerMessagePeerMetadataUpdated</span><span class="signature pdoc-code multiline">(<span class="param"> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">metadata</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">peer_type</span><span class="p">:</span> <span class="n"><a href="#ServerMessagePeerType">ServerMessagePeerType</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
 
     </div>
@@ -1209,7 +1226,7 @@
                             </div>
                             <div id="ServerMessagePeerMetadataUpdated.peer_type" class="classattr">
                                 <div class="attr variable">
-            <span class="name">peer_type</span><span class="annotation">: fishjam.events._protos.fishjam.ServerMessagePeerType</span>        =
+            <span class="name">peer_type</span><span class="annotation">: <a href="#ServerMessagePeerType">ServerMessagePeerType</a></span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
 
@@ -1268,7 +1285,7 @@
                             <div id="ServerMessagePeerCrashed.__init__" class="classattr">
                                 <div class="attr function">
 
-        <span class="name">ServerMessagePeerCrashed</span><span class="signature pdoc-code multiline">(<span class="param"> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">reason</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">  <span class="n">peer_type</span><span class="p">:</span> <span class="n">fishjam</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_protos</span><span class="o">.</span><span class="n">fishjam</span><span class="o">.</span><span class="n">ServerMessagePeerType</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+        <span class="name">ServerMessagePeerCrashed</span><span class="signature pdoc-code multiline">(<span class="param"> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">reason</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">  <span class="n">peer_type</span><span class="p">:</span> <span class="n"><a href="#ServerMessagePeerType">ServerMessagePeerType</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
 
 
     </div>
@@ -1315,7 +1332,7 @@
                             </div>
                             <div id="ServerMessagePeerCrashed.peer_type" class="classattr">
                                 <div class="attr variable">
-            <span class="name">peer_type</span><span class="annotation">: fishjam.events._protos.fishjam.ServerMessagePeerType</span>        =
+            <span class="name">peer_type</span><span class="annotation">: <a href="#ServerMessagePeerType">ServerMessagePeerType</a></span>        =
 <span class="default_value">&lt;object object&gt;</span>
 
 
@@ -2221,6 +2238,94 @@ from this. Bases <code>enum.IntEnum</code>.</p>
                 <dd id="TrackType.imag" class="variable">imag</dd>
                 <dd id="TrackType.numerator" class="variable">numerator</dd>
                 <dd id="TrackType.denominator" class="variable">denominator</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="ServerMessagePeerType">
+                            <input id="ServerMessagePeerType-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+
+    <span class="def">class</span>
+    <span class="name">ServerMessagePeerType</span><wbr>(<span class="base">betterproto.Enum</span>):
+
+                <label class="view-source-button" for="ServerMessagePeerType-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#ServerMessagePeerType"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessagePeerType-14"><a href="#ServerMessagePeerType-14"><span class="linenos">14</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessagePeerType</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Enum</span><span class="p">):</span>
+</span><span id="ServerMessagePeerType-15"><a href="#ServerMessagePeerType-15"><span class="linenos">15</span></a>    <span class="n">PEER_TYPE_UNSPECIFIED</span> <span class="o">=</span> <span class="mi">0</span>
+</span><span id="ServerMessagePeerType-16"><a href="#ServerMessagePeerType-16"><span class="linenos">16</span></a>    <span class="n">PEER_TYPE_WEBRTC</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="ServerMessagePeerType-17"><a href="#ServerMessagePeerType-17"><span class="linenos">17</span></a>    <span class="n">PEER_TYPE_AGENT</span> <span class="o">=</span> <span class="mi">2</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>The base class for protobuf enumerations, all generated enumerations will inherit
+from this. Bases <code>enum.IntEnum</code>.</p>
+</div>
+
+
+                            <div id="ServerMessagePeerType.PEER_TYPE_UNSPECIFIED" class="classattr">
+                                <div class="attr variable">
+            <span class="name">PEER_TYPE_UNSPECIFIED</span>        =
+<span class="default_value">&lt;<a href="#ServerMessagePeerType.PEER_TYPE_UNSPECIFIED">ServerMessagePeerType.PEER_TYPE_UNSPECIFIED</a>: 0&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessagePeerType.PEER_TYPE_UNSPECIFIED"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessagePeerType.PEER_TYPE_WEBRTC" class="classattr">
+                                <div class="attr variable">
+            <span class="name">PEER_TYPE_WEBRTC</span>        =
+<span class="default_value">&lt;<a href="#ServerMessagePeerType.PEER_TYPE_WEBRTC">ServerMessagePeerType.PEER_TYPE_WEBRTC</a>: 1&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessagePeerType.PEER_TYPE_WEBRTC"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessagePeerType.PEER_TYPE_AGENT" class="classattr">
+                                <div class="attr variable">
+            <span class="name">PEER_TYPE_AGENT</span>        =
+<span class="default_value">&lt;<a href="#ServerMessagePeerType.PEER_TYPE_AGENT">ServerMessagePeerType.PEER_TYPE_AGENT</a>: 2&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessagePeerType.PEER_TYPE_AGENT"></a>
+
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>betterproto.Enum</dt>
+                                <dd id="ServerMessagePeerType.from_string" class="function">from_string</dd>
+
+            </div>
+            <div><dt>enum.Enum</dt>
+                                <dd id="ServerMessagePeerType.name" class="variable">name</dd>
+                <dd id="ServerMessagePeerType.value" class="variable">value</dd>
+
+            </div>
+            <div><dt>builtins.int</dt>
+                                <dd id="ServerMessagePeerType.conjugate" class="function">conjugate</dd>
+                <dd id="ServerMessagePeerType.bit_length" class="function">bit_length</dd>
+                <dd id="ServerMessagePeerType.bit_count" class="function">bit_count</dd>
+                <dd id="ServerMessagePeerType.to_bytes" class="function">to_bytes</dd>
+                <dd id="ServerMessagePeerType.from_bytes" class="function">from_bytes</dd>
+                <dd id="ServerMessagePeerType.as_integer_ratio" class="function">as_integer_ratio</dd>
+                <dd id="ServerMessagePeerType.is_integer" class="function">is_integer</dd>
+                <dd id="ServerMessagePeerType.real" class="variable">real</dd>
+                <dd id="ServerMessagePeerType.imag" class="variable">imag</dd>
+                <dd id="ServerMessagePeerType.numerator" class="variable">numerator</dd>
+                <dd id="ServerMessagePeerType.denominator" class="variable">denominator</dd>
 
             </div>
                                 </dl>
