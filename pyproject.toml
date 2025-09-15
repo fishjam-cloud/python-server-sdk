@@ -54,7 +54,7 @@ test = [
 default-groups = ["dev", "test"]
 
 [tool.uv.workspace]
-members = ["examples/transcription", "."]
+members = ["examples/transcription", ".", "examples/poet_chat"]
 
 [tool.hatch.build.targets.sdist]
 include = ["fishjam"]
