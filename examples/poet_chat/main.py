@@ -9,8 +9,6 @@ from poet_chat.notifier import make_notifier
 
 from fishjam.agent import AudioTrackOptions
 
-CHUNK_SIZE = 12000
-
 
 async def main():
     room = fishjam_client.create_room()
