@@ -14,6 +14,7 @@ poet_runner = RealtimeRunner(
             "turn_detection": {
                 "interrupt_response": True,
                 "create_response": True,
+                "type": "semantic_vad",
             },
         }
     },

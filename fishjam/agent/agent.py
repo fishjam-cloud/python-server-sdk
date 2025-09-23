@@ -16,6 +16,7 @@ from fishjam.events._protos.fishjam import (
     AgentRequestAddTrack,
     AgentRequestAddTrackCodecParameters,
     AgentRequestAuthRequest,
+    AgentRequestInterruptTrack,
     AgentResponse,
 )
 from fishjam.events._protos.fishjam import AgentRequestTrackData as OutgoingTrackData
@@ -77,6 +78,23 @@ class OutgoingTrack:
             track_data=OutgoingTrackData(
                 track_id=self.id,
                 data=data,
+            )
+        )
+
+        await self.session._send(message)
+
+    async def interrupt(self):
+        """
+        Interrupt current track.
+
+        Any audio that has been sent, but not played
+        will be cleared and be prevented from playing.
+
+        Audio sent after the interrupt will be played normally.
+        """
+        message = AgentRequest(
+            interrupt_track=AgentRequestInterruptTrack(
+                track_id=self.id,
             )
         )
 

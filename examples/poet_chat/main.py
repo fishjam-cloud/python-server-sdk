@@ -30,6 +30,8 @@ async def main():
                 if event.type == "audio":
                     audio = event.audio.data
                     await track.send_chunk(audio)
+                elif event.type == "audio_interrupted":
+                    await track.interrupt()
                 elif event.type == "raw_model_event":
                     if event.data.type == "input_audio_transcription_completed":
                         print(f"Peer said:\n{event.data.transcript}\n")
