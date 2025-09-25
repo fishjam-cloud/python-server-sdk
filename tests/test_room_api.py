@@ -1,6 +1,3 @@
-# pylint: disable=locally-disabled, missing-class-docstring, missing-function-docstring, redefined-outer-name, too-few-public-methods, missing-module-docstring
-
-
 import os
 
 import pytest
@@ -12,6 +9,7 @@ from fishjam import (
     Room,
     RoomOptions,
 )
+from fishjam._openapi_client.models import SubscribeMode
 from fishjam.errors import (
     BadRequestError,
     NotFoundError,
@@ -22,9 +20,6 @@ from fishjam.peer import (
     PeerMetadata,
     PeerStatus,
     PeerType,
-    SubscribeOptions,
-    SubscribeOptionsAudioFormat,
-    SubscribeOptionsAudioSampleRate,
 )
 from fishjam.room import (
     RoomConfig,
@@ -175,7 +170,6 @@ class TestCreatePeer:
         webrtc_peer,
         room_id,
         server_metadata=None,
-        subscribe=None,
     ):
         server_metadata = server_metadata or {}
 
@@ -185,26 +179,20 @@ class TestCreatePeer:
             status=PeerStatus("disconnected"),
             tracks=[],
             metadata=PeerMetadata.from_dict({"peer": {}, "server": server_metadata}),
-            subscribe=subscribe,
+            subscribe_mode=SubscribeMode.AUTO,
+            subscriptions=[],
         )
 
         room = room_api.get_room(room_id)
         assert peer in room.peers
 
     def test_with_specified_options(self, room_api: FishjamClient):
-        subscribe = SubscribeOptions(
-            audio_format=SubscribeOptionsAudioFormat.PCM16,
-            audio_sample_rate=SubscribeOptionsAudioSampleRate.VALUE_16000,
-        )
-        options = PeerOptions(
-            enable_simulcast=True,
-            subscribe=subscribe,
-        )
+        options = PeerOptions(enable_simulcast=True)
 
         room = room_api.create_room()
         peer, _token = room_api.create_peer(room.id, options=options)
 
-        self._assert_peer_created(room_api, peer, room.id, subscribe=subscribe)
+        self._assert_peer_created(room_api, peer, room.id)
 
     def test_with_metadata(self, room_api: FishjamClient):
         options = PeerOptions(metadata={"is_test": True})
