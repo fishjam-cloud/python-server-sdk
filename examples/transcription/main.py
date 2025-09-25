@@ -6,9 +6,6 @@ from transcription.notifier import make_notifier
 from transcription.room import RoomService, fishjam
 from transcription.worker import async_worker
 
-from fishjam import PeerOptions
-from fishjam.peer import SubscribeOptions
-
 _room_service: RoomService | None = None
 
 
@@ -34,8 +31,5 @@ app = FastAPI(lifespan=lifespan)
 
 @app.get("/")
 def get_peer(room_service: Annotated[RoomService, Depends(get_room_service)]):
-    _peer, token = fishjam.create_peer(
-        room_service.get_room().id,
-        PeerOptions(subscribe=SubscribeOptions()),
-    )
+    _peer, token = fishjam.create_peer(room_service.get_room().id)
     return token

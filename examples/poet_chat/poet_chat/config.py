@@ -1,18 +1,13 @@
 import os
 from pathlib import Path
 
-from fishjam import FishjamClient, PeerOptions
-from fishjam.peer import SubscribeOptions, SubscribeOptionsAudioSampleRate
+from fishjam import AgentOptions, AgentOutputOptions, FishjamClient
 
 FISHJAM_ID = os.environ["FISHJAM_ID"]
 FISHJAM_TOKEN = os.environ["FISHJAM_MANAGEMENT_TOKEN"]
 FISHJAM_URL = os.getenv("FISHJAM_URL")
 
-PEER_OPTIONS = PeerOptions(
-    subscribe=SubscribeOptions(
-        audio_sample_rate=SubscribeOptionsAudioSampleRate.VALUE_24000
-    )
-)
+AGENT_OPTIONS = AgentOptions(output=AgentOutputOptions(audio_sample_rate=24000))
 
 OPENAI_MODEL = "gpt-realtime"
 

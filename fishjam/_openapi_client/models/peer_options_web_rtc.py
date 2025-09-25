@@ -4,19 +4,16 @@ from typing import (
     Any,
     TypeVar,
     Union,
-    cast,
 )
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..models.peer_options_web_rtc_subscribe_mode import PeerOptionsWebRTCSubscribeMode
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.peer_options_web_rtc_metadata import PeerOptionsWebRTCMetadata
-    from ..models.peer_options_web_rtc_subscribe_options import (
-        PeerOptionsWebRTCSubscribeOptions,
-    )
 
 
 T = TypeVar("T", bound="PeerOptionsWebRTC")
@@ -29,33 +26,27 @@ class PeerOptionsWebRTC:
     Attributes:
         enable_simulcast (Union[Unset, bool]): Enables the peer to use simulcast Default: True.
         metadata (Union[Unset, PeerOptionsWebRTCMetadata]): Custom peer metadata
-        subscribe (Union['PeerOptionsWebRTCSubscribeOptions', None, Unset]): Configuration of server-side subscriptions
-            to the peer's tracks Example: {'audioFormat': 'pcm16'}.
+        subscribe_mode (Union[Unset, PeerOptionsWebRTCSubscribeMode]): Configuration of peer's subscribing policy
+            Default: PeerOptionsWebRTCSubscribeMode.AUTO.
     """
 
     enable_simulcast: Union[Unset, bool] = True
     metadata: Union[Unset, "PeerOptionsWebRTCMetadata"] = UNSET
-    subscribe: Union["PeerOptionsWebRTCSubscribeOptions", None, Unset] = UNSET
+    subscribe_mode: Union[
+        Unset, PeerOptionsWebRTCSubscribeMode
+    ] = PeerOptionsWebRTCSubscribeMode.AUTO
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        from ..models.peer_options_web_rtc_subscribe_options import (
-            PeerOptionsWebRTCSubscribeOptions,
-        )
-
         enable_simulcast = self.enable_simulcast
 
         metadata: Union[Unset, dict[str, Any]] = UNSET
         if not isinstance(self.metadata, Unset):
             metadata = self.metadata.to_dict()
 
-        subscribe: Union[None, Unset, dict[str, Any]]
-        if isinstance(self.subscribe, Unset):
-            subscribe = UNSET
-        elif isinstance(self.subscribe, PeerOptionsWebRTCSubscribeOptions):
-            subscribe = self.subscribe.to_dict()
-        else:
-            subscribe = self.subscribe
+        subscribe_mode: Union[Unset, str] = UNSET
+        if not isinstance(self.subscribe_mode, Unset):
+            subscribe_mode = self.subscribe_mode.value
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
@@ -64,17 +55,14 @@ class PeerOptionsWebRTC:
             field_dict["enableSimulcast"] = enable_simulcast
         if metadata is not UNSET:
             field_dict["metadata"] = metadata
-        if subscribe is not UNSET:
-            field_dict["subscribe"] = subscribe
+        if subscribe_mode is not UNSET:
+            field_dict["subscribeMode"] = subscribe_mode
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.peer_options_web_rtc_metadata import PeerOptionsWebRTCMetadata
-        from ..models.peer_options_web_rtc_subscribe_options import (
-            PeerOptionsWebRTCSubscribeOptions,
-        )
 
         d = dict(src_dict)
         enable_simulcast = d.pop("enableSimulcast", UNSET)
@@ -86,29 +74,17 @@ class PeerOptionsWebRTC:
         else:
             metadata = PeerOptionsWebRTCMetadata.from_dict(_metadata)
 
-        def _parse_subscribe(
-            data: object,
-        ) -> Union["PeerOptionsWebRTCSubscribeOptions", None, Unset]:
-            if data is None:
-                return data
-            if isinstance(data, Unset):
-                return data
-            try:
-                if not isinstance(data, dict):
-                    raise TypeError()
-                subscribe_type_0 = PeerOptionsWebRTCSubscribeOptions.from_dict(data)
-
-                return subscribe_type_0
-            except:  # noqa: E722
-                pass
-            return cast(Union["PeerOptionsWebRTCSubscribeOptions", None, Unset], data)
-
-        subscribe = _parse_subscribe(d.pop("subscribe", UNSET))
+        _subscribe_mode = d.pop("subscribeMode", UNSET)
+        subscribe_mode: Union[Unset, PeerOptionsWebRTCSubscribeMode]
+        if isinstance(_subscribe_mode, Unset):
+            subscribe_mode = UNSET
+        else:
+            subscribe_mode = PeerOptionsWebRTCSubscribeMode(_subscribe_mode)
 
         peer_options_web_rtc = cls(
             enable_simulcast=enable_simulcast,
             metadata=metadata,
-            subscribe=subscribe,
+            subscribe_mode=subscribe_mode,
         )
 
         peer_options_web_rtc.additional_properties = d

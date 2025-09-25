@@ -2,7 +2,7 @@
 Fishjam client used to manage rooms
 """
 
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Any, Literal, cast
 
 from fishjam._openapi_client.api.room import add_peer as room_add_peer
@@ -23,9 +23,11 @@ from fishjam._openapi_client.models import (
     Peer,
     PeerDetailsResponse,
     PeerOptionsAgent,
+    PeerOptionsAgentOutput,
+    PeerOptionsAgentOutputAudioFormat,
+    PeerOptionsAgentOutputAudioSampleRate,
     PeerOptionsWebRTC,
     PeerOptionsWebRTCMetadata,
-    PeerOptionsWebRTCSubscribeOptions,
     PeerRefreshTokenResponse,
     PeerType,
     RoomConfig,
@@ -35,7 +37,6 @@ from fishjam._openapi_client.models import (
     RoomDetailsResponse,
     RoomsListingResponse,
     StreamerToken,
-    SubscribeOptions,
     ViewerToken,
 )
 from fishjam._openapi_client.types import UNSET
@@ -75,13 +76,27 @@ class RoomOptions:
 
 @dataclass
 class PeerOptions:
-    """Options specific to the Peer"""
+    """Options specific to a WebRTC Peer"""
 
     enable_simulcast: bool = True
     """Enables the peer to use simulcast"""
     metadata: dict[str, Any] | None = None
     """Peer metadata"""
-    subscribe: SubscribeOptions | None = None
+
+
+@dataclass
+class AgentOutputOptions:
+    """Options of the desired format of audio tracks going from Fishjam to the agent."""
+
+    audio_format: Literal["pcm16"] = "pcm16"
+    audio_sample_rate: Literal[16000, 24000] = 16000
+
+
+@dataclass
+class AgentOptions:
+    """Options specific to a WebRTC Peer"""
+
+    output: AgentOutputOptions = field(default_factory=AgentOutputOptions)
 
 
 class FishjamClient(Client):
@@ -122,7 +137,6 @@ class FishjamClient(Client):
         peer_options = PeerOptionsWebRTC(
             enable_simulcast=options.enable_simulcast,
             metadata=peer_metadata,
-            subscribe=self.__parse_subscribe_options(options.subscribe),
         )
         body = AddPeerBody(type_=PeerType.WEBRTC, options=peer_options)
 
@@ -133,8 +147,21 @@ class FishjamClient(Client):
 
         return (resp.data.peer, resp.data.token)
 
-    def create_agent(self, room_id: str):
-        body = AddPeerBody(type_=PeerType.AGENT, options=PeerOptionsAgent())
+    def create_agent(self, room_id: str, options: AgentOptions | None = None):
+        options = options or AgentOptions()
+        body = AddPeerBody(
+            type_=PeerType.AGENT,
+            options=PeerOptionsAgent(
+                output=PeerOptionsAgentOutput(
+                    audio_format=PeerOptionsAgentOutputAudioFormat(
+                        options.output.audio_format
+                    ),
+                    audio_sample_rate=PeerOptionsAgentOutputAudioSampleRate(
+                        options.output.audio_sample_rate
+                    ),
+                )
+            ),
+        )
 
         resp = cast(
             PeerDetailsResponse,
@@ -236,11 +263,3 @@ class FishjamClient(Client):
             peer_metadata.additional_properties[key] = value
 
         return peer_metadata
-
-    def __parse_subscribe_options(
-        self,
-        options: SubscribeOptions | None,
-    ) -> PeerOptionsWebRTCSubscribeOptions | None:
-        if options is None:
-            return None
-        return PeerOptionsWebRTCSubscribeOptions.from_dict(options.to_dict())

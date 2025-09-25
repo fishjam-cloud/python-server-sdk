@@ -1,8 +1,8 @@
 from .agent import (
     Agent,
     AgentSession,
-    AudioTrackOptions,
     IncomingTrackData,
+    OutgoingAudioTrackOptions,
     OutgoingTrack,
 )
 from .errors import AgentAuthError, AgentError
@@ -14,5 +14,5 @@ __all__ = [
     "AgentAuthError",
     "IncomingTrackData",
     "OutgoingTrack",
-    "AudioTrackOptions",
+    "OutgoingAudioTrackOptions",
 ]

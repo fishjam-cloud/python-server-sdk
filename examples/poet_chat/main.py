@@ -2,26 +2,28 @@ import asyncio
 
 from poet_chat.agent import poet_runner
 from poet_chat.config import (
-    PEER_OPTIONS,
+    AGENT_OPTIONS,
     fishjam_client,
 )
 from poet_chat.notifier import make_notifier
 
-from fishjam.agent import AudioTrackOptions
+from fishjam.agent import OutgoingAudioTrackOptions
 
 
 async def main():
     room = fishjam_client.create_room()
-    _, token = fishjam_client.create_peer(room.id, PEER_OPTIONS)
+    _, token = fishjam_client.create_peer(room.id)
     print(f"Join the chat with the following token: {token}")
 
-    agent = fishjam_client.create_agent(room.id)
+    agent = fishjam_client.create_agent(room.id, AGENT_OPTIONS)
     async with (
         agent.connect() as fishjam_session,
         await poet_runner.run() as openai_session,
     ):
         track = await fishjam_session.add_track(
-            AudioTrackOptions(sample_rate=24000, metadata={"type": "microphone"})
+            OutgoingAudioTrackOptions(
+                sample_rate=24000, metadata={"type": "microphone"}
+            )
         )
 
         async def _openai_recv():
