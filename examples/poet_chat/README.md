@@ -7,7 +7,8 @@ The agent handles interruptions from users to ensure a natural conversation flow
 
 ## Running
 
-> ![NOTE] All commands should be run from the parent directory of this README
+> [!IMPORTANT]
+> All commands should be run from the parent directory of this README
 
 Make sure to [install uv](https://docs.astral.sh/uv/getting-started/installation/) if you don't have it already.
 Once you have `uv` installed, fetch the dependencies with
