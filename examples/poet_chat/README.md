@@ -28,7 +28,7 @@ Once you have these variables, you can run the demo with
 ```bash
 FISHJAM_ID=<your-fishjam-id> \
 FISHJAM_MANAGEMENT_TOKEN=<your-management-token> \
-GEMINI_API_KEY=<your-api-token> \
+OPENAI_API_KEY=<your-api-token> \
 uv run ./main.py
 ```
 
