@@ -6,12 +6,15 @@ from fishjam.events import (
 )
 from fishjam.events.allowed_notifications import AllowedNotification
 
-from .config import FISHJAM_ID, FISHJAM_TOKEN, FISHJAM_URL
+from .config import FISHJAM_ID, FISHJAM_TOKEN
 from .room import RoomService
 
 
 def make_notifier(room_service: RoomService):
-    notifier = FishjamNotifier(FISHJAM_ID, FISHJAM_TOKEN, fishjam_url=FISHJAM_URL)
+    notifier = FishjamNotifier(
+        FISHJAM_ID,
+        FISHJAM_TOKEN,
+    )
 
     @notifier.on_server_notification
     def _(notification: AllowedNotification):

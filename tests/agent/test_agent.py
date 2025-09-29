@@ -17,14 +17,13 @@ from fishjam.events._protos.fishjam import (
 from fishjam.events.allowed_notifications import AllowedNotification
 
 HOST = "fishjam" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
-FISHJAM_URL = f"http://{HOST}:5002"
-FISHJAM_ID = ""
+FISHJAM_ID = f"http://{HOST}:5002"
 SERVER_API_TOKEN = os.getenv("MANAGEMENT_TOKEN", "development")
 
 
 @pytest.fixture
 def room_api():
-    return FishjamClient(FISHJAM_ID, SERVER_API_TOKEN, fishjam_url=FISHJAM_URL)
+    return FishjamClient(FISHJAM_ID, SERVER_API_TOKEN)
 
 
 @pytest.fixture
@@ -46,7 +45,6 @@ async def notifier():
     notifier = FishjamNotifier(
         fishjam_id=FISHJAM_ID,
         management_token=SERVER_API_TOKEN,
-        fishjam_url=FISHJAM_URL,
     )
 
     @notifier.on_server_notification

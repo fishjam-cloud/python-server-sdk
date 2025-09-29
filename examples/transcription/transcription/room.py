@@ -3,13 +3,9 @@ from fishjam.errors import NotFoundError
 from transcription.worker import BackgroundWorker
 
 from .agent import TranscriptionAgent
-from .config import FISHJAM_ID, FISHJAM_TOKEN, FISHJAM_URL
+from .config import FISHJAM_ID, FISHJAM_TOKEN
 
-fishjam = FishjamClient(
-    FISHJAM_ID,
-    FISHJAM_TOKEN,
-    fishjam_url=FISHJAM_URL,
-)
+fishjam = FishjamClient(FISHJAM_ID, FISHJAM_TOKEN)
 
 
 class RoomService:

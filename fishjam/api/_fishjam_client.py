@@ -106,17 +106,11 @@ class FishjamClient(Client):
         self,
         fishjam_id: str,
         management_token: str,
-        *,
-        fishjam_url: str | None = None,
     ):
         """
         Create a FishjamClient instance, providing the fishjam id and management token.
         """
-        super().__init__(
-            fishjam_id=fishjam_id,
-            management_token=management_token,
-            fishjam_url=fishjam_url,
-        )
+        super().__init__(fishjam_id=fishjam_id, management_token=management_token)
 
     def create_peer(
         self,

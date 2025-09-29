@@ -40,14 +40,12 @@ class FishjamNotifier:
         self,
         fishjam_id: str,
         management_token: str,
-        *,
-        fishjam_url: str | None = None,
     ):
         """
         Create FishjamNotifier instance, providing the fishjam id and management token.
         """
 
-        websocket_url = get_fishjam_url(fishjam_id, fishjam_url).replace("http", "ws")
+        websocket_url = get_fishjam_url(fishjam_id).replace("http", "ws")
         self._fishjam_url = f"{websocket_url}/socket/server/websocket"
         self._management_token: str = management_token
         self._websocket: client.ClientConnection | None = None

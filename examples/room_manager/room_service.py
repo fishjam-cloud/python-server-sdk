@@ -31,7 +31,6 @@ class RoomService:
         self.fishjam_client = FishjamClient(
             fishjam_id=args.fishjam_id,
             management_token=args.management_token,
-            fishjam_url=args.fishjam_url,
         )
         self.room_name_to_room_id: dict[str, str] = {}
         self.peer_name_to_access: dict[str, PeerAccess] = {}
