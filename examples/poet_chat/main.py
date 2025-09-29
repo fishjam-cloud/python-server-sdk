@@ -47,6 +47,11 @@ async def main():
                         raise RuntimeError("Unexpected error from OpenAI API!")
                     elif event.data.type == "exception":
                         raise event.data.exception
+                    elif event.data.type == "raw_server_event":
+                        match event.data.data:
+                            case {"response": {"status": "failed"}}:
+                                print(event.data.data)
+                                raise RuntimeError("Raw server error from OpenAI API!")
 
         async def _fishjam_recv():
             async for event in fishjam_session.receive():
