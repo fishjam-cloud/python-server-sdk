@@ -12,8 +12,6 @@ poet_runner = RealtimeRunner(
             "input_audio_format": "pcm16",
             "output_audio_format": "pcm16",
             "turn_detection": {
-                "interrupt_response": True,
-                "create_response": True,
                 "type": "semantic_vad",
             },
         }

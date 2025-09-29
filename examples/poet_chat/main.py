@@ -42,9 +42,6 @@ async def main():
                     elif event.data.type == "turn_ended":
                         print(f"Agent said:\n{msg}\n")
                         msg = ""
-                    elif event.data.type == "error":
-                        print(event.data.error)
-                        raise RuntimeError("Unexpected error from OpenAI API!")
                     elif event.data.type == "exception":
                         raise event.data.exception
                     elif event.data.type == "raw_server_event":
