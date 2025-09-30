@@ -7,11 +7,11 @@ from fishjam.events import (
 )
 from fishjam.events.allowed_notifications import AllowedNotification
 
-from .config import FISHJAM_ID, FISHJAM_TOKEN, FISHJAM_URL, OPENAI_GREET
+from .config import FISHJAM_ID, FISHJAM_TOKEN, OPENAI_GREET
 
 
 def make_notifier(poet: RealtimeSession) -> FishjamNotifier:
-    notifier = FishjamNotifier(FISHJAM_ID, FISHJAM_TOKEN, fishjam_url=FISHJAM_URL)
+    notifier = FishjamNotifier(FISHJAM_ID, FISHJAM_TOKEN)
 
     @notifier.on_server_notification
     async def _(notification: AllowedNotification):
