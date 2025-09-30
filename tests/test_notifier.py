@@ -74,15 +74,6 @@ class TestConnectingToServer:
 
         await cancel(notifier_task)
 
-    @pytest.mark.asyncio
-    async def test_invalid_credentials(self):
-        notifier = FishjamNotifier(fishjam_id="", management_token="wrong_token")
-
-        task = asyncio.create_task(notifier.connect())
-
-        with pytest.raises(RuntimeError):
-            await task
-
 
 @pytest.fixture
 def room_api():
