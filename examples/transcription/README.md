@@ -8,12 +8,14 @@ and uses [uv](https://docs.astral.sh/uv/) for dependency management.
 
 ## Running
 
-Make sure to [install uv](https://docs.astral.sh/uv/getting-started/installation/) if you don't have it already.
+> [!IMPORTANT]
+> All commands should be run from the parent directory of this README
 
+Make sure to [install uv](https://docs.astral.sh/uv/getting-started/installation/) if you don't have it already.
 Once you have `uv` installed, fetch the dependencies with
 
 ```bash
-uv sync --all-packages
+uv sync
 ```
 
 To run the app, you will need 3 environment variables:

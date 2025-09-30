@@ -22,10 +22,10 @@ T = TypeVar("T", bound="Track")
 
 @_attrs_define
 class Track:
-    """Describes media track of a Peer or Component
+    """Describes media track of a Peer
 
     Attributes:
-        id (Union[Unset, str]):
+        id (Union[Unset, str]): Assigned track id Example: 8dbd2e6b-a1e7-4670-95a2-0262aa6c6321.
         metadata (Union['TrackMetadataType0', None, Unset]):  Example: {'source': 'camera'}.
         type_ (Union[Unset, TrackType]):
     """

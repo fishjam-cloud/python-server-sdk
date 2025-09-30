@@ -6,8 +6,10 @@ import pytest
 import pytest_asyncio
 
 from fishjam import FishjamClient, FishjamNotifier, Room
+from fishjam._openapi_client.models import SubscribeMode
 from fishjam.agent.agent import Agent
 from fishjam.agent.errors import AgentAuthError
+from fishjam.api._fishjam_client import AgentOptions, AgentOutputOptions
 from fishjam.events._protos.fishjam import (
     ServerMessagePeerDisconnected,
     ServerMessagePeerMetadataUpdated,
@@ -73,6 +75,30 @@ class TestAgentApi:
         assert room.peers[0].id == agent.id
         assert room.peers[0].type_ == "agent"
         assert room.peers[0].status == "disconnected"
+
+        room_api.delete_peer(room.id, agent.id)
+
+        room = room_api.get_room(room.id)
+
+        assert room.peers == []
+
+    def test_create_agent_with_options(self, room_api: FishjamClient, room: Room):
+        agent = room_api.create_agent(
+            room.id,
+            AgentOptions(
+                output=AgentOutputOptions(
+                    audio_format="pcm16",
+                    audio_sample_rate=24000,
+                )
+            ),
+        )
+        room = room_api.get_room(room.id)
+
+        assert len(room.peers) == 1
+        assert room.peers[0].id == agent.id
+        assert room.peers[0].type_ == "agent"
+        assert room.peers[0].status == "disconnected"
+        assert room.peers[0].subscribe_mode == SubscribeMode.AUTO
 
         room_api.delete_peer(room.id, agent.id)
 

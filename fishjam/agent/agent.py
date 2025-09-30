@@ -16,6 +16,7 @@ from fishjam.events._protos.fishjam import (
     AgentRequestAddTrack,
     AgentRequestAddTrackCodecParameters,
     AgentRequestAuthRequest,
+    AgentRequestInterruptTrack,
     AgentResponse,
 )
 from fishjam.events._protos.fishjam import AgentRequestTrackData as OutgoingTrackData
@@ -26,7 +27,7 @@ IncomingAgentMessage = IncomingTrackData
 
 
 @dataclass
-class AudioTrackOptions:
+class OutgoingAudioTrackOptions:
     """Parameters of an outgoing audio track."""
 
     encoding: TrackEncoding = TrackEncoding.TRACK_ENCODING_UNSPECIFIED
@@ -40,12 +41,14 @@ class AudioTrackOptions:
     The sample rate of the audio source.
     Defaults to 16000.
     """
+
     channels: Literal[1, 2] = 1
     """
     The number of channels in the audio source.
     Supported values are 1 (mono) and 2 (stereo).
     Defaults to 1 (mono)
     """
+
     metadata: dict[str, Any] | None = None
     """
     Custom metadata for the track.
@@ -64,7 +67,7 @@ class OutgoingTrack:
     """The global identifier of the track."""
     session: AgentSession
     """The agent the track belongs to."""
-    options: AudioTrackOptions
+    options: OutgoingAudioTrackOptions
     """The parameters used to create the track."""
 
     async def send_chunk(self, data: bytes):
@@ -77,6 +80,23 @@ class OutgoingTrack:
             track_data=OutgoingTrackData(
                 track_id=self.id,
                 data=data,
+            )
+        )
+
+        await self.session._send(message)
+
+    async def interrupt(self):
+        """
+        Interrupt current track.
+
+        Any audio that has been sent, but not played
+        will be cleared and be prevented from playing.
+
+        Audio sent after the interrupt will be played normally.
+        """
+        message = AgentRequest(
+            interrupt_track=AgentRequestInterruptTrack(
+                track_id=self.id,
             )
         )
 
@@ -102,7 +122,7 @@ class AgentSession:
                 case IncomingTrackData() as content:
                     yield content
 
-    async def add_track(self, options: AudioTrackOptions):
+    async def add_track(self, options: OutgoingAudioTrackOptions):
         """
         Adds a track to the connected agent, with the specified options and metadata.
 

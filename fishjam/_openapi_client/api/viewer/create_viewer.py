@@ -6,17 +6,17 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.streamer_token import StreamerToken
+from ...models.viewer import Viewer
 from ...types import Response
 
 
 def _get_kwargs(
-    room_id: str,
+    stream_id: str,
 ) -> dict[str, Any]:
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/room/{room_id}/streamer".format(
-            room_id=room_id,
+        "url": "/livestream/{stream_id}/viewer".format(
+            stream_id=stream_id,
         ),
     }
 
@@ -25,15 +25,11 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, StreamerToken]]:
+) -> Optional[Union[Error, Viewer]]:
     if response.status_code == 201:
-        response_201 = StreamerToken.from_dict(response.json())
+        response_201 = Viewer.from_dict(response.json())
 
         return response_201
-    if response.status_code == 400:
-        response_400 = Error.from_dict(response.json())
-
-        return response_400
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
@@ -54,7 +50,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, StreamerToken]]:
+) -> Response[Union[Error, Viewer]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -64,25 +60,25 @@ def _build_response(
 
 
 def sync_detailed(
-    room_id: str,
+    stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[Error, StreamerToken]]:
-    """Generate a token that can be used by a streamer to start streaming
+) -> Response[Union[Error, Viewer]]:
+    """Creates viewer
 
     Args:
-        room_id (str):
+        stream_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, StreamerToken]]
+        Response[Union[Error, Viewer]]
     """
 
     kwargs = _get_kwargs(
-        room_id=room_id,
+        stream_id=stream_id,
     )
 
     response = client.get_httpx_client().request(
@@ -93,49 +89,49 @@ def sync_detailed(
 
 
 def sync(
-    room_id: str,
+    stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[Error, StreamerToken]]:
-    """Generate a token that can be used by a streamer to start streaming
+) -> Optional[Union[Error, Viewer]]:
+    """Creates viewer
 
     Args:
-        room_id (str):
+        stream_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, StreamerToken]
+        Union[Error, Viewer]
     """
 
     return sync_detailed(
-        room_id=room_id,
+        stream_id=stream_id,
         client=client,
     ).parsed
 
 
 async def asyncio_detailed(
-    room_id: str,
+    stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[Error, StreamerToken]]:
-    """Generate a token that can be used by a streamer to start streaming
+) -> Response[Union[Error, Viewer]]:
+    """Creates viewer
 
     Args:
-        room_id (str):
+        stream_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, StreamerToken]]
+        Response[Union[Error, Viewer]]
     """
 
     kwargs = _get_kwargs(
-        room_id=room_id,
+        stream_id=stream_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -144,26 +140,26 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    room_id: str,
+    stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[Error, StreamerToken]]:
-    """Generate a token that can be used by a streamer to start streaming
+) -> Optional[Union[Error, Viewer]]:
+    """Creates viewer
 
     Args:
-        room_id (str):
+        stream_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, StreamerToken]
+        Union[Error, Viewer]
     """
 
     return (
         await asyncio_detailed(
-            room_id=room_id,
+            stream_id=stream_id,
             client=client,
         )
     ).parsed

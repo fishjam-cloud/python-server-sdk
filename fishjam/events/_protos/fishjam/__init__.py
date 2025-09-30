@@ -35,6 +35,9 @@ class AgentRequest(betterproto.Message):
         3, group="content"
     )
     track_data: "AgentRequestTrackData" = betterproto.message_field(4, group="content")
+    interrupt_track: "AgentRequestInterruptTrack" = betterproto.message_field(
+        5, group="content"
+    )
 
 
 @dataclass(eq=False, repr=False)
@@ -80,6 +83,16 @@ class AgentRequestTrackData(betterproto.Message):
 
     track_id: str = betterproto.string_field(1)
     data: bytes = betterproto.bytes_field(2)
+
+
+@dataclass(eq=False, repr=False)
+class AgentRequestInterruptTrack(betterproto.Message):
+    """
+    Interrupts an agent's outgoing track, preventing already queued audio from
+    being played
+    """
+
+    track_id: str = betterproto.string_field(1)
 
 
 @dataclass(eq=False, repr=False)

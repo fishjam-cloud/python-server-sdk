@@ -9,15 +9,15 @@ COPY --from=uv-image /uv /uvx /bin/
 
 WORKDIR /app
 
-
 COPY pyproject.toml .
-COPY uv.lock .
 
 COPY examples/transcription/pyproject.toml ./examples/transcription/
+COPY examples/poet_chat/pyproject.toml ./examples/poet_chat/
 
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked --no-install-project
+COPY uv.lock .
+
+RUN uv sync --locked --no-install-project
 
 COPY . /app
-RUN --mount=type=cache,target=/root/.cache/uv \
-    uv sync --locked
+
+RUN uv sync --locked

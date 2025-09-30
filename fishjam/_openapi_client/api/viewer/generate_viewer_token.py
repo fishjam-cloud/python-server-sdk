@@ -66,7 +66,7 @@ def _build_response(
 def sync_detailed(
     room_id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient,
 ) -> Response[Union[Error, ViewerToken]]:
     """Generates token that a viewer can use to watch a livestream
 
@@ -95,7 +95,7 @@ def sync_detailed(
 def sync(
     room_id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient,
 ) -> Optional[Union[Error, ViewerToken]]:
     """Generates token that a viewer can use to watch a livestream
 
@@ -119,7 +119,7 @@ def sync(
 async def asyncio_detailed(
     room_id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient,
 ) -> Response[Union[Error, ViewerToken]]:
     """Generates token that a viewer can use to watch a livestream
 
@@ -146,7 +146,7 @@ async def asyncio_detailed(
 async def asyncio(
     room_id: str,
     *,
-    client: Union[AuthenticatedClient, Client],
+    client: AuthenticatedClient,
 ) -> Optional[Union[Error, ViewerToken]]:
     """Generates token that a viewer can use to watch a livestream
 
