@@ -1,7 +1,11 @@
 import os
 from pathlib import Path
 
+import dotenv
+
 from fishjam import AgentOptions, AgentOutputOptions, FishjamClient
+
+dotenv.load_dotenv()
 
 FISHJAM_ID = os.environ["FISHJAM_ID"]
 FISHJAM_TOKEN = os.environ["FISHJAM_MANAGEMENT_TOKEN"]

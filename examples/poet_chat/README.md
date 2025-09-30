@@ -17,18 +17,11 @@ Once you have `uv` installed, fetch the dependencies with
 uv sync
 ```
 
-To run the app, you will need 3 environment variables:
+To run the app, first copy [`.env.example`](./.env.example) to `.env` and populate your environment variables.
 
-- `FISHJAM_ID`: Your Fishjam ID, which you can get on the [Fishjam website](https://fishjam.io/app)
-- `FISHJAM_MANAGEMENT_TOKEN`: Your Fishjam management token, which you can get on the [Fishjam website](https://fishjam.io/app)
-- `OPENAI_API_KEY`: An API key for the OpenAI Realtime API. You can generate one on the [OpenAI website](https://platform.openai.com/api-keys).
-
-Once you have these variables, you can run the demo with
+Once you have populated `.env`, you can run the demo with
 
 ```bash
-FISHJAM_ID=<your-fishjam-id> \
-FISHJAM_MANAGEMENT_TOKEN=<your-management-token> \
-OPENAI_API_KEY=<your-api-token> \
 uv run ./main.py
 ```
 
