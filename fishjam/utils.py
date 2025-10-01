@@ -1,11 +1,16 @@
-from fishjam.errors import MissingFishjamIdError
+from urllib.parse import urlparse
 
 
-def get_fishjam_url(fishjam_id: str | None, fishjam_url: str | None) -> str:
-    if not fishjam_url and not fishjam_id:
-        raise MissingFishjamIdError
+def validate_url(url: str) -> bool:
+    try:
+        result = urlparse(url)
+        return all([result.scheme, result.netloc])
+    except AttributeError:
+        return False
 
-    if fishjam_url:
-        return fishjam_url
 
-    return f"https://fishjam.io/api/v1/connect/{fishjam_id}"
+def get_fishjam_url(fishjam_id: str) -> str:
+    if not validate_url(fishjam_id):
+        return f"https://fishjam.io/api/v1/connect/{fishjam_id}"
+
+    return fishjam_id

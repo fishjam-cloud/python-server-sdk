@@ -8,10 +8,8 @@ from fishjam.utils import get_fishjam_url
 
 
 class Client:
-    def __init__(
-        self, fishjam_id: str, management_token: str, *, fishjam_url: str | None = None
-    ):
-        self._fishjam_url = get_fishjam_url(fishjam_id, fishjam_url)
+    def __init__(self, fishjam_id: str, management_token: str):
+        self._fishjam_url = get_fishjam_url(fishjam_id)
         self.client = AuthenticatedClient(self._fishjam_url, token=management_token)
 
     def _request(self, method, **kwargs):

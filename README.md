@@ -26,7 +26,7 @@ Create a `FishjamClient` instance, providing the fishjam server address and api 
 ```python
 from fishjam import FishjamClient
 
-fishjam_client = FishjamClient(fishjam_url="localhost:5002", management_token="development")
+fishjam_client = FishjamClient(fishjam_id="<fishjam_id>", management_token="<management_token>")
 ```
 
 You can use it to interact with Fishjam to manage rooms and peers
@@ -58,7 +58,7 @@ Create `FishjamNotifier` instance
 ```python
 from fishjam import FishjamNotifier
 
-fishjam_notifier = FishjamNotifier(fishjam_url='localhost:5002', management_token='development')
+fishjam_notifier = FishjamNotifier(fishjam_id='<fishjam_id>', management_token='<management_token>')
 ```
 
 Then define a handler for incoming messages

@@ -9,7 +9,6 @@ dotenv.load_dotenv()
 
 FISHJAM_ID = os.environ["FISHJAM_ID"]
 FISHJAM_TOKEN = os.environ["FISHJAM_MANAGEMENT_TOKEN"]
-FISHJAM_URL = os.getenv("FISHJAM_URL")
 
 AGENT_OPTIONS = AgentOptions(output=AgentOutputOptions(audio_sample_rate=24000))
 
@@ -26,4 +25,4 @@ with open(INSTRUCTION_PATH) as prompt:
 with open(GREET_PATH) as prompt:
     OPENAI_GREET = prompt.read()
 
-fishjam_client = FishjamClient(FISHJAM_ID, FISHJAM_TOKEN, fishjam_url=FISHJAM_URL)
+fishjam_client = FishjamClient(FISHJAM_ID, FISHJAM_TOKEN)
