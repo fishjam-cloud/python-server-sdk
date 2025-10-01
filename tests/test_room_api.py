@@ -144,7 +144,7 @@ class TestGetRoom:
         config = RoomConfig(
             max_peers=None,
             webhook_url=None,
-            room_type=RoomConfigRoomType(CONFERENCE),
+            room_type=RoomConfigRoomType.CONFERENCE,
         )
 
         assert Room(
