@@ -67,7 +67,12 @@ class RoomOptions:
     webhook_url: str | None = None
     """URL where Fishjam notifications will be sent"""
     room_type: Literal[
-        "conference", "audio_only", "livestream", "full_feature", "broadcaster"
+        "conference",
+        "audio_only",
+        "livestream",
+        "full_feature",
+        "broadcaster",
+        "audio_only_livestream",
     ] = "conference"
     """The use-case of the room. If not provided, this defaults to conference."""
     public: bool = False

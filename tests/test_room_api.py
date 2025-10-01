@@ -154,7 +154,7 @@ class TestGetRoom:
         ) == room_api.get_room(room.id)
 
     def test_invalid(self, room_api: FishjamClient):
-        with pytest.raises(BadRequestError):
+        with pytest.raises(NotFoundError):
             room_api.get_room("invalid_id")
 
     def test_id_not_found(self, room_api):
