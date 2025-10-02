@@ -2,7 +2,7 @@
 # sources: fishjam/agent_notifications.proto, fishjam/server_notifications.proto
 # plugin: python-betterproto
 # This file has been @generated
-
+import warnings
 from dataclasses import dataclass
 
 import betterproto
@@ -197,6 +197,23 @@ class ServerMessage(betterproto.Message):
     viewer_disconnected: "ServerMessageViewerDisconnected" = betterproto.message_field(
         25, group="content"
     )
+    streamer_connected: "ServerMessageStreamerConnected" = betterproto.message_field(
+        26, group="content"
+    )
+    streamer_disconnected: "ServerMessageStreamerDisconnected" = (
+        betterproto.message_field(27, group="content")
+    )
+
+    def __post_init__(self) -> None:
+        super().__post_init__()
+        if self.is_set("stream_connected"):
+            warnings.warn(
+                "ServerMessage.stream_connected is deprecated", DeprecationWarning
+            )
+        if self.is_set("stream_disconnected"):
+            warnings.warn(
+                "ServerMessage.stream_disconnected is deprecated", DeprecationWarning
+            )
 
 
 @dataclass(eq=False, repr=False)
@@ -394,3 +411,15 @@ class ServerMessageViewerDisconnected(betterproto.Message):
 
     stream_id: str = betterproto.string_field(1)
     viewer_id: str = betterproto.string_field(2)
+
+
+@dataclass(eq=False, repr=False)
+class ServerMessageStreamerConnected(betterproto.Message):
+    stream_id: str = betterproto.string_field(1)
+    streamer_id: str = betterproto.string_field(2)
+
+
+@dataclass(eq=False, repr=False)
+class ServerMessageStreamerDisconnected(betterproto.Message):
+    stream_id: str = betterproto.string_field(1)
+    streamer_id: str = betterproto.string_field(2)
