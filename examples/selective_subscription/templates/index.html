@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Selective Subscription Demo</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .container { max-width: 800px; margin: 0 auto; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, select { width: 100%; padding: 8px; margin-bottom: 10px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background: #0056b3; }
+        .peer-list { margin-top: 20px; }
+        .peer-item { padding: 10px; border: 1px solid #ddd; margin: 5px 0; }
+        .subscribed { background-color: #d4edda; }
+        .error { color: red; margin-top: 10px; }
+        .success { color: green; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Selective Subscription Demo</h1>
+        
+        <div class="form-group">
+            <label for="roomName">Room Name:</label>
+            <input type="text" id="roomName" placeholder="Enter room name">
+        </div>
+        
+        <div class="form-group">
+            <label for="peerName">Your Name:</label>
+            <input type="text" id="peerName" placeholder="Enter your name">
+        </div>
+        
+        <button onclick="createPeer()">Join Room</button>
+        
+        <div id="peerInfo" style="display: none;">
+            <h3>Your Peer Info</h3>
+            <p><strong>Peer ID:</strong> <span id="peerId"></span></p>
+            <p><strong>Token:</strong> <span id="peerToken"></span></p>
+        </div>
+        
+        <div id="availablePeers" style="display: none;">
+            <h3>Available Peers</h3>
+            <button onclick="refreshPeers()">Refresh Peers</button>
+            <div id="peersList"></div>
+        </div>
+        
+        <div id="message"></div>
+    </div>
+
+    <script>
+        let currentPeerId = null;
+        let currentRoomName = null;
+
+        async function createPeer() {
+            const roomName = document.getElementById('roomName').value;
+            const peerName = document.getElementById('peerName').value;
+            
+            if (!roomName || !peerName) {
+                showMessage('Please enter both room name and your name', 'error');
+                return;
+            }
+            
+            try {
+                const response = await fetch('/api/peers', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ room_name: roomName, peer_name: peerName })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    currentPeerId = data.peer_id;
+                    currentRoomName = data.room_name;
+                    
+                    document.getElementById('peerId').textContent = data.peer_id;
+                    document.getElementById('peerToken').textContent = data.token;
+                    document.getElementById('peerInfo').style.display = 'block';
+                    document.getElementById('availablePeers').style.display = 'block';
+                    
+                    showMessage('Peer created successfully!', 'success');
+                    refreshPeers();
+                } else {
+                    showMessage(data.error, 'error');
+                }
+            } catch (error) {
+                showMessage('Error creating peer: ' + error.message, 'error');
+            }
+        }
+
+        async function refreshPeers() {
+            if (!currentRoomName || !currentPeerId) return;
+            
+            try {
+                const response = await fetch(`/api/rooms/${currentRoomName}/peers?peer_id=${currentPeerId}`);
+                const data = await response.json();
+                
+                if (response.ok) {
+                    displayPeers(data.peers);
+                } else {
+                    showMessage(data.error, 'error');
+                }
+            } catch (error) {
+                showMessage('Error fetching peers: ' + error.message, 'error');
+            }
+        }
+
+        async function displayPeers(peers) {
+            const peersList = document.getElementById('peersList');
+            
+            if (peers.length === 0) {
+                peersList.innerHTML = '<p>No other peers with tracks available</p>';
+                return;
+            }
+            
+            // Get current subscription status
+            const subscriptions = await getCurrentSubscriptions();
+            
+            peersList.innerHTML = peers.map(peer => {
+                const isSubscribed = subscriptions.includes(peer.id);
+                const peerName = peer.metadata.name || 'Unknown';
+                const trackInfo = peer.tracks.map(track => `${track.type} (${track.id})`).join(', ');
+                
+                return `
+                    <div class="peer-item ${isSubscribed ? 'subscribed' : ''}">
+                        <strong>${peerName}</strong> (${peer.id})<br>
+                        <small>Tracks: ${trackInfo}</small><br>
+                        <button onclick="toggleSubscription('${peer.id}')">
+                            ${isSubscribed ? 'Unsubscribe' : 'Subscribe'}
+                        </button>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        async function getCurrentSubscriptions() {
+            if (!currentPeerId) return [];
+            
+            try {
+                const response = await fetch(`/api/peers/${currentPeerId}/subscriptions`);
+                const data = await response.json();
+                return response.ok ? data.subscribed_peers : [];
+            } catch (error) {
+                return [];
+            }
+        }
+
+        async function toggleSubscription(targetPeerId) {
+            if (!currentPeerId) return;
+            
+            try {
+                const response = await fetch('/api/subscriptions', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        peer_id: currentPeerId,
+                        target_peer_id: targetPeerId
+                    })
+                });
+                
+                const data = await response.json();
+                
+                if (response.ok) {
+                    showMessage(
+                        `${data.subscribed ? 'Subscribed to' : 'Unsubscribed from'} peer ${targetPeerId}`,
+                        'success'
+                    );
+                    refreshPeers();
+                } else {
+                    showMessage(data.error, 'error');
+                }
+            } catch (error) {
+                showMessage('Error toggling subscription: ' + error.message, 'error');
+            }
+        }
+
+        function showMessage(text, type) {
+            const messageDiv = document.getElementById('message');
+            messageDiv.textContent = text;
+            messageDiv.className = type;
+            setTimeout(() => {
+                messageDiv.textContent = '';
+                messageDiv.className = '';
+            }, 5000);
+        }
+
+        // Auto-refresh peers every 10 seconds
+        setInterval(() => {
+            if (currentPeerId && currentRoomName) {
+                refreshPeers();
+            }
+        }, 10000);
+    </script>
+</body>
+</html>
