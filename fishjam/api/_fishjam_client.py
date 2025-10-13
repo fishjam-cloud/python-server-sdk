@@ -28,8 +28,10 @@ from fishjam._openapi_client.models import (
     PeerOptionsAgentOutput,
     PeerOptionsAgentOutputAudioFormat,
     PeerOptionsAgentOutputAudioSampleRate,
+    PeerOptionsAgentSubscribeMode,
     PeerOptionsWebRTC,
     PeerOptionsWebRTCMetadata,
+    PeerOptionsWebRTCSubscribeMode,
     PeerRefreshTokenResponse,
     PeerType,
     RoomConfig,
@@ -40,6 +42,7 @@ from fishjam._openapi_client.models import (
     RoomsListingResponse,
     StreamerToken,
     ViewerToken,
+    SubscribeTracksBody,
 )
 from fishjam._openapi_client.types import UNSET
 from fishjam.agent import Agent
@@ -107,6 +110,8 @@ class AgentOptions:
 
     output: AgentOutputOptions = field(default_factory=AgentOutputOptions)
 
+    subscribe_mode: Literal["auto", "manual"] = "auto"
+
 
 class FishjamClient(Client):
     """Allows for managing rooms"""
@@ -140,6 +145,7 @@ class FishjamClient(Client):
         peer_options = PeerOptionsWebRTC(
             enable_simulcast=options.enable_simulcast,
             metadata=peer_metadata,
+            subscribe_mode=PeerOptionsWebRTCSubscribeMode(options.subscribe_mode),
         )
         body = AddPeerBody(type_=PeerType.WEBRTC, options=peer_options)
 
@@ -162,7 +168,8 @@ class FishjamClient(Client):
                     audio_sample_rate=PeerOptionsAgentOutputAudioSampleRate(
                         options.output.audio_sample_rate
                     ),
-                )
+                ),
+                subscribe_mode=PeerOptionsAgentSubscribeMode(options.subscribe_mode),
             ),
         )
 
@@ -275,7 +282,7 @@ class FishjamClient(Client):
             room_subscribe_tracks,
             room_id=room_id,
             id=peer_id,
-            body={"track_ids": track_ids},
+            body=SubscribeTracksBody(track_ids=track_ids)
         )
 
         return response

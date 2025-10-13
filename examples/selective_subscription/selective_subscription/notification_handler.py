@@ -1,7 +1,4 @@
-from typing import Dict, Set
-import asyncio
-
-from .config import FISHJAM_ID, FISHJAM_TOKEN, FISHJAM_URL
+from .config import FISHJAM_ID, FISHJAM_TOKEN
 from .room_service import RoomService
 from fishjam._ws_notifier import FishjamNotifier
 from fishjam.events import (
@@ -15,8 +12,6 @@ from fishjam.events.allowed_notifications import AllowedNotification
 
 
 class NotificationHandler:
-    """Handles Fishjam server notifications for selective subscription.
-    """
     
     def __init__(self, room_service: RoomService):
         self.room_service = room_service

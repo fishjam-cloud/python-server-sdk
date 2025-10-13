@@ -6,6 +6,7 @@ requires-python = ">=3.11"
 members = [
     "fishjam-server-sdk",
     "poet-chat",
+    "selective-subscription-demo",
     "transcription",
 ]
 
@@ -298,7 +299,9 @@ dependencies = [
     { name = "flask-cors" },
     { name = "httpx" },
     { name = "python-dateutil" },
+    { name = "starlette" },
     { name = "urllib3" },
+    { name = "uvicorn" },
     { name = "websockets" },
 ]
 
@@ -328,7 +331,9 @@ requires-dist = [
     { name = "flask-cors", specifier = ">=6.0.1,<7" },
     { name = "httpx", specifier = ">=0.28.0,<0.29.0" },
     { name = "python-dateutil", specifier = ">=2.8.2,<3" },
+    { name = "starlette", specifier = ">=0.46.2" },
     { name = "urllib3", specifier = ">=1.25.3,<2" },
+    { name = "uvicorn", specifier = ">=0.35.0" },
     { name = "websockets", specifier = "~=15.0" },
 ]
 
@@ -1733,6 +1738,25 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/49/98/9c678bd07561bcdf2129df8284b5708e0393e7c52256db9b30b1b1043cfd/ruff-0.2.2-py3-none-win32.whl", hash = "sha256:d920499b576f6c68295bc04e7b17b6544d9d05f196bb3aac4358792ef6f34325", size = 6909240, upload-time = "2024-02-17T22:36:29.721Z" },
     { url = "https://files.pythonhosted.org/packages/47/d2/23fe9d73dadec045cbffc0c2046a34f7b829f217abd76fb2d6ef7114d792/ruff-0.2.2-py3-none-win_amd64.whl", hash = "sha256:cc9a91ae137d687f43a44c900e5d95e9617cb37d4c989e462980ba27039d239d", size = 7593466, upload-time = "2024-02-17T22:36:32.51Z" },
     { url = "https://files.pythonhosted.org/packages/1a/83/0d002e72ba3c15a74e5ac63d31f57d222d8f297e637d065db28f1253f109/ruff-0.2.2-py3-none-win_arm64.whl", hash = "sha256:c9d15fc41e6054bfc7200478720570078f0b41c9ae4f010bcc16bd6f4d1aacdd", size = 7222811, upload-time = "2024-02-17T22:36:35.499Z" },
+]
+
+[[package]]
+name = "selective-subscription-demo"
+version = "0.1.0"
+source = { editable = "examples/selective_subscription" }
+dependencies = [
+    { name = "jinja2" },
+    { name = "python-multipart" },
+    { name = "starlette" },
+    { name = "uvicorn" },
+]
+
+[package.metadata]
+requires-dist = [
+    { name = "jinja2", specifier = ">=3.1.0" },
+    { name = "python-multipart", specifier = ">=0.0.6" },
+    { name = "starlette", specifier = ">=0.35.0" },
+    { name = "uvicorn", specifier = ">=0.25.0" },
 ]
 
 [[package]]
