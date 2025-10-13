@@ -6,7 +6,6 @@ import pytest
 import pytest_asyncio
 
 from fishjam import FishjamClient, FishjamNotifier, Room
-from fishjam._openapi_client.models import SubscribeMode
 from fishjam.agent.agent import Agent
 from fishjam.agent.errors import AgentAuthError
 from fishjam.api._fishjam_client import AgentOptions, AgentOutputOptions
@@ -96,7 +95,7 @@ class TestAgentApi:
         assert room.peers[0].id == agent.id
         assert room.peers[0].type_ == "agent"
         assert room.peers[0].status == "disconnected"
-        assert room.peers[0].subscribe_mode == SubscribeMode.AUTO
+        assert room.peers[0].subscribe_mode == "auto"
 
         room_api.delete_peer(room.id, agent.id)
 
