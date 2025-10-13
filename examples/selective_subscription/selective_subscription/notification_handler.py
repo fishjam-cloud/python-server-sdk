@@ -12,10 +12,10 @@ from fishjam.events.allowed_notifications import AllowedNotification
 
 
 class NotificationHandler:
-    
     def __init__(self, room_service: RoomService):
         self.room_service = room_service
         self._notifier = FishjamNotifier(FISHJAM_ID, FISHJAM_TOKEN)
+
         @self._notifier.on_server_notification
         async def _(notification: AllowedNotification):
             match notification:
@@ -27,13 +27,9 @@ class NotificationHandler:
                     peer_type=ServerMessagePeerType.PEER_TYPE_WEBRTC,
                 ):
                     await handle_peer_disconnected(notification)
-                case ServerMessageTrackAdded(
-                    peer_type=ServerMessagePeerType.PEER_TYPE_WEBRTC,
-                ):
+                case ServerMessageTrackAdded():
                     await handle_track_added(notification)
-                case ServerMessageTrackRemoved(
-                    peer_type=ServerMessagePeerType.PEER_TYPE_WEBRTC,
-                ):
+                case ServerMessageTrackRemoved():
                     await handle_track_removed(notification)
 
         async def handle_peer_connected(notification: ServerMessagePeerConnected):
@@ -47,9 +43,7 @@ class NotificationHandler:
 
         async def handle_track_removed(notification: ServerMessageTrackRemoved):
             print(f"Track removed: {notification.track}")
-    
+
     async def start(self) -> None:
-        """Long-running coroutine that connects the notifier and processes messages."""
         await self._notifier.connect()
-            
 
