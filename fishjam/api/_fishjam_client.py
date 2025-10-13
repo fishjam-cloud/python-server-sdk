@@ -262,9 +262,9 @@ class FishjamClient(Client):
         )
 
         return response.token
-    
+
     def subscribe_peer(self, room_id: str, peer_id: str, target_peer_id: str):
-        "" "Subscribe a peer to all tracks of another peer."""
+        "" "Subscribe a peer to all tracks of another peer." ""
 
         response = self._request(
             room_subscribe_peer,
@@ -274,15 +274,15 @@ class FishjamClient(Client):
         )
 
         return response
-    
+
     def subscribe_tracks(self, room_id: str, peer_id: str, track_ids: list[str]):
-        "" "Subscribe a peer to specific tracks of another peer."""
+        "" "Subscribe a peer to specific tracks of another peer." ""
 
         response = self._request(
             room_subscribe_tracks,
             room_id=room_id,
             id=peer_id,
-            body=SubscribeTracksBody(track_ids=track_ids)
+            body=SubscribeTracksBody(track_ids=track_ids),
         )
 
         return response

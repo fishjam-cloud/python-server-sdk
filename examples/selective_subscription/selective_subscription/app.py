@@ -11,7 +11,9 @@ from starlette.templating import Jinja2Templates
 from .room_service import RoomService
 
 room_service = RoomService()
-templates = Jinja2Templates(directory=str(Path(__file__).resolve().parent.parent / "templates"))
+templates = Jinja2Templates(
+    directory=str(Path(__file__).resolve().parent.parent / "templates")
+)
 
 
 async def create_peer(request: Request) -> Response:
@@ -22,20 +24,22 @@ async def create_peer(request: Request) -> Response:
 
         if not room_name or not peer_name:
             return JSONResponse(
-                {"error": "room_name and peer_name are required"},
-                status_code=400
+                {"error": "room_name and peer_name are required"}, status_code=400
             )
 
         peer, token = room_service.create_peer()
 
-        return JSONResponse({
-            "peer_id": peer.id,
-            "token": token,
-            "room_name": room_name,
-            "peer_name": peer_name
-        })
+        return JSONResponse(
+            {
+                "peer_id": peer.id,
+                "token": token,
+                "room_name": room_name,
+                "peer_name": peer_name,
+            }
+        )
     except Exception as e:
         return JSONResponse({"error": str(e)}, status_code=500)
+
 
 async def subscribe_peer(request: Request) -> Response:
     try:
@@ -45,8 +49,7 @@ async def subscribe_peer(request: Request) -> Response:
 
         if not peer_id or not target_peer_id:
             return JSONResponse(
-                {"error": "peer_id and target_peer_id are required"},
-                status_code=400
+                {"error": "peer_id and target_peer_id are required"}, status_code=400
             )
 
         room_service.subscibe_peer(peer_id, target_peer_id)
@@ -63,14 +66,14 @@ async def subscribe_tracks(request: Request) -> Response:
 
         if not peer_id or not track_ids:
             return JSONResponse(
-                {"error": "peer_id and track_ids are required"},
-                status_code=400
+                {"error": "peer_id and track_ids are required"}, status_code=400
             )
 
         room_service.subscribe_tracks(peer_id, track_ids)
         return JSONResponse({"status": "subscribed"})
     except Exception as e:
         return JSONResponse({"error": str(e)}, status_code=500)
+
 
 async def serve_index(request: Request) -> Response:
     return templates.TemplateResponse("index.html", {"request": request})

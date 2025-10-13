@@ -9,10 +9,9 @@ from .config import FISHJAM_ID, FISHJAM_TOKEN
 class RoomService:
     def __init__(self):
         self.fishjam = FishjamClient(FISHJAM_ID, FISHJAM_TOKEN)
-        self.room = self.fishjam.create_room(RoomOptions(
-            max_peers=10,
-            room_type="conference"
-        ))
+        self.room = self.fishjam.create_room(
+            RoomOptions(max_peers=10, room_type="conference")
+        )
 
     def get_or_create_room(self) -> Room:
         if self.room:
@@ -42,6 +41,7 @@ class RoomService:
         room = self.get_or_create_room()
         for p in room.peers:
             if p.id == peer_id:
+
                 class _Session:
                     def __init__(self):
                         self.subscribed_peers: set[str] = set()

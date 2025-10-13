@@ -46,4 +46,3 @@ class NotificationHandler:
 
     async def start(self) -> None:
         await self._notifier.connect()
-
