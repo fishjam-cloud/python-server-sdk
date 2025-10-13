@@ -41,8 +41,8 @@ from fishjam._openapi_client.models import (
     RoomDetailsResponse,
     RoomsListingResponse,
     StreamerToken,
-    ViewerToken,
     SubscribeTracksBody,
+    ViewerToken,
 )
 from fishjam._openapi_client.types import UNSET
 from fishjam.agent import Agent

@@ -1,6 +1,7 @@
 from contextlib import asynccontextmanager
 
 import uvicorn
+
 from selective_subscription.app import app, room_service
 from selective_subscription.config import HOST, PORT
 from selective_subscription.notification_handler import NotificationHandler

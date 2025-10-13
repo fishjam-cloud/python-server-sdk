@@ -1,14 +1,15 @@
-from .config import FISHJAM_ID, FISHJAM_TOKEN
-from .room_service import RoomService
 from fishjam._ws_notifier import FishjamNotifier
 from fishjam.events import (
-    ServerMessagePeerType,
     ServerMessagePeerConnected,
     ServerMessagePeerDisconnected,
+    ServerMessagePeerType,
     ServerMessageTrackAdded,
     ServerMessageTrackRemoved,
 )
 from fishjam.events.allowed_notifications import AllowedNotification
+
+from .config import FISHJAM_ID, FISHJAM_TOKEN
+from .room_service import RoomService
 
 
 class NotificationHandler:
