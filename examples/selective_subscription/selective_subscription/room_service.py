@@ -8,7 +8,9 @@ from .config import FISHJAM_ID, FISHJAM_TOKEN
 
 class RoomService:
     def __init__(self):
-        self.fishjam = FishjamClient(fishjam_id=FISHJAM_ID, management_token=FISHJAM_TOKEN)
+        self.fishjam = FishjamClient(
+            fishjam_id=FISHJAM_ID, management_token=FISHJAM_TOKEN
+        )
         self.room = self.fishjam.create_room(
             RoomOptions(max_peers=10, room_type="conference")
         )
