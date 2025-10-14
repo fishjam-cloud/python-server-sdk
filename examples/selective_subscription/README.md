@@ -10,8 +10,9 @@ Demo application showing selective subscription functionality with [Fishjam](htt
 
 ## Quick Start
 
-1. Install dependencies(in project root):
+1. Install dependencies (in the `examples/selective_subscription` directory):
    ```bash
+   cd examples/selective_subscription
    uv sync
    ```
 
@@ -19,12 +20,12 @@ Demo application showing selective subscription functionality with [Fishjam](htt
    ```bash
    FISHJAM_ID=<your-id> \
    FISHJAM_MANAGEMENT_TOKEN=<your-token> \
-   uv run examples/selective_subscription/main.py
+   uv run main.py
    ```
 
 3. Open http://localhost:8000 in your browser
 
-## Usage
+You create peers using the web UI at [http://localhost:8000](http://localhost:8000).
 
 1. Create peers with names
 2. Copy peer tokens and use them with a WebRTC client (e.g., [minimal-react](https://github.com/fishjam-cloud/web-client-sdk/tree/main/examples/react-client/minimal-react))
