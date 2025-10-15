@@ -29,7 +29,7 @@ class RoomService:
         peer, token = self.fishjam.create_peer(room.id, options)
         return peer, token
 
-    def subscibe_peer(self, peer_id: str, target_peer_id: str):
+    def subscribe_peer(self, peer_id: str, target_peer_id: str):
         room = self.get_or_create_room()
         self.fishjam.subscribe_peer(room.id, peer_id, target_peer_id)
 

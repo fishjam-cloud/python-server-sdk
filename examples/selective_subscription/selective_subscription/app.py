@@ -52,7 +52,7 @@ async def subscribe_peer(request: Request) -> Response:
                 {"error": "peer_id and target_peer_id are required"}, status_code=400
             )
 
-        room_service.subscibe_peer(peer_id, target_peer_id)
+        room_service.subscribe_peer(peer_id, target_peer_id)
         return JSONResponse({"status": "subscribed"})
     except Exception as e:
         return JSONResponse({"error": str(e)}, status_code=500)

@@ -8,19 +8,23 @@ Demo application showing selective subscription functionality with [Fishjam](htt
 - [uv](https://docs.astral.sh/uv/) package manager
 - Fishjam credentials ([get them here](https://fishjam.io/app))
 
+> [!IMPORTANT]
+> All commands should be run from the `examples/selective_subscription` directory
+
 ## Quick Start
 
 1. Install dependencies (in the `examples/selective_subscription` directory):
    ```bash
-   cd examples/selective_subscription
    uv sync
    ```
 
+To run the app, first copy [`.env.example`](./.env.example) to `.env` and populate your environment variables.
+
+Once you have populated `.env`, you can run the demo with
+
 2. Run the server:
    ```bash
-   FISHJAM_ID=<your-id> \
-   FISHJAM_MANAGEMENT_TOKEN=<your-token> \
-   uv run main.py
+   uv run ./main.py
    ```
 
 3. Open http://localhost:8000 in your browser
