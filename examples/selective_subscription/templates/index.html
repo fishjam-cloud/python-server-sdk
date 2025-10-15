@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Selective Subscription Demo</title>
+    <style>
+        :root {
+            --cream-bg: #FCF6E7;
+            --bright-blue: #28B0D9;
+            --dark-blue: #1E8AA8;
+            --text-dark: #221F1C;
+            --text-medium: #3E3D3C;
+            --text-light: #70778F;
+            --border-color: #E9E9E8;
+            --card-bg: #FFFFFF;
+            --selected-bg: #E8F6FD;
+            --selected-border: #28B0D9;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: var(--cream-bg);
+            color: var(--text-dark);
+        }
+        
+        .container { 
+            max-width: 1400px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        
+        h1 {
+            color: var(--text-dark);
+            font-size: 32px;
+            margin: 0 0 30px 0;
+            font-weight: 700;
+        }
+        
+        .section { 
+            margin-bottom: 30px;
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--card-bg);
+        }
+        
+        .section h2 { 
+            margin-top: 0;
+            color: var(--text-dark);
+            border-bottom: 2px solid var(--bright-blue);
+            padding-bottom: 12px;
+            font-size: 22px;
+            font-weight: 600;
+        }
+        
+        .form-group { margin-bottom: 15px; }
+        
+        label { 
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--text-medium);
+            font-size: 14px;
+        }
+        
+        input { 
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 10px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+        
+        input:focus {
+            outline: none;
+            border-color: var(--bright-blue);
+        }
+        
+        button { 
+            padding: 12px 24px;
+            background: var(--bright-blue);
+            color: white;
+            border: none;
+            cursor: pointer;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 600;
+            margin-right: 10px;
+            transition: all 0.2s;
+        }
+        
+        button:hover { 
+            background: var(--dark-blue);
+            transform: translateY(-1px);
+            box-shadow: 0 4px 8px rgba(14, 165, 233, 0.3);
+        }
+        
+        button.secondary { 
+            background: var(--text-light);
+        }
+        
+        button.secondary:hover { 
+            background: var(--text-medium);
+            box-shadow: 0 4px 8px rgba(100, 116, 139, 0.3);
+        }
+        
+        button.danger { 
+            background: #EF4444;
+        }
+        
+        button.danger:hover { 
+            background: #DC2626;
+            box-shadow: 0 4px 8px rgba(239, 68, 68, 0.3);
+        }
+        
+        button.success { 
+            background: #10B981;
+        }
+        
+        button.success:hover { 
+            background: #059669;
+            box-shadow: 0 4px 8px rgba(16, 185, 129, 0.3);
+        }
+        
+        .peer-grid { 
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .peer-card { 
+            padding: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--card-bg);
+            transition: all 0.2s;
+        }
+        
+        .peer-card.selected { 
+            border-color: var(--selected-border);
+            background: var(--selected-bg);
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.15);
+        }
+        
+        .peer-card h4 { 
+            margin: 0 0 12px 0;
+            color: var(--text-dark);
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .peer-card p { 
+            margin: 6px 0;
+            font-size: 13px;
+            color: var(--text-medium);
+        }
+        
+        .peer-actions { 
+            margin-top: 15px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        
+        .peer-actions button { 
+            padding: 8px 16px;
+            font-size: 13px;
+            margin: 0;
+            flex: 1;
+            min-width: 100px;
+        }
+        
+        .token-container { 
+            margin: 12px 0;
+            padding: 12px;
+            background: var(--cream-bg);
+            border-radius: 6px;
+            border: 1px solid var(--border-color);
+        }
+        
+        .token-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: var(--text-medium);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 6px;
+        }
+        
+        .token-display { 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .token-text { 
+            font-family: 'Monaco', 'Courier New', monospace;
+            font-size: 11px;
+            color: var(--text-medium);
+            word-break: break-all;
+            flex: 1;
+            max-height: 60px;
+            overflow-y: auto;
+            padding: 4px;
+        }
+        
+        .copy-btn { 
+            padding: 6px 12px;
+            font-size: 12px;
+            background: var(--bright-blue);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 0;
+            font-weight: 600;
+        }
+        
+        .copy-btn:hover { 
+            background: var(--dark-blue);
+        }
+        
+        .copy-btn.copied { 
+            background: #1E8AA8;
+        }
+        
+        .subscription-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .subscription-panel { 
+            padding: 20px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--card-bg);
+        }
+        
+        .subscription-panel h3 { 
+            margin-top: 0;
+            margin-bottom: 15px;
+            color: var(--text-dark);
+            font-size: 18px;
+            font-weight: 600;
+        }
+        
+        .form-row {
+            margin-bottom: 15px;
+        }
+        
+        select {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid var(--border-color);
+            border-radius: 6px;
+            font-size: 14px;
+            background: white;
+            cursor: pointer;
+            transition: border-color 0.2s;
+        }
+        
+        select:focus {
+            outline: none;
+            border-color: var(--bright-blue);
+        }
+        
+        .error { 
+            color: #DC2626;
+            margin-top: 10px;
+            padding: 12px;
+            background: #FEE2E2;
+            border: 1px solid #FECACA;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .success { 
+            color: #1E8AA8;
+            margin-top: 10px;
+            padding: 12px;
+            background: #E8F6FD;
+            border: 1px solid #ADE2FF;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .info { 
+            color: #1E8AA8;
+            margin-top: 10px;
+            padding: 12px;
+            background: #E8F6FD;
+            border: 1px solid #ADE2FF;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+        
+        .empty-state { 
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-light);
+        }
+        
+        .empty-state p {
+            font-size: 15px;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🐟 Selective Subscription Demo</h1>
+        
+        <div class="section">
+            <h2>Create Peer</h2>
+            <div class="form-group">
+                <label for="peerName">Peer Name:</label>
+                <input type="text" id="peerName" placeholder="Enter peer name">
+            </div>
+            <button onclick="createPeer()">➕ Create Peer</button>
+        </div>
+
+        <div class="section">
+            <h2>Created Peers</h2>
+            <div id="createdPeersContainer" class="peer-grid">
+                <div class="empty-state"><p>No peers created yet. Create a peer to get started!</p></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Subscription Management</h2>
+            <div id="subscriptionPanel">
+                <div class="info">Create at least 2 peers to manage subscriptions.</div>
+            </div>
+        </div>
+
+        <div id="message"></div>
+    </div>
+
+    <script>
+        let createdPeers = [];
+
+        async function createPeer() {
+            const peerName = document.getElementById('peerName').value.trim();
+            if (!peerName) return showMessage('Please enter a peer name', 'error');
+            
+            try {
+                const response = await fetch('/api/peers', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ room_name: 'default-room', peer_name: peerName })
+                });
+                const data = await response.json();
+                
+                if (response.ok) {
+                    createdPeers.push({
+                        id: data.peer_id,
+                        name: peerName,
+                        token: data.token,
+                        createdAt: new Date().toISOString()
+                    });
+                    renderCreatedPeers();
+                    renderSubscriptionPanel();
+                    document.getElementById('peerName').value = '';
+                    showMessage(`Peer "${peerName}" created successfully!`, 'success');
+                } else {
+                    showMessage(data.error || 'Failed to create peer', 'error');
+                }
+            } catch (error) {
+                showMessage('Error: ' + error.message, 'error');
+            }
+        }
+
+        function renderCreatedPeers() {
+            const container = document.getElementById('createdPeersContainer');
+            if (createdPeers.length === 0) {
+                container.innerHTML = '<div class="empty-state"><p>No peers created yet. Create a peer to get started!</p></div>';
+                return;
+            }
+
+            container.innerHTML = createdPeers.map(peer => `
+                <div class="peer-card">
+                    <h4>${peer.name}</h4>
+                    <p><strong>Peer ID:</strong> ${peer.id.substring(0, 12)}...</p>
+                    <p><strong>Created:</strong> ${new Date(peer.createdAt).toLocaleTimeString()}</p>
+                    <div class="token-container">
+                        <div class="token-label">Token</div>
+                        <div class="token-display">
+                            <div class="token-text">${peer.token}</div>
+                            <button class="copy-btn" onclick="copyToken('${peer.id}', this)">Copy</button>
+                        </div>
+                    </div>
+                    <div class="peer-actions">
+                        <button class="danger" onclick="deletePeer('${peer.id}')">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function deletePeer(peerId) {
+            if (!confirm('Delete this peer?')) return;
+            createdPeers = createdPeers.filter(p => p.id !== peerId);
+            renderCreatedPeers();
+            renderSubscriptionPanel();
+            showMessage('Peer deleted', 'success');
+        }
+
+        function copyToken(peerId, btn) {
+            const peer = createdPeers.find(p => p.id === peerId);
+            if (!peer) return;
+            navigator.clipboard.writeText(peer.token).then(() => {
+                const originalText = btn.textContent;
+                btn.textContent = '✓ Copied!';
+                btn.classList.add('copied');
+                setTimeout(() => {
+                    btn.textContent = originalText;
+                    btn.classList.remove('copied');
+                }, 2000);
+                showMessage('Token copied to clipboard!', 'success');
+            }).catch(err => showMessage('Failed to copy: ' + err.message, 'error'));
+        }
+
+        function renderSubscriptionPanel() {
+            const panel = document.getElementById('subscriptionPanel');
+            
+            if (createdPeers.length < 2) {
+                panel.innerHTML = '<div class="info">Create at least 2 peers to manage subscriptions.</div>';
+                return;
+            }
+
+            panel.innerHTML = `
+                <div class="subscription-layout">
+                    <div class="subscription-panel">
+                        <h3>Subscribe Peer to Peer</h3>
+                        <div class="form-row">
+                            <label for="subscriberPeer">Subscriber (who subscribes):</label>
+                            <select id="subscriberPeer">
+                                <option value="">Select subscriber peer...</option>
+                                ${createdPeers.map(p => `<option value="${p.id}">${p.name}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="targetPeer">Target (to subscribe to):</label>
+                            <select id="targetPeer">
+                                <option value="">Select target peer...</option>
+                                ${createdPeers.map(p => `<option value="${p.id}">${p.name}</option>`).join('')}
+                            </select>
+                        </div>
+                        <button onclick="subscribePeerToPeer()" style="width: 100%;">Subscribe</button>
+                    </div>
+                    
+                    <div class="subscription-panel">
+                        <h3>Subscribe to Specific Tracks</h3>
+                        <div class="form-row">
+                            <label for="trackSubscriber">Subscriber:</label>
+                            <select id="trackSubscriber">
+                                <option value="">Select subscriber peer...</option>
+                                ${createdPeers.map(p => `<option value="${p.id}">${p.name}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div class="form-row">
+                            <label for="trackIds">Track IDs (comma separated):</label>
+                            <input type="text" id="trackIds" placeholder="e.g., track-1, track-2, track-3">
+                        </div>
+                        <button onclick="subscribeToTracks()" style="width: 100%;">Subscribe to Tracks</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        async function subscribePeerToPeer() {
+            const subscriberId = document.getElementById('subscriberPeer').value;
+            const targetId = document.getElementById('targetPeer').value;
+            
+            if (!subscriberId || !targetId) {
+                return showMessage('Please select both subscriber and target peer', 'error');
+            }
+            
+            if (subscriberId === targetId) {
+                return showMessage('Subscriber and target must be different peers', 'error');
+            }
+            
+            try {
+                const response = await fetch('/api/subscribe_peer', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ peer_id: subscriberId, target_peer_id: targetId })
+                });
+                const data = await response.json();
+                
+                if (response.ok) {
+                    const subscriber = createdPeers.find(p => p.id === subscriberId);
+                    const target = createdPeers.find(p => p.id === targetId);
+                    showMessage(`"${subscriber?.name}" subscribed to "${target?.name}"`, 'success');
+                    document.getElementById('subscriberPeer').value = '';
+                    document.getElementById('targetPeer').value = '';
+                } else {
+                    showMessage(data.error || 'Failed to subscribe', 'error');
+                }
+            } catch (error) {
+                showMessage('Error: ' + error.message, 'error');
+            }
+        }
+
+        async function subscribeToTracks() {
+            const subscriberId = document.getElementById('trackSubscriber').value;
+            const trackIdsInput = document.getElementById('trackIds').value.trim();
+            
+            if (!subscriberId) {
+                return showMessage('Please select a subscriber peer', 'error');
+            }
+            
+            if (!trackIdsInput) {
+                return showMessage('Please enter track IDs', 'error');
+            }
+            
+            const trackIds = trackIdsInput.split(',').map(id => id.trim()).filter(id => id);
+            
+            if (trackIds.length === 0) {
+                return showMessage('Please enter valid track IDs', 'error');
+            }
+            
+            try {
+                const response = await fetch('/api/subscribe_tracks', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ peer_id: subscriberId, track_ids: trackIds })
+                });
+                const data = await response.json();
+                
+                if (response.ok) {
+                    const subscriber = createdPeers.find(p => p.id === subscriberId);
+                    showMessage(`"${subscriber?.name}" subscribed to ${trackIds.length} track(s): ${trackIds.join(', ')}`, 'success');
+                    document.getElementById('trackSubscriber').value = '';
+                    document.getElementById('trackIds').value = '';
+                } else {
+                    showMessage(data.error || 'Failed to subscribe to tracks', 'error');
+                }
+            } catch (error) {
+                showMessage('Error: ' + error.message, 'error');
+            }
+        }
+
+        function showMessage(text, type) {
+            const msg = document.getElementById('message');
+            msg.textContent = text;
+            msg.className = type;
+            setTimeout(() => { msg.textContent = ''; msg.className = ''; }, 5000);
+        }
+    </script>
+</body>
+</html>
