@@ -196,6 +196,9 @@
                         <li>
                                 <a class="function" href="#AgentSession.add_track">add_track</a>
                         </li>
+                        <li>
+                                <a class="function" href="#AgentSession.disconnect">disconnect</a>
+                        </li>
                 </ul>
 
             </li>
@@ -311,48 +314,48 @@
 
     </div>
     <a class="headerlink" href="#Agent"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Agent-156"><a href="#Agent-156"><span class="linenos">156</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Agent</span><span class="p">:</span>
-</span><span id="Agent-157"><a href="#Agent-157"><span class="linenos">157</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Agent-158"><a href="#Agent-158"><span class="linenos">158</span></a><span class="sd">    Allows for connecting to a Fishjam room as an agent peer.</span>
-</span><span id="Agent-159"><a href="#Agent-159"><span class="linenos">159</span></a><span class="sd">    Provides callbacks for receiving audio.</span>
-</span><span id="Agent-160"><a href="#Agent-160"><span class="linenos">160</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="Agent-161"><a href="#Agent-161"><span class="linenos">161</span></a>
-</span><span id="Agent-162"><a href="#Agent-162"><span class="linenos">162</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fishjam_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="Agent-163"><a href="#Agent-163"><span class="linenos">163</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Agent-164"><a href="#Agent-164"><span class="linenos">164</span></a><span class="sd">        Create Agent instance, providing the fishjam id and management token.</span>
-</span><span id="Agent-165"><a href="#Agent-165"><span class="linenos">165</span></a>
-</span><span id="Agent-166"><a href="#Agent-166"><span class="linenos">166</span></a><span class="sd">        This constructor should not be called directly.</span>
-</span><span id="Agent-167"><a href="#Agent-167"><span class="linenos">167</span></a><span class="sd">        Instead, you should call :func:`fishjam.FishjamClient.create_agent`.</span>
-</span><span id="Agent-168"><a href="#Agent-168"><span class="linenos">168</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Agent-169"><a href="#Agent-169"><span class="linenos">169</span></a>
-</span><span id="Agent-170"><a href="#Agent-170"><span class="linenos">170</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
-</span><span id="Agent-171"><a href="#Agent-171"><span class="linenos">171</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">room_id</span> <span class="o">=</span> <span class="n">room_id</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Agent-163"><a href="#Agent-163"><span class="linenos">163</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Agent</span><span class="p">:</span>
+</span><span id="Agent-164"><a href="#Agent-164"><span class="linenos">164</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Agent-165"><a href="#Agent-165"><span class="linenos">165</span></a><span class="sd">    Allows for connecting to a Fishjam room as an agent peer.</span>
+</span><span id="Agent-166"><a href="#Agent-166"><span class="linenos">166</span></a><span class="sd">    Provides callbacks for receiving audio.</span>
+</span><span id="Agent-167"><a href="#Agent-167"><span class="linenos">167</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="Agent-168"><a href="#Agent-168"><span class="linenos">168</span></a>
+</span><span id="Agent-169"><a href="#Agent-169"><span class="linenos">169</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fishjam_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="Agent-170"><a href="#Agent-170"><span class="linenos">170</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Agent-171"><a href="#Agent-171"><span class="linenos">171</span></a><span class="sd">        Create Agent instance, providing the fishjam id and management token.</span>
 </span><span id="Agent-172"><a href="#Agent-172"><span class="linenos">172</span></a>
-</span><span id="Agent-173"><a href="#Agent-173"><span class="linenos">173</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_socket_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fishjam_url</span><span class="si">}</span><span class="s2">/socket/agent/websocket&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="s2">&quot;ws&quot;</span><span class="p">)</span>
-</span><span id="Agent-174"><a href="#Agent-174"><span class="linenos">174</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="n">token</span>
-</span><span id="Agent-175"><a href="#Agent-175"><span class="linenos">175</span></a>
-</span><span id="Agent-176"><a href="#Agent-176"><span class="linenos">176</span></a>    <span class="nd">@asynccontextmanager</span>
-</span><span id="Agent-177"><a href="#Agent-177"><span class="linenos">177</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="Agent-178"><a href="#Agent-178"><span class="linenos">178</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Agent-179"><a href="#Agent-179"><span class="linenos">179</span></a><span class="sd">        Connect the agent to Fishjam to start receiving messages.</span>
-</span><span id="Agent-180"><a href="#Agent-180"><span class="linenos">180</span></a>
-</span><span id="Agent-181"><a href="#Agent-181"><span class="linenos">181</span></a><span class="sd">        Incoming messages from Fishjam will be routed to handlers</span>
-</span><span id="Agent-182"><a href="#Agent-182"><span class="linenos">182</span></a><span class="sd">        defined with :func:`on_track_data`.</span>
-</span><span id="Agent-183"><a href="#Agent-183"><span class="linenos">183</span></a>
-</span><span id="Agent-184"><a href="#Agent-184"><span class="linenos">184</span></a><span class="sd">        :raises AgentAuthError: authentication failed</span>
-</span><span id="Agent-185"><a href="#Agent-185"><span class="linenos">185</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Agent-186"><a href="#Agent-186"><span class="linenos">186</span></a>        <span class="k">async</span> <span class="k">with</span> <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_socket_url</span><span class="p">)</span> <span class="k">as</span> <span class="n">websocket</span><span class="p">:</span>
-</span><span id="Agent-187"><a href="#Agent-187"><span class="linenos">187</span></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authenticate</span><span class="p">(</span><span class="n">websocket</span><span class="p">)</span>
-</span><span id="Agent-188"><a href="#Agent-188"><span class="linenos">188</span></a>            <span class="k">yield</span> <span class="n">AgentSession</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">websocket</span><span class="p">)</span>
-</span><span id="Agent-189"><a href="#Agent-189"><span class="linenos">189</span></a>
-</span><span id="Agent-190"><a href="#Agent-190"><span class="linenos">190</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_authenticate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">websocket</span><span class="p">:</span> <span class="n">ClientConnection</span><span class="p">):</span>
-</span><span id="Agent-191"><a href="#Agent-191"><span class="linenos">191</span></a>        <span class="n">req</span> <span class="o">=</span> <span class="n">AgentRequest</span><span class="p">(</span><span class="n">auth_request</span><span class="o">=</span><span class="n">AgentRequestAuthRequest</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">))</span>
-</span><span id="Agent-192"><a href="#Agent-192"><span class="linenos">192</span></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="Agent-193"><a href="#Agent-193"><span class="linenos">193</span></a>            <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">req</span><span class="p">))</span>
-</span><span id="Agent-194"><a href="#Agent-194"><span class="linenos">194</span></a>            <span class="c1"># Fishjam will close the socket if auth fails and send a response on success</span>
-</span><span id="Agent-195"><a href="#Agent-195"><span class="linenos">195</span></a>            <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">decode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="Agent-196"><a href="#Agent-196"><span class="linenos">196</span></a>        <span class="k">except</span> <span class="n">ConnectionClosed</span><span class="p">:</span>
-</span><span id="Agent-197"><a href="#Agent-197"><span class="linenos">197</span></a>            <span class="k">raise</span> <span class="n">AgentAuthError</span><span class="p">(</span><span class="n">websocket</span><span class="o">.</span><span class="n">close_reason</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+</span><span id="Agent-173"><a href="#Agent-173"><span class="linenos">173</span></a><span class="sd">        This constructor should not be called directly.</span>
+</span><span id="Agent-174"><a href="#Agent-174"><span class="linenos">174</span></a><span class="sd">        Instead, you should call :func:`fishjam.FishjamClient.create_agent`.</span>
+</span><span id="Agent-175"><a href="#Agent-175"><span class="linenos">175</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Agent-176"><a href="#Agent-176"><span class="linenos">176</span></a>
+</span><span id="Agent-177"><a href="#Agent-177"><span class="linenos">177</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
+</span><span id="Agent-178"><a href="#Agent-178"><span class="linenos">178</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">room_id</span> <span class="o">=</span> <span class="n">room_id</span>
+</span><span id="Agent-179"><a href="#Agent-179"><span class="linenos">179</span></a>
+</span><span id="Agent-180"><a href="#Agent-180"><span class="linenos">180</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_socket_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fishjam_url</span><span class="si">}</span><span class="s2">/socket/agent/websocket&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="s2">&quot;ws&quot;</span><span class="p">)</span>
+</span><span id="Agent-181"><a href="#Agent-181"><span class="linenos">181</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="n">token</span>
+</span><span id="Agent-182"><a href="#Agent-182"><span class="linenos">182</span></a>
+</span><span id="Agent-183"><a href="#Agent-183"><span class="linenos">183</span></a>    <span class="nd">@asynccontextmanager</span>
+</span><span id="Agent-184"><a href="#Agent-184"><span class="linenos">184</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Agent-185"><a href="#Agent-185"><span class="linenos">185</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Agent-186"><a href="#Agent-186"><span class="linenos">186</span></a><span class="sd">        Connect the agent to Fishjam to start receiving messages.</span>
+</span><span id="Agent-187"><a href="#Agent-187"><span class="linenos">187</span></a>
+</span><span id="Agent-188"><a href="#Agent-188"><span class="linenos">188</span></a><span class="sd">        Incoming messages from Fishjam will be routed to handlers</span>
+</span><span id="Agent-189"><a href="#Agent-189"><span class="linenos">189</span></a><span class="sd">        defined with :func:`on_track_data`.</span>
+</span><span id="Agent-190"><a href="#Agent-190"><span class="linenos">190</span></a>
+</span><span id="Agent-191"><a href="#Agent-191"><span class="linenos">191</span></a><span class="sd">        :raises AgentAuthError: authentication failed</span>
+</span><span id="Agent-192"><a href="#Agent-192"><span class="linenos">192</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Agent-193"><a href="#Agent-193"><span class="linenos">193</span></a>        <span class="k">async</span> <span class="k">with</span> <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_socket_url</span><span class="p">)</span> <span class="k">as</span> <span class="n">websocket</span><span class="p">:</span>
+</span><span id="Agent-194"><a href="#Agent-194"><span class="linenos">194</span></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authenticate</span><span class="p">(</span><span class="n">websocket</span><span class="p">)</span>
+</span><span id="Agent-195"><a href="#Agent-195"><span class="linenos">195</span></a>            <span class="k">yield</span> <span class="n">AgentSession</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">websocket</span><span class="p">)</span>
+</span><span id="Agent-196"><a href="#Agent-196"><span class="linenos">196</span></a>
+</span><span id="Agent-197"><a href="#Agent-197"><span class="linenos">197</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_authenticate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">websocket</span><span class="p">:</span> <span class="n">ClientConnection</span><span class="p">):</span>
+</span><span id="Agent-198"><a href="#Agent-198"><span class="linenos">198</span></a>        <span class="n">req</span> <span class="o">=</span> <span class="n">AgentRequest</span><span class="p">(</span><span class="n">auth_request</span><span class="o">=</span><span class="n">AgentRequestAuthRequest</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">))</span>
+</span><span id="Agent-199"><a href="#Agent-199"><span class="linenos">199</span></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="Agent-200"><a href="#Agent-200"><span class="linenos">200</span></a>            <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">req</span><span class="p">))</span>
+</span><span id="Agent-201"><a href="#Agent-201"><span class="linenos">201</span></a>            <span class="c1"># Fishjam will close the socket if auth fails and send a response on success</span>
+</span><span id="Agent-202"><a href="#Agent-202"><span class="linenos">202</span></a>            <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">decode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="Agent-203"><a href="#Agent-203"><span class="linenos">203</span></a>        <span class="k">except</span> <span class="n">ConnectionClosed</span><span class="p">:</span>
+</span><span id="Agent-204"><a href="#Agent-204"><span class="linenos">204</span></a>            <span class="k">raise</span> <span class="n">AgentAuthError</span><span class="p">(</span><span class="n">websocket</span><span class="o">.</span><span class="n">close_reason</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -371,19 +374,19 @@ Provides callbacks for receiving audio.</p>
 
     </div>
     <a class="headerlink" href="#Agent.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Agent.__init__-162"><a href="#Agent.__init__-162"><span class="linenos">162</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fishjam_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="Agent.__init__-163"><a href="#Agent.__init__-163"><span class="linenos">163</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Agent.__init__-164"><a href="#Agent.__init__-164"><span class="linenos">164</span></a><span class="sd">        Create Agent instance, providing the fishjam id and management token.</span>
-</span><span id="Agent.__init__-165"><a href="#Agent.__init__-165"><span class="linenos">165</span></a>
-</span><span id="Agent.__init__-166"><a href="#Agent.__init__-166"><span class="linenos">166</span></a><span class="sd">        This constructor should not be called directly.</span>
-</span><span id="Agent.__init__-167"><a href="#Agent.__init__-167"><span class="linenos">167</span></a><span class="sd">        Instead, you should call :func:`fishjam.FishjamClient.create_agent`.</span>
-</span><span id="Agent.__init__-168"><a href="#Agent.__init__-168"><span class="linenos">168</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Agent.__init__-169"><a href="#Agent.__init__-169"><span class="linenos">169</span></a>
-</span><span id="Agent.__init__-170"><a href="#Agent.__init__-170"><span class="linenos">170</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
-</span><span id="Agent.__init__-171"><a href="#Agent.__init__-171"><span class="linenos">171</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">room_id</span> <span class="o">=</span> <span class="n">room_id</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Agent.__init__-169"><a href="#Agent.__init__-169"><span class="linenos">169</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fishjam_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="Agent.__init__-170"><a href="#Agent.__init__-170"><span class="linenos">170</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Agent.__init__-171"><a href="#Agent.__init__-171"><span class="linenos">171</span></a><span class="sd">        Create Agent instance, providing the fishjam id and management token.</span>
 </span><span id="Agent.__init__-172"><a href="#Agent.__init__-172"><span class="linenos">172</span></a>
-</span><span id="Agent.__init__-173"><a href="#Agent.__init__-173"><span class="linenos">173</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_socket_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fishjam_url</span><span class="si">}</span><span class="s2">/socket/agent/websocket&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="s2">&quot;ws&quot;</span><span class="p">)</span>
-</span><span id="Agent.__init__-174"><a href="#Agent.__init__-174"><span class="linenos">174</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="n">token</span>
+</span><span id="Agent.__init__-173"><a href="#Agent.__init__-173"><span class="linenos">173</span></a><span class="sd">        This constructor should not be called directly.</span>
+</span><span id="Agent.__init__-174"><a href="#Agent.__init__-174"><span class="linenos">174</span></a><span class="sd">        Instead, you should call :func:`fishjam.FishjamClient.create_agent`.</span>
+</span><span id="Agent.__init__-175"><a href="#Agent.__init__-175"><span class="linenos">175</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Agent.__init__-176"><a href="#Agent.__init__-176"><span class="linenos">176</span></a>
+</span><span id="Agent.__init__-177"><a href="#Agent.__init__-177"><span class="linenos">177</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
+</span><span id="Agent.__init__-178"><a href="#Agent.__init__-178"><span class="linenos">178</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">room_id</span> <span class="o">=</span> <span class="n">room_id</span>
+</span><span id="Agent.__init__-179"><a href="#Agent.__init__-179"><span class="linenos">179</span></a>
+</span><span id="Agent.__init__-180"><a href="#Agent.__init__-180"><span class="linenos">180</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_socket_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fishjam_url</span><span class="si">}</span><span class="s2">/socket/agent/websocket&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="s2">&quot;ws&quot;</span><span class="p">)</span>
+</span><span id="Agent.__init__-181"><a href="#Agent.__init__-181"><span class="linenos">181</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="n">token</span>
 </span></pre></div>
 
 
@@ -429,19 +432,19 @@ Instead, you should call <code><a href="../fishjam.html#FishjamClient.create_age
 
     </div>
     <a class="headerlink" href="#Agent.connect"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Agent.connect-176"><a href="#Agent.connect-176"><span class="linenos">176</span></a>    <span class="nd">@asynccontextmanager</span>
-</span><span id="Agent.connect-177"><a href="#Agent.connect-177"><span class="linenos">177</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="Agent.connect-178"><a href="#Agent.connect-178"><span class="linenos">178</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Agent.connect-179"><a href="#Agent.connect-179"><span class="linenos">179</span></a><span class="sd">        Connect the agent to Fishjam to start receiving messages.</span>
-</span><span id="Agent.connect-180"><a href="#Agent.connect-180"><span class="linenos">180</span></a>
-</span><span id="Agent.connect-181"><a href="#Agent.connect-181"><span class="linenos">181</span></a><span class="sd">        Incoming messages from Fishjam will be routed to handlers</span>
-</span><span id="Agent.connect-182"><a href="#Agent.connect-182"><span class="linenos">182</span></a><span class="sd">        defined with :func:`on_track_data`.</span>
-</span><span id="Agent.connect-183"><a href="#Agent.connect-183"><span class="linenos">183</span></a>
-</span><span id="Agent.connect-184"><a href="#Agent.connect-184"><span class="linenos">184</span></a><span class="sd">        :raises AgentAuthError: authentication failed</span>
-</span><span id="Agent.connect-185"><a href="#Agent.connect-185"><span class="linenos">185</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Agent.connect-186"><a href="#Agent.connect-186"><span class="linenos">186</span></a>        <span class="k">async</span> <span class="k">with</span> <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_socket_url</span><span class="p">)</span> <span class="k">as</span> <span class="n">websocket</span><span class="p">:</span>
-</span><span id="Agent.connect-187"><a href="#Agent.connect-187"><span class="linenos">187</span></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authenticate</span><span class="p">(</span><span class="n">websocket</span><span class="p">)</span>
-</span><span id="Agent.connect-188"><a href="#Agent.connect-188"><span class="linenos">188</span></a>            <span class="k">yield</span> <span class="n">AgentSession</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">websocket</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Agent.connect-183"><a href="#Agent.connect-183"><span class="linenos">183</span></a>    <span class="nd">@asynccontextmanager</span>
+</span><span id="Agent.connect-184"><a href="#Agent.connect-184"><span class="linenos">184</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Agent.connect-185"><a href="#Agent.connect-185"><span class="linenos">185</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="Agent.connect-186"><a href="#Agent.connect-186"><span class="linenos">186</span></a><span class="sd">        Connect the agent to Fishjam to start receiving messages.</span>
+</span><span id="Agent.connect-187"><a href="#Agent.connect-187"><span class="linenos">187</span></a>
+</span><span id="Agent.connect-188"><a href="#Agent.connect-188"><span class="linenos">188</span></a><span class="sd">        Incoming messages from Fishjam will be routed to handlers</span>
+</span><span id="Agent.connect-189"><a href="#Agent.connect-189"><span class="linenos">189</span></a><span class="sd">        defined with :func:`on_track_data`.</span>
+</span><span id="Agent.connect-190"><a href="#Agent.connect-190"><span class="linenos">190</span></a>
+</span><span id="Agent.connect-191"><a href="#Agent.connect-191"><span class="linenos">191</span></a><span class="sd">        :raises AgentAuthError: authentication failed</span>
+</span><span id="Agent.connect-192"><a href="#Agent.connect-192"><span class="linenos">192</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Agent.connect-193"><a href="#Agent.connect-193"><span class="linenos">193</span></a>        <span class="k">async</span> <span class="k">with</span> <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_socket_url</span><span class="p">)</span> <span class="k">as</span> <span class="n">websocket</span><span class="p">:</span>
+</span><span id="Agent.connect-194"><a href="#Agent.connect-194"><span class="linenos">194</span></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authenticate</span><span class="p">(</span><span class="n">websocket</span><span class="p">)</span>
+</span><span id="Agent.connect-195"><a href="#Agent.connect-195"><span class="linenos">195</span></a>            <span class="k">yield</span> <span class="n">AgentSession</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">websocket</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -554,6 +557,13 @@ defined with <code>on_track_data()</code>.</p>
 </span><span id="AgentSession-151"><a href="#AgentSession-151"><span class="linenos">151</span></a>
 </span><span id="AgentSession-152"><a href="#AgentSession-152"><span class="linenos">152</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">AgentRequest</span><span class="p">):</span>
 </span><span id="AgentSession-153"><a href="#AgentSession-153"><span class="linenos">153</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="AgentSession-154"><a href="#AgentSession-154"><span class="linenos">154</span></a>
+</span><span id="AgentSession-155"><a href="#AgentSession-155"><span class="linenos">155</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="AgentSession-156"><a href="#AgentSession-156"><span class="linenos">156</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="AgentSession-157"><a href="#AgentSession-157"><span class="linenos">157</span></a><span class="sd">        Ends the agent session by closing the websocket connection.</span>
+</span><span id="AgentSession-158"><a href="#AgentSession-158"><span class="linenos">158</span></a><span class="sd">        Useful when you don&#39;t use the context manager to obtain the session.</span>
+</span><span id="AgentSession-159"><a href="#AgentSession-159"><span class="linenos">159</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AgentSession-160"><a href="#AgentSession-160"><span class="linenos">160</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span></pre></div>
 
 
@@ -665,6 +675,32 @@ the agent.</p>
 
 <p>Returns an instance of <code><a href="#OutgoingTrack">OutgoingTrack</a></code>, which can be used to send data
 over the added track.</p>
+</div>
+
+
+                            </div>
+                            <div id="AgentSession.disconnect" class="classattr">
+                                        <input id="AgentSession.disconnect-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+
+        <span class="def">async def</span>
+        <span class="name">disconnect</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">):</span></span>
+
+                <label class="view-source-button" for="AgentSession.disconnect-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#AgentSession.disconnect"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="AgentSession.disconnect-155"><a href="#AgentSession.disconnect-155"><span class="linenos">155</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="AgentSession.disconnect-156"><a href="#AgentSession.disconnect-156"><span class="linenos">156</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+</span><span id="AgentSession.disconnect-157"><a href="#AgentSession.disconnect-157"><span class="linenos">157</span></a><span class="sd">        Ends the agent session by closing the websocket connection.</span>
+</span><span id="AgentSession.disconnect-158"><a href="#AgentSession.disconnect-158"><span class="linenos">158</span></a><span class="sd">        Useful when you don&#39;t use the context manager to obtain the session.</span>
+</span><span id="AgentSession.disconnect-159"><a href="#AgentSession.disconnect-159"><span class="linenos">159</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AgentSession.disconnect-160"><a href="#AgentSession.disconnect-160"><span class="linenos">160</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Ends the agent session by closing the websocket connection.
+Useful when you don't use the context manager to obtain the session.</p>
 </div>
 
 
