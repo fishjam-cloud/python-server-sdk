@@ -151,6 +151,13 @@ class AgentSession:
     async def _send(self, message: AgentRequest):
         await self._ws.send(bytes(message), text=False)
 
+    async def disconnect(self):
+        """
+        Ends the agent session by closing the websocket connection.
+        Useful when you don't use the context manager to obtain the session.
+        """
+        await self._ws.close()
+
 
 class Agent:
     """
