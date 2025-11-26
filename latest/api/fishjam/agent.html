@@ -368,7 +368,7 @@ Provides callbacks for receiving audio.</p>
                                         <input id="Agent.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
 
-        <span class="name">Agent</span><span class="signature pdoc-code condensed">(<span class="param"><span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>, </span><span class="param"><span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span>, </span><span class="param"><span class="n">token</span><span class="p">:</span> <span class="nb">str</span>, </span><span class="param"><span class="n">fishjam_url</span><span class="p">:</span> <span class="nb">str</span></span>)</span>
+        <span class="name">Agent</span><span class="signature pdoc-code condensed">(<span class="param"><span class="nb">id</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span>, </span><span class="param"><span class="n">room_id</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span>, </span><span class="param"><span class="n">token</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span>, </span><span class="param"><span class="n">fishjam_url</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span></span>)</span>
 
                 <label class="view-source-button" for="Agent.__init__-view-source"><span>View Source</span></label>
 
@@ -486,12 +486,9 @@ defined with <code>on_track_data()</code>.</p>
                             <div class="inherited">
                                 <h5>Inherited Members</h5>
                                 <dl>
-                                    <div><dt>builtins.Exception</dt>
-                                <dd id="AgentError.__init__" class="function">Exception</dd>
-
-            </div>
-            <div><dt>builtins.BaseException</dt>
-                                <dd id="AgentError.with_traceback" class="function">with_traceback</dd>
+                                    <div><dt>builtins.BaseException</dt>
+                                <dd id="AgentError.__init__" class="function">BaseException</dd>
+                <dd id="AgentError.with_traceback" class="function">with_traceback</dd>
                 <dd id="AgentError.add_note" class="function">add_note</dd>
                 <dd id="AgentError.args" class="variable">args</dd>
 
@@ -573,7 +570,7 @@ defined with <code>on_track_data()</code>.</p>
                                         <input id="AgentSession.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
 
-        <span class="name">AgentSession</span><span class="signature pdoc-code multiline">(<span class="param"> <span class="n">agent</span><span class="p">:</span> <span class="n"><a href="#Agent">Agent</a></span>,</span><span class="param">  <span class="n">websocket</span><span class="p">:</span> <span class="n">websockets</span><span class="o">.</span><span class="n">asyncio</span><span class="o">.</span><span class="n">client</span><span class="o">.</span><span class="n">ClientConnection</span></span>)</span>
+        <span class="name">AgentSession</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">agent</span><span class="p">:</span> <span class="s1">&#39;Agent&#39;</span>, </span><span class="param"><span class="n">websocket</span><span class="p">:</span> <span class="s1">&#39;ClientConnection&#39;</span></span>)</span>
 
                 <label class="view-source-button" for="AgentSession.__init__-view-source"><span>View Source</span></label>
 
@@ -606,7 +603,7 @@ defined with <code>on_track_data()</code>.</p>
 <div class="attr function">
 
         <span class="def">async def</span>
-        <span class="name">receive</span><span class="signature pdoc-code multiline">(<span class="param">  <span class="bp">self</span></span><span class="return-annotation">) -> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">fishjam</span><span class="o">.</span><span class="n">events</span><span class="o">.</span><span class="n">_protos</span><span class="o">.</span><span class="n">fishjam</span><span class="o">.</span><span class="n">AgentResponseTrackData</span><span class="p">]</span>:</span></span>
+        <span class="name">receive</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="s1">&#39;AsyncIterator[IncomingAgentMessage]&#39;</span>:</span></span>
 
                 <label class="view-source-button" for="AgentSession.receive-view-source"><span>View Source</span></label>
 
@@ -637,7 +634,7 @@ the agent.</p>
 <div class="attr function">
 
         <span class="def">async def</span>
-        <span class="name">add_track</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">options</span><span class="p">:</span> <span class="n"><a href="#OutgoingAudioTrackOptions">OutgoingAudioTrackOptions</a></span></span><span class="return-annotation">):</span></span>
+        <span class="name">add_track</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">options</span><span class="p">:</span> <span class="s1">&#39;OutgoingAudioTrackOptions&#39;</span></span><span class="return-annotation">):</span></span>
 
                 <label class="view-source-button" for="AgentSession.add_track-view-source"><span>View Source</span></label>
 
@@ -853,7 +850,7 @@ created by <code>Agent.add_track()</code>.</p>
                             <div id="OutgoingTrack.__init__" class="classattr">
                                 <div class="attr function">
 
-        <span class="name">OutgoingTrack</span><span class="signature pdoc-code multiline">(<span class="param">    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>,</span><span class="param">  <span class="n">session</span><span class="p">:</span> <span class="n"><a href="#AgentSession">AgentSession</a></span>,</span><span class="param">  <span class="n">options</span><span class="p">:</span> <span class="n"><a href="#OutgoingAudioTrackOptions">OutgoingAudioTrackOptions</a></span></span>)</span>
+        <span class="name">OutgoingTrack</span><span class="signature pdoc-code multiline">(<span class="param">    <span class="nb">id</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span>,</span><span class="param">    <span class="n">session</span><span class="p">:</span> <span class="s1">&#39;AgentSession&#39;</span>,</span><span class="param">   <span class="n">options</span><span class="p">:</span> <span class="s1">&#39;OutgoingAudioTrackOptions&#39;</span></span>)</span>
 
 
     </div>
@@ -864,7 +861,7 @@ created by <code>Agent.add_track()</code>.</p>
                             </div>
                             <div id="OutgoingTrack.id" class="classattr">
                                 <div class="attr variable">
-            <span class="name">id</span><span class="annotation">: str</span>
+            <span class="name">id</span><span class="annotation">: &#39;str&#39;</span>
 
 
     </div>
@@ -877,7 +874,7 @@ created by <code>Agent.add_track()</code>.</p>
                             </div>
                             <div id="OutgoingTrack.session" class="classattr">
                                 <div class="attr variable">
-            <span class="name">session</span><span class="annotation">: <a href="#AgentSession">AgentSession</a></span>
+            <span class="name">session</span><span class="annotation">: &#39;AgentSession&#39;</span>
 
 
     </div>
@@ -890,7 +887,7 @@ created by <code>Agent.add_track()</code>.</p>
                             </div>
                             <div id="OutgoingTrack.options" class="classattr">
                                 <div class="attr variable">
-            <span class="name">options</span><span class="annotation">: <a href="#OutgoingAudioTrackOptions">OutgoingAudioTrackOptions</a></span>
+            <span class="name">options</span><span class="annotation">: &#39;OutgoingAudioTrackOptions&#39;</span>
 
 
     </div>
@@ -906,7 +903,7 @@ created by <code>Agent.add_track()</code>.</p>
 <div class="attr function">
 
         <span class="def">async def</span>
-        <span class="name">send_chunk</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span></span><span class="return-annotation">):</span></span>
+        <span class="name">send_chunk</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">data</span><span class="p">:</span> <span class="s1">&#39;bytes&#39;</span></span><span class="return-annotation">):</span></span>
 
                 <label class="view-source-button" for="OutgoingTrack.send_chunk-view-source"><span>View Source</span></label>
 
@@ -1027,7 +1024,7 @@ will be cleared and be prevented from playing.</p>
                             <div id="OutgoingAudioTrackOptions.__init__" class="classattr">
                                 <div class="attr function">
 
-        <span class="name">OutgoingAudioTrackOptions</span><span class="signature pdoc-code multiline">(<span class="param">    <span class="n">encoding</span><span class="p">:</span> <span class="n"><a href="events.html#TrackEncoding">fishjam.events.TrackEncoding</a></span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">TrackEncoding</span><span class="o">.</span><span class="n">TRACK_ENCODING_UNSPECIFIED</span><span class="p">:</span> <span class="mi">0</span><span class="o">&gt;</span>,</span><span class="param">  <span class="n">sample_rate</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">16000</span><span class="p">,</span> <span class="mi">24000</span><span class="p">]</span> <span class="o">=</span> <span class="mi">16000</span>,</span><span class="param"> <span class="n">channels</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>,</span><span class="param">    <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
+        <span class="name">OutgoingAudioTrackOptions</span><span class="signature pdoc-code multiline">(<span class="param">    <span class="n">encoding</span><span class="p">:</span> <span class="s1">&#39;TrackEncoding&#39;</span> <span class="o">=</span> <span class="o">&lt;</span><span class="n">TrackEncoding</span><span class="o">.</span><span class="n">TRACK_ENCODING_UNSPECIFIED</span><span class="p">:</span> <span class="mi">0</span><span class="o">&gt;</span>,</span><span class="param">  <span class="n">sample_rate</span><span class="p">:</span> <span class="s1">&#39;Literal[16000, 24000]&#39;</span> <span class="o">=</span> <span class="mi">16000</span>,</span><span class="param">   <span class="n">channels</span><span class="p">:</span> <span class="s1">&#39;Literal[1, 2]&#39;</span> <span class="o">=</span> <span class="mi">1</span>,</span><span class="param">  <span class="n">metadata</span><span class="p">:</span> <span class="s1">&#39;dict[str, Any] | None&#39;</span> <span class="o">=</span> <span class="kc">None</span></span>)</span>
 
 
     </div>
@@ -1038,7 +1035,7 @@ will be cleared and be prevented from playing.</p>
                             </div>
                             <div id="OutgoingAudioTrackOptions.encoding" class="classattr">
                                 <div class="attr variable">
-            <span class="name">encoding</span><span class="annotation">: <a href="events.html#TrackEncoding">fishjam.events.TrackEncoding</a></span>        =
+            <span class="name">encoding</span><span class="annotation">: &#39;TrackEncoding&#39;</span>        =
 <span class="default_value">&lt;TrackEncoding.TRACK_ENCODING_UNSPECIFIED: 0&gt;</span>
 
 
@@ -1053,7 +1050,7 @@ Defaults to raw 16-bit PCM.</p>
                             </div>
                             <div id="OutgoingAudioTrackOptions.sample_rate" class="classattr">
                                 <div class="attr variable">
-            <span class="name">sample_rate</span><span class="annotation">: Literal[16000, 24000]</span>        =
+            <span class="name">sample_rate</span><span class="annotation">: &#39;Literal[16000, 24000]&#39;</span>        =
 <span class="default_value">16000</span>
 
 
@@ -1068,7 +1065,7 @@ Defaults to 16000.</p>
                             </div>
                             <div id="OutgoingAudioTrackOptions.channels" class="classattr">
                                 <div class="attr variable">
-            <span class="name">channels</span><span class="annotation">: Literal[1, 2]</span>        =
+            <span class="name">channels</span><span class="annotation">: &#39;Literal[1, 2]&#39;</span>        =
 <span class="default_value">1</span>
 
 
@@ -1084,7 +1081,7 @@ Defaults to 1 (mono)</p>
                             </div>
                             <div id="OutgoingAudioTrackOptions.metadata" class="classattr">
                                 <div class="attr variable">
-            <span class="name">metadata</span><span class="annotation">: dict[str, typing.Any] | None</span>        =
+            <span class="name">metadata</span><span class="annotation">: &#39;dict[str, Any] | None&#39;</span>        =
 <span class="default_value">None</span>
 
 
