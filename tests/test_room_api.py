@@ -9,11 +9,11 @@ from fishjam import (
     Room,
     RoomOptions,
 )
-from fishjam._openapi_client.models import SubscribeMode
+from fishjam._openapi_client.models import SubscribeMode, Subscriptions
 from fishjam.errors import (
     BadRequestError,
+    ConflictError,
     NotFoundError,
-    ServiceUnavailableError,
     UnauthorizedError,
 )
 from fishjam.peer import (
@@ -179,7 +179,7 @@ class TestCreatePeer:
             tracks=[],
             metadata=PeerMetadata.from_dict({"peer": {}, "server": server_metadata}),
             subscribe_mode=SubscribeMode.AUTO,
-            subscriptions=[],
+            subscriptions=Subscriptions(peers=[], tracks=[]),
         )
 
         room = room_api.get_room(room_id)
@@ -213,7 +213,7 @@ class TestCreatePeer:
 
         self._assert_peer_created(room_api, peer, room.id)
 
-        with pytest.raises(ServiceUnavailableError):
+        with pytest.raises(ConflictError):
             room_api.create_peer(room.id)
 
 

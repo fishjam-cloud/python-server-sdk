@@ -16,6 +16,7 @@ from ..models.subscribe_mode import SubscribeMode
 
 if TYPE_CHECKING:
     from ..models.peer_metadata import PeerMetadata
+    from ..models.subscriptions import Subscriptions
     from ..models.track import Track
 
 
@@ -31,7 +32,7 @@ class Peer:
         metadata (Union['PeerMetadata', None]): Custom metadata set by the peer Example: {'name': 'FishjamUser'}.
         status (PeerStatus): Informs about the peer status Example: disconnected.
         subscribe_mode (SubscribeMode): Configuration of peer's subscribing policy
-        subscriptions (list[str]): Describes peer's subscriptions in manual mode
+        subscriptions (Subscriptions): Describes peer's subscriptions in manual mode
         tracks (list['Track']): List of all peer's tracks
         type_ (PeerType): Peer type Example: webrtc.
     """
@@ -40,7 +41,7 @@ class Peer:
     metadata: Union["PeerMetadata", None]
     status: PeerStatus
     subscribe_mode: SubscribeMode
-    subscriptions: list[str]
+    subscriptions: "Subscriptions"
     tracks: list["Track"]
     type_: PeerType
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
@@ -60,7 +61,7 @@ class Peer:
 
         subscribe_mode = self.subscribe_mode.value
 
-        subscriptions = self.subscriptions
+        subscriptions = self.subscriptions.to_dict()
 
         tracks = []
         for tracks_item_data in self.tracks:
@@ -88,6 +89,7 @@ class Peer:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.peer_metadata import PeerMetadata
+        from ..models.subscriptions import Subscriptions
         from ..models.track import Track
 
         d = dict(src_dict)
@@ -112,7 +114,7 @@ class Peer:
 
         subscribe_mode = SubscribeMode(d.pop("subscribeMode"))
 
-        subscriptions = cast(list[str], d.pop("subscriptions"))
+        subscriptions = Subscriptions.from_dict(d.pop("subscriptions"))
 
         tracks = []
         _tracks = d.pop("tracks")

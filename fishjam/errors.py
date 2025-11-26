@@ -29,6 +29,9 @@ class HTTPError(Exception):
             case HTTPStatus.SERVICE_UNAVAILABLE:
                 return ServiceUnavailableError(errors)
 
+            case HTTPStatus.CONFLICT:
+                return ConflictError(errors)
+
             case _:
                 return InternalServerError(errors)
 
@@ -58,6 +61,12 @@ class ServiceUnavailableError(HTTPError):
 
 
 class InternalServerError(HTTPError):
+    def __init__(self, errors):
+        """@private"""
+        super().__init__(errors)
+
+
+class ConflictError(HTTPError):
     def __init__(self, errors):
         """@private"""
         super().__init__(errors)
