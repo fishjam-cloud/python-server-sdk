@@ -36,6 +36,7 @@ from .streamer_token import StreamerToken
 from .streams_listing_response import StreamsListingResponse
 from .subscribe_mode import SubscribeMode
 from .subscribe_tracks_body import SubscribeTracksBody
+from .subscriptions import Subscriptions
 from .track import Track
 from .track_metadata_type_0 import TrackMetadataType0
 from .track_type import TrackType
@@ -78,6 +79,7 @@ __all__ = (
     "StreamsListingResponse",
     "SubscribeMode",
     "SubscribeTracksBody",
+    "Subscriptions",
     "Track",
     "TrackMetadataType0",
     "TrackType",

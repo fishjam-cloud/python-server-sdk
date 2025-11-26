@@ -15,8 +15,6 @@ services:
       FJ_ADMIN_TOKEN: "12345"
       FJ_PORT: 5002
       FJ_SECRET_KEY_BASE: "super-secret-key"
-      FJ_SIP_IP: "127.0.0.1"
-      FJ_COMPONENTS_USED: "rtsp file hls recording sip"
       FJ_BROADCASTING_ENABLED: "true"
       FJ_BROADCASTER_URL: "http://broadcaster:4000"
       FJ_BROADCASTER_TOKEN: "broadcaster_token"
@@ -25,8 +23,6 @@ services:
       - "5002:5002"
       - "49999:49999"
       - "50000-50050:50000-50050/udp"
-    volumes:
-      - ./tests/fixtures:/app/fishjam_resources/file_component_sources
 
   fishjam-prep:
     image: curlimages/curl:8.12.1
