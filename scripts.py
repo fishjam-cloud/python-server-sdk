@@ -85,9 +85,13 @@ def update_client():
     if len(sys.argv) < 2:
         raise RuntimeError("Missing fishjam openapi.yaml raw url positional argument")
 
+    url_or_path = sys.argv[1]
+    is_url = url_or_path.startswith("http://") or url_or_path.startswith("https://")
+    file_arg = f"--url {url_or_path}" if is_url else f"--path {url_or_path}"
+
     check_exit_code(
         f"openapi-python-client generate \
-            --url {sys.argv[1]} \
+            {file_arg} \
             --config openapi-python-client-config.yaml \
             --meta=none \
             --overwrite \
