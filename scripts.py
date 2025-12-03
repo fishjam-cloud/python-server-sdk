@@ -85,18 +85,38 @@ def generate_docs():
     for f in out.glob("**/*.html"):
         f.rename(f.with_suffix(".md"))
 
+
 def clean_mdx_content(content: str) -> str:
-    parts = re.split(r'(```[\s\S]*?```)', content)
-    
+    parts = re.split(r"(```[\s\S]*?```)", content)
+
     cleaned_parts = []
     for part in parts:
         if part.startswith("```"):
-            cleaned_parts.append(part)
+            text = (
+                part.replace("&lt;", "<")
+                .replace("&gt;", ">")
+                .replace("&#39;", "'")
+                .replace("builtins.", "")
+                .replace("fishjam.api._client.", "")
+                .replace("fishjam.api._fishjam_client.", "")
+                .replace("fishjam.events._protos.fishjam.", "")
+                .replace("fishjam._openapi_client.models.peer.", "")
+                .replace("fishjam._openapi_client.models.peer_metadata.", "")
+                .replace("fishjam._openapi_client.models.peer_status.", "")
+                .replace("fishjam._openapi_client.models.peer_type.", "")
+                .replace("fishjam._openapi_client.models.room_config.", "")
+                .replace("fishjam._openapi_client.models.room_config_room_type.", "")
+                .replace("fishjam._openapi_client.models.room_config_video_codec.", "")
+                .replace("fishjam._openapi_client.models.subscriptions.", "")
+                .replace("fishjam._openapi_client.models.subscribe_mode.", "")
+                .replace("fishjam._openapi_client.models.track.", "")
+                .replace("fishjam._openapi_client.types.", "")
+            )
+            cleaned_parts.append(text)
         else:
             text = part.replace("{", "\\{").replace("}", "\\}")
-            text = text.replace("<", "&lt;")
             cleaned_parts.append(text)
-            
+
     return "".join(cleaned_parts)
 
 
@@ -132,6 +152,11 @@ def generate_docusaurus():
         dest_path.parent.mkdir(parents=True, exist_ok=True)
 
         dest_path.write_text(safe_content, encoding="utf-8")
+
+    fishjam_dir = out / "fishjam"
+    submodules_dir = out / "submodules"
+
+    fishjam_dir.rename(submodules_dir)
 
 
 def update_client():
