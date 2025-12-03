@@ -15,7 +15,6 @@ dependencies = [
     "httpx>=0.28.0,<0.29.0",
     "attrs>=21.3.0",
     "flask-cors>=6.0.1,<7",
-    "pydoc-markdown>=4.8.2",
 ]
 
 [project.urls]
@@ -93,20 +92,3 @@ exclude = [
 typeCheckingMode = "basic"
 venv = ".venv"
 venvPath = "."
-
-[[tool.pydoc-markdown.loaders]]
-type = "python"
-search_path = [ "fishjam" ]
-
-[[tool.pydoc-markdown.processors]]
-type = "filter"
-skip_empty_modules = true
-
-[[tool.pydoc-markdown.processors]]
-type = "filter"
-expression = "not name.startswith('__')"
-
-[tool.pydoc-markdown.renderer]
-type = "docusaurus"
-docs_base_path = "docusaurus"
-relative_sidebar_path = "sidebar.json"
