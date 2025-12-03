@@ -72,7 +72,7 @@ instance/
 
 # pdoc documentation
 /doc
-/docusaurus-api
+/docusaurus
 
 # PyBuilder
 .pybuilder/
