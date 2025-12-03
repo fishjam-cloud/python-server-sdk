@@ -1,5 +1,6 @@
 import os
 import shutil
+import json
 import subprocess
 import sys
 from pathlib import Path
@@ -79,6 +80,158 @@ def generate_docs():
     # ...and rename the .html files to .md so that mkdocs picks them up!
     for f in out.glob("**/*.html"):
         f.rename(f.with_suffix(".md"))
+
+
+HERE = Path(__file__).parent
+SRC_DIR = HERE / "docusaurus"
+DEST_DIR = HERE / "docusaurus-api"
+DOC_ID_PREFIX = "api/server-python/"
+
+
+def sanitize_name(name):
+    """
+    Sanitizes filenames and folder names.
+    Crucially: converts '__init__' to 'index' to avoid 'init__'
+    """
+    if name.startswith("__init__"):
+        if name == "__init__":
+            return "index"
+        return "index" + name[8:]
+
+    return name.lstrip('_')
+
+def sanitize_md_content(content):
+    """
+    Fixes MDX compilation errors caused by pydoc-markdown output.
+    """
+    return content.replace("{&#x27;", "\\{&#x27;").replace("&#x27;}", "&#x27;\\}")
+
+def sanitize_path_string(path_str):
+    """
+    Sanitizes a full path string found in sidebar.json ID.
+    """
+    parts = path_str.split('/')
+    clean_parts = []
+    for p in parts:
+        if p == "__init__":
+            clean_parts.append("index")
+        else:
+            clean_parts.append(p.lstrip('_'))
+    return '/'.join(clean_parts)
+
+def clean_label(label):
+    """
+    Makes sidebar labels readable.
+    e.g. "_openapi_client.api.room" -> "openapi_client.api.room"
+    """
+    if not label: 
+        return label
+    return label.lstrip('_')
+
+def recursive_sidebar_update(item):
+    """
+    Traverses sidebar to clean IDs and Labels.
+    """
+    if isinstance(item, list):
+        return [recursive_sidebar_update(i) for i in item]
+
+    if isinstance(item, dict):
+        if "id" in item and isinstance(item["id"], str):
+            item["id"] = DOC_ID_PREFIX + sanitize_path_string(item["id"])
+
+        if "label" in item and isinstance(item["label"], str):
+            item["label"] = clean_label(item["label"])
+
+        if "type" in item and item["type"] == "category" and "items" not in item:
+             item["type"] = "doc"
+
+        # Recurse
+        if "items" in item:
+            item["items"] = recursive_sidebar_update(item["items"])
+            
+        return item
+
+    if isinstance(item, str):
+        return {
+            "type": "doc",
+            "id": DOC_ID_PREFIX + sanitize_path_string(item)
+        }
+    
+    return item
+
+
+def generate_docusaurus():
+    check_exit_code("pydoc-markdown")
+
+    if DEST_DIR.exists():
+        shutil.rmtree(DEST_DIR)
+
+    print(f"Processing files from {SRC_DIR} to {DEST_DIR}...")
+
+    for root, dirs, files in os.walk(SRC_DIR):
+        root_path = Path(root)
+        rel_path = root_path.relative_to(SRC_DIR)
+
+        clean_parts = []
+        for p in rel_path.parts:
+            if p == "__init__":
+                clean_parts.append("index")
+            else:
+                clean_parts.append(p.lstrip('_'))
+        
+        clean_rel_path = Path(*clean_parts)
+        current_dest_dir = DEST_DIR / clean_rel_path
+        current_dest_dir.mkdir(parents=True, exist_ok=True)
+
+        for file in files:
+            src_file = root_path / file
+            clean_filename = sanitize_name(file)
+            dest_file = current_dest_dir / clean_filename
+
+            try:
+                with open(src_file, 'r', encoding='utf-8') as f_in:
+                    raw_content = f_in.read()
+
+                clean_content = sanitize_md_content(raw_content)
+
+                with open(dest_file, 'w', encoding='utf-8') as f_out:
+                    f_out.write(clean_content)
+
+            except Exception as e:
+                print(f"Error processing {src_file}: {e}")
+
+    root_index = DEST_DIR / "reference" / "index.md"
+
+    if not root_index.parent.exists():
+        root_index = DEST_DIR / "index.md"
+
+    if not root_index.exists():
+        print(f"Creating missing index at {root_index}")
+        root_index.parent.mkdir(parents=True, exist_ok=True)
+        with open(root_index, "w") as f:
+            f.write("---\ntitle: API Reference\nsidebar_position: 1\n---\n\n# Python API Reference\n\nWelcome to the Server SDK documentation.")
+
+    sidebar_path = DEST_DIR / "sidebar.json"
+    if not sidebar_path.exists():
+        found = list(DEST_DIR.rglob("sidebar.json"))
+        if found: sidebar_path = found[0]
+
+    if sidebar_path.exists():
+        print(f"Cleaning sidebar at {sidebar_path}...")
+        with open(sidebar_path, 'r', encoding='utf-8') as f:
+            sidebar_data = json.load(f)
+
+        clean_sidebar = recursive_sidebar_update(sidebar_data)
+        
+        with open(sidebar_path, 'w', encoding='utf-8') as f:
+            json.dump(clean_sidebar, f, indent=2)
+        print("Sidebar cleaned.")
+
+    print("Removing temporary source directory...")
+    if SRC_DIR.exists():
+        shutil.rmtree(SRC_DIR)
+
+    print("Done! ✅")
 
 
 def update_client():
