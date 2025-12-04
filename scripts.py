@@ -1,4 +1,5 @@
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -55,6 +56,12 @@ def run_linter_fix():
 
 
 def generate_docs():
+    here = Path(__file__).parent
+    input = here / "doc"
+
+    if input.exists():
+        shutil.rmtree(input)
+
     check_exit_code(
         "pdoc \
     --include-undocumented \
@@ -64,8 +71,6 @@ def generate_docs():
     -o doc \
     fishjam"
     )
-    here = Path(__file__).parent
-    input = here / "doc"
     input_images = here / "images"
     out = here / "docs" / "api"
     out_images = here / "docs" / "api" / "images"
@@ -79,6 +84,72 @@ def generate_docs():
     # ...and rename the .html files to .md so that mkdocs picks them up!
     for f in out.glob("**/*.html"):
         f.rename(f.with_suffix(".md"))
+
+
+def clean_mdx_content(content: str) -> str:
+    parts = re.split(r"((?:```[\s\S]*?```|`[^`\n]+`))", content)
+
+    # example: convert `fishjam._openapi_client.models.peer.Peer` into `Peer`
+    internal_path_pattern = r"fishjam\.(?:[\w.]+\.)?_[\w.]+\."
+
+    cleaned_parts = []
+    for part in parts:
+        if part.startswith("`"):
+            text = (
+                part.replace("&lt;", "<")
+                .replace("&gt;", ">")
+                .replace("&#39;", "'")
+                .replace("builtins.", "")
+            )
+
+            text = re.sub(internal_path_pattern, "", text)
+
+            cleaned_parts.append(text)
+        else:
+            text = part.replace("{", "\\{").replace("}", "\\}").replace("<", "&lt;")
+
+            cleaned_parts.append(text)
+
+    return "".join(cleaned_parts)
+
+
+def generate_docusaurus():
+    here = Path(__file__).parent
+    input = here / "doc"
+    out = here / "docusaurus"
+
+    if input.exists():
+        shutil.rmtree(input)
+    if out.exists():
+        shutil.rmtree(out)
+
+    check_exit_code(
+        "pdoc \
+    --include-undocumented \
+    -t templates/docusaurus \
+    -o doc \
+    fishjam"
+    )
+    try:
+        os.remove(input / "index.html")
+    except FileNotFoundError:
+        pass
+
+    out.mkdir(parents=True, exist_ok=True)
+
+    for f in input.glob("**/*.html"):
+        content = f.read_text(encoding="utf-8")
+        safe_content = clean_mdx_content(content)
+        rel_path = f.relative_to(input)
+        dest_path = out / rel_path.with_suffix(".md")
+        dest_path.parent.mkdir(parents=True, exist_ok=True)
+
+        dest_path.write_text(safe_content, encoding="utf-8")
+
+    fishjam_dir = out / "fishjam"
+    submodules_dir = out / "submodules"
+
+    fishjam_dir.rename(submodules_dir)
 
 
 def update_client():

@@ -1,0 +1,144 @@
+{% extends "frame.html.jinja2" %}
+
+{% block content %}
+# {{ module.name }}
+
+{% block module_info %}
+{% if module.docstring and ".. include::" not in module.docstring %}
+{{ module.docstring | safe }}
+{% endif %}
+{% endblock %}
+
+{% block nav_submodules %}
+{% if module.submodules %}
+## Submodules
+{% for submodule in module.submodules if is_public(submodule) | trim %}
+- [{{ submodule.name }}](submodules/{{ submodule.name }})
+{% endfor %}
+{% endif %}
+{% endblock %}
+
+{% block module_contents %}
+{% for m in module.flattened_own_members if is_public(m) | trim %}
+## {{ m.name }}
+{{ member(m) }}
+{% if m.kind == "class" %}
+{% for cm in m.own_members if cm.kind != "class" and is_public(cm) | trim %}
+### {{ cm.name }}
+{{ member(cm) }}
+{% endfor %}
+{% set inherited_members = inherited(m) | trim %}
+{% if inherited_members %}
+#### Inherited Members
+{{ inherited_members }}
+{% endif %}
+{% endif %}
+---
+{% endfor %}
+{% endblock %}
+{% endblock content %}
+
+{# 
+   =========================================================================
+   HELPER MACROS (Markdown Version)
+   =========================================================================
+#}
+
+{% defaultmacro default_value(var) -%}
+{% if var.default_value_str and "object object" not in var.default_value_str %}
+ = {{ var.default_value_str | safe }}
+{% endif %}
+{% enddefaultmacro %}
+
+{% defaultmacro annotation(var) %}
+{% if var.annotation_str %}{{ var.annotation_str }}{% endif %}
+{% enddefaultmacro %}
+
+{% defaultmacro function(fn) -%}
+{% if fn.name == "__init__" %}
+def {{ fn.qualname.split(".")[-1] }}{{ fn.signature_without_self | string | safe }}
+{% else %}
+def {{ fn.name }}{{ fn.signature | string | safe }}
+{% endif %}
+{% enddefaultmacro %}
+
+{% defaultmacro variable(var) -%}
+{{ var.name }}{{ annotation(var) }}{{ default_value(var) }}
+{% enddefaultmacro %}
+
+{% defaultmacro class_bases(cls) %}
+    {%- if cls.bases -%}
+    (
+    {%- for base in cls.bases -%}
+        {%- if base is mapping or base is iterable and base is not string -%}
+            {{ base[-1] }}
+        {%- else -%}
+            {{ base }}
+        {%- endif -%}
+        {%- if loop.nextitem %}, {% endif %}
+    {%- endfor -%}
+    )
+    {%- endif -%}
+{% enddefaultmacro %}
+
+{% defaultmacro class(cls) -%}
+class {{ cls.qualname }}{{ class_bases(cls) }}:
+{% enddefaultmacro %}
+
+{% defaultmacro member(doc) %}
+```python
+{% if doc.kind == "class" %}{{ class(doc) }}{% elif doc.kind == "function" %}{{ function(doc) }}{% else %}{{ variable(doc) }}{% endif %}
+```
+{{ doc.docstring | safe }}
+{% enddefaultmacro %}
+
+{% defaultmacro is_public(doc) %}
+{% if not include_undocumented and not doc.docstring %}
+{% elif doc.docstring and "@private" in doc.docstring %}
+{% elif doc.name == "__init__" and (doc.docstring or (doc.kind == "function" and doc.signature_without_self.parameters)) %}
+true
+{% elif doc.name == "__doc__" %}
+{% elif doc.kind == "variable" and doc.is_typevar and not doc.docstring %}
+{% elif doc.kind == "module" and doc.fullname not in all_modules %}
+{% elif (doc.qualname or doc.name) is in(module.obj.__all__ or []) %}
+true
+{% elif not doc.name.startswith("_") %}
+true
+{% endif %}
+{% enddefaultmacro %}
+
+{% defaultmacro inherited(cls) %}
+{% set ignored_bases = ["str", "object", "int", "float", "bool", "list", "dict", "tuple", "set", "exception", "baseexception"] %}
+{% for base, members in cls.inherited_members.items() %}
+    {% set base_name = base.name if base.name is defined else base %}
+    {% if base_name is mapping or base_name is iterable and base_name is not string %}
+        {% set base_name = base_name[-1] %}
+    {% endif %}
+
+    {% if base_name | lower not in ignored_bases %}
+
+    {% set member_list %}
+        {% for m in members if is_public(m) | trim %}
+    * `{{ m.name }}`
+        {% endfor %}
+    {% endset %}
+
+        {% if member_list | trim %}
+* **{{ base_name }}**:
+{{ member_list }}
+        {% endif %}
+
+    {% endif %}
+{% endfor %}
+{% enddefaultmacro %}
+
+{# Empty macros to prevent errors from unused calls in default logic #}
+{% defaultmacro bases(cls) %}{% enddefaultmacro %}
+{% defaultmacro decorators(doc) %}{% enddefaultmacro %}
+{% defaultmacro submodule(mod) %}{% enddefaultmacro %}
+{% defaultmacro docstring(var) %}{% enddefaultmacro %}
+{% defaultmacro nav_members(members) %}{% enddefaultmacro %}
+{% defaultmacro view_source_state(doc) %}{% enddefaultmacro %}
+{% defaultmacro view_source_button(doc) %}{% enddefaultmacro %}
+{% defaultmacro view_source_code(doc) %}{% enddefaultmacro %}
+{% defaultmacro module_name() %}{% enddefaultmacro %}

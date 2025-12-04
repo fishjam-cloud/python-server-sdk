@@ -29,6 +29,7 @@ format_check = "scripts:run_format_check"
 lint = "scripts:run_linter"
 fix_lint = "scripts:run_linter_fix"
 generate_docs = "scripts:generate_docs"
+generate_docusaurus = "scripts:generate_docusaurus"
 update_client = "scripts:update_client"
 room_manager = "scripts:start_room_manager"
 
