@@ -87,34 +87,27 @@ def generate_docs():
 
 
 def clean_mdx_content(content: str) -> str:
-    parts = re.split(r"(```[\s\S]*?```)", content)
+    parts = re.split(r"((?:```[\s\S]*?```|`[^`\n]+`))", content)
+
+    # example: convert `fishjam._openapi_client.models.peer.Peer` into `Peer`
+    internal_path_pattern = r"fishjam\.(?:[\w.]+\.)?_[\w.]+\."
 
     cleaned_parts = []
     for part in parts:
-        if part.startswith("```"):
+        if part.startswith("`"):
             text = (
                 part.replace("&lt;", "<")
                 .replace("&gt;", ">")
                 .replace("&#39;", "'")
                 .replace("builtins.", "")
-                .replace("fishjam.api._client.", "")
-                .replace("fishjam.api._fishjam_client.", "")
-                .replace("fishjam.events._protos.fishjam.", "")
-                .replace("fishjam._openapi_client.models.peer.", "")
-                .replace("fishjam._openapi_client.models.peer_metadata.", "")
-                .replace("fishjam._openapi_client.models.peer_status.", "")
-                .replace("fishjam._openapi_client.models.peer_type.", "")
-                .replace("fishjam._openapi_client.models.room_config.", "")
-                .replace("fishjam._openapi_client.models.room_config_room_type.", "")
-                .replace("fishjam._openapi_client.models.room_config_video_codec.", "")
-                .replace("fishjam._openapi_client.models.subscriptions.", "")
-                .replace("fishjam._openapi_client.models.subscribe_mode.", "")
-                .replace("fishjam._openapi_client.models.track.", "")
-                .replace("fishjam._openapi_client.types.", "")
             )
+
+            text = re.sub(internal_path_pattern, "", text)
+
             cleaned_parts.append(text)
         else:
-            text = part.replace("{", "\\{").replace("}", "\\}")
+            text = part.replace("{", "\\{").replace("}", "\\}").replace("<", "&lt;")
+
             cleaned_parts.append(text)
 
     return "".join(cleaned_parts)
