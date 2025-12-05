@@ -74,6 +74,8 @@ instance/
 /doc
 /docusaurus
 
+*.DS_Store
+
 # PyBuilder
 .pybuilder/
 target/
