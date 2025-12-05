@@ -5,7 +5,11 @@
 
 {% block module_info %}
 {% if module.docstring and ".. include::" not in module.docstring %}
-{{ module.docstring | safe }}
+{{ module.docstring 
+   | replace('\n        ', '\n  ') 
+   | replace('\n    ', '\n- ') 
+   | safe 
+}}
 {% endif %}
 {% endblock %}
 
@@ -89,7 +93,11 @@ class {{ cls.qualname }}{{ class_bases(cls) }}:
 ```python
 {% if doc.kind == "class" %}{{ class(doc) }}{% elif doc.kind == "function" %}{{ function(doc) }}{% else %}{{ variable(doc) }}{% endif %}
 ```
-{{ doc.docstring | safe }}
+{{ doc.docstring 
+   | replace('\n        ', '\n  ') 
+   | replace('\n    ', '\n- ') 
+   | safe 
+}}
 {% enddefaultmacro %}
 
 {% defaultmacro is_public(doc) %}
