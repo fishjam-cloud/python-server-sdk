@@ -9,11 +9,11 @@ from typing import (
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.peer_options_web_rtc_subscribe_mode import PeerOptionsWebRTCSubscribeMode
+from ..models.subscribe_mode import SubscribeMode
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.peer_options_web_rtc_metadata import PeerOptionsWebRTCMetadata
+    from ..models.web_rtc_metadata import WebRTCMetadata
 
 
 T = TypeVar("T", bound="PeerOptionsWebRTC")
@@ -24,22 +24,15 @@ class PeerOptionsWebRTC:
     """Options specific to the WebRTC peer
 
     Attributes:
-        enable_simulcast (Union[Unset, bool]): Enables the peer to use simulcast Default: True.
-        metadata (Union[Unset, PeerOptionsWebRTCMetadata]): Custom peer metadata
-        subscribe_mode (Union[Unset, PeerOptionsWebRTCSubscribeMode]): Configuration of peer's subscribing policy
-            Default: PeerOptionsWebRTCSubscribeMode.AUTO.
+        metadata (Union[Unset, WebRTCMetadata]): Custom peer metadata
+        subscribe_mode (Union[Unset, SubscribeMode]): Configuration of peer's subscribing policy
     """
 
-    enable_simulcast: Union[Unset, bool] = True
-    metadata: Union[Unset, "PeerOptionsWebRTCMetadata"] = UNSET
-    subscribe_mode: Union[
-        Unset, PeerOptionsWebRTCSubscribeMode
-    ] = PeerOptionsWebRTCSubscribeMode.AUTO
+    metadata: Union[Unset, "WebRTCMetadata"] = UNSET
+    subscribe_mode: Union[Unset, SubscribeMode] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        enable_simulcast = self.enable_simulcast
-
         metadata: Union[Unset, dict[str, Any]] = UNSET
         if not isinstance(self.metadata, Unset):
             metadata = self.metadata.to_dict()
@@ -51,8 +44,6 @@ class PeerOptionsWebRTC:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
-        if enable_simulcast is not UNSET:
-            field_dict["enableSimulcast"] = enable_simulcast
         if metadata is not UNSET:
             field_dict["metadata"] = metadata
         if subscribe_mode is not UNSET:
@@ -62,27 +53,24 @@ class PeerOptionsWebRTC:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.peer_options_web_rtc_metadata import PeerOptionsWebRTCMetadata
+        from ..models.web_rtc_metadata import WebRTCMetadata
 
         d = dict(src_dict)
-        enable_simulcast = d.pop("enableSimulcast", UNSET)
-
         _metadata = d.pop("metadata", UNSET)
-        metadata: Union[Unset, PeerOptionsWebRTCMetadata]
+        metadata: Union[Unset, WebRTCMetadata]
         if isinstance(_metadata, Unset):
             metadata = UNSET
         else:
-            metadata = PeerOptionsWebRTCMetadata.from_dict(_metadata)
+            metadata = WebRTCMetadata.from_dict(_metadata)
 
         _subscribe_mode = d.pop("subscribeMode", UNSET)
-        subscribe_mode: Union[Unset, PeerOptionsWebRTCSubscribeMode]
+        subscribe_mode: Union[Unset, SubscribeMode]
         if isinstance(_subscribe_mode, Unset):
             subscribe_mode = UNSET
         else:
-            subscribe_mode = PeerOptionsWebRTCSubscribeMode(_subscribe_mode)
+            subscribe_mode = SubscribeMode(_subscribe_mode)
 
         peer_options_web_rtc = cls(
-            enable_simulcast=enable_simulcast,
             metadata=metadata,
             subscribe_mode=subscribe_mode,
         )

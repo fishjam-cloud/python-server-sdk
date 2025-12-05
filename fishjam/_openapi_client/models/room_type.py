@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class RoomConfigRoomType(str, Enum):
+class RoomType(str, Enum):
     """The use-case of the room. If not provided, this defaults to conference."""
 
     AUDIO_ONLY = "audio_only"

@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class PeerOptionsAgentOutputAudioFormat(str, Enum):
+class AudioFormat(str, Enum):
     """The format of the output audio"""
 
     PCM16 = "pcm16"

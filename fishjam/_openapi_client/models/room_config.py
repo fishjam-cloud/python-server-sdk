@@ -9,8 +9,8 @@ from typing import (
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.room_config_room_type import RoomConfigRoomType
-from ..models.room_config_video_codec import RoomConfigVideoCodec
+from ..models.room_type import RoomType
+from ..models.video_codec import VideoCodec
 from ..types import UNSET, Unset
 
 T = TypeVar("T", bound="RoomConfig")
@@ -23,18 +23,16 @@ class RoomConfig:
     Attributes:
         max_peers (Union[None, Unset, int]): Maximum amount of peers allowed into the room Example: 10.
         public (Union[Unset, bool]): True if livestream viewers can omit specifying a token. Default: False.
-        room_type (Union[Unset, RoomConfigRoomType]): The use-case of the room. If not provided, this defaults to
-            conference. Default: RoomConfigRoomType.CONFERENCE.
-        video_codec (Union[Unset, RoomConfigVideoCodec]): Enforces video codec for each peer in the room Default:
-            RoomConfigVideoCodec.H264.
+        room_type (Union[Unset, RoomType]): The use-case of the room. If not provided, this defaults to conference.
+        video_codec (Union[Unset, VideoCodec]): Enforces video codec for each peer in the room
         webhook_url (Union[None, Unset, str]): URL where Fishjam notifications will be sent Example:
             https://backend.address.com/fishjam-notifications-endpoint.
     """
 
     max_peers: Union[None, Unset, int] = UNSET
     public: Union[Unset, bool] = False
-    room_type: Union[Unset, RoomConfigRoomType] = RoomConfigRoomType.CONFERENCE
-    video_codec: Union[Unset, RoomConfigVideoCodec] = RoomConfigVideoCodec.H264
+    room_type: Union[Unset, RoomType] = UNSET
+    video_codec: Union[Unset, VideoCodec] = UNSET
     webhook_url: Union[None, Unset, str] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
@@ -93,18 +91,18 @@ class RoomConfig:
         public = d.pop("public", UNSET)
 
         _room_type = d.pop("roomType", UNSET)
-        room_type: Union[Unset, RoomConfigRoomType]
+        room_type: Union[Unset, RoomType]
         if isinstance(_room_type, Unset):
             room_type = UNSET
         else:
-            room_type = RoomConfigRoomType(_room_type)
+            room_type = RoomType(_room_type)
 
         _video_codec = d.pop("videoCodec", UNSET)
-        video_codec: Union[Unset, RoomConfigVideoCodec]
+        video_codec: Union[Unset, VideoCodec]
         if isinstance(_video_codec, Unset):
             video_codec = UNSET
         else:
-            video_codec = RoomConfigVideoCodec(_video_codec)
+            video_codec = VideoCodec(_video_codec)
 
         def _parse_webhook_url(data: object) -> Union[None, Unset, str]:
             if data is None:
