@@ -24,11 +24,13 @@ class PeerOptionsWebRTC:
     """Options specific to the WebRTC peer
 
     Attributes:
+        enable_simulcast (Union[Unset, bool]): Enables the peer to use simulcast Default: True.
         metadata (Union[Unset, PeerOptionsWebRTCMetadata]): Custom peer metadata
         subscribe_mode (Union[Unset, PeerOptionsWebRTCSubscribeMode]): Configuration of peer's subscribing policy
             Default: PeerOptionsWebRTCSubscribeMode.AUTO.
     """
 
+    enable_simulcast: Union[Unset, bool] = True
     metadata: Union[Unset, "PeerOptionsWebRTCMetadata"] = UNSET
     subscribe_mode: Union[
         Unset, PeerOptionsWebRTCSubscribeMode
@@ -36,6 +38,8 @@ class PeerOptionsWebRTC:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        enable_simulcast = self.enable_simulcast
+
         metadata: Union[Unset, dict[str, Any]] = UNSET
         if not isinstance(self.metadata, Unset):
             metadata = self.metadata.to_dict()
@@ -47,6 +51,8 @@ class PeerOptionsWebRTC:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({})
+        if enable_simulcast is not UNSET:
+            field_dict["enableSimulcast"] = enable_simulcast
         if metadata is not UNSET:
             field_dict["metadata"] = metadata
         if subscribe_mode is not UNSET:
@@ -59,6 +65,8 @@ class PeerOptionsWebRTC:
         from ..models.peer_options_web_rtc_metadata import PeerOptionsWebRTCMetadata
 
         d = dict(src_dict)
+        enable_simulcast = d.pop("enableSimulcast", UNSET)
+
         _metadata = d.pop("metadata", UNSET)
         metadata: Union[Unset, PeerOptionsWebRTCMetadata]
         if isinstance(_metadata, Unset):
@@ -74,6 +82,7 @@ class PeerOptionsWebRTC:
             subscribe_mode = PeerOptionsWebRTCSubscribeMode(_subscribe_mode)
 
         peer_options_web_rtc = cls(
+            enable_simulcast=enable_simulcast,
             metadata=metadata,
             subscribe_mode=subscribe_mode,
         )
