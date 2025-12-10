@@ -62,6 +62,7 @@ class OutgoingTrack:
 
     This is created by :func:`Agent.add_track`.
     """
+
     id: str
     """The global identifier of the track."""
     session: AgentSession

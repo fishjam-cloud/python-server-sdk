@@ -86,9 +86,9 @@ convention = "google"
 [tool.ruff.lint.extend-per-file-ignores]
 "fishjam/_openapi_client/**" = ["E501", "D"]
 "fishjam/events/_protos/**" = ["D"]
+"fishjam/errors.py" = ["D419"]
 "tests/**" = ["D"]
 "scripts.py" = ["D"]
-"" = ["D"]
 
 
 
