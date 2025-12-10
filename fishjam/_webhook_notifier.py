@@ -1,8 +1,4 @@
-"""
-Module defining a function allowing decoding received webhook 
-notification from fishjam to notification structs.
-"""
-
+"""Module for decoding received webhook notifications from Fishjam."""
 from typing import Union
 
 import betterproto
@@ -15,8 +11,8 @@ from fishjam.events.allowed_notifications import (
 
 
 def receive_binary(binary: bytes) -> Union[AllowedNotification, None]:
-    """
-    Transform received protobuf notification to adequate notification instance.
+    """Transform received protobuf notification to adequate notification instance.
+
     The available notifications are listed in `fishjam.events` module.
     """
     message = ServerMessage().parse(binary)

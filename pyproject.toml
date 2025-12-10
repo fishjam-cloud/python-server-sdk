@@ -69,13 +69,28 @@ build-backend = "hatchling.build"
 
 [tool.ruff.lint]
 select = ["W", "I", "F", "E", "D"]
-ignore = ["D107"]
+ignore = [
+    "D100",
+    "D101",
+    "D102",
+    "D103",
+    "D104",
+    "D105",
+    "D107",
+    "D415",  # """@private""" would not be allowed
+]
 
 [tool.ruff.lint.pydocstyle]
 convention = "google"
 
 [tool.ruff.lint.extend-per-file-ignores]
-"fishjam/_openapi_client/**" = ["E501"]
+"fishjam/_openapi_client/**" = ["E501", "D"]
+"fishjam/events/_protos/**" = ["D"]
+"tests/**" = ["D"]
+"scripts.py" = ["D"]
+"" = ["D"]
+
+
 
 [tool.pytest.ini_options]
 markers = [

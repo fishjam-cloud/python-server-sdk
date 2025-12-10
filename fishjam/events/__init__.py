@@ -1,6 +1,4 @@
-"""
-.. include:: ../../docs/server_notifications.md
-"""
+""".. include:: ../../docs/server_notifications.md"""
 
 # Exported messages
 from fishjam.events._protos.fishjam import (

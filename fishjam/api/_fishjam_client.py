@@ -1,6 +1,4 @@
-"""
-Fishjam client used to manage rooms
-"""
+"""Fishjam client used to manage rooms"""
 
 from dataclasses import dataclass, field
 from typing import Any, Literal, cast
@@ -263,7 +261,6 @@ class FishjamClient(Client):
         Returns:
             list[Room]: A list of all available Room objects.
         """
-
         rooms = cast(RoomsListingResponse, self._request(room_get_all_rooms)).data
 
         return [
@@ -279,7 +276,6 @@ class FishjamClient(Client):
         Returns:
             Room: The Room object corresponding to the given ID.
         """
-
         room = cast(
             RoomDetailsResponse, self._request(room_get_room, room_id=room_id)
         ).data
@@ -293,7 +289,6 @@ class FishjamClient(Client):
             room_id: The ID of the room the peer belongs to.
             peer_id: The ID of the peer to delete.
         """
-
         return self._request(room_delete_peer, id=peer_id, room_id=room_id)
 
     def delete_room(self, room_id: str) -> None:
@@ -302,7 +297,6 @@ class FishjamClient(Client):
         Args:
             room_id: The ID of the room to delete.
         """
-
         return self._request(room_delete_room, room_id=room_id)
 
     def refresh_peer_token(self, room_id: str, peer_id: str) -> str:
@@ -315,7 +309,6 @@ class FishjamClient(Client):
         Returns:
             str: The new peer token.
         """
-
         response = cast(
             PeerRefreshTokenResponse,
             self._request(room_refresh_token, id=peer_id, room_id=room_id),
@@ -332,7 +325,6 @@ class FishjamClient(Client):
         Returns:
             str: The generated viewer token.
         """
-
         response = cast(
             ViewerToken, self._request(viewer_generate_viewer_token, room_id=room_id)
         )
@@ -348,7 +340,6 @@ class FishjamClient(Client):
         Returns:
             str: The generated streamer token.
         """
-
         response = cast(
             StreamerToken,
             self._request(streamer_generate_streamer_token, room_id=room_id),
@@ -364,7 +355,6 @@ class FishjamClient(Client):
             peer_id: The ID of the subscribing peer.
             target_peer_id: The ID of the peer to subscribe to.
         """
-
         self._request(
             room_subscribe_peer,
             room_id=room_id,
@@ -380,7 +370,6 @@ class FishjamClient(Client):
             peer_id: The ID of the subscribing peer.
             track_ids: A list of track IDs to subscribe to.
         """
-
         self._request(
             room_subscribe_tracks,
             room_id=room_id,

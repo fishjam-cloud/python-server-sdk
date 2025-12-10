@@ -1,6 +1,4 @@
-"""
-Notifier listening to WebSocket events
-"""
+"""Notifier listening to WebSocket events"""
 
 import asyncio
 import inspect
@@ -32,19 +30,14 @@ NotificationHandler = (
 
 
 class FishjamNotifier:
-    """
-    Allows for receiving WebSocket messages from Fishjam.
-    """
+    """Allows for receiving WebSocket messages from Fishjam."""
 
     def __init__(
         self,
         fishjam_id: str,
         management_token: str,
     ):
-        """
-        Create FishjamNotifier instance, providing the fishjam id and management token.
-        """
-
+        """Create a FishjamNotifier instance with an ID and management token."""
         websocket_url = get_fishjam_url(fishjam_id).replace("http", "ws")
         self._fishjam_url = f"{websocket_url}/socket/server/websocket"
         self._management_token: str = management_token
@@ -56,16 +49,12 @@ class FishjamNotifier:
         self._notification_handler: NotificationHandler | None = None
 
     def on_server_notification(self, handler: NotificationHandler):
-        """
-        Decorator used for defining handler for Fishjam Notifications
-        """
+        """Decorator used for defining handler for Fishjam Notifications"""
         self._notification_handler = handler
         return handler
 
     async def connect(self):
-        """
-        A coroutine which connects FishjamNotifier to Fishjam and listens for
-        all incoming messages from the Fishjam.
+        """Connects to Fishjam and listens for all incoming messages.
 
         It runs until the connection isn't closed.
 
@@ -94,8 +83,7 @@ class FishjamNotifier:
                 self._websocket = None
 
     async def wait_ready(self) -> None:
-        """
-        Waits until the notifier is connected and authenticated to Fishjam.
+        """Waits until the notifier is connected and authenticated to Fishjam.
 
         If already connected, returns immediately.
         """
