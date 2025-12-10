@@ -1,4 +1,4 @@
-"""Notifier listening to WebSocket events"""
+"""Notifier listening to WebSocket events."""
 
 import asyncio
 import inspect
@@ -49,7 +49,7 @@ class FishjamNotifier:
         self._notification_handler: NotificationHandler | None = None
 
     def on_server_notification(self, handler: NotificationHandler):
-        """Decorator used for defining handler for Fishjam Notifications"""
+        """Decorator used for defining handler for Fishjam Notifications."""
         self._notification_handler = handler
         return handler
 

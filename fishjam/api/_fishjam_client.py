@@ -1,4 +1,4 @@
-"""Fishjam client used to manage rooms"""
+"""Fishjam client used to manage rooms."""
 
 from dataclasses import dataclass, field
 from typing import Any, Literal, cast
