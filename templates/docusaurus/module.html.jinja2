@@ -1,7 +1,7 @@
 {% extends "frame.html.jinja2" %}
 
 {% block content %}
-# {{ module.name }}
+# {{ module.fullname }}
 
 {% block module_info %}
 {% if module.docstring and ".. include::" not in module.docstring %}
@@ -17,7 +17,7 @@
 {% if module.submodules %}
 ## Submodules
 {% for submodule in module.submodules if is_public(submodule) | trim %}
-- [{{ submodule.name }}](submodules/{{ submodule.name }})
+- [{{ submodule.name }}](fishjam/{{ submodule.name }})
 {% endfor %}
 {% endif %}
 {% endblock %}

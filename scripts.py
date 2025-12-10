@@ -146,11 +146,6 @@ def generate_docusaurus():
 
         dest_path.write_text(safe_content, encoding="utf-8")
 
-    fishjam_dir = out / "fishjam"
-    submodules_dir = out / "submodules"
-
-    fishjam_dir.rename(submodules_dir)
-
 
 def update_client():
     if len(sys.argv) < 2:
