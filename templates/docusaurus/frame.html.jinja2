@@ -1,6 +1,10 @@
 ---
-title: {{ module.name }}
-sidebar_label: {{ module.name.split(".")[-1] }}
+{% if module.name == 'fishjam' %}
+title: fishjam
+{% else %}
+title: fishjam.{{ module.name }}
+{% endif %}
+sidebar_label: {{ module.name }}
 custom_edit_url: null
 ---
 

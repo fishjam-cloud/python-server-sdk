@@ -17,7 +17,7 @@
 {% if module.submodules %}
 ## Submodules
 {% for submodule in module.submodules if is_public(submodule) | trim %}
-- [{{ submodule.name }}](submodules/{{ submodule.name }})
+- [{{ submodule.name }}](fishjam/{{ submodule.name }})
 {% endfor %}
 {% endif %}
 {% endblock %}
