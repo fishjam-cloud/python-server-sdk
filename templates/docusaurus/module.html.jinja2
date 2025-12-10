@@ -1,7 +1,11 @@
 {% extends "frame.html.jinja2" %}
 
 {% block content %}
-# {{ module.name }}
+{% if module.name == 'fishjam' %}
+# fishjam
+{% else %}
+# fishjam.{{ module.name }}
+{% endif %}
 
 {% block module_info %}
 {% if module.docstring and ".. include::" not in module.docstring %}

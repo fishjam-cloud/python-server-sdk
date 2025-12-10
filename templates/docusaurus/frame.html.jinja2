@@ -1,11 +1,9 @@
 ---
-{% if module.name == 'fishjam' %}
-title: fishjam
-{% else %}
-title: fishjam.{{ module.name }}
-{% endif %}
+title: {{ module.name }}
 sidebar_label: {{ module.name }}
 custom_edit_url: null
 ---
 
 {% block content %}{% endblock %}
+
+
