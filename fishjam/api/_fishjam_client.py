@@ -75,7 +75,8 @@ class RoomOptions:
         max_peers: Maximum amount of peers allowed into the room.
         video_codec: Enforces video codec for each peer in the room.
         webhook_url: URL where Fishjam notifications will be sent.
-        room_type: The use-case of the room. If not provided, this defaults to conference.
+        room_type: The use-case of the room. If not provided, this defaults
+            to conference.
         public: True if livestream viewers can omit specifying a token.
     """
 
@@ -200,7 +201,8 @@ class FishjamClient(Client):
             options: Configuration options for the agent. Defaults to None.
 
         Returns:
-            Agent: The created agent instance initialized with peer ID, room ID, token, and Fishjam URL.
+            Agent: The created agent instance initialized with peer ID, room ID, token,
+                and Fishjam URL.
         """
         options = options or AgentOptions()
         body = AddPeerBody(
