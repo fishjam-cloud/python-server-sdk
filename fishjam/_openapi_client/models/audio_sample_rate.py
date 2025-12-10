@@ -1,7 +1,7 @@
 from enum import IntEnum
 
 
-class PeerOptionsAgentOutputAudioSampleRate(IntEnum):
+class AudioSampleRate(IntEnum):
     VALUE_16000 = 16000
     VALUE_24000 = 24000
 
