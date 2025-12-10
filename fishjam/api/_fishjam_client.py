@@ -51,7 +51,13 @@ from fishjam.api._client import Client
 
 @dataclass
 class Room:
-    """Description of the room state"""
+    """Description of the room state.
+
+    Attributes:
+        config: Room configuration.
+        id: Room ID.
+        peers: List of all peers.
+    """
 
     config: RoomConfig
     """Room configuration"""
@@ -63,7 +69,15 @@ class Room:
 
 @dataclass
 class RoomOptions:
-    """Description of a room options"""
+    """Description of a room options.
+
+    Attributes:
+        max_peers: Maximum amount of peers allowed into the room.
+        video_codec: Enforces video codec for each peer in the room.
+        webhook_url: URL where Fishjam notifications will be sent.
+        room_type: The use-case of the room. If not provided, this defaults to conference.
+        public: True if livestream viewers can omit specifying a token.
+    """
 
     max_peers: int | None = None
     """Maximum amount of peers allowed into the room"""
@@ -86,7 +100,13 @@ class RoomOptions:
 
 @dataclass
 class PeerOptions:
-    """Options specific to a WebRTC Peer"""
+    """Options specific to a WebRTC Peer.
+
+    Attributes:
+        enable_simulcast: Enables the peer to use simulcast.
+        metadata: Peer metadata.
+        subscribe_mode: Configuration of peer's subscribing policy.
+    """
 
     enable_simulcast: bool = True
     """Enables the peer to use simulcast"""
@@ -98,7 +118,12 @@ class PeerOptions:
 
 @dataclass
 class AgentOutputOptions:
-    """Options of the desired format of audio tracks going from Fishjam to the agent."""
+    """Options of the desired format of audio tracks going from Fishjam to the agent.
+
+    Attributes:
+        audio_format: The format of the audio stream (e.g., 'pcm16').
+        audio_sample_rate: The sample rate of the audio stream.
+    """
 
     audio_format: Literal["pcm16"] = "pcm16"
     audio_sample_rate: Literal[16000, 24000] = 16000
@@ -106,7 +131,12 @@ class AgentOutputOptions:
 
 @dataclass
 class AgentOptions:
-    """Options specific to a WebRTC Peer"""
+    """Options specific to a WebRTC Peer.
+
+    Attributes:
+        output: Configuration for the agent's output options.
+        subscribe_mode: Configuration of peer's subscribing policy.
+    """
 
     output: AgentOutputOptions = field(default_factory=AgentOutputOptions)
 
@@ -114,15 +144,18 @@ class AgentOptions:
 
 
 class FishjamClient(Client):
-    """Allows for managing rooms"""
+    """Allows for managing rooms."""
 
     def __init__(
         self,
         fishjam_id: str,
         management_token: str,
     ):
-        """
-        Create a FishjamClient instance, providing the fishjam id and management token.
+        """Create a FishjamClient instance.
+
+        Args:
+            fishjam_id: The unique identifier for the Fishjam instance.
+            management_token: The token used for authenticating management operations.
         """
         super().__init__(fishjam_id=fishjam_id, management_token=management_token)
 
@@ -131,13 +164,16 @@ class FishjamClient(Client):
         room_id: str,
         options: PeerOptions | None = None,
     ) -> tuple[Peer, str]:
-        """
-        Creates peer in the room
+        """Creates a peer in the room.
 
-        Returns a tuple (`Peer`, `PeerToken`) - the token is needed by Peer
-        to authenticate to Fishjam.
+        Args:
+            room_id: The ID of the room where the peer will be created.
+            options: Configuration options for the peer. Defaults to None.
 
-        The possible options to pass for peer are `PeerOptions`.
+        Returns:
+            A tuple containing:
+                - Peer: The created peer object.
+                - str: The peer token needed to authenticate to Fishjam.
         """
         options = options or PeerOptions()
 
@@ -157,6 +193,15 @@ class FishjamClient(Client):
         return (resp.data.peer, resp.data.token)
 
     def create_agent(self, room_id: str, options: AgentOptions | None = None):
+        """Creates an agent in the room.
+
+        Args:
+            room_id: The ID of the room where the agent will be created.
+            options: Configuration options for the agent. Defaults to None.
+
+        Returns:
+            Agent: The created agent instance initialized with peer ID, room ID, token, and Fishjam URL.
+        """
         options = options or AgentOptions()
         body = AddPeerBody(
             type_=PeerType.AGENT,
@@ -181,9 +226,13 @@ class FishjamClient(Client):
         return Agent(resp.data.peer.id, room_id, resp.data.token, self._fishjam_url)
 
     def create_room(self, options: RoomOptions | None = None) -> Room:
-        """
-        Creates a new room
-        Returns the created `Room`
+        """Creates a new room.
+
+        Args:
+            options: Configuration options for the room. Defaults to None.
+
+        Returns:
+            Room: The created Room object.
         """
         options = options or RoomOptions()
 
@@ -207,7 +256,11 @@ class FishjamClient(Client):
         return Room(config=room.config, id=room.id, peers=room.peers)
 
     def get_all_rooms(self) -> list[Room]:
-        """Returns list of all rooms"""
+        """Returns list of all rooms.
+
+        Returns:
+            list[Room]: A list of all available Room objects.
+        """
 
         rooms = cast(RoomsListingResponse, self._request(room_get_all_rooms)).data
 
@@ -216,7 +269,14 @@ class FishjamClient(Client):
         ]
 
     def get_room(self, room_id: str) -> Room:
-        """Returns room with the given id"""
+        """Returns room with the given id.
+
+        Args:
+            room_id: The ID of the room to retrieve.
+
+        Returns:
+            Room: The Room object corresponding to the given ID.
+        """
 
         room = cast(
             RoomDetailsResponse, self._request(room_get_room, room_id=room_id)
@@ -225,17 +285,34 @@ class FishjamClient(Client):
         return Room(config=room.config, id=room.id, peers=room.peers)
 
     def delete_peer(self, room_id: str, peer_id: str) -> None:
-        """Deletes peer"""
+        """Deletes a peer from a room.
+
+        Args:
+            room_id: The ID of the room the peer belongs to.
+            peer_id: The ID of the peer to delete.
+        """
 
         return self._request(room_delete_peer, id=peer_id, room_id=room_id)
 
     def delete_room(self, room_id: str) -> None:
-        """Deletes a room"""
+        """Deletes a room.
+
+        Args:
+            room_id: The ID of the room to delete.
+        """
 
         return self._request(room_delete_room, room_id=room_id)
 
     def refresh_peer_token(self, room_id: str, peer_id: str) -> str:
-        """Refreshes peer token"""
+        """Refreshes a peer token.
+
+        Args:
+            room_id: The ID of the room.
+            peer_id: The ID of the peer whose token needs refreshing.
+
+        Returns:
+            str: The new peer token.
+        """
 
         response = cast(
             PeerRefreshTokenResponse,
@@ -245,7 +322,14 @@ class FishjamClient(Client):
         return response.data.token
 
     def create_livestream_viewer_token(self, room_id: str) -> str:
-        """Generates viewer token for livestream rooms"""
+        """Generates a viewer token for livestream rooms.
+
+        Args:
+            room_id: The ID of the livestream room.
+
+        Returns:
+            str: The generated viewer token.
+        """
 
         response = cast(
             ViewerToken, self._request(viewer_generate_viewer_token, room_id=room_id)
@@ -254,7 +338,14 @@ class FishjamClient(Client):
         return response.token
 
     def create_livestream_streamer_token(self, room_id: str) -> str:
-        """Generates streamer token for livestream rooms"""
+        """Generates a streamer token for livestream rooms.
+
+        Args:
+            room_id: The ID of the livestream room.
+
+        Returns:
+            str: The generated streamer token.
+        """
 
         response = cast(
             StreamerToken,
@@ -264,7 +355,13 @@ class FishjamClient(Client):
         return response.token
 
     def subscribe_peer(self, room_id: str, peer_id: str, target_peer_id: str):
-        """Subscribe a peer to all tracks of another peer."""
+        """Subscribes a peer to all tracks of another peer.
+
+        Args:
+            room_id: The ID of the room.
+            peer_id: The ID of the subscribing peer.
+            target_peer_id: The ID of the peer to subscribe to.
+        """
 
         self._request(
             room_subscribe_peer,
@@ -274,7 +371,13 @@ class FishjamClient(Client):
         )
 
     def subscribe_tracks(self, room_id: str, peer_id: str, track_ids: list[str]):
-        """Subscribe a peer to specific tracks of another peer."""
+        """Subscribes a peer to specific tracks of another peer.
+
+        Args:
+            room_id: The ID of the room.
+            peer_id: The ID of the subscribing peer.
+            track_ids: A list of track IDs to subscribe to.
+        """
 
         self._request(
             room_subscribe_tracks,
