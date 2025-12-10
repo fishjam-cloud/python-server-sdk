@@ -68,8 +68,11 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.ruff.lint]
-select = ["F", "I", "E"]
-ignore = []
+select = ["W", "I", "F", "E", "D"]
+ignore = ["D107"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
 
 [tool.ruff.lint.extend-per-file-ignores]
 "fishjam/_openapi_client/**" = ["E501"]
