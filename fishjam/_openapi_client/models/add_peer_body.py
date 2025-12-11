@@ -44,12 +44,10 @@ class AddPeerBody:
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "options": options,
-                "type": type_,
-            }
-        )
+        field_dict.update({
+            "options": options,
+            "type": type_,
+        })
 
         return field_dict
 

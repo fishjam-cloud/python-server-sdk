@@ -61,15 +61,13 @@ class Stream:
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "connectedViewers": connected_viewers,
-                "id": id,
-                "public": public,
-                "streamers": streamers,
-                "viewers": viewers,
-            }
-        )
+        field_dict.update({
+            "connectedViewers": connected_viewers,
+            "id": id,
+            "public": public,
+            "streamers": streamers,
+            "viewers": viewers,
+        })
         if audio_only is not UNSET:
             field_dict["audioOnly"] = audio_only
 

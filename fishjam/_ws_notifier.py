@@ -49,7 +49,14 @@ class FishjamNotifier:
         self._notification_handler: NotificationHandler | None = None
 
     def on_server_notification(self, handler: NotificationHandler):
-        """Decorator used for defining handler for Fishjam Notifications."""
+        """Decorator for defining a handler for Fishjam notifications.
+
+        Args:
+            handler: The function to be registered as the notification handler.
+
+        Returns:
+            NotificationHandler: The original handler function (unmodified).
+        """
         self._notification_handler = handler
         return handler
 

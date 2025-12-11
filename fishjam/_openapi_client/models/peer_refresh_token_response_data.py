@@ -22,11 +22,9 @@ class PeerRefreshTokenResponseData:
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "token": token,
-            }
-        )
+        field_dict.update({
+            "token": token,
+        })
 
         return field_dict
 
