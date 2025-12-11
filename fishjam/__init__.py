@@ -1,6 +1,4 @@
-"""
-.. include:: ../README.md
-"""
+""".. include:: ../README.md"""
 
 # pylint: disable=locally-disabled, no-name-in-module, import-error
 

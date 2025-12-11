@@ -28,53 +28,45 @@ IncomingAgentMessage = IncomingTrackData
 
 @dataclass
 class OutgoingAudioTrackOptions:
-    """Parameters of an outgoing audio track."""
+    """Parameters of an outgoing audio track.
+
+    Attributes:
+        encoding: The encoding of the audio source. Defaults to raw 16-bit PCM.
+        sample_rate: The sample rate of the audio source. Defaults to 16000.
+        channels: The number of channels in the audio source. Supported values are
+            1 (mono) and 2 (stereo). Defaults to 1 (mono).
+        metadata: Custom metadata for the track. Must be JSON-encodable.
+    """
 
     encoding: TrackEncoding = TrackEncoding.TRACK_ENCODING_UNSPECIFIED
-    """
-    The encoding of the audio source.
-    Defaults to raw 16-bit PCM.
-    """
-
     sample_rate: Literal[16000, 24000] = 16000
-    """
-    The sample rate of the audio source.
-    Defaults to 16000.
-    """
-
     channels: Literal[1, 2] = 1
-    """
-    The number of channels in the audio source.
-    Supported values are 1 (mono) and 2 (stereo).
-    Defaults to 1 (mono)
-    """
-
     metadata: dict[str, Any] | None = None
-    """
-    Custom metadata for the track.
-    Must be JSON-encodable.
-    """
 
 
 @dataclass(frozen=True)
 class OutgoingTrack:
-    """
-    Represents an outgoing track of an agent connected to Fishjam,
-    created by :func:`Agent.add_track`.
+    """Represents an outgoing track of an agent connected to Fishjam.
+
+    This is created by :func:`Agent.add_track`.
+
+    Attributes:
+        id: The global identifier of the track.
+        session: The agent the track belongs to.
+        options: The parameters used to create the track.
     """
 
     id: str
-    """The global identifier of the track."""
     session: AgentSession
-    """The agent the track belongs to."""
     options: OutgoingAudioTrackOptions
-    """The parameters used to create the track."""
 
     async def send_chunk(self, data: bytes):
-        """
-        Send a chunk of audio to Fishjam on this track.
+        """Sends a chunk of audio to Fishjam on this track.
 
         Peers connected to the room of the agent will receive this data.
+
+        Args:
+            data: The raw audio bytes to send.
         """
         message = AgentRequest(
             track_data=OutgoingTrackData(
@@ -86,13 +78,11 @@ class OutgoingTrack:
         await self.session._send(message)
 
     async def interrupt(self):
-        """
-        Interrupt current track.
+        """Interrupts the current track.
 
-        Any audio that has been sent, but not played
-        will be cleared and be prevented from playing.
-
-        Audio sent after the interrupt will be played normally.
+        Any audio that has been sent, but not played, will be cleared and
+        prevented from playing. Audio sent after the interrupt will be played
+        normally.
         """
         message = AgentRequest(
             interrupt_track=AgentRequestInterruptTrack(
@@ -104,16 +94,25 @@ class OutgoingTrack:
 
 
 class AgentSession:
+    """Represents an active connection session for an Agent."""
+
     def __init__(self, agent: Agent, websocket: ClientConnection):
+        """Initializes the AgentSession.
+
+        Args:
+            agent: The Agent instance owning this session.
+            websocket: The active websocket connection.
+        """
         self.agent = agent
 
         self._ws = websocket
         self._closed = False
 
     async def receive(self) -> AsyncIterator[IncomingAgentMessage]:
-        """
-        Returns an infinite async iterator over the incoming messages from Fishjam to
-        the agent.
+        """Returns an async iterator over incoming messages from Fishjam.
+
+        Yields:
+            IncomingAgentMessage: The next message received from the server.
         """
         while message := await self._ws.recv(decode=False):
             parsed = AgentResponse().parse(message)
@@ -122,12 +121,14 @@ class AgentSession:
                 case IncomingTrackData() as content:
                     yield content
 
-    async def add_track(self, options: OutgoingAudioTrackOptions):
-        """
-        Adds a track to the connected agent, with the specified options and metadata.
+    async def add_track(self, options: OutgoingAudioTrackOptions) -> OutgoingTrack:
+        """Adds a track to the connected agent with the specified options.
 
-        Returns an instance of :class:`OutgoingTrack`, which can be used to send data
-        over the added track.
+        Args:
+            options: Configuration options and metadata for the new track.
+
+        Returns:
+            OutgoingTrack: An object used to send data over the added track.
         """
         track_id = uuid.uuid4().hex
         metadata_json = json.dumps(options.metadata)
@@ -152,27 +153,35 @@ class AgentSession:
         await self._ws.send(bytes(message), text=False)
 
     async def disconnect(self):
-        """
-        Ends the agent session by closing the websocket connection.
+        """Ends the agent session by closing the websocket connection.
+
         Useful when you don't use the context manager to obtain the session.
         """
         await self._ws.close()
 
 
 class Agent:
-    """
-    Allows for connecting to a Fishjam room as an agent peer.
+    """Allows for connecting to a Fishjam room as an agent peer.
+
     Provides callbacks for receiving audio.
+
+    Attributes:
+        id: The unique identifier of the agent.
+        room_id: The ID of the room the agent is connecting to.
     """
 
     def __init__(self, id: str, room_id: str, token: str, fishjam_url: str):
-        """
-        Create Agent instance, providing the fishjam id and management token.
+        """Creates an Agent instance.
 
         This constructor should not be called directly.
         Instead, you should call :func:`fishjam.FishjamClient.create_agent`.
-        """
 
+        Args:
+            id: The unique identifier for the agent.
+            room_id: The ID of the room the agent will join.
+            token: The authentication token for the agent.
+            fishjam_url: The URL of the Fishjam instance.
+        """
         self.id = id
         self.room_id = room_id
 
@@ -181,13 +190,16 @@ class Agent:
 
     @asynccontextmanager
     async def connect(self):
-        """
-        Connect the agent to Fishjam to start receiving messages.
+        """Connects the agent to Fishjam to start receiving messages.
 
         Incoming messages from Fishjam will be routed to handlers
         defined with :func:`on_track_data`.
 
-        :raises AgentAuthError: authentication failed
+        Yields:
+            AgentSession: An active session for sending media and handling events.
+
+        Raises:
+            AgentAuthError: If authentication with the Fishjam server fails.
         """
         async with client.connect(self._socket_url) as websocket:
             await self._authenticate(websocket)

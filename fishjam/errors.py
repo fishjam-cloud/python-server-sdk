@@ -10,7 +10,6 @@ class HTTPError(Exception):
     @staticmethod
     def from_response(response: Response[Error]):
         """@private"""
-
         if not response.parsed:
             raise RuntimeError("Got endpoint error reponse without parsed field")
 

@@ -30,9 +30,9 @@ class PeerOptionsAgent:
     """
 
     output: Union[Unset, "PeerOptionsAgentOutput"] = UNSET
-    subscribe_mode: Union[
-        Unset, PeerOptionsAgentSubscribeMode
-    ] = PeerOptionsAgentSubscribeMode.AUTO
+    subscribe_mode: Union[Unset, PeerOptionsAgentSubscribeMode] = (
+        PeerOptionsAgentSubscribeMode.AUTO
+    )
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

@@ -40,7 +40,7 @@ dev = [
     "mkdocs>=1.5.3,<2",
     "mike>=2.0.0,<3",
     "openapi-python-client>=0.25.0,<0.26",
-    "ruff>=0.2,<0.3",
+    "ruff==0.12",
     "flask>=3.0.3,<4",
     "pyright>=1.1.383,<2",
 ]
@@ -67,12 +67,26 @@ include = ["fishjam"]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
+[tool.ruff]
+preview = true
+
 [tool.ruff.lint]
-select = ["F", "I", "E"]
-ignore = []
+select = ["W", "I", "F", "E", "D", "DOC"]
+ignore = ["D100", "D101", "D102", "D103", "D104", "D105", "D107", "DOC502"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
 
 [tool.ruff.lint.extend-per-file-ignores]
-"fishjam/_openapi_client/**" = ["E501"]
+"fishjam/_openapi_client/**" = ["E501", "D", "DOC"]
+"fishjam/events/_protos/**" = ["D", "DOC"]
+"fishjam/errors.py" = ["D415", "D419", "DOC501", "DOC201"]
+"**/__init__.py" = ["D415", "DOC"]
+"tests/**" = ["D"]
+"scripts.py" = ["D"]
+
+
+
 
 [tool.pytest.ini_options]
 markers = [

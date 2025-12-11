@@ -30,12 +30,12 @@ class PeerOptionsAgentOutput:
             Default: PeerOptionsAgentOutputAudioSampleRate.VALUE_16000. Example: 16000.
     """
 
-    audio_format: Union[
-        Unset, PeerOptionsAgentOutputAudioFormat
-    ] = PeerOptionsAgentOutputAudioFormat.PCM16
-    audio_sample_rate: Union[
-        Unset, PeerOptionsAgentOutputAudioSampleRate
-    ] = PeerOptionsAgentOutputAudioSampleRate.VALUE_16000
+    audio_format: Union[Unset, PeerOptionsAgentOutputAudioFormat] = (
+        PeerOptionsAgentOutputAudioFormat.PCM16
+    )
+    audio_sample_rate: Union[Unset, PeerOptionsAgentOutputAudioSampleRate] = (
+        PeerOptionsAgentOutputAudioSampleRate.VALUE_16000
+    )
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

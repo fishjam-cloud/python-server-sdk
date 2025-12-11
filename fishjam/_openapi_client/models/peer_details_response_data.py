@@ -42,12 +42,10 @@ class PeerDetailsResponseData:
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "peer": peer,
-                "token": token,
-            }
-        )
+        field_dict.update({
+            "peer": peer,
+            "token": token,
+        })
         if peer_websocket_url is not UNSET:
             field_dict["peer_websocket_url"] = peer_websocket_url
 

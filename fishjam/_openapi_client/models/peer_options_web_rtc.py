@@ -32,9 +32,9 @@ class PeerOptionsWebRTC:
 
     enable_simulcast: Union[Unset, bool] = True
     metadata: Union[Unset, "PeerOptionsWebRTCMetadata"] = UNSET
-    subscribe_mode: Union[
-        Unset, PeerOptionsWebRTCSubscribeMode
-    ] = PeerOptionsWebRTCSubscribeMode.AUTO
+    subscribe_mode: Union[Unset, PeerOptionsWebRTCSubscribeMode] = (
+        PeerOptionsWebRTCSubscribeMode.AUTO
+    )
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

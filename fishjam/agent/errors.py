@@ -1,9 +1,9 @@
 class AgentError(Exception):
-    """Base exception class for all agent exceptions"""
+    """Base exception class for all agent exceptions."""
 
 
 class AgentAuthError(AgentError):
-    """Agent failed to authenticate properly"""
+    """Agent failed to authenticate properly."""
 
     def __init__(self, reason: str):
         self.reason = reason
