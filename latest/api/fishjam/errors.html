@@ -230,66 +230,65 @@
 </span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_response</span><span class="p">(</span><span class="n">response</span><span class="p">:</span> <span class="n">Response</span><span class="p">[</span><span class="n">Error</span><span class="p">]):</span>
 </span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">response</span><span class="o">.</span><span class="n">parsed</span><span class="p">:</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Got endpoint error reponse without parsed field&quot;</span><span class="p">)</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>        <span class="n">errors</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">parsed</span><span class="o">.</span><span class="n">errors</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>        <span class="k">match</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">:</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">BAD_REQUEST</span><span class="p">:</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>                <span class="k">return</span> <span class="n">BadRequestError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">UNAUTHORIZED</span><span class="p">:</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>                <span class="k">return</span> <span class="n">UnauthorizedError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">NOT_FOUND</span><span class="p">:</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>                <span class="k">return</span> <span class="n">NotFoundError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">SERVICE_UNAVAILABLE</span><span class="p">:</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>                <span class="k">return</span> <span class="n">ServiceUnavailableError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">CONFLICT</span><span class="p">:</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>                <span class="k">return</span> <span class="n">ConflictError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>            <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>                <span class="k">return</span> <span class="n">InternalServerError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">response</span><span class="o">.</span><span class="n">parsed</span><span class="p">:</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Got endpoint error reponse without parsed field&quot;</span><span class="p">)</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>        <span class="n">errors</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">parsed</span><span class="o">.</span><span class="n">errors</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>        <span class="k">match</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">:</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">BAD_REQUEST</span><span class="p">:</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>                <span class="k">return</span> <span class="n">BadRequestError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">UNAUTHORIZED</span><span class="p">:</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>                <span class="k">return</span> <span class="n">UnauthorizedError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">NOT_FOUND</span><span class="p">:</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>                <span class="k">return</span> <span class="n">NotFoundError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">SERVICE_UNAVAILABLE</span><span class="p">:</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>                <span class="k">return</span> <span class="n">ServiceUnavailableError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">CONFLICT</span><span class="p">:</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>                <span class="k">return</span> <span class="n">ConflictError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>            <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>                <span class="k">return</span> <span class="n">InternalServerError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>
 </span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a><span class="k">class</span><span class="w"> </span><span class="nc">BadRequestError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a><span class="k">class</span><span class="w"> </span><span class="nc">BadRequestError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>
 </span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a><span class="k">class</span><span class="w"> </span><span class="nc">UnauthorizedError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a><span class="k">class</span><span class="w"> </span><span class="nc">UnauthorizedError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>
 </span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a><span class="k">class</span><span class="w"> </span><span class="nc">NotFoundError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a><span class="k">class</span><span class="w"> </span><span class="nc">NotFoundError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>
 </span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>
-</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>
-</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServiceUnavailableError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServiceUnavailableError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+</span><span id="L-58"><a href="#L-58"><span class="linenos">58</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="L-59"><a href="#L-59"><span class="linenos">59</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-60"><a href="#L-60"><span class="linenos">60</span></a>
 </span><span id="L-61"><a href="#L-61"><span class="linenos">61</span></a>
-</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a>
-</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a><span class="k">class</span><span class="w"> </span><span class="nc">InternalServerError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-62"><a href="#L-62"><span class="linenos">62</span></a><span class="k">class</span><span class="w"> </span><span class="nc">InternalServerError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+</span><span id="L-63"><a href="#L-63"><span class="linenos">63</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+</span><span id="L-64"><a href="#L-64"><span class="linenos">64</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="L-65"><a href="#L-65"><span class="linenos">65</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-66"><a href="#L-66"><span class="linenos">66</span></a>
 </span><span id="L-67"><a href="#L-67"><span class="linenos">67</span></a>
-</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a>
-</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ConflictError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="L-72"><a href="#L-72"><span class="linenos">72</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="L-68"><a href="#L-68"><span class="linenos">68</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ConflictError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+</span><span id="L-69"><a href="#L-69"><span class="linenos">69</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+</span><span id="L-70"><a href="#L-70"><span class="linenos">70</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="L-71"><a href="#L-71"><span class="linenos">71</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -311,30 +310,29 @@
 </span><span id="HTTPError-11"><a href="#HTTPError-11"><span class="linenos">11</span></a>    <span class="nd">@staticmethod</span>
 </span><span id="HTTPError-12"><a href="#HTTPError-12"><span class="linenos">12</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_response</span><span class="p">(</span><span class="n">response</span><span class="p">:</span> <span class="n">Response</span><span class="p">[</span><span class="n">Error</span><span class="p">]):</span>
 </span><span id="HTTPError-13"><a href="#HTTPError-13"><span class="linenos">13</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="HTTPError-14"><a href="#HTTPError-14"><span class="linenos">14</span></a>
-</span><span id="HTTPError-15"><a href="#HTTPError-15"><span class="linenos">15</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">response</span><span class="o">.</span><span class="n">parsed</span><span class="p">:</span>
-</span><span id="HTTPError-16"><a href="#HTTPError-16"><span class="linenos">16</span></a>            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Got endpoint error reponse without parsed field&quot;</span><span class="p">)</span>
-</span><span id="HTTPError-17"><a href="#HTTPError-17"><span class="linenos">17</span></a>
-</span><span id="HTTPError-18"><a href="#HTTPError-18"><span class="linenos">18</span></a>        <span class="n">errors</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">parsed</span><span class="o">.</span><span class="n">errors</span>
-</span><span id="HTTPError-19"><a href="#HTTPError-19"><span class="linenos">19</span></a>
-</span><span id="HTTPError-20"><a href="#HTTPError-20"><span class="linenos">20</span></a>        <span class="k">match</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">:</span>
-</span><span id="HTTPError-21"><a href="#HTTPError-21"><span class="linenos">21</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">BAD_REQUEST</span><span class="p">:</span>
-</span><span id="HTTPError-22"><a href="#HTTPError-22"><span class="linenos">22</span></a>                <span class="k">return</span> <span class="n">BadRequestError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="HTTPError-23"><a href="#HTTPError-23"><span class="linenos">23</span></a>
-</span><span id="HTTPError-24"><a href="#HTTPError-24"><span class="linenos">24</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">UNAUTHORIZED</span><span class="p">:</span>
-</span><span id="HTTPError-25"><a href="#HTTPError-25"><span class="linenos">25</span></a>                <span class="k">return</span> <span class="n">UnauthorizedError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="HTTPError-26"><a href="#HTTPError-26"><span class="linenos">26</span></a>
-</span><span id="HTTPError-27"><a href="#HTTPError-27"><span class="linenos">27</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">NOT_FOUND</span><span class="p">:</span>
-</span><span id="HTTPError-28"><a href="#HTTPError-28"><span class="linenos">28</span></a>                <span class="k">return</span> <span class="n">NotFoundError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="HTTPError-29"><a href="#HTTPError-29"><span class="linenos">29</span></a>
-</span><span id="HTTPError-30"><a href="#HTTPError-30"><span class="linenos">30</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">SERVICE_UNAVAILABLE</span><span class="p">:</span>
-</span><span id="HTTPError-31"><a href="#HTTPError-31"><span class="linenos">31</span></a>                <span class="k">return</span> <span class="n">ServiceUnavailableError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="HTTPError-32"><a href="#HTTPError-32"><span class="linenos">32</span></a>
-</span><span id="HTTPError-33"><a href="#HTTPError-33"><span class="linenos">33</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">CONFLICT</span><span class="p">:</span>
-</span><span id="HTTPError-34"><a href="#HTTPError-34"><span class="linenos">34</span></a>                <span class="k">return</span> <span class="n">ConflictError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
-</span><span id="HTTPError-35"><a href="#HTTPError-35"><span class="linenos">35</span></a>
-</span><span id="HTTPError-36"><a href="#HTTPError-36"><span class="linenos">36</span></a>            <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
-</span><span id="HTTPError-37"><a href="#HTTPError-37"><span class="linenos">37</span></a>                <span class="k">return</span> <span class="n">InternalServerError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="HTTPError-14"><a href="#HTTPError-14"><span class="linenos">14</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">response</span><span class="o">.</span><span class="n">parsed</span><span class="p">:</span>
+</span><span id="HTTPError-15"><a href="#HTTPError-15"><span class="linenos">15</span></a>            <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Got endpoint error reponse without parsed field&quot;</span><span class="p">)</span>
+</span><span id="HTTPError-16"><a href="#HTTPError-16"><span class="linenos">16</span></a>
+</span><span id="HTTPError-17"><a href="#HTTPError-17"><span class="linenos">17</span></a>        <span class="n">errors</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">parsed</span><span class="o">.</span><span class="n">errors</span>
+</span><span id="HTTPError-18"><a href="#HTTPError-18"><span class="linenos">18</span></a>
+</span><span id="HTTPError-19"><a href="#HTTPError-19"><span class="linenos">19</span></a>        <span class="k">match</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span><span class="p">:</span>
+</span><span id="HTTPError-20"><a href="#HTTPError-20"><span class="linenos">20</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">BAD_REQUEST</span><span class="p">:</span>
+</span><span id="HTTPError-21"><a href="#HTTPError-21"><span class="linenos">21</span></a>                <span class="k">return</span> <span class="n">BadRequestError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="HTTPError-22"><a href="#HTTPError-22"><span class="linenos">22</span></a>
+</span><span id="HTTPError-23"><a href="#HTTPError-23"><span class="linenos">23</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">UNAUTHORIZED</span><span class="p">:</span>
+</span><span id="HTTPError-24"><a href="#HTTPError-24"><span class="linenos">24</span></a>                <span class="k">return</span> <span class="n">UnauthorizedError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="HTTPError-25"><a href="#HTTPError-25"><span class="linenos">25</span></a>
+</span><span id="HTTPError-26"><a href="#HTTPError-26"><span class="linenos">26</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">NOT_FOUND</span><span class="p">:</span>
+</span><span id="HTTPError-27"><a href="#HTTPError-27"><span class="linenos">27</span></a>                <span class="k">return</span> <span class="n">NotFoundError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="HTTPError-28"><a href="#HTTPError-28"><span class="linenos">28</span></a>
+</span><span id="HTTPError-29"><a href="#HTTPError-29"><span class="linenos">29</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">SERVICE_UNAVAILABLE</span><span class="p">:</span>
+</span><span id="HTTPError-30"><a href="#HTTPError-30"><span class="linenos">30</span></a>                <span class="k">return</span> <span class="n">ServiceUnavailableError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="HTTPError-31"><a href="#HTTPError-31"><span class="linenos">31</span></a>
+</span><span id="HTTPError-32"><a href="#HTTPError-32"><span class="linenos">32</span></a>            <span class="k">case</span> <span class="n">HTTPStatus</span><span class="o">.</span><span class="n">CONFLICT</span><span class="p">:</span>
+</span><span id="HTTPError-33"><a href="#HTTPError-33"><span class="linenos">33</span></a>                <span class="k">return</span> <span class="n">ConflictError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+</span><span id="HTTPError-34"><a href="#HTTPError-34"><span class="linenos">34</span></a>
+</span><span id="HTTPError-35"><a href="#HTTPError-35"><span class="linenos">35</span></a>            <span class="k">case</span><span class="w"> </span><span class="k">_</span><span class="p">:</span>
+</span><span id="HTTPError-36"><a href="#HTTPError-36"><span class="linenos">36</span></a>                <span class="k">return</span> <span class="n">InternalServerError</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -364,10 +362,10 @@
 
     </div>
     <a class="headerlink" href="#BadRequestError"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="BadRequestError-40"><a href="#BadRequestError-40"><span class="linenos">40</span></a><span class="k">class</span><span class="w"> </span><span class="nc">BadRequestError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="BadRequestError-41"><a href="#BadRequestError-41"><span class="linenos">41</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="BadRequestError-42"><a href="#BadRequestError-42"><span class="linenos">42</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="BadRequestError-43"><a href="#BadRequestError-43"><span class="linenos">43</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="BadRequestError-39"><a href="#BadRequestError-39"><span class="linenos">39</span></a><span class="k">class</span><span class="w"> </span><span class="nc">BadRequestError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+</span><span id="BadRequestError-40"><a href="#BadRequestError-40"><span class="linenos">40</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+</span><span id="BadRequestError-41"><a href="#BadRequestError-41"><span class="linenos">41</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="BadRequestError-42"><a href="#BadRequestError-42"><span class="linenos">42</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -396,10 +394,10 @@
 
     </div>
     <a class="headerlink" href="#UnauthorizedError"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="UnauthorizedError-46"><a href="#UnauthorizedError-46"><span class="linenos">46</span></a><span class="k">class</span><span class="w"> </span><span class="nc">UnauthorizedError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="UnauthorizedError-47"><a href="#UnauthorizedError-47"><span class="linenos">47</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="UnauthorizedError-48"><a href="#UnauthorizedError-48"><span class="linenos">48</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="UnauthorizedError-49"><a href="#UnauthorizedError-49"><span class="linenos">49</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="UnauthorizedError-45"><a href="#UnauthorizedError-45"><span class="linenos">45</span></a><span class="k">class</span><span class="w"> </span><span class="nc">UnauthorizedError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+</span><span id="UnauthorizedError-46"><a href="#UnauthorizedError-46"><span class="linenos">46</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+</span><span id="UnauthorizedError-47"><a href="#UnauthorizedError-47"><span class="linenos">47</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="UnauthorizedError-48"><a href="#UnauthorizedError-48"><span class="linenos">48</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -428,10 +426,10 @@
 
     </div>
     <a class="headerlink" href="#NotFoundError"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="NotFoundError-52"><a href="#NotFoundError-52"><span class="linenos">52</span></a><span class="k">class</span><span class="w"> </span><span class="nc">NotFoundError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="NotFoundError-53"><a href="#NotFoundError-53"><span class="linenos">53</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="NotFoundError-54"><a href="#NotFoundError-54"><span class="linenos">54</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="NotFoundError-55"><a href="#NotFoundError-55"><span class="linenos">55</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="NotFoundError-51"><a href="#NotFoundError-51"><span class="linenos">51</span></a><span class="k">class</span><span class="w"> </span><span class="nc">NotFoundError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+</span><span id="NotFoundError-52"><a href="#NotFoundError-52"><span class="linenos">52</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+</span><span id="NotFoundError-53"><a href="#NotFoundError-53"><span class="linenos">53</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="NotFoundError-54"><a href="#NotFoundError-54"><span class="linenos">54</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -460,10 +458,10 @@
 
     </div>
     <a class="headerlink" href="#ServiceUnavailableError"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ServiceUnavailableError-58"><a href="#ServiceUnavailableError-58"><span class="linenos">58</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServiceUnavailableError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="ServiceUnavailableError-59"><a href="#ServiceUnavailableError-59"><span class="linenos">59</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="ServiceUnavailableError-60"><a href="#ServiceUnavailableError-60"><span class="linenos">60</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="ServiceUnavailableError-61"><a href="#ServiceUnavailableError-61"><span class="linenos">61</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServiceUnavailableError-57"><a href="#ServiceUnavailableError-57"><span class="linenos">57</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServiceUnavailableError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+</span><span id="ServiceUnavailableError-58"><a href="#ServiceUnavailableError-58"><span class="linenos">58</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+</span><span id="ServiceUnavailableError-59"><a href="#ServiceUnavailableError-59"><span class="linenos">59</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="ServiceUnavailableError-60"><a href="#ServiceUnavailableError-60"><span class="linenos">60</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -492,10 +490,10 @@
 
     </div>
     <a class="headerlink" href="#InternalServerError"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="InternalServerError-64"><a href="#InternalServerError-64"><span class="linenos">64</span></a><span class="k">class</span><span class="w"> </span><span class="nc">InternalServerError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="InternalServerError-65"><a href="#InternalServerError-65"><span class="linenos">65</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="InternalServerError-66"><a href="#InternalServerError-66"><span class="linenos">66</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="InternalServerError-67"><a href="#InternalServerError-67"><span class="linenos">67</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="InternalServerError-63"><a href="#InternalServerError-63"><span class="linenos">63</span></a><span class="k">class</span><span class="w"> </span><span class="nc">InternalServerError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+</span><span id="InternalServerError-64"><a href="#InternalServerError-64"><span class="linenos">64</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+</span><span id="InternalServerError-65"><a href="#InternalServerError-65"><span class="linenos">65</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="InternalServerError-66"><a href="#InternalServerError-66"><span class="linenos">66</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -524,10 +522,10 @@
 
     </div>
     <a class="headerlink" href="#ConflictError"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="ConflictError-70"><a href="#ConflictError-70"><span class="linenos">70</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ConflictError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
-</span><span id="ConflictError-71"><a href="#ConflictError-71"><span class="linenos">71</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
-</span><span id="ConflictError-72"><a href="#ConflictError-72"><span class="linenos">72</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
-</span><span id="ConflictError-73"><a href="#ConflictError-73"><span class="linenos">73</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ConflictError-69"><a href="#ConflictError-69"><span class="linenos">69</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ConflictError</span><span class="p">(</span><span class="n">HTTPError</span><span class="p">):</span>
+</span><span id="ConflictError-70"><a href="#ConflictError-70"><span class="linenos">70</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">errors</span><span class="p">):</span>
+</span><span id="ConflictError-71"><a href="#ConflictError-71"><span class="linenos">71</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;@private&quot;&quot;&quot;</span>
+</span><span id="ConflictError-72"><a href="#ConflictError-72"><span class="linenos">72</span></a>        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">errors</span><span class="p">)</span>
 </span></pre></div>
 
 

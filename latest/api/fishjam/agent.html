@@ -314,53 +314,72 @@
 
     </div>
     <a class="headerlink" href="#Agent"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Agent-163"><a href="#Agent-163"><span class="linenos">163</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Agent</span><span class="p">:</span>
-</span><span id="Agent-164"><a href="#Agent-164"><span class="linenos">164</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Agent-165"><a href="#Agent-165"><span class="linenos">165</span></a><span class="sd">    Allows for connecting to a Fishjam room as an agent peer.</span>
-</span><span id="Agent-166"><a href="#Agent-166"><span class="linenos">166</span></a><span class="sd">    Provides callbacks for receiving audio.</span>
-</span><span id="Agent-167"><a href="#Agent-167"><span class="linenos">167</span></a><span class="sd">    &quot;&quot;&quot;</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Agent-164"><a href="#Agent-164"><span class="linenos">164</span></a><span class="k">class</span><span class="w"> </span><span class="nc">Agent</span><span class="p">:</span>
+</span><span id="Agent-165"><a href="#Agent-165"><span class="linenos">165</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Allows for connecting to a Fishjam room as an agent peer.</span>
+</span><span id="Agent-166"><a href="#Agent-166"><span class="linenos">166</span></a>
+</span><span id="Agent-167"><a href="#Agent-167"><span class="linenos">167</span></a><span class="sd">    Provides callbacks for receiving audio.</span>
 </span><span id="Agent-168"><a href="#Agent-168"><span class="linenos">168</span></a>
-</span><span id="Agent-169"><a href="#Agent-169"><span class="linenos">169</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fishjam_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="Agent-170"><a href="#Agent-170"><span class="linenos">170</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Agent-171"><a href="#Agent-171"><span class="linenos">171</span></a><span class="sd">        Create Agent instance, providing the fishjam id and management token.</span>
-</span><span id="Agent-172"><a href="#Agent-172"><span class="linenos">172</span></a>
-</span><span id="Agent-173"><a href="#Agent-173"><span class="linenos">173</span></a><span class="sd">        This constructor should not be called directly.</span>
-</span><span id="Agent-174"><a href="#Agent-174"><span class="linenos">174</span></a><span class="sd">        Instead, you should call :func:`fishjam.FishjamClient.create_agent`.</span>
-</span><span id="Agent-175"><a href="#Agent-175"><span class="linenos">175</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Agent-169"><a href="#Agent-169"><span class="linenos">169</span></a><span class="sd">    Attributes:</span>
+</span><span id="Agent-170"><a href="#Agent-170"><span class="linenos">170</span></a><span class="sd">        id: The unique identifier of the agent.</span>
+</span><span id="Agent-171"><a href="#Agent-171"><span class="linenos">171</span></a><span class="sd">        room_id: The ID of the room the agent is connecting to.</span>
+</span><span id="Agent-172"><a href="#Agent-172"><span class="linenos">172</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="Agent-173"><a href="#Agent-173"><span class="linenos">173</span></a>
+</span><span id="Agent-174"><a href="#Agent-174"><span class="linenos">174</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fishjam_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="Agent-175"><a href="#Agent-175"><span class="linenos">175</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates an Agent instance.</span>
 </span><span id="Agent-176"><a href="#Agent-176"><span class="linenos">176</span></a>
-</span><span id="Agent-177"><a href="#Agent-177"><span class="linenos">177</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
-</span><span id="Agent-178"><a href="#Agent-178"><span class="linenos">178</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">room_id</span> <span class="o">=</span> <span class="n">room_id</span>
+</span><span id="Agent-177"><a href="#Agent-177"><span class="linenos">177</span></a><span class="sd">        This constructor should not be called directly.</span>
+</span><span id="Agent-178"><a href="#Agent-178"><span class="linenos">178</span></a><span class="sd">        Instead, you should call :func:`fishjam.FishjamClient.create_agent`.</span>
 </span><span id="Agent-179"><a href="#Agent-179"><span class="linenos">179</span></a>
-</span><span id="Agent-180"><a href="#Agent-180"><span class="linenos">180</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_socket_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fishjam_url</span><span class="si">}</span><span class="s2">/socket/agent/websocket&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="s2">&quot;ws&quot;</span><span class="p">)</span>
-</span><span id="Agent-181"><a href="#Agent-181"><span class="linenos">181</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="n">token</span>
-</span><span id="Agent-182"><a href="#Agent-182"><span class="linenos">182</span></a>
-</span><span id="Agent-183"><a href="#Agent-183"><span class="linenos">183</span></a>    <span class="nd">@asynccontextmanager</span>
-</span><span id="Agent-184"><a href="#Agent-184"><span class="linenos">184</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="Agent-185"><a href="#Agent-185"><span class="linenos">185</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Agent-186"><a href="#Agent-186"><span class="linenos">186</span></a><span class="sd">        Connect the agent to Fishjam to start receiving messages.</span>
-</span><span id="Agent-187"><a href="#Agent-187"><span class="linenos">187</span></a>
-</span><span id="Agent-188"><a href="#Agent-188"><span class="linenos">188</span></a><span class="sd">        Incoming messages from Fishjam will be routed to handlers</span>
-</span><span id="Agent-189"><a href="#Agent-189"><span class="linenos">189</span></a><span class="sd">        defined with :func:`on_track_data`.</span>
-</span><span id="Agent-190"><a href="#Agent-190"><span class="linenos">190</span></a>
-</span><span id="Agent-191"><a href="#Agent-191"><span class="linenos">191</span></a><span class="sd">        :raises AgentAuthError: authentication failed</span>
-</span><span id="Agent-192"><a href="#Agent-192"><span class="linenos">192</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Agent-193"><a href="#Agent-193"><span class="linenos">193</span></a>        <span class="k">async</span> <span class="k">with</span> <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_socket_url</span><span class="p">)</span> <span class="k">as</span> <span class="n">websocket</span><span class="p">:</span>
-</span><span id="Agent-194"><a href="#Agent-194"><span class="linenos">194</span></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authenticate</span><span class="p">(</span><span class="n">websocket</span><span class="p">)</span>
-</span><span id="Agent-195"><a href="#Agent-195"><span class="linenos">195</span></a>            <span class="k">yield</span> <span class="n">AgentSession</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">websocket</span><span class="p">)</span>
-</span><span id="Agent-196"><a href="#Agent-196"><span class="linenos">196</span></a>
-</span><span id="Agent-197"><a href="#Agent-197"><span class="linenos">197</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_authenticate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">websocket</span><span class="p">:</span> <span class="n">ClientConnection</span><span class="p">):</span>
-</span><span id="Agent-198"><a href="#Agent-198"><span class="linenos">198</span></a>        <span class="n">req</span> <span class="o">=</span> <span class="n">AgentRequest</span><span class="p">(</span><span class="n">auth_request</span><span class="o">=</span><span class="n">AgentRequestAuthRequest</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">))</span>
-</span><span id="Agent-199"><a href="#Agent-199"><span class="linenos">199</span></a>        <span class="k">try</span><span class="p">:</span>
-</span><span id="Agent-200"><a href="#Agent-200"><span class="linenos">200</span></a>            <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">req</span><span class="p">))</span>
-</span><span id="Agent-201"><a href="#Agent-201"><span class="linenos">201</span></a>            <span class="c1"># Fishjam will close the socket if auth fails and send a response on success</span>
-</span><span id="Agent-202"><a href="#Agent-202"><span class="linenos">202</span></a>            <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">decode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="Agent-203"><a href="#Agent-203"><span class="linenos">203</span></a>        <span class="k">except</span> <span class="n">ConnectionClosed</span><span class="p">:</span>
-</span><span id="Agent-204"><a href="#Agent-204"><span class="linenos">204</span></a>            <span class="k">raise</span> <span class="n">AgentAuthError</span><span class="p">(</span><span class="n">websocket</span><span class="o">.</span><span class="n">close_reason</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+</span><span id="Agent-180"><a href="#Agent-180"><span class="linenos">180</span></a><span class="sd">        Args:</span>
+</span><span id="Agent-181"><a href="#Agent-181"><span class="linenos">181</span></a><span class="sd">            id: The unique identifier for the agent.</span>
+</span><span id="Agent-182"><a href="#Agent-182"><span class="linenos">182</span></a><span class="sd">            room_id: The ID of the room the agent will join.</span>
+</span><span id="Agent-183"><a href="#Agent-183"><span class="linenos">183</span></a><span class="sd">            token: The authentication token for the agent.</span>
+</span><span id="Agent-184"><a href="#Agent-184"><span class="linenos">184</span></a><span class="sd">            fishjam_url: The URL of the Fishjam instance.</span>
+</span><span id="Agent-185"><a href="#Agent-185"><span class="linenos">185</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Agent-186"><a href="#Agent-186"><span class="linenos">186</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
+</span><span id="Agent-187"><a href="#Agent-187"><span class="linenos">187</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">room_id</span> <span class="o">=</span> <span class="n">room_id</span>
+</span><span id="Agent-188"><a href="#Agent-188"><span class="linenos">188</span></a>
+</span><span id="Agent-189"><a href="#Agent-189"><span class="linenos">189</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_socket_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fishjam_url</span><span class="si">}</span><span class="s2">/socket/agent/websocket&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="s2">&quot;ws&quot;</span><span class="p">)</span>
+</span><span id="Agent-190"><a href="#Agent-190"><span class="linenos">190</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="n">token</span>
+</span><span id="Agent-191"><a href="#Agent-191"><span class="linenos">191</span></a>
+</span><span id="Agent-192"><a href="#Agent-192"><span class="linenos">192</span></a>    <span class="nd">@asynccontextmanager</span>
+</span><span id="Agent-193"><a href="#Agent-193"><span class="linenos">193</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Agent-194"><a href="#Agent-194"><span class="linenos">194</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Connects the agent to Fishjam to start receiving messages.</span>
+</span><span id="Agent-195"><a href="#Agent-195"><span class="linenos">195</span></a>
+</span><span id="Agent-196"><a href="#Agent-196"><span class="linenos">196</span></a><span class="sd">        Incoming messages from Fishjam will be routed to handlers</span>
+</span><span id="Agent-197"><a href="#Agent-197"><span class="linenos">197</span></a><span class="sd">        defined with :func:`on_track_data`.</span>
+</span><span id="Agent-198"><a href="#Agent-198"><span class="linenos">198</span></a>
+</span><span id="Agent-199"><a href="#Agent-199"><span class="linenos">199</span></a><span class="sd">        Yields:</span>
+</span><span id="Agent-200"><a href="#Agent-200"><span class="linenos">200</span></a><span class="sd">            AgentSession: An active session for sending media and handling events.</span>
+</span><span id="Agent-201"><a href="#Agent-201"><span class="linenos">201</span></a>
+</span><span id="Agent-202"><a href="#Agent-202"><span class="linenos">202</span></a><span class="sd">        Raises:</span>
+</span><span id="Agent-203"><a href="#Agent-203"><span class="linenos">203</span></a><span class="sd">            AgentAuthError: If authentication with the Fishjam server fails.</span>
+</span><span id="Agent-204"><a href="#Agent-204"><span class="linenos">204</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Agent-205"><a href="#Agent-205"><span class="linenos">205</span></a>        <span class="k">async</span> <span class="k">with</span> <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_socket_url</span><span class="p">)</span> <span class="k">as</span> <span class="n">websocket</span><span class="p">:</span>
+</span><span id="Agent-206"><a href="#Agent-206"><span class="linenos">206</span></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authenticate</span><span class="p">(</span><span class="n">websocket</span><span class="p">)</span>
+</span><span id="Agent-207"><a href="#Agent-207"><span class="linenos">207</span></a>            <span class="k">yield</span> <span class="n">AgentSession</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">websocket</span><span class="p">)</span>
+</span><span id="Agent-208"><a href="#Agent-208"><span class="linenos">208</span></a>
+</span><span id="Agent-209"><a href="#Agent-209"><span class="linenos">209</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_authenticate</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">websocket</span><span class="p">:</span> <span class="n">ClientConnection</span><span class="p">):</span>
+</span><span id="Agent-210"><a href="#Agent-210"><span class="linenos">210</span></a>        <span class="n">req</span> <span class="o">=</span> <span class="n">AgentRequest</span><span class="p">(</span><span class="n">auth_request</span><span class="o">=</span><span class="n">AgentRequestAuthRequest</span><span class="p">(</span><span class="n">token</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">_token</span><span class="p">))</span>
+</span><span id="Agent-211"><a href="#Agent-211"><span class="linenos">211</span></a>        <span class="k">try</span><span class="p">:</span>
+</span><span id="Agent-212"><a href="#Agent-212"><span class="linenos">212</span></a>            <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">req</span><span class="p">))</span>
+</span><span id="Agent-213"><a href="#Agent-213"><span class="linenos">213</span></a>            <span class="c1"># Fishjam will close the socket if auth fails and send a response on success</span>
+</span><span id="Agent-214"><a href="#Agent-214"><span class="linenos">214</span></a>            <span class="k">await</span> <span class="n">websocket</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">decode</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="Agent-215"><a href="#Agent-215"><span class="linenos">215</span></a>        <span class="k">except</span> <span class="n">ConnectionClosed</span><span class="p">:</span>
+</span><span id="Agent-216"><a href="#Agent-216"><span class="linenos">216</span></a>            <span class="k">raise</span> <span class="n">AgentAuthError</span><span class="p">(</span><span class="n">websocket</span><span class="o">.</span><span class="n">close_reason</span> <span class="ow">or</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Allows for connecting to a Fishjam room as an agent peer.
-Provides callbacks for receiving audio.</p>
+            <div class="docstring"><p>Allows for connecting to a Fishjam room as an agent peer.</p>
+
+<p>Provides callbacks for receiving audio.</p>
+
+<p>Attributes:</p>
+
+<ul>
+<li>id: The unique identifier of the agent.</li>
+<li>room_id: The ID of the room the agent is connecting to.</li>
+</ul>
 </div>
 
 
@@ -374,26 +393,39 @@ Provides callbacks for receiving audio.</p>
 
     </div>
     <a class="headerlink" href="#Agent.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Agent.__init__-169"><a href="#Agent.__init__-169"><span class="linenos">169</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fishjam_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="Agent.__init__-170"><a href="#Agent.__init__-170"><span class="linenos">170</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Agent.__init__-171"><a href="#Agent.__init__-171"><span class="linenos">171</span></a><span class="sd">        Create Agent instance, providing the fishjam id and management token.</span>
-</span><span id="Agent.__init__-172"><a href="#Agent.__init__-172"><span class="linenos">172</span></a>
-</span><span id="Agent.__init__-173"><a href="#Agent.__init__-173"><span class="linenos">173</span></a><span class="sd">        This constructor should not be called directly.</span>
-</span><span id="Agent.__init__-174"><a href="#Agent.__init__-174"><span class="linenos">174</span></a><span class="sd">        Instead, you should call :func:`fishjam.FishjamClient.create_agent`.</span>
-</span><span id="Agent.__init__-175"><a href="#Agent.__init__-175"><span class="linenos">175</span></a><span class="sd">        &quot;&quot;&quot;</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Agent.__init__-174"><a href="#Agent.__init__-174"><span class="linenos">174</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">token</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">fishjam_url</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="Agent.__init__-175"><a href="#Agent.__init__-175"><span class="linenos">175</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Creates an Agent instance.</span>
 </span><span id="Agent.__init__-176"><a href="#Agent.__init__-176"><span class="linenos">176</span></a>
-</span><span id="Agent.__init__-177"><a href="#Agent.__init__-177"><span class="linenos">177</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
-</span><span id="Agent.__init__-178"><a href="#Agent.__init__-178"><span class="linenos">178</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">room_id</span> <span class="o">=</span> <span class="n">room_id</span>
+</span><span id="Agent.__init__-177"><a href="#Agent.__init__-177"><span class="linenos">177</span></a><span class="sd">        This constructor should not be called directly.</span>
+</span><span id="Agent.__init__-178"><a href="#Agent.__init__-178"><span class="linenos">178</span></a><span class="sd">        Instead, you should call :func:`fishjam.FishjamClient.create_agent`.</span>
 </span><span id="Agent.__init__-179"><a href="#Agent.__init__-179"><span class="linenos">179</span></a>
-</span><span id="Agent.__init__-180"><a href="#Agent.__init__-180"><span class="linenos">180</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_socket_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fishjam_url</span><span class="si">}</span><span class="s2">/socket/agent/websocket&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="s2">&quot;ws&quot;</span><span class="p">)</span>
-</span><span id="Agent.__init__-181"><a href="#Agent.__init__-181"><span class="linenos">181</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="n">token</span>
+</span><span id="Agent.__init__-180"><a href="#Agent.__init__-180"><span class="linenos">180</span></a><span class="sd">        Args:</span>
+</span><span id="Agent.__init__-181"><a href="#Agent.__init__-181"><span class="linenos">181</span></a><span class="sd">            id: The unique identifier for the agent.</span>
+</span><span id="Agent.__init__-182"><a href="#Agent.__init__-182"><span class="linenos">182</span></a><span class="sd">            room_id: The ID of the room the agent will join.</span>
+</span><span id="Agent.__init__-183"><a href="#Agent.__init__-183"><span class="linenos">183</span></a><span class="sd">            token: The authentication token for the agent.</span>
+</span><span id="Agent.__init__-184"><a href="#Agent.__init__-184"><span class="linenos">184</span></a><span class="sd">            fishjam_url: The URL of the Fishjam instance.</span>
+</span><span id="Agent.__init__-185"><a href="#Agent.__init__-185"><span class="linenos">185</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Agent.__init__-186"><a href="#Agent.__init__-186"><span class="linenos">186</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">id</span> <span class="o">=</span> <span class="nb">id</span>
+</span><span id="Agent.__init__-187"><a href="#Agent.__init__-187"><span class="linenos">187</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">room_id</span> <span class="o">=</span> <span class="n">room_id</span>
+</span><span id="Agent.__init__-188"><a href="#Agent.__init__-188"><span class="linenos">188</span></a>
+</span><span id="Agent.__init__-189"><a href="#Agent.__init__-189"><span class="linenos">189</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_socket_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">fishjam_url</span><span class="si">}</span><span class="s2">/socket/agent/websocket&quot;</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;http&quot;</span><span class="p">,</span> <span class="s2">&quot;ws&quot;</span><span class="p">)</span>
+</span><span id="Agent.__init__-190"><a href="#Agent.__init__-190"><span class="linenos">190</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_token</span> <span class="o">=</span> <span class="n">token</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Create Agent instance, providing the fishjam id and management token.</p>
+            <div class="docstring"><p>Creates an Agent instance.</p>
 
 <p>This constructor should not be called directly.
 Instead, you should call <code><a href="../fishjam.html#FishjamClient.create_agent">fishjam.FishjamClient.create_agent()</a></code>.</p>
+
+<p>Args:</p>
+
+<ul>
+<li>id: The unique identifier for the agent.</li>
+<li>room_id: The ID of the room the agent will join.</li>
+<li>token: The authentication token for the agent.</li>
+<li>fishjam_url: The URL of the Fishjam instance.</li>
+</ul>
 </div>
 
 
@@ -432,31 +464,40 @@ Instead, you should call <code><a href="../fishjam.html#FishjamClient.create_age
 
     </div>
     <a class="headerlink" href="#Agent.connect"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="Agent.connect-183"><a href="#Agent.connect-183"><span class="linenos">183</span></a>    <span class="nd">@asynccontextmanager</span>
-</span><span id="Agent.connect-184"><a href="#Agent.connect-184"><span class="linenos">184</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="Agent.connect-185"><a href="#Agent.connect-185"><span class="linenos">185</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="Agent.connect-186"><a href="#Agent.connect-186"><span class="linenos">186</span></a><span class="sd">        Connect the agent to Fishjam to start receiving messages.</span>
-</span><span id="Agent.connect-187"><a href="#Agent.connect-187"><span class="linenos">187</span></a>
-</span><span id="Agent.connect-188"><a href="#Agent.connect-188"><span class="linenos">188</span></a><span class="sd">        Incoming messages from Fishjam will be routed to handlers</span>
-</span><span id="Agent.connect-189"><a href="#Agent.connect-189"><span class="linenos">189</span></a><span class="sd">        defined with :func:`on_track_data`.</span>
-</span><span id="Agent.connect-190"><a href="#Agent.connect-190"><span class="linenos">190</span></a>
-</span><span id="Agent.connect-191"><a href="#Agent.connect-191"><span class="linenos">191</span></a><span class="sd">        :raises AgentAuthError: authentication failed</span>
-</span><span id="Agent.connect-192"><a href="#Agent.connect-192"><span class="linenos">192</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="Agent.connect-193"><a href="#Agent.connect-193"><span class="linenos">193</span></a>        <span class="k">async</span> <span class="k">with</span> <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_socket_url</span><span class="p">)</span> <span class="k">as</span> <span class="n">websocket</span><span class="p">:</span>
-</span><span id="Agent.connect-194"><a href="#Agent.connect-194"><span class="linenos">194</span></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authenticate</span><span class="p">(</span><span class="n">websocket</span><span class="p">)</span>
-</span><span id="Agent.connect-195"><a href="#Agent.connect-195"><span class="linenos">195</span></a>            <span class="k">yield</span> <span class="n">AgentSession</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">websocket</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="Agent.connect-192"><a href="#Agent.connect-192"><span class="linenos">192</span></a>    <span class="nd">@asynccontextmanager</span>
+</span><span id="Agent.connect-193"><a href="#Agent.connect-193"><span class="linenos">193</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="Agent.connect-194"><a href="#Agent.connect-194"><span class="linenos">194</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Connects the agent to Fishjam to start receiving messages.</span>
+</span><span id="Agent.connect-195"><a href="#Agent.connect-195"><span class="linenos">195</span></a>
+</span><span id="Agent.connect-196"><a href="#Agent.connect-196"><span class="linenos">196</span></a><span class="sd">        Incoming messages from Fishjam will be routed to handlers</span>
+</span><span id="Agent.connect-197"><a href="#Agent.connect-197"><span class="linenos">197</span></a><span class="sd">        defined with :func:`on_track_data`.</span>
+</span><span id="Agent.connect-198"><a href="#Agent.connect-198"><span class="linenos">198</span></a>
+</span><span id="Agent.connect-199"><a href="#Agent.connect-199"><span class="linenos">199</span></a><span class="sd">        Yields:</span>
+</span><span id="Agent.connect-200"><a href="#Agent.connect-200"><span class="linenos">200</span></a><span class="sd">            AgentSession: An active session for sending media and handling events.</span>
+</span><span id="Agent.connect-201"><a href="#Agent.connect-201"><span class="linenos">201</span></a>
+</span><span id="Agent.connect-202"><a href="#Agent.connect-202"><span class="linenos">202</span></a><span class="sd">        Raises:</span>
+</span><span id="Agent.connect-203"><a href="#Agent.connect-203"><span class="linenos">203</span></a><span class="sd">            AgentAuthError: If authentication with the Fishjam server fails.</span>
+</span><span id="Agent.connect-204"><a href="#Agent.connect-204"><span class="linenos">204</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="Agent.connect-205"><a href="#Agent.connect-205"><span class="linenos">205</span></a>        <span class="k">async</span> <span class="k">with</span> <span class="n">client</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_socket_url</span><span class="p">)</span> <span class="k">as</span> <span class="n">websocket</span><span class="p">:</span>
+</span><span id="Agent.connect-206"><a href="#Agent.connect-206"><span class="linenos">206</span></a>            <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_authenticate</span><span class="p">(</span><span class="n">websocket</span><span class="p">)</span>
+</span><span id="Agent.connect-207"><a href="#Agent.connect-207"><span class="linenos">207</span></a>            <span class="k">yield</span> <span class="n">AgentSession</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">websocket</span><span class="p">)</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Connect the agent to Fishjam to start receiving messages.</p>
+            <div class="docstring"><p>Connects the agent to Fishjam to start receiving messages.</p>
 
 <p>Incoming messages from Fishjam will be routed to handlers
 defined with <code>on_track_data()</code>.</p>
 
-<h6 id="raises">Raises</h6>
+<p>Yields:</p>
 
 <ul>
-<li><strong>AgentAuthError</strong>:  authentication failed</li>
+<li>AgentSession: An active session for sending media and handling events.</li>
+</ul>
+
+<p>Raises:</p>
+
+<ul>
+<li>AgentAuthError: If authentication with the Fishjam server fails.</li>
 </ul>
 </div>
 
@@ -475,11 +516,11 @@ defined with <code>on_track_data()</code>.</p>
     </div>
     <a class="headerlink" href="#AgentError"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="AgentError-2"><a href="#AgentError-2"><span class="linenos">2</span></a><span class="k">class</span><span class="w"> </span><span class="nc">AgentError</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-</span><span id="AgentError-3"><a href="#AgentError-3"><span class="linenos">3</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base exception class for all agent exceptions&quot;&quot;&quot;</span>
+</span><span id="AgentError-3"><a href="#AgentError-3"><span class="linenos">3</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Base exception class for all agent exceptions.&quot;&quot;&quot;</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Base exception class for all agent exceptions</p>
+            <div class="docstring"><p>Base exception class for all agent exceptions.</p>
 </div>
 
 
@@ -507,63 +548,76 @@ defined with <code>on_track_data()</code>.</p>
 
     </div>
     <a class="headerlink" href="#AgentSession"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="AgentSession-107"><a href="#AgentSession-107"><span class="linenos">107</span></a><span class="k">class</span><span class="w"> </span><span class="nc">AgentSession</span><span class="p">:</span>
-</span><span id="AgentSession-108"><a href="#AgentSession-108"><span class="linenos">108</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">websocket</span><span class="p">:</span> <span class="n">ClientConnection</span><span class="p">):</span>
-</span><span id="AgentSession-109"><a href="#AgentSession-109"><span class="linenos">109</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">agent</span> <span class="o">=</span> <span class="n">agent</span>
-</span><span id="AgentSession-110"><a href="#AgentSession-110"><span class="linenos">110</span></a>
-</span><span id="AgentSession-111"><a href="#AgentSession-111"><span class="linenos">111</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span> <span class="o">=</span> <span class="n">websocket</span>
-</span><span id="AgentSession-112"><a href="#AgentSession-112"><span class="linenos">112</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_closed</span> <span class="o">=</span> <span class="kc">False</span>
-</span><span id="AgentSession-113"><a href="#AgentSession-113"><span class="linenos">113</span></a>
-</span><span id="AgentSession-114"><a href="#AgentSession-114"><span class="linenos">114</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">IncomingAgentMessage</span><span class="p">]:</span>
-</span><span id="AgentSession-115"><a href="#AgentSession-115"><span class="linenos">115</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="AgentSession-116"><a href="#AgentSession-116"><span class="linenos">116</span></a><span class="sd">        Returns an infinite async iterator over the incoming messages from Fishjam to</span>
-</span><span id="AgentSession-117"><a href="#AgentSession-117"><span class="linenos">117</span></a><span class="sd">        the agent.</span>
-</span><span id="AgentSession-118"><a href="#AgentSession-118"><span class="linenos">118</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="AgentSession-119"><a href="#AgentSession-119"><span class="linenos">119</span></a>        <span class="k">while</span> <span class="n">message</span> <span class="o">:=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">decode</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-</span><span id="AgentSession-120"><a href="#AgentSession-120"><span class="linenos">120</span></a>            <span class="n">parsed</span> <span class="o">=</span> <span class="n">AgentResponse</span><span class="p">()</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</span><span id="AgentSession-121"><a href="#AgentSession-121"><span class="linenos">121</span></a>            <span class="n">_</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">which_one_of</span><span class="p">(</span><span class="n">parsed</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">)</span>
-</span><span id="AgentSession-122"><a href="#AgentSession-122"><span class="linenos">122</span></a>            <span class="k">match</span> <span class="n">msg</span><span class="p">:</span>
-</span><span id="AgentSession-123"><a href="#AgentSession-123"><span class="linenos">123</span></a>                <span class="k">case</span> <span class="n">IncomingTrackData</span><span class="p">()</span> <span class="k">as</span> <span class="n">content</span><span class="p">:</span>
-</span><span id="AgentSession-124"><a href="#AgentSession-124"><span class="linenos">124</span></a>                    <span class="k">yield</span> <span class="n">content</span>
-</span><span id="AgentSession-125"><a href="#AgentSession-125"><span class="linenos">125</span></a>
-</span><span id="AgentSession-126"><a href="#AgentSession-126"><span class="linenos">126</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">add_track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">OutgoingAudioTrackOptions</span><span class="p">):</span>
-</span><span id="AgentSession-127"><a href="#AgentSession-127"><span class="linenos">127</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="AgentSession-128"><a href="#AgentSession-128"><span class="linenos">128</span></a><span class="sd">        Adds a track to the connected agent, with the specified options and metadata.</span>
-</span><span id="AgentSession-129"><a href="#AgentSession-129"><span class="linenos">129</span></a>
-</span><span id="AgentSession-130"><a href="#AgentSession-130"><span class="linenos">130</span></a><span class="sd">        Returns an instance of :class:`OutgoingTrack`, which can be used to send data</span>
-</span><span id="AgentSession-131"><a href="#AgentSession-131"><span class="linenos">131</span></a><span class="sd">        over the added track.</span>
-</span><span id="AgentSession-132"><a href="#AgentSession-132"><span class="linenos">132</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="AgentSession-133"><a href="#AgentSession-133"><span class="linenos">133</span></a>        <span class="n">track_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span>
-</span><span id="AgentSession-134"><a href="#AgentSession-134"><span class="linenos">134</span></a>        <span class="n">metadata_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
-</span><span id="AgentSession-135"><a href="#AgentSession-135"><span class="linenos">135</span></a>        <span class="n">message</span> <span class="o">=</span> <span class="n">AgentRequest</span><span class="p">(</span>
-</span><span id="AgentSession-136"><a href="#AgentSession-136"><span class="linenos">136</span></a>            <span class="n">add_track</span><span class="o">=</span><span class="n">AgentRequestAddTrack</span><span class="p">(</span>
-</span><span id="AgentSession-137"><a href="#AgentSession-137"><span class="linenos">137</span></a>                <span class="n">track</span><span class="o">=</span><span class="n">Track</span><span class="p">(</span>
-</span><span id="AgentSession-138"><a href="#AgentSession-138"><span class="linenos">138</span></a>                    <span class="nb">id</span><span class="o">=</span><span class="n">track_id</span><span class="p">,</span>
-</span><span id="AgentSession-139"><a href="#AgentSession-139"><span class="linenos">139</span></a>                    <span class="nb">type</span><span class="o">=</span><span class="n">TrackType</span><span class="o">.</span><span class="n">TRACK_TYPE_AUDIO</span><span class="p">,</span>
-</span><span id="AgentSession-140"><a href="#AgentSession-140"><span class="linenos">140</span></a>                    <span class="n">metadata</span><span class="o">=</span><span class="n">metadata_json</span><span class="p">,</span>
-</span><span id="AgentSession-141"><a href="#AgentSession-141"><span class="linenos">141</span></a>                <span class="p">),</span>
-</span><span id="AgentSession-142"><a href="#AgentSession-142"><span class="linenos">142</span></a>                <span class="n">codec_params</span><span class="o">=</span><span class="n">AgentRequestAddTrackCodecParameters</span><span class="p">(</span>
-</span><span id="AgentSession-143"><a href="#AgentSession-143"><span class="linenos">143</span></a>                    <span class="n">encoding</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
-</span><span id="AgentSession-144"><a href="#AgentSession-144"><span class="linenos">144</span></a>                    <span class="n">sample_rate</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">sample_rate</span><span class="p">,</span>
-</span><span id="AgentSession-145"><a href="#AgentSession-145"><span class="linenos">145</span></a>                    <span class="n">channels</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">channels</span><span class="p">,</span>
-</span><span id="AgentSession-146"><a href="#AgentSession-146"><span class="linenos">146</span></a>                <span class="p">),</span>
-</span><span id="AgentSession-147"><a href="#AgentSession-147"><span class="linenos">147</span></a>            <span class="p">)</span>
-</span><span id="AgentSession-148"><a href="#AgentSession-148"><span class="linenos">148</span></a>        <span class="p">)</span>
-</span><span id="AgentSession-149"><a href="#AgentSession-149"><span class="linenos">149</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</span><span id="AgentSession-150"><a href="#AgentSession-150"><span class="linenos">150</span></a>        <span class="k">return</span> <span class="n">OutgoingTrack</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">track_id</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
-</span><span id="AgentSession-151"><a href="#AgentSession-151"><span class="linenos">151</span></a>
-</span><span id="AgentSession-152"><a href="#AgentSession-152"><span class="linenos">152</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">AgentRequest</span><span class="p">):</span>
-</span><span id="AgentSession-153"><a href="#AgentSession-153"><span class="linenos">153</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-</span><span id="AgentSession-154"><a href="#AgentSession-154"><span class="linenos">154</span></a>
-</span><span id="AgentSession-155"><a href="#AgentSession-155"><span class="linenos">155</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="AgentSession-156"><a href="#AgentSession-156"><span class="linenos">156</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="AgentSession-157"><a href="#AgentSession-157"><span class="linenos">157</span></a><span class="sd">        Ends the agent session by closing the websocket connection.</span>
-</span><span id="AgentSession-158"><a href="#AgentSession-158"><span class="linenos">158</span></a><span class="sd">        Useful when you don&#39;t use the context manager to obtain the session.</span>
-</span><span id="AgentSession-159"><a href="#AgentSession-159"><span class="linenos">159</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="AgentSession-160"><a href="#AgentSession-160"><span class="linenos">160</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="AgentSession-97"><a href="#AgentSession-97"><span class="linenos"> 97</span></a><span class="k">class</span><span class="w"> </span><span class="nc">AgentSession</span><span class="p">:</span>
+</span><span id="AgentSession-98"><a href="#AgentSession-98"><span class="linenos"> 98</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents an active connection session for an Agent.&quot;&quot;&quot;</span>
+</span><span id="AgentSession-99"><a href="#AgentSession-99"><span class="linenos"> 99</span></a>
+</span><span id="AgentSession-100"><a href="#AgentSession-100"><span class="linenos">100</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">websocket</span><span class="p">:</span> <span class="n">ClientConnection</span><span class="p">):</span>
+</span><span id="AgentSession-101"><a href="#AgentSession-101"><span class="linenos">101</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the AgentSession.</span>
+</span><span id="AgentSession-102"><a href="#AgentSession-102"><span class="linenos">102</span></a>
+</span><span id="AgentSession-103"><a href="#AgentSession-103"><span class="linenos">103</span></a><span class="sd">        Args:</span>
+</span><span id="AgentSession-104"><a href="#AgentSession-104"><span class="linenos">104</span></a><span class="sd">            agent: The Agent instance owning this session.</span>
+</span><span id="AgentSession-105"><a href="#AgentSession-105"><span class="linenos">105</span></a><span class="sd">            websocket: The active websocket connection.</span>
+</span><span id="AgentSession-106"><a href="#AgentSession-106"><span class="linenos">106</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AgentSession-107"><a href="#AgentSession-107"><span class="linenos">107</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">agent</span> <span class="o">=</span> <span class="n">agent</span>
+</span><span id="AgentSession-108"><a href="#AgentSession-108"><span class="linenos">108</span></a>
+</span><span id="AgentSession-109"><a href="#AgentSession-109"><span class="linenos">109</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span> <span class="o">=</span> <span class="n">websocket</span>
+</span><span id="AgentSession-110"><a href="#AgentSession-110"><span class="linenos">110</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_closed</span> <span class="o">=</span> <span class="kc">False</span>
+</span><span id="AgentSession-111"><a href="#AgentSession-111"><span class="linenos">111</span></a>
+</span><span id="AgentSession-112"><a href="#AgentSession-112"><span class="linenos">112</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">IncomingAgentMessage</span><span class="p">]:</span>
+</span><span id="AgentSession-113"><a href="#AgentSession-113"><span class="linenos">113</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns an async iterator over incoming messages from Fishjam.</span>
+</span><span id="AgentSession-114"><a href="#AgentSession-114"><span class="linenos">114</span></a>
+</span><span id="AgentSession-115"><a href="#AgentSession-115"><span class="linenos">115</span></a><span class="sd">        Yields:</span>
+</span><span id="AgentSession-116"><a href="#AgentSession-116"><span class="linenos">116</span></a><span class="sd">            IncomingAgentMessage: The next message received from the server.</span>
+</span><span id="AgentSession-117"><a href="#AgentSession-117"><span class="linenos">117</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AgentSession-118"><a href="#AgentSession-118"><span class="linenos">118</span></a>        <span class="k">while</span> <span class="n">message</span> <span class="o">:=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">decode</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="AgentSession-119"><a href="#AgentSession-119"><span class="linenos">119</span></a>            <span class="n">parsed</span> <span class="o">=</span> <span class="n">AgentResponse</span><span class="p">()</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</span><span id="AgentSession-120"><a href="#AgentSession-120"><span class="linenos">120</span></a>            <span class="n">_</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">which_one_of</span><span class="p">(</span><span class="n">parsed</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">)</span>
+</span><span id="AgentSession-121"><a href="#AgentSession-121"><span class="linenos">121</span></a>            <span class="k">match</span> <span class="n">msg</span><span class="p">:</span>
+</span><span id="AgentSession-122"><a href="#AgentSession-122"><span class="linenos">122</span></a>                <span class="k">case</span> <span class="n">IncomingTrackData</span><span class="p">()</span> <span class="k">as</span> <span class="n">content</span><span class="p">:</span>
+</span><span id="AgentSession-123"><a href="#AgentSession-123"><span class="linenos">123</span></a>                    <span class="k">yield</span> <span class="n">content</span>
+</span><span id="AgentSession-124"><a href="#AgentSession-124"><span class="linenos">124</span></a>
+</span><span id="AgentSession-125"><a href="#AgentSession-125"><span class="linenos">125</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">add_track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">OutgoingAudioTrackOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OutgoingTrack</span><span class="p">:</span>
+</span><span id="AgentSession-126"><a href="#AgentSession-126"><span class="linenos">126</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds a track to the connected agent with the specified options.</span>
+</span><span id="AgentSession-127"><a href="#AgentSession-127"><span class="linenos">127</span></a>
+</span><span id="AgentSession-128"><a href="#AgentSession-128"><span class="linenos">128</span></a><span class="sd">        Args:</span>
+</span><span id="AgentSession-129"><a href="#AgentSession-129"><span class="linenos">129</span></a><span class="sd">            options: Configuration options and metadata for the new track.</span>
+</span><span id="AgentSession-130"><a href="#AgentSession-130"><span class="linenos">130</span></a>
+</span><span id="AgentSession-131"><a href="#AgentSession-131"><span class="linenos">131</span></a><span class="sd">        Returns:</span>
+</span><span id="AgentSession-132"><a href="#AgentSession-132"><span class="linenos">132</span></a><span class="sd">            OutgoingTrack: An object used to send data over the added track.</span>
+</span><span id="AgentSession-133"><a href="#AgentSession-133"><span class="linenos">133</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AgentSession-134"><a href="#AgentSession-134"><span class="linenos">134</span></a>        <span class="n">track_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span>
+</span><span id="AgentSession-135"><a href="#AgentSession-135"><span class="linenos">135</span></a>        <span class="n">metadata_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
+</span><span id="AgentSession-136"><a href="#AgentSession-136"><span class="linenos">136</span></a>        <span class="n">message</span> <span class="o">=</span> <span class="n">AgentRequest</span><span class="p">(</span>
+</span><span id="AgentSession-137"><a href="#AgentSession-137"><span class="linenos">137</span></a>            <span class="n">add_track</span><span class="o">=</span><span class="n">AgentRequestAddTrack</span><span class="p">(</span>
+</span><span id="AgentSession-138"><a href="#AgentSession-138"><span class="linenos">138</span></a>                <span class="n">track</span><span class="o">=</span><span class="n">Track</span><span class="p">(</span>
+</span><span id="AgentSession-139"><a href="#AgentSession-139"><span class="linenos">139</span></a>                    <span class="nb">id</span><span class="o">=</span><span class="n">track_id</span><span class="p">,</span>
+</span><span id="AgentSession-140"><a href="#AgentSession-140"><span class="linenos">140</span></a>                    <span class="nb">type</span><span class="o">=</span><span class="n">TrackType</span><span class="o">.</span><span class="n">TRACK_TYPE_AUDIO</span><span class="p">,</span>
+</span><span id="AgentSession-141"><a href="#AgentSession-141"><span class="linenos">141</span></a>                    <span class="n">metadata</span><span class="o">=</span><span class="n">metadata_json</span><span class="p">,</span>
+</span><span id="AgentSession-142"><a href="#AgentSession-142"><span class="linenos">142</span></a>                <span class="p">),</span>
+</span><span id="AgentSession-143"><a href="#AgentSession-143"><span class="linenos">143</span></a>                <span class="n">codec_params</span><span class="o">=</span><span class="n">AgentRequestAddTrackCodecParameters</span><span class="p">(</span>
+</span><span id="AgentSession-144"><a href="#AgentSession-144"><span class="linenos">144</span></a>                    <span class="n">encoding</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
+</span><span id="AgentSession-145"><a href="#AgentSession-145"><span class="linenos">145</span></a>                    <span class="n">sample_rate</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">sample_rate</span><span class="p">,</span>
+</span><span id="AgentSession-146"><a href="#AgentSession-146"><span class="linenos">146</span></a>                    <span class="n">channels</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">channels</span><span class="p">,</span>
+</span><span id="AgentSession-147"><a href="#AgentSession-147"><span class="linenos">147</span></a>                <span class="p">),</span>
+</span><span id="AgentSession-148"><a href="#AgentSession-148"><span class="linenos">148</span></a>            <span class="p">)</span>
+</span><span id="AgentSession-149"><a href="#AgentSession-149"><span class="linenos">149</span></a>        <span class="p">)</span>
+</span><span id="AgentSession-150"><a href="#AgentSession-150"><span class="linenos">150</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</span><span id="AgentSession-151"><a href="#AgentSession-151"><span class="linenos">151</span></a>        <span class="k">return</span> <span class="n">OutgoingTrack</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">track_id</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+</span><span id="AgentSession-152"><a href="#AgentSession-152"><span class="linenos">152</span></a>
+</span><span id="AgentSession-153"><a href="#AgentSession-153"><span class="linenos">153</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">_send</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="n">AgentRequest</span><span class="p">):</span>
+</span><span id="AgentSession-154"><a href="#AgentSession-154"><span class="linenos">154</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="nb">bytes</span><span class="p">(</span><span class="n">message</span><span class="p">),</span> <span class="n">text</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="AgentSession-155"><a href="#AgentSession-155"><span class="linenos">155</span></a>
+</span><span id="AgentSession-156"><a href="#AgentSession-156"><span class="linenos">156</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="AgentSession-157"><a href="#AgentSession-157"><span class="linenos">157</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Ends the agent session by closing the websocket connection.</span>
+</span><span id="AgentSession-158"><a href="#AgentSession-158"><span class="linenos">158</span></a>
+</span><span id="AgentSession-159"><a href="#AgentSession-159"><span class="linenos">159</span></a><span class="sd">        Useful when you don&#39;t use the context manager to obtain the session.</span>
+</span><span id="AgentSession-160"><a href="#AgentSession-160"><span class="linenos">160</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AgentSession-161"><a href="#AgentSession-161"><span class="linenos">161</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span></pre></div>
 
 
+            <div class="docstring"><p>Represents an active connection session for an Agent.</p>
+</div>
 
 
                             <div id="AgentSession.__init__" class="classattr">
@@ -576,14 +630,29 @@ defined with <code>on_track_data()</code>.</p>
 
     </div>
     <a class="headerlink" href="#AgentSession.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="AgentSession.__init__-108"><a href="#AgentSession.__init__-108"><span class="linenos">108</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">websocket</span><span class="p">:</span> <span class="n">ClientConnection</span><span class="p">):</span>
-</span><span id="AgentSession.__init__-109"><a href="#AgentSession.__init__-109"><span class="linenos">109</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">agent</span> <span class="o">=</span> <span class="n">agent</span>
-</span><span id="AgentSession.__init__-110"><a href="#AgentSession.__init__-110"><span class="linenos">110</span></a>
-</span><span id="AgentSession.__init__-111"><a href="#AgentSession.__init__-111"><span class="linenos">111</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span> <span class="o">=</span> <span class="n">websocket</span>
-</span><span id="AgentSession.__init__-112"><a href="#AgentSession.__init__-112"><span class="linenos">112</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_closed</span> <span class="o">=</span> <span class="kc">False</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="AgentSession.__init__-100"><a href="#AgentSession.__init__-100"><span class="linenos">100</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">agent</span><span class="p">:</span> <span class="n">Agent</span><span class="p">,</span> <span class="n">websocket</span><span class="p">:</span> <span class="n">ClientConnection</span><span class="p">):</span>
+</span><span id="AgentSession.__init__-101"><a href="#AgentSession.__init__-101"><span class="linenos">101</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Initializes the AgentSession.</span>
+</span><span id="AgentSession.__init__-102"><a href="#AgentSession.__init__-102"><span class="linenos">102</span></a>
+</span><span id="AgentSession.__init__-103"><a href="#AgentSession.__init__-103"><span class="linenos">103</span></a><span class="sd">        Args:</span>
+</span><span id="AgentSession.__init__-104"><a href="#AgentSession.__init__-104"><span class="linenos">104</span></a><span class="sd">            agent: The Agent instance owning this session.</span>
+</span><span id="AgentSession.__init__-105"><a href="#AgentSession.__init__-105"><span class="linenos">105</span></a><span class="sd">            websocket: The active websocket connection.</span>
+</span><span id="AgentSession.__init__-106"><a href="#AgentSession.__init__-106"><span class="linenos">106</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AgentSession.__init__-107"><a href="#AgentSession.__init__-107"><span class="linenos">107</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">agent</span> <span class="o">=</span> <span class="n">agent</span>
+</span><span id="AgentSession.__init__-108"><a href="#AgentSession.__init__-108"><span class="linenos">108</span></a>
+</span><span id="AgentSession.__init__-109"><a href="#AgentSession.__init__-109"><span class="linenos">109</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span> <span class="o">=</span> <span class="n">websocket</span>
+</span><span id="AgentSession.__init__-110"><a href="#AgentSession.__init__-110"><span class="linenos">110</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_closed</span> <span class="o">=</span> <span class="kc">False</span>
 </span></pre></div>
 
 
+            <div class="docstring"><p>Initializes the AgentSession.</p>
+
+<p>Args:</p>
+
+<ul>
+<li>agent: The Agent instance owning this session.</li>
+<li>websocket: The active websocket connection.</li>
+</ul>
+</div>
 
 
                             </div>
@@ -609,22 +678,28 @@ defined with <code>on_track_data()</code>.</p>
 
     </div>
     <a class="headerlink" href="#AgentSession.receive"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="AgentSession.receive-114"><a href="#AgentSession.receive-114"><span class="linenos">114</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">IncomingAgentMessage</span><span class="p">]:</span>
-</span><span id="AgentSession.receive-115"><a href="#AgentSession.receive-115"><span class="linenos">115</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="AgentSession.receive-116"><a href="#AgentSession.receive-116"><span class="linenos">116</span></a><span class="sd">        Returns an infinite async iterator over the incoming messages from Fishjam to</span>
-</span><span id="AgentSession.receive-117"><a href="#AgentSession.receive-117"><span class="linenos">117</span></a><span class="sd">        the agent.</span>
-</span><span id="AgentSession.receive-118"><a href="#AgentSession.receive-118"><span class="linenos">118</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="AgentSession.receive-119"><a href="#AgentSession.receive-119"><span class="linenos">119</span></a>        <span class="k">while</span> <span class="n">message</span> <span class="o">:=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">decode</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
-</span><span id="AgentSession.receive-120"><a href="#AgentSession.receive-120"><span class="linenos">120</span></a>            <span class="n">parsed</span> <span class="o">=</span> <span class="n">AgentResponse</span><span class="p">()</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</span><span id="AgentSession.receive-121"><a href="#AgentSession.receive-121"><span class="linenos">121</span></a>            <span class="n">_</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">which_one_of</span><span class="p">(</span><span class="n">parsed</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">)</span>
-</span><span id="AgentSession.receive-122"><a href="#AgentSession.receive-122"><span class="linenos">122</span></a>            <span class="k">match</span> <span class="n">msg</span><span class="p">:</span>
-</span><span id="AgentSession.receive-123"><a href="#AgentSession.receive-123"><span class="linenos">123</span></a>                <span class="k">case</span> <span class="n">IncomingTrackData</span><span class="p">()</span> <span class="k">as</span> <span class="n">content</span><span class="p">:</span>
-</span><span id="AgentSession.receive-124"><a href="#AgentSession.receive-124"><span class="linenos">124</span></a>                    <span class="k">yield</span> <span class="n">content</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="AgentSession.receive-112"><a href="#AgentSession.receive-112"><span class="linenos">112</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">receive</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">AsyncIterator</span><span class="p">[</span><span class="n">IncomingAgentMessage</span><span class="p">]:</span>
+</span><span id="AgentSession.receive-113"><a href="#AgentSession.receive-113"><span class="linenos">113</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Returns an async iterator over incoming messages from Fishjam.</span>
+</span><span id="AgentSession.receive-114"><a href="#AgentSession.receive-114"><span class="linenos">114</span></a>
+</span><span id="AgentSession.receive-115"><a href="#AgentSession.receive-115"><span class="linenos">115</span></a><span class="sd">        Yields:</span>
+</span><span id="AgentSession.receive-116"><a href="#AgentSession.receive-116"><span class="linenos">116</span></a><span class="sd">            IncomingAgentMessage: The next message received from the server.</span>
+</span><span id="AgentSession.receive-117"><a href="#AgentSession.receive-117"><span class="linenos">117</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AgentSession.receive-118"><a href="#AgentSession.receive-118"><span class="linenos">118</span></a>        <span class="k">while</span> <span class="n">message</span> <span class="o">:=</span> <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">decode</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+</span><span id="AgentSession.receive-119"><a href="#AgentSession.receive-119"><span class="linenos">119</span></a>            <span class="n">parsed</span> <span class="o">=</span> <span class="n">AgentResponse</span><span class="p">()</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</span><span id="AgentSession.receive-120"><a href="#AgentSession.receive-120"><span class="linenos">120</span></a>            <span class="n">_</span><span class="p">,</span> <span class="n">msg</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">which_one_of</span><span class="p">(</span><span class="n">parsed</span><span class="p">,</span> <span class="s2">&quot;content&quot;</span><span class="p">)</span>
+</span><span id="AgentSession.receive-121"><a href="#AgentSession.receive-121"><span class="linenos">121</span></a>            <span class="k">match</span> <span class="n">msg</span><span class="p">:</span>
+</span><span id="AgentSession.receive-122"><a href="#AgentSession.receive-122"><span class="linenos">122</span></a>                <span class="k">case</span> <span class="n">IncomingTrackData</span><span class="p">()</span> <span class="k">as</span> <span class="n">content</span><span class="p">:</span>
+</span><span id="AgentSession.receive-123"><a href="#AgentSession.receive-123"><span class="linenos">123</span></a>                    <span class="k">yield</span> <span class="n">content</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Returns an infinite async iterator over the incoming messages from Fishjam to
-the agent.</p>
+            <div class="docstring"><p>Returns an async iterator over incoming messages from Fishjam.</p>
+
+<p>Yields:</p>
+
+<ul>
+<li>IncomingAgentMessage: The next message received from the server.</li>
+</ul>
 </div>
 
 
@@ -634,44 +709,55 @@ the agent.</p>
 <div class="attr function">
 
         <span class="def">async def</span>
-        <span class="name">add_track</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">options</span><span class="p">:</span> <span class="s1">&#39;OutgoingAudioTrackOptions&#39;</span></span><span class="return-annotation">):</span></span>
+        <span class="name">add_track</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span>, </span><span class="param"><span class="n">options</span><span class="p">:</span> <span class="s1">&#39;OutgoingAudioTrackOptions&#39;</span></span><span class="return-annotation">) -> <span class="s1">&#39;OutgoingTrack&#39;</span>:</span></span>
 
                 <label class="view-source-button" for="AgentSession.add_track-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#AgentSession.add_track"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="AgentSession.add_track-126"><a href="#AgentSession.add_track-126"><span class="linenos">126</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">add_track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">OutgoingAudioTrackOptions</span><span class="p">):</span>
-</span><span id="AgentSession.add_track-127"><a href="#AgentSession.add_track-127"><span class="linenos">127</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="AgentSession.add_track-128"><a href="#AgentSession.add_track-128"><span class="linenos">128</span></a><span class="sd">        Adds a track to the connected agent, with the specified options and metadata.</span>
-</span><span id="AgentSession.add_track-129"><a href="#AgentSession.add_track-129"><span class="linenos">129</span></a>
-</span><span id="AgentSession.add_track-130"><a href="#AgentSession.add_track-130"><span class="linenos">130</span></a><span class="sd">        Returns an instance of :class:`OutgoingTrack`, which can be used to send data</span>
-</span><span id="AgentSession.add_track-131"><a href="#AgentSession.add_track-131"><span class="linenos">131</span></a><span class="sd">        over the added track.</span>
-</span><span id="AgentSession.add_track-132"><a href="#AgentSession.add_track-132"><span class="linenos">132</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="AgentSession.add_track-133"><a href="#AgentSession.add_track-133"><span class="linenos">133</span></a>        <span class="n">track_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span>
-</span><span id="AgentSession.add_track-134"><a href="#AgentSession.add_track-134"><span class="linenos">134</span></a>        <span class="n">metadata_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
-</span><span id="AgentSession.add_track-135"><a href="#AgentSession.add_track-135"><span class="linenos">135</span></a>        <span class="n">message</span> <span class="o">=</span> <span class="n">AgentRequest</span><span class="p">(</span>
-</span><span id="AgentSession.add_track-136"><a href="#AgentSession.add_track-136"><span class="linenos">136</span></a>            <span class="n">add_track</span><span class="o">=</span><span class="n">AgentRequestAddTrack</span><span class="p">(</span>
-</span><span id="AgentSession.add_track-137"><a href="#AgentSession.add_track-137"><span class="linenos">137</span></a>                <span class="n">track</span><span class="o">=</span><span class="n">Track</span><span class="p">(</span>
-</span><span id="AgentSession.add_track-138"><a href="#AgentSession.add_track-138"><span class="linenos">138</span></a>                    <span class="nb">id</span><span class="o">=</span><span class="n">track_id</span><span class="p">,</span>
-</span><span id="AgentSession.add_track-139"><a href="#AgentSession.add_track-139"><span class="linenos">139</span></a>                    <span class="nb">type</span><span class="o">=</span><span class="n">TrackType</span><span class="o">.</span><span class="n">TRACK_TYPE_AUDIO</span><span class="p">,</span>
-</span><span id="AgentSession.add_track-140"><a href="#AgentSession.add_track-140"><span class="linenos">140</span></a>                    <span class="n">metadata</span><span class="o">=</span><span class="n">metadata_json</span><span class="p">,</span>
-</span><span id="AgentSession.add_track-141"><a href="#AgentSession.add_track-141"><span class="linenos">141</span></a>                <span class="p">),</span>
-</span><span id="AgentSession.add_track-142"><a href="#AgentSession.add_track-142"><span class="linenos">142</span></a>                <span class="n">codec_params</span><span class="o">=</span><span class="n">AgentRequestAddTrackCodecParameters</span><span class="p">(</span>
-</span><span id="AgentSession.add_track-143"><a href="#AgentSession.add_track-143"><span class="linenos">143</span></a>                    <span class="n">encoding</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
-</span><span id="AgentSession.add_track-144"><a href="#AgentSession.add_track-144"><span class="linenos">144</span></a>                    <span class="n">sample_rate</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">sample_rate</span><span class="p">,</span>
-</span><span id="AgentSession.add_track-145"><a href="#AgentSession.add_track-145"><span class="linenos">145</span></a>                    <span class="n">channels</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">channels</span><span class="p">,</span>
-</span><span id="AgentSession.add_track-146"><a href="#AgentSession.add_track-146"><span class="linenos">146</span></a>                <span class="p">),</span>
-</span><span id="AgentSession.add_track-147"><a href="#AgentSession.add_track-147"><span class="linenos">147</span></a>            <span class="p">)</span>
-</span><span id="AgentSession.add_track-148"><a href="#AgentSession.add_track-148"><span class="linenos">148</span></a>        <span class="p">)</span>
-</span><span id="AgentSession.add_track-149"><a href="#AgentSession.add_track-149"><span class="linenos">149</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</span><span id="AgentSession.add_track-150"><a href="#AgentSession.add_track-150"><span class="linenos">150</span></a>        <span class="k">return</span> <span class="n">OutgoingTrack</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">track_id</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="AgentSession.add_track-125"><a href="#AgentSession.add_track-125"><span class="linenos">125</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">add_track</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="p">:</span> <span class="n">OutgoingAudioTrackOptions</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">OutgoingTrack</span><span class="p">:</span>
+</span><span id="AgentSession.add_track-126"><a href="#AgentSession.add_track-126"><span class="linenos">126</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Adds a track to the connected agent with the specified options.</span>
+</span><span id="AgentSession.add_track-127"><a href="#AgentSession.add_track-127"><span class="linenos">127</span></a>
+</span><span id="AgentSession.add_track-128"><a href="#AgentSession.add_track-128"><span class="linenos">128</span></a><span class="sd">        Args:</span>
+</span><span id="AgentSession.add_track-129"><a href="#AgentSession.add_track-129"><span class="linenos">129</span></a><span class="sd">            options: Configuration options and metadata for the new track.</span>
+</span><span id="AgentSession.add_track-130"><a href="#AgentSession.add_track-130"><span class="linenos">130</span></a>
+</span><span id="AgentSession.add_track-131"><a href="#AgentSession.add_track-131"><span class="linenos">131</span></a><span class="sd">        Returns:</span>
+</span><span id="AgentSession.add_track-132"><a href="#AgentSession.add_track-132"><span class="linenos">132</span></a><span class="sd">            OutgoingTrack: An object used to send data over the added track.</span>
+</span><span id="AgentSession.add_track-133"><a href="#AgentSession.add_track-133"><span class="linenos">133</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AgentSession.add_track-134"><a href="#AgentSession.add_track-134"><span class="linenos">134</span></a>        <span class="n">track_id</span> <span class="o">=</span> <span class="n">uuid</span><span class="o">.</span><span class="n">uuid4</span><span class="p">()</span><span class="o">.</span><span class="n">hex</span>
+</span><span id="AgentSession.add_track-135"><a href="#AgentSession.add_track-135"><span class="linenos">135</span></a>        <span class="n">metadata_json</span> <span class="o">=</span> <span class="n">json</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">options</span><span class="o">.</span><span class="n">metadata</span><span class="p">)</span>
+</span><span id="AgentSession.add_track-136"><a href="#AgentSession.add_track-136"><span class="linenos">136</span></a>        <span class="n">message</span> <span class="o">=</span> <span class="n">AgentRequest</span><span class="p">(</span>
+</span><span id="AgentSession.add_track-137"><a href="#AgentSession.add_track-137"><span class="linenos">137</span></a>            <span class="n">add_track</span><span class="o">=</span><span class="n">AgentRequestAddTrack</span><span class="p">(</span>
+</span><span id="AgentSession.add_track-138"><a href="#AgentSession.add_track-138"><span class="linenos">138</span></a>                <span class="n">track</span><span class="o">=</span><span class="n">Track</span><span class="p">(</span>
+</span><span id="AgentSession.add_track-139"><a href="#AgentSession.add_track-139"><span class="linenos">139</span></a>                    <span class="nb">id</span><span class="o">=</span><span class="n">track_id</span><span class="p">,</span>
+</span><span id="AgentSession.add_track-140"><a href="#AgentSession.add_track-140"><span class="linenos">140</span></a>                    <span class="nb">type</span><span class="o">=</span><span class="n">TrackType</span><span class="o">.</span><span class="n">TRACK_TYPE_AUDIO</span><span class="p">,</span>
+</span><span id="AgentSession.add_track-141"><a href="#AgentSession.add_track-141"><span class="linenos">141</span></a>                    <span class="n">metadata</span><span class="o">=</span><span class="n">metadata_json</span><span class="p">,</span>
+</span><span id="AgentSession.add_track-142"><a href="#AgentSession.add_track-142"><span class="linenos">142</span></a>                <span class="p">),</span>
+</span><span id="AgentSession.add_track-143"><a href="#AgentSession.add_track-143"><span class="linenos">143</span></a>                <span class="n">codec_params</span><span class="o">=</span><span class="n">AgentRequestAddTrackCodecParameters</span><span class="p">(</span>
+</span><span id="AgentSession.add_track-144"><a href="#AgentSession.add_track-144"><span class="linenos">144</span></a>                    <span class="n">encoding</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">encoding</span><span class="p">,</span>
+</span><span id="AgentSession.add_track-145"><a href="#AgentSession.add_track-145"><span class="linenos">145</span></a>                    <span class="n">sample_rate</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">sample_rate</span><span class="p">,</span>
+</span><span id="AgentSession.add_track-146"><a href="#AgentSession.add_track-146"><span class="linenos">146</span></a>                    <span class="n">channels</span><span class="o">=</span><span class="n">options</span><span class="o">.</span><span class="n">channels</span><span class="p">,</span>
+</span><span id="AgentSession.add_track-147"><a href="#AgentSession.add_track-147"><span class="linenos">147</span></a>                <span class="p">),</span>
+</span><span id="AgentSession.add_track-148"><a href="#AgentSession.add_track-148"><span class="linenos">148</span></a>            <span class="p">)</span>
+</span><span id="AgentSession.add_track-149"><a href="#AgentSession.add_track-149"><span class="linenos">149</span></a>        <span class="p">)</span>
+</span><span id="AgentSession.add_track-150"><a href="#AgentSession.add_track-150"><span class="linenos">150</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</span><span id="AgentSession.add_track-151"><a href="#AgentSession.add_track-151"><span class="linenos">151</span></a>        <span class="k">return</span> <span class="n">OutgoingTrack</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="n">track_id</span><span class="p">,</span> <span class="n">session</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Adds a track to the connected agent, with the specified options and metadata.</p>
+            <div class="docstring"><p>Adds a track to the connected agent with the specified options.</p>
 
-<p>Returns an instance of <code><a href="#OutgoingTrack">OutgoingTrack</a></code>, which can be used to send data
-over the added track.</p>
+<p>Args:</p>
+
+<ul>
+<li>options: Configuration options and metadata for the new track.</li>
+</ul>
+
+<p>Returns:</p>
+
+<ul>
+<li>OutgoingTrack: An object used to send data over the added track.</li>
+</ul>
 </div>
 
 
@@ -687,17 +773,18 @@ over the added track.</p>
 
     </div>
     <a class="headerlink" href="#AgentSession.disconnect"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="AgentSession.disconnect-155"><a href="#AgentSession.disconnect-155"><span class="linenos">155</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="AgentSession.disconnect-156"><a href="#AgentSession.disconnect-156"><span class="linenos">156</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="AgentSession.disconnect-157"><a href="#AgentSession.disconnect-157"><span class="linenos">157</span></a><span class="sd">        Ends the agent session by closing the websocket connection.</span>
-</span><span id="AgentSession.disconnect-158"><a href="#AgentSession.disconnect-158"><span class="linenos">158</span></a><span class="sd">        Useful when you don&#39;t use the context manager to obtain the session.</span>
-</span><span id="AgentSession.disconnect-159"><a href="#AgentSession.disconnect-159"><span class="linenos">159</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="AgentSession.disconnect-160"><a href="#AgentSession.disconnect-160"><span class="linenos">160</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="AgentSession.disconnect-156"><a href="#AgentSession.disconnect-156"><span class="linenos">156</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="AgentSession.disconnect-157"><a href="#AgentSession.disconnect-157"><span class="linenos">157</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Ends the agent session by closing the websocket connection.</span>
+</span><span id="AgentSession.disconnect-158"><a href="#AgentSession.disconnect-158"><span class="linenos">158</span></a>
+</span><span id="AgentSession.disconnect-159"><a href="#AgentSession.disconnect-159"><span class="linenos">159</span></a><span class="sd">        Useful when you don&#39;t use the context manager to obtain the session.</span>
+</span><span id="AgentSession.disconnect-160"><a href="#AgentSession.disconnect-160"><span class="linenos">160</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="AgentSession.disconnect-161"><a href="#AgentSession.disconnect-161"><span class="linenos">161</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">_ws</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Ends the agent session by closing the websocket connection.
-Useful when you don't use the context manager to obtain the session.</p>
+            <div class="docstring"><p>Ends the agent session by closing the websocket connection.</p>
+
+<p>Useful when you don't use the context manager to obtain the session.</p>
 </div>
 
 
@@ -715,7 +802,7 @@ Useful when you don't use the context manager to obtain the session.</p>
     </div>
     <a class="headerlink" href="#AgentAuthError"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="AgentAuthError-6"><a href="#AgentAuthError-6"><span class="linenos"> 6</span></a><span class="k">class</span><span class="w"> </span><span class="nc">AgentAuthError</span><span class="p">(</span><span class="n">AgentError</span><span class="p">):</span>
-</span><span id="AgentAuthError-7"><a href="#AgentAuthError-7"><span class="linenos"> 7</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Agent failed to authenticate properly&quot;&quot;&quot;</span>
+</span><span id="AgentAuthError-7"><a href="#AgentAuthError-7"><span class="linenos"> 7</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Agent failed to authenticate properly.&quot;&quot;&quot;</span>
 </span><span id="AgentAuthError-8"><a href="#AgentAuthError-8"><span class="linenos"> 8</span></a>
 </span><span id="AgentAuthError-9"><a href="#AgentAuthError-9"><span class="linenos"> 9</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">reason</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 </span><span id="AgentAuthError-10"><a href="#AgentAuthError-10"><span class="linenos">10</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">reason</span> <span class="o">=</span> <span class="n">reason</span>
@@ -725,7 +812,7 @@ Useful when you don't use the context manager to obtain the session.</p>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Agent failed to authenticate properly</p>
+            <div class="docstring"><p>Agent failed to authenticate properly.</p>
 </div>
 
 
@@ -794,56 +881,67 @@ Useful when you don't use the context manager to obtain the session.</p>
 
     </div>
     <a class="headerlink" href="#OutgoingTrack"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="OutgoingTrack-60"><a href="#OutgoingTrack-60"><span class="linenos"> 60</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-</span><span id="OutgoingTrack-61"><a href="#OutgoingTrack-61"><span class="linenos"> 61</span></a><span class="k">class</span><span class="w"> </span><span class="nc">OutgoingTrack</span><span class="p">:</span>
-</span><span id="OutgoingTrack-62"><a href="#OutgoingTrack-62"><span class="linenos"> 62</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="OutgoingTrack-63"><a href="#OutgoingTrack-63"><span class="linenos"> 63</span></a><span class="sd">    Represents an outgoing track of an agent connected to Fishjam,</span>
-</span><span id="OutgoingTrack-64"><a href="#OutgoingTrack-64"><span class="linenos"> 64</span></a><span class="sd">    created by :func:`Agent.add_track`.</span>
-</span><span id="OutgoingTrack-65"><a href="#OutgoingTrack-65"><span class="linenos"> 65</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="OutgoingTrack-66"><a href="#OutgoingTrack-66"><span class="linenos"> 66</span></a>
-</span><span id="OutgoingTrack-67"><a href="#OutgoingTrack-67"><span class="linenos"> 67</span></a>    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
-</span><span id="OutgoingTrack-68"><a href="#OutgoingTrack-68"><span class="linenos"> 68</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The global identifier of the track.&quot;&quot;&quot;</span>
-</span><span id="OutgoingTrack-69"><a href="#OutgoingTrack-69"><span class="linenos"> 69</span></a>    <span class="n">session</span><span class="p">:</span> <span class="n">AgentSession</span>
-</span><span id="OutgoingTrack-70"><a href="#OutgoingTrack-70"><span class="linenos"> 70</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The agent the track belongs to.&quot;&quot;&quot;</span>
-</span><span id="OutgoingTrack-71"><a href="#OutgoingTrack-71"><span class="linenos"> 71</span></a>    <span class="n">options</span><span class="p">:</span> <span class="n">OutgoingAudioTrackOptions</span>
-</span><span id="OutgoingTrack-72"><a href="#OutgoingTrack-72"><span class="linenos"> 72</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;The parameters used to create the track.&quot;&quot;&quot;</span>
-</span><span id="OutgoingTrack-73"><a href="#OutgoingTrack-73"><span class="linenos"> 73</span></a>
-</span><span id="OutgoingTrack-74"><a href="#OutgoingTrack-74"><span class="linenos"> 74</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
-</span><span id="OutgoingTrack-75"><a href="#OutgoingTrack-75"><span class="linenos"> 75</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="OutgoingTrack-76"><a href="#OutgoingTrack-76"><span class="linenos"> 76</span></a><span class="sd">        Send a chunk of audio to Fishjam on this track.</span>
-</span><span id="OutgoingTrack-77"><a href="#OutgoingTrack-77"><span class="linenos"> 77</span></a>
-</span><span id="OutgoingTrack-78"><a href="#OutgoingTrack-78"><span class="linenos"> 78</span></a><span class="sd">        Peers connected to the room of the agent will receive this data.</span>
-</span><span id="OutgoingTrack-79"><a href="#OutgoingTrack-79"><span class="linenos"> 79</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="OutgoingTrack-80"><a href="#OutgoingTrack-80"><span class="linenos"> 80</span></a>        <span class="n">message</span> <span class="o">=</span> <span class="n">AgentRequest</span><span class="p">(</span>
-</span><span id="OutgoingTrack-81"><a href="#OutgoingTrack-81"><span class="linenos"> 81</span></a>            <span class="n">track_data</span><span class="o">=</span><span class="n">OutgoingTrackData</span><span class="p">(</span>
-</span><span id="OutgoingTrack-82"><a href="#OutgoingTrack-82"><span class="linenos"> 82</span></a>                <span class="n">track_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-</span><span id="OutgoingTrack-83"><a href="#OutgoingTrack-83"><span class="linenos"> 83</span></a>                <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
-</span><span id="OutgoingTrack-84"><a href="#OutgoingTrack-84"><span class="linenos"> 84</span></a>            <span class="p">)</span>
-</span><span id="OutgoingTrack-85"><a href="#OutgoingTrack-85"><span class="linenos"> 85</span></a>        <span class="p">)</span>
-</span><span id="OutgoingTrack-86"><a href="#OutgoingTrack-86"><span class="linenos"> 86</span></a>
-</span><span id="OutgoingTrack-87"><a href="#OutgoingTrack-87"><span class="linenos"> 87</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
-</span><span id="OutgoingTrack-88"><a href="#OutgoingTrack-88"><span class="linenos"> 88</span></a>
-</span><span id="OutgoingTrack-89"><a href="#OutgoingTrack-89"><span class="linenos"> 89</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">interrupt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="OutgoingTrack-90"><a href="#OutgoingTrack-90"><span class="linenos"> 90</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="OutgoingTrack-91"><a href="#OutgoingTrack-91"><span class="linenos"> 91</span></a><span class="sd">        Interrupt current track.</span>
-</span><span id="OutgoingTrack-92"><a href="#OutgoingTrack-92"><span class="linenos"> 92</span></a>
-</span><span id="OutgoingTrack-93"><a href="#OutgoingTrack-93"><span class="linenos"> 93</span></a><span class="sd">        Any audio that has been sent, but not played</span>
-</span><span id="OutgoingTrack-94"><a href="#OutgoingTrack-94"><span class="linenos"> 94</span></a><span class="sd">        will be cleared and be prevented from playing.</span>
-</span><span id="OutgoingTrack-95"><a href="#OutgoingTrack-95"><span class="linenos"> 95</span></a>
-</span><span id="OutgoingTrack-96"><a href="#OutgoingTrack-96"><span class="linenos"> 96</span></a><span class="sd">        Audio sent after the interrupt will be played normally.</span>
-</span><span id="OutgoingTrack-97"><a href="#OutgoingTrack-97"><span class="linenos"> 97</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="OutgoingTrack-98"><a href="#OutgoingTrack-98"><span class="linenos"> 98</span></a>        <span class="n">message</span> <span class="o">=</span> <span class="n">AgentRequest</span><span class="p">(</span>
-</span><span id="OutgoingTrack-99"><a href="#OutgoingTrack-99"><span class="linenos"> 99</span></a>            <span class="n">interrupt_track</span><span class="o">=</span><span class="n">AgentRequestInterruptTrack</span><span class="p">(</span>
-</span><span id="OutgoingTrack-100"><a href="#OutgoingTrack-100"><span class="linenos">100</span></a>                <span class="n">track_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-</span><span id="OutgoingTrack-101"><a href="#OutgoingTrack-101"><span class="linenos">101</span></a>            <span class="p">)</span>
-</span><span id="OutgoingTrack-102"><a href="#OutgoingTrack-102"><span class="linenos">102</span></a>        <span class="p">)</span>
-</span><span id="OutgoingTrack-103"><a href="#OutgoingTrack-103"><span class="linenos">103</span></a>
-</span><span id="OutgoingTrack-104"><a href="#OutgoingTrack-104"><span class="linenos">104</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="OutgoingTrack-48"><a href="#OutgoingTrack-48"><span class="linenos">48</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">frozen</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</span><span id="OutgoingTrack-49"><a href="#OutgoingTrack-49"><span class="linenos">49</span></a><span class="k">class</span><span class="w"> </span><span class="nc">OutgoingTrack</span><span class="p">:</span>
+</span><span id="OutgoingTrack-50"><a href="#OutgoingTrack-50"><span class="linenos">50</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Represents an outgoing track of an agent connected to Fishjam.</span>
+</span><span id="OutgoingTrack-51"><a href="#OutgoingTrack-51"><span class="linenos">51</span></a>
+</span><span id="OutgoingTrack-52"><a href="#OutgoingTrack-52"><span class="linenos">52</span></a><span class="sd">    This is created by :func:`Agent.add_track`.</span>
+</span><span id="OutgoingTrack-53"><a href="#OutgoingTrack-53"><span class="linenos">53</span></a>
+</span><span id="OutgoingTrack-54"><a href="#OutgoingTrack-54"><span class="linenos">54</span></a><span class="sd">    Attributes:</span>
+</span><span id="OutgoingTrack-55"><a href="#OutgoingTrack-55"><span class="linenos">55</span></a><span class="sd">        id: The global identifier of the track.</span>
+</span><span id="OutgoingTrack-56"><a href="#OutgoingTrack-56"><span class="linenos">56</span></a><span class="sd">        session: The agent the track belongs to.</span>
+</span><span id="OutgoingTrack-57"><a href="#OutgoingTrack-57"><span class="linenos">57</span></a><span class="sd">        options: The parameters used to create the track.</span>
+</span><span id="OutgoingTrack-58"><a href="#OutgoingTrack-58"><span class="linenos">58</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="OutgoingTrack-59"><a href="#OutgoingTrack-59"><span class="linenos">59</span></a>
+</span><span id="OutgoingTrack-60"><a href="#OutgoingTrack-60"><span class="linenos">60</span></a>    <span class="nb">id</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="OutgoingTrack-61"><a href="#OutgoingTrack-61"><span class="linenos">61</span></a>    <span class="n">session</span><span class="p">:</span> <span class="n">AgentSession</span>
+</span><span id="OutgoingTrack-62"><a href="#OutgoingTrack-62"><span class="linenos">62</span></a>    <span class="n">options</span><span class="p">:</span> <span class="n">OutgoingAudioTrackOptions</span>
+</span><span id="OutgoingTrack-63"><a href="#OutgoingTrack-63"><span class="linenos">63</span></a>
+</span><span id="OutgoingTrack-64"><a href="#OutgoingTrack-64"><span class="linenos">64</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+</span><span id="OutgoingTrack-65"><a href="#OutgoingTrack-65"><span class="linenos">65</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Sends a chunk of audio to Fishjam on this track.</span>
+</span><span id="OutgoingTrack-66"><a href="#OutgoingTrack-66"><span class="linenos">66</span></a>
+</span><span id="OutgoingTrack-67"><a href="#OutgoingTrack-67"><span class="linenos">67</span></a><span class="sd">        Peers connected to the room of the agent will receive this data.</span>
+</span><span id="OutgoingTrack-68"><a href="#OutgoingTrack-68"><span class="linenos">68</span></a>
+</span><span id="OutgoingTrack-69"><a href="#OutgoingTrack-69"><span class="linenos">69</span></a><span class="sd">        Args:</span>
+</span><span id="OutgoingTrack-70"><a href="#OutgoingTrack-70"><span class="linenos">70</span></a><span class="sd">            data: The raw audio bytes to send.</span>
+</span><span id="OutgoingTrack-71"><a href="#OutgoingTrack-71"><span class="linenos">71</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="OutgoingTrack-72"><a href="#OutgoingTrack-72"><span class="linenos">72</span></a>        <span class="n">message</span> <span class="o">=</span> <span class="n">AgentRequest</span><span class="p">(</span>
+</span><span id="OutgoingTrack-73"><a href="#OutgoingTrack-73"><span class="linenos">73</span></a>            <span class="n">track_data</span><span class="o">=</span><span class="n">OutgoingTrackData</span><span class="p">(</span>
+</span><span id="OutgoingTrack-74"><a href="#OutgoingTrack-74"><span class="linenos">74</span></a>                <span class="n">track_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+</span><span id="OutgoingTrack-75"><a href="#OutgoingTrack-75"><span class="linenos">75</span></a>                <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+</span><span id="OutgoingTrack-76"><a href="#OutgoingTrack-76"><span class="linenos">76</span></a>            <span class="p">)</span>
+</span><span id="OutgoingTrack-77"><a href="#OutgoingTrack-77"><span class="linenos">77</span></a>        <span class="p">)</span>
+</span><span id="OutgoingTrack-78"><a href="#OutgoingTrack-78"><span class="linenos">78</span></a>
+</span><span id="OutgoingTrack-79"><a href="#OutgoingTrack-79"><span class="linenos">79</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+</span><span id="OutgoingTrack-80"><a href="#OutgoingTrack-80"><span class="linenos">80</span></a>
+</span><span id="OutgoingTrack-81"><a href="#OutgoingTrack-81"><span class="linenos">81</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">interrupt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="OutgoingTrack-82"><a href="#OutgoingTrack-82"><span class="linenos">82</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Interrupts the current track.</span>
+</span><span id="OutgoingTrack-83"><a href="#OutgoingTrack-83"><span class="linenos">83</span></a>
+</span><span id="OutgoingTrack-84"><a href="#OutgoingTrack-84"><span class="linenos">84</span></a><span class="sd">        Any audio that has been sent, but not played, will be cleared and</span>
+</span><span id="OutgoingTrack-85"><a href="#OutgoingTrack-85"><span class="linenos">85</span></a><span class="sd">        prevented from playing. Audio sent after the interrupt will be played</span>
+</span><span id="OutgoingTrack-86"><a href="#OutgoingTrack-86"><span class="linenos">86</span></a><span class="sd">        normally.</span>
+</span><span id="OutgoingTrack-87"><a href="#OutgoingTrack-87"><span class="linenos">87</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="OutgoingTrack-88"><a href="#OutgoingTrack-88"><span class="linenos">88</span></a>        <span class="n">message</span> <span class="o">=</span> <span class="n">AgentRequest</span><span class="p">(</span>
+</span><span id="OutgoingTrack-89"><a href="#OutgoingTrack-89"><span class="linenos">89</span></a>            <span class="n">interrupt_track</span><span class="o">=</span><span class="n">AgentRequestInterruptTrack</span><span class="p">(</span>
+</span><span id="OutgoingTrack-90"><a href="#OutgoingTrack-90"><span class="linenos">90</span></a>                <span class="n">track_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+</span><span id="OutgoingTrack-91"><a href="#OutgoingTrack-91"><span class="linenos">91</span></a>            <span class="p">)</span>
+</span><span id="OutgoingTrack-92"><a href="#OutgoingTrack-92"><span class="linenos">92</span></a>        <span class="p">)</span>
+</span><span id="OutgoingTrack-93"><a href="#OutgoingTrack-93"><span class="linenos">93</span></a>
+</span><span id="OutgoingTrack-94"><a href="#OutgoingTrack-94"><span class="linenos">94</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Represents an outgoing track of an agent connected to Fishjam,
-created by <code>Agent.add_track()</code>.</p>
+            <div class="docstring"><p>Represents an outgoing track of an agent connected to Fishjam.</p>
+
+<p>This is created by <code>Agent.add_track()</code>.</p>
+
+<p>Attributes:</p>
+
+<ul>
+<li>id: The global identifier of the track.</li>
+<li>session: The agent the track belongs to.</li>
+<li>options: The parameters used to create the track.</li>
+</ul>
 </div>
 
 
@@ -867,8 +965,6 @@ created by <code>Agent.add_track()</code>.</p>
     </div>
     <a class="headerlink" href="#OutgoingTrack.id"></a>
 
-            <div class="docstring"><p>The global identifier of the track.</p>
-</div>
 
 
                             </div>
@@ -880,8 +976,6 @@ created by <code>Agent.add_track()</code>.</p>
     </div>
     <a class="headerlink" href="#OutgoingTrack.session"></a>
 
-            <div class="docstring"><p>The agent the track belongs to.</p>
-</div>
 
 
                             </div>
@@ -893,8 +987,6 @@ created by <code>Agent.add_track()</code>.</p>
     </div>
     <a class="headerlink" href="#OutgoingTrack.options"></a>
 
-            <div class="docstring"><p>The parameters used to create the track.</p>
-</div>
 
 
                             </div>
@@ -909,26 +1001,34 @@ created by <code>Agent.add_track()</code>.</p>
 
     </div>
     <a class="headerlink" href="#OutgoingTrack.send_chunk"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="OutgoingTrack.send_chunk-74"><a href="#OutgoingTrack.send_chunk-74"><span class="linenos">74</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
-</span><span id="OutgoingTrack.send_chunk-75"><a href="#OutgoingTrack.send_chunk-75"><span class="linenos">75</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="OutgoingTrack.send_chunk-76"><a href="#OutgoingTrack.send_chunk-76"><span class="linenos">76</span></a><span class="sd">        Send a chunk of audio to Fishjam on this track.</span>
-</span><span id="OutgoingTrack.send_chunk-77"><a href="#OutgoingTrack.send_chunk-77"><span class="linenos">77</span></a>
-</span><span id="OutgoingTrack.send_chunk-78"><a href="#OutgoingTrack.send_chunk-78"><span class="linenos">78</span></a><span class="sd">        Peers connected to the room of the agent will receive this data.</span>
-</span><span id="OutgoingTrack.send_chunk-79"><a href="#OutgoingTrack.send_chunk-79"><span class="linenos">79</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="OutgoingTrack.send_chunk-80"><a href="#OutgoingTrack.send_chunk-80"><span class="linenos">80</span></a>        <span class="n">message</span> <span class="o">=</span> <span class="n">AgentRequest</span><span class="p">(</span>
-</span><span id="OutgoingTrack.send_chunk-81"><a href="#OutgoingTrack.send_chunk-81"><span class="linenos">81</span></a>            <span class="n">track_data</span><span class="o">=</span><span class="n">OutgoingTrackData</span><span class="p">(</span>
-</span><span id="OutgoingTrack.send_chunk-82"><a href="#OutgoingTrack.send_chunk-82"><span class="linenos">82</span></a>                <span class="n">track_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-</span><span id="OutgoingTrack.send_chunk-83"><a href="#OutgoingTrack.send_chunk-83"><span class="linenos">83</span></a>                <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
-</span><span id="OutgoingTrack.send_chunk-84"><a href="#OutgoingTrack.send_chunk-84"><span class="linenos">84</span></a>            <span class="p">)</span>
-</span><span id="OutgoingTrack.send_chunk-85"><a href="#OutgoingTrack.send_chunk-85"><span class="linenos">85</span></a>        <span class="p">)</span>
-</span><span id="OutgoingTrack.send_chunk-86"><a href="#OutgoingTrack.send_chunk-86"><span class="linenos">86</span></a>
-</span><span id="OutgoingTrack.send_chunk-87"><a href="#OutgoingTrack.send_chunk-87"><span class="linenos">87</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="OutgoingTrack.send_chunk-64"><a href="#OutgoingTrack.send_chunk-64"><span class="linenos">64</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">send_chunk</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">bytes</span><span class="p">):</span>
+</span><span id="OutgoingTrack.send_chunk-65"><a href="#OutgoingTrack.send_chunk-65"><span class="linenos">65</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Sends a chunk of audio to Fishjam on this track.</span>
+</span><span id="OutgoingTrack.send_chunk-66"><a href="#OutgoingTrack.send_chunk-66"><span class="linenos">66</span></a>
+</span><span id="OutgoingTrack.send_chunk-67"><a href="#OutgoingTrack.send_chunk-67"><span class="linenos">67</span></a><span class="sd">        Peers connected to the room of the agent will receive this data.</span>
+</span><span id="OutgoingTrack.send_chunk-68"><a href="#OutgoingTrack.send_chunk-68"><span class="linenos">68</span></a>
+</span><span id="OutgoingTrack.send_chunk-69"><a href="#OutgoingTrack.send_chunk-69"><span class="linenos">69</span></a><span class="sd">        Args:</span>
+</span><span id="OutgoingTrack.send_chunk-70"><a href="#OutgoingTrack.send_chunk-70"><span class="linenos">70</span></a><span class="sd">            data: The raw audio bytes to send.</span>
+</span><span id="OutgoingTrack.send_chunk-71"><a href="#OutgoingTrack.send_chunk-71"><span class="linenos">71</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="OutgoingTrack.send_chunk-72"><a href="#OutgoingTrack.send_chunk-72"><span class="linenos">72</span></a>        <span class="n">message</span> <span class="o">=</span> <span class="n">AgentRequest</span><span class="p">(</span>
+</span><span id="OutgoingTrack.send_chunk-73"><a href="#OutgoingTrack.send_chunk-73"><span class="linenos">73</span></a>            <span class="n">track_data</span><span class="o">=</span><span class="n">OutgoingTrackData</span><span class="p">(</span>
+</span><span id="OutgoingTrack.send_chunk-74"><a href="#OutgoingTrack.send_chunk-74"><span class="linenos">74</span></a>                <span class="n">track_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+</span><span id="OutgoingTrack.send_chunk-75"><a href="#OutgoingTrack.send_chunk-75"><span class="linenos">75</span></a>                <span class="n">data</span><span class="o">=</span><span class="n">data</span><span class="p">,</span>
+</span><span id="OutgoingTrack.send_chunk-76"><a href="#OutgoingTrack.send_chunk-76"><span class="linenos">76</span></a>            <span class="p">)</span>
+</span><span id="OutgoingTrack.send_chunk-77"><a href="#OutgoingTrack.send_chunk-77"><span class="linenos">77</span></a>        <span class="p">)</span>
+</span><span id="OutgoingTrack.send_chunk-78"><a href="#OutgoingTrack.send_chunk-78"><span class="linenos">78</span></a>
+</span><span id="OutgoingTrack.send_chunk-79"><a href="#OutgoingTrack.send_chunk-79"><span class="linenos">79</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Send a chunk of audio to Fishjam on this track.</p>
+            <div class="docstring"><p>Sends a chunk of audio to Fishjam on this track.</p>
 
 <p>Peers connected to the room of the agent will receive this data.</p>
+
+<p>Args:</p>
+
+<ul>
+<li>data: The raw audio bytes to send.</li>
+</ul>
 </div>
 
 
@@ -944,31 +1044,28 @@ created by <code>Agent.add_track()</code>.</p>
 
     </div>
     <a class="headerlink" href="#OutgoingTrack.interrupt"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="OutgoingTrack.interrupt-89"><a href="#OutgoingTrack.interrupt-89"><span class="linenos"> 89</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">interrupt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-</span><span id="OutgoingTrack.interrupt-90"><a href="#OutgoingTrack.interrupt-90"><span class="linenos"> 90</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="OutgoingTrack.interrupt-91"><a href="#OutgoingTrack.interrupt-91"><span class="linenos"> 91</span></a><span class="sd">        Interrupt current track.</span>
-</span><span id="OutgoingTrack.interrupt-92"><a href="#OutgoingTrack.interrupt-92"><span class="linenos"> 92</span></a>
-</span><span id="OutgoingTrack.interrupt-93"><a href="#OutgoingTrack.interrupt-93"><span class="linenos"> 93</span></a><span class="sd">        Any audio that has been sent, but not played</span>
-</span><span id="OutgoingTrack.interrupt-94"><a href="#OutgoingTrack.interrupt-94"><span class="linenos"> 94</span></a><span class="sd">        will be cleared and be prevented from playing.</span>
-</span><span id="OutgoingTrack.interrupt-95"><a href="#OutgoingTrack.interrupt-95"><span class="linenos"> 95</span></a>
-</span><span id="OutgoingTrack.interrupt-96"><a href="#OutgoingTrack.interrupt-96"><span class="linenos"> 96</span></a><span class="sd">        Audio sent after the interrupt will be played normally.</span>
-</span><span id="OutgoingTrack.interrupt-97"><a href="#OutgoingTrack.interrupt-97"><span class="linenos"> 97</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="OutgoingTrack.interrupt-98"><a href="#OutgoingTrack.interrupt-98"><span class="linenos"> 98</span></a>        <span class="n">message</span> <span class="o">=</span> <span class="n">AgentRequest</span><span class="p">(</span>
-</span><span id="OutgoingTrack.interrupt-99"><a href="#OutgoingTrack.interrupt-99"><span class="linenos"> 99</span></a>            <span class="n">interrupt_track</span><span class="o">=</span><span class="n">AgentRequestInterruptTrack</span><span class="p">(</span>
-</span><span id="OutgoingTrack.interrupt-100"><a href="#OutgoingTrack.interrupt-100"><span class="linenos">100</span></a>                <span class="n">track_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
-</span><span id="OutgoingTrack.interrupt-101"><a href="#OutgoingTrack.interrupt-101"><span class="linenos">101</span></a>            <span class="p">)</span>
-</span><span id="OutgoingTrack.interrupt-102"><a href="#OutgoingTrack.interrupt-102"><span class="linenos">102</span></a>        <span class="p">)</span>
-</span><span id="OutgoingTrack.interrupt-103"><a href="#OutgoingTrack.interrupt-103"><span class="linenos">103</span></a>
-</span><span id="OutgoingTrack.interrupt-104"><a href="#OutgoingTrack.interrupt-104"><span class="linenos">104</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="OutgoingTrack.interrupt-81"><a href="#OutgoingTrack.interrupt-81"><span class="linenos">81</span></a>    <span class="k">async</span> <span class="k">def</span><span class="w"> </span><span class="nf">interrupt</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="OutgoingTrack.interrupt-82"><a href="#OutgoingTrack.interrupt-82"><span class="linenos">82</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Interrupts the current track.</span>
+</span><span id="OutgoingTrack.interrupt-83"><a href="#OutgoingTrack.interrupt-83"><span class="linenos">83</span></a>
+</span><span id="OutgoingTrack.interrupt-84"><a href="#OutgoingTrack.interrupt-84"><span class="linenos">84</span></a><span class="sd">        Any audio that has been sent, but not played, will be cleared and</span>
+</span><span id="OutgoingTrack.interrupt-85"><a href="#OutgoingTrack.interrupt-85"><span class="linenos">85</span></a><span class="sd">        prevented from playing. Audio sent after the interrupt will be played</span>
+</span><span id="OutgoingTrack.interrupt-86"><a href="#OutgoingTrack.interrupt-86"><span class="linenos">86</span></a><span class="sd">        normally.</span>
+</span><span id="OutgoingTrack.interrupt-87"><a href="#OutgoingTrack.interrupt-87"><span class="linenos">87</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="OutgoingTrack.interrupt-88"><a href="#OutgoingTrack.interrupt-88"><span class="linenos">88</span></a>        <span class="n">message</span> <span class="o">=</span> <span class="n">AgentRequest</span><span class="p">(</span>
+</span><span id="OutgoingTrack.interrupt-89"><a href="#OutgoingTrack.interrupt-89"><span class="linenos">89</span></a>            <span class="n">interrupt_track</span><span class="o">=</span><span class="n">AgentRequestInterruptTrack</span><span class="p">(</span>
+</span><span id="OutgoingTrack.interrupt-90"><a href="#OutgoingTrack.interrupt-90"><span class="linenos">90</span></a>                <span class="n">track_id</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">id</span><span class="p">,</span>
+</span><span id="OutgoingTrack.interrupt-91"><a href="#OutgoingTrack.interrupt-91"><span class="linenos">91</span></a>            <span class="p">)</span>
+</span><span id="OutgoingTrack.interrupt-92"><a href="#OutgoingTrack.interrupt-92"><span class="linenos">92</span></a>        <span class="p">)</span>
+</span><span id="OutgoingTrack.interrupt-93"><a href="#OutgoingTrack.interrupt-93"><span class="linenos">93</span></a>
+</span><span id="OutgoingTrack.interrupt-94"><a href="#OutgoingTrack.interrupt-94"><span class="linenos">94</span></a>        <span class="k">await</span> <span class="bp">self</span><span class="o">.</span><span class="n">session</span><span class="o">.</span><span class="n">_send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Interrupt current track.</p>
+            <div class="docstring"><p>Interrupts the current track.</p>
 
-<p>Any audio that has been sent, but not played
-will be cleared and be prevented from playing.</p>
-
-<p>Audio sent after the interrupt will be played normally.</p>
+<p>Any audio that has been sent, but not played, will be cleared and
+prevented from playing. Audio sent after the interrupt will be played
+normally.</p>
 </div>
 
 
@@ -988,36 +1085,34 @@ will be cleared and be prevented from playing.</p>
     <a class="headerlink" href="#OutgoingAudioTrackOptions"></a>
             <div class="pdoc-code codehilite"><pre><span></span><span id="OutgoingAudioTrackOptions-30"><a href="#OutgoingAudioTrackOptions-30"><span class="linenos">30</span></a><span class="nd">@dataclass</span>
 </span><span id="OutgoingAudioTrackOptions-31"><a href="#OutgoingAudioTrackOptions-31"><span class="linenos">31</span></a><span class="k">class</span><span class="w"> </span><span class="nc">OutgoingAudioTrackOptions</span><span class="p">:</span>
-</span><span id="OutgoingAudioTrackOptions-32"><a href="#OutgoingAudioTrackOptions-32"><span class="linenos">32</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Parameters of an outgoing audio track.&quot;&quot;&quot;</span>
+</span><span id="OutgoingAudioTrackOptions-32"><a href="#OutgoingAudioTrackOptions-32"><span class="linenos">32</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Parameters of an outgoing audio track.</span>
 </span><span id="OutgoingAudioTrackOptions-33"><a href="#OutgoingAudioTrackOptions-33"><span class="linenos">33</span></a>
-</span><span id="OutgoingAudioTrackOptions-34"><a href="#OutgoingAudioTrackOptions-34"><span class="linenos">34</span></a>    <span class="n">encoding</span><span class="p">:</span> <span class="n">TrackEncoding</span> <span class="o">=</span> <span class="n">TrackEncoding</span><span class="o">.</span><span class="n">TRACK_ENCODING_UNSPECIFIED</span>
-</span><span id="OutgoingAudioTrackOptions-35"><a href="#OutgoingAudioTrackOptions-35"><span class="linenos">35</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="OutgoingAudioTrackOptions-36"><a href="#OutgoingAudioTrackOptions-36"><span class="linenos">36</span></a><span class="sd">    The encoding of the audio source.</span>
-</span><span id="OutgoingAudioTrackOptions-37"><a href="#OutgoingAudioTrackOptions-37"><span class="linenos">37</span></a><span class="sd">    Defaults to raw 16-bit PCM.</span>
-</span><span id="OutgoingAudioTrackOptions-38"><a href="#OutgoingAudioTrackOptions-38"><span class="linenos">38</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="OutgoingAudioTrackOptions-39"><a href="#OutgoingAudioTrackOptions-39"><span class="linenos">39</span></a>
-</span><span id="OutgoingAudioTrackOptions-40"><a href="#OutgoingAudioTrackOptions-40"><span class="linenos">40</span></a>    <span class="n">sample_rate</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">16000</span><span class="p">,</span> <span class="mi">24000</span><span class="p">]</span> <span class="o">=</span> <span class="mi">16000</span>
-</span><span id="OutgoingAudioTrackOptions-41"><a href="#OutgoingAudioTrackOptions-41"><span class="linenos">41</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="OutgoingAudioTrackOptions-42"><a href="#OutgoingAudioTrackOptions-42"><span class="linenos">42</span></a><span class="sd">    The sample rate of the audio source.</span>
-</span><span id="OutgoingAudioTrackOptions-43"><a href="#OutgoingAudioTrackOptions-43"><span class="linenos">43</span></a><span class="sd">    Defaults to 16000.</span>
-</span><span id="OutgoingAudioTrackOptions-44"><a href="#OutgoingAudioTrackOptions-44"><span class="linenos">44</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="OutgoingAudioTrackOptions-45"><a href="#OutgoingAudioTrackOptions-45"><span class="linenos">45</span></a>
-</span><span id="OutgoingAudioTrackOptions-46"><a href="#OutgoingAudioTrackOptions-46"><span class="linenos">46</span></a>    <span class="n">channels</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
-</span><span id="OutgoingAudioTrackOptions-47"><a href="#OutgoingAudioTrackOptions-47"><span class="linenos">47</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="OutgoingAudioTrackOptions-48"><a href="#OutgoingAudioTrackOptions-48"><span class="linenos">48</span></a><span class="sd">    The number of channels in the audio source.</span>
-</span><span id="OutgoingAudioTrackOptions-49"><a href="#OutgoingAudioTrackOptions-49"><span class="linenos">49</span></a><span class="sd">    Supported values are 1 (mono) and 2 (stereo).</span>
-</span><span id="OutgoingAudioTrackOptions-50"><a href="#OutgoingAudioTrackOptions-50"><span class="linenos">50</span></a><span class="sd">    Defaults to 1 (mono)</span>
-</span><span id="OutgoingAudioTrackOptions-51"><a href="#OutgoingAudioTrackOptions-51"><span class="linenos">51</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="OutgoingAudioTrackOptions-52"><a href="#OutgoingAudioTrackOptions-52"><span class="linenos">52</span></a>
-</span><span id="OutgoingAudioTrackOptions-53"><a href="#OutgoingAudioTrackOptions-53"><span class="linenos">53</span></a>    <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
-</span><span id="OutgoingAudioTrackOptions-54"><a href="#OutgoingAudioTrackOptions-54"><span class="linenos">54</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-</span><span id="OutgoingAudioTrackOptions-55"><a href="#OutgoingAudioTrackOptions-55"><span class="linenos">55</span></a><span class="sd">    Custom metadata for the track.</span>
-</span><span id="OutgoingAudioTrackOptions-56"><a href="#OutgoingAudioTrackOptions-56"><span class="linenos">56</span></a><span class="sd">    Must be JSON-encodable.</span>
-</span><span id="OutgoingAudioTrackOptions-57"><a href="#OutgoingAudioTrackOptions-57"><span class="linenos">57</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="OutgoingAudioTrackOptions-34"><a href="#OutgoingAudioTrackOptions-34"><span class="linenos">34</span></a><span class="sd">    Attributes:</span>
+</span><span id="OutgoingAudioTrackOptions-35"><a href="#OutgoingAudioTrackOptions-35"><span class="linenos">35</span></a><span class="sd">        encoding: The encoding of the audio source. Defaults to raw 16-bit PCM.</span>
+</span><span id="OutgoingAudioTrackOptions-36"><a href="#OutgoingAudioTrackOptions-36"><span class="linenos">36</span></a><span class="sd">        sample_rate: The sample rate of the audio source. Defaults to 16000.</span>
+</span><span id="OutgoingAudioTrackOptions-37"><a href="#OutgoingAudioTrackOptions-37"><span class="linenos">37</span></a><span class="sd">        channels: The number of channels in the audio source. Supported values are</span>
+</span><span id="OutgoingAudioTrackOptions-38"><a href="#OutgoingAudioTrackOptions-38"><span class="linenos">38</span></a><span class="sd">            1 (mono) and 2 (stereo). Defaults to 1 (mono).</span>
+</span><span id="OutgoingAudioTrackOptions-39"><a href="#OutgoingAudioTrackOptions-39"><span class="linenos">39</span></a><span class="sd">        metadata: Custom metadata for the track. Must be JSON-encodable.</span>
+</span><span id="OutgoingAudioTrackOptions-40"><a href="#OutgoingAudioTrackOptions-40"><span class="linenos">40</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="OutgoingAudioTrackOptions-41"><a href="#OutgoingAudioTrackOptions-41"><span class="linenos">41</span></a>
+</span><span id="OutgoingAudioTrackOptions-42"><a href="#OutgoingAudioTrackOptions-42"><span class="linenos">42</span></a>    <span class="n">encoding</span><span class="p">:</span> <span class="n">TrackEncoding</span> <span class="o">=</span> <span class="n">TrackEncoding</span><span class="o">.</span><span class="n">TRACK_ENCODING_UNSPECIFIED</span>
+</span><span id="OutgoingAudioTrackOptions-43"><a href="#OutgoingAudioTrackOptions-43"><span class="linenos">43</span></a>    <span class="n">sample_rate</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">16000</span><span class="p">,</span> <span class="mi">24000</span><span class="p">]</span> <span class="o">=</span> <span class="mi">16000</span>
+</span><span id="OutgoingAudioTrackOptions-44"><a href="#OutgoingAudioTrackOptions-44"><span class="linenos">44</span></a>    <span class="n">channels</span><span class="p">:</span> <span class="n">Literal</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+</span><span id="OutgoingAudioTrackOptions-45"><a href="#OutgoingAudioTrackOptions-45"><span class="linenos">45</span></a>    <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
 </span></pre></div>
 
 
             <div class="docstring"><p>Parameters of an outgoing audio track.</p>
+
+<p>Attributes:</p>
+
+<ul>
+<li>encoding: The encoding of the audio source. Defaults to raw 16-bit PCM.</li>
+<li>sample_rate: The sample rate of the audio source. Defaults to 16000.</li>
+<li>channels: The number of channels in the audio source. Supported values are
+1 (mono) and 2 (stereo). Defaults to 1 (mono).</li>
+<li>metadata: Custom metadata for the track. Must be JSON-encodable.</li>
+</ul>
 </div>
 
 
@@ -1042,9 +1137,6 @@ will be cleared and be prevented from playing.</p>
     </div>
     <a class="headerlink" href="#OutgoingAudioTrackOptions.encoding"></a>
 
-            <div class="docstring"><p>The encoding of the audio source.
-Defaults to raw 16-bit PCM.</p>
-</div>
 
 
                             </div>
@@ -1057,9 +1149,6 @@ Defaults to raw 16-bit PCM.</p>
     </div>
     <a class="headerlink" href="#OutgoingAudioTrackOptions.sample_rate"></a>
 
-            <div class="docstring"><p>The sample rate of the audio source.
-Defaults to 16000.</p>
-</div>
 
 
                             </div>
@@ -1072,10 +1161,6 @@ Defaults to 16000.</p>
     </div>
     <a class="headerlink" href="#OutgoingAudioTrackOptions.channels"></a>
 
-            <div class="docstring"><p>The number of channels in the audio source.
-Supported values are 1 (mono) and 2 (stereo).
-Defaults to 1 (mono)</p>
-</div>
 
 
                             </div>
@@ -1088,9 +1173,6 @@ Defaults to 1 (mono)</p>
     </div>
     <a class="headerlink" href="#OutgoingAudioTrackOptions.metadata"></a>
 
-            <div class="docstring"><p>Custom metadata for the track.
-Must be JSON-encodable.</p>
-</div>
 
 
                             </div>
