@@ -8,7 +8,7 @@
 # pylint: disable=locally-disabled, no-name-in-module, import-error
 
 # Exceptions and Server Messages
-from fishjam import agent, errors, events, peer, room
+from fishjam import agent, errors, events, integrations, peer, room, version
 from fishjam._openapi_client.models import PeerMetadata
 
 # API
@@ -23,6 +23,8 @@ from fishjam.api._fishjam_client import (
     Room,
     RoomOptions,
 )
+
+__version__ = version.__version__
 
 __all__ = [
     "FishjamClient",
@@ -40,6 +42,8 @@ __all__ = [
     "room",
     "peer",
     "agent",
+    "integrations",
 ]
+
 
 __docformat__ = "restructuredtext"

@@ -308,6 +308,11 @@ dependencies = [
     { name = "websockets" },
 ]
 
+[package.optional-dependencies]
+gemini = [
+    { name = "google-genai" },
+]
+
 [package.dev-dependencies]
 dev = [
     { name = "betterproto", extra = ["compiler"] },
@@ -332,11 +337,13 @@ requires-dist = [
     { name = "attrs", specifier = ">=21.3.0" },
     { name = "betterproto", specifier = "==2.0.0b6" },
     { name = "flask-cors", specifier = ">=6.0.1,<7" },
+    { name = "google-genai", marker = "extra == 'gemini'", specifier = ">=1.43.0" },
     { name = "httpx", specifier = ">=0.28.0,<0.29.0" },
     { name = "python-dateutil", specifier = ">=2.8.2,<3" },
     { name = "urllib3", specifier = ">=1.25.3,<2" },
     { name = "websockets", specifier = "~=15.0" },
 ]
+provides-extras = ["gemini"]
 
 [package.metadata.requires-dev]
 dev = [

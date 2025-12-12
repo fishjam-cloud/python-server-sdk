@@ -33,6 +33,9 @@ generate_docusaurus = "scripts:generate_docusaurus"
 update_client = "scripts:update_client"
 room_manager = "scripts:start_room_manager"
 
+[project.optional-dependencies]
+gemini = ["google-genai>=1.43.0"]
+
 [dependency-groups]
 dev = [
     "betterproto[compiler]== 2.0.0b6",
@@ -55,7 +58,12 @@ test = [
 default-groups = ["dev", "test"]
 
 [tool.uv.workspace]
-members = ["examples/transcription", ".", "examples/poet_chat", "examples/selective_subscription"]
+members = [
+    "examples/transcription",
+    ".",
+    "examples/poet_chat",
+    "examples/selective_subscription",
+]
 
 [tool.hatch.build.targets.sdist]
 include = ["fishjam"]
@@ -84,8 +92,6 @@ convention = "google"
 "**/__init__.py" = ["D415", "DOC"]
 "tests/**" = ["D"]
 "scripts.py" = ["D"]
-
-
 
 
 [tool.pytest.ini_options]

@@ -1,5 +1,6 @@
-from fishjam import FishjamClient, Room
+from fishjam import AgentOptions, FishjamClient, Room
 from fishjam.errors import NotFoundError
+from fishjam.integrations.gemini import GeminiIntegration
 from transcription.worker import BackgroundWorker
 
 from .agent import TranscriptionAgent
@@ -27,7 +28,10 @@ class RoomService:
     def _create_agent(self):
         self.agent = TranscriptionAgent(
             self.room.id,
-            fishjam.create_agent(self.room.id),
+            fishjam.create_agent(
+                self.room.id,
+                AgentOptions(output=GeminiIntegration.GEMINI_INPUT_AUDIO_SETTINGS),
+            ),
             self._worker,
         )
 

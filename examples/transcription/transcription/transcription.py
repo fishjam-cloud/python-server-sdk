@@ -1,16 +1,17 @@
 from asyncio import Event, Queue, TaskGroup
 from typing import Callable
 
-from google import genai
 from google.genai.live import AsyncSession
 from google.genai.types import Blob
+
+from fishjam.integrations.gemini import GeminiIntegration
 
 from .config import TRANSCRIPTION_CONFIG, TRANSCRIPTION_MODEL
 
 
 class TranscriptionSession:
     def __init__(self, on_text: Callable[[str], None]):
-        self._gemini = genai.Client()
+        self._gemini = GeminiIntegration.create_client()
         self._audio_queue = Queue[bytes]()
         self._end_event = Event()
         self._model = TRANSCRIPTION_MODEL
@@ -43,7 +44,10 @@ class TranscriptionSession:
         while True:
             audio_frame = await self._audio_queue.get()
             await session.send_realtime_input(
-                audio=Blob(data=audio_frame, mime_type="audio/pcm;rate=16000")
+                audio=Blob(
+                    data=audio_frame,
+                    mime_type=GeminiIntegration.GEMINI_AUDIO_MIME_TYPE,
+                )
             )
 
     async def _recv_loop(self, session: AsyncSession):
