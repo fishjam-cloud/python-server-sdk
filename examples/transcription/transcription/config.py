@@ -4,8 +4,8 @@ from google.genai.types import AudioTranscriptionConfig, LiveConnectConfig, Moda
 
 FISHJAM_ID = os.getenv("FISHJAM_ID", "")
 FISHJAM_TOKEN = os.environ["FISHJAM_MANAGEMENT_TOKEN"]
-TRANSCRIPTION_MODEL = "gemini-live-2.5-flash-preview"
+TRANSCRIPTION_MODEL = "gemini-2.5-flash-native-audio-preview-09-2025"
 TRANSCRIPTION_CONFIG = LiveConnectConfig(
-    response_modalities=[Modality.TEXT],
+    response_modalities=[Modality.AUDIO],
     input_audio_transcription=AudioTranscriptionConfig(),
 )

@@ -1,16 +1,17 @@
 from asyncio import Event, Queue, TaskGroup
 from typing import Callable
 
-from google import genai
 from google.genai.live import AsyncSession
 from google.genai.types import Blob
+
+from fishjam.integrations.gemini import GeminiIntegration
 
 from .config import TRANSCRIPTION_CONFIG, TRANSCRIPTION_MODEL
 
 
 class TranscriptionSession:
     def __init__(self, on_text: Callable[[str], None]):
-        self._gemini = genai.Client()
+        self._gemini = GeminiIntegration.create_client()
         self._audio_queue = Queue[bytes]()
         self._end_event = Event()
         self._model = TRANSCRIPTION_MODEL
