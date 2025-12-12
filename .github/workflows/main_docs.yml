@@ -30,7 +30,7 @@ jobs:
           python-version-file: "pyproject.toml"
           enable-cache: true
 
-      - run: uv sync --locked
+      - run: uv sync --locked --all-extras --dev --all-packages
       - run: uv run generate_docs
       - run: git fetch origin gh-pages --depth=1
       - run: git config user.name ci-bot
