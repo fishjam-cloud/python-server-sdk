@@ -89,6 +89,11 @@ class _GeminiIntegration:
             audio_sample_rate=16_000,
         )
 
+    @property
+    def GEMINI_AUDIO_MIME_TYPE(self) -> str:
+        """The mime type for Gemini audio input."""
+        return "audio/pcm;rate=16000"
+
 
 GeminiIntegration = _GeminiIntegration()
 """Integration with the Gemini Live API."""

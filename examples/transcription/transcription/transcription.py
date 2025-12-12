@@ -44,7 +44,10 @@ class TranscriptionSession:
         while True:
             audio_frame = await self._audio_queue.get()
             await session.send_realtime_input(
-                audio=Blob(data=audio_frame, mime_type="audio/pcm;rate=16000")
+                audio=Blob(
+                    data=audio_frame,
+                    mime_type=GeminiIntegration.GEMINI_AUDIO_MIME_TYPE,
+                )
             )
 
     async def _recv_loop(self, session: AsyncSession):
