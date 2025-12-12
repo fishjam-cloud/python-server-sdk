@@ -76,7 +76,7 @@ class _GeminiIntegration:
         )
 
     @property
-    def GeminiInputAudioSettings(self) -> AgentOutputOptions:
+    def GEMINI_INPUT_AUDIO_SETTINGS(self) -> AgentOutputOptions:
         """Audio configuration required for Gemini input.
 
         Gemini requires PCM16 audio at 16,000 Hz for correct processing.

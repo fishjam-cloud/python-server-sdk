@@ -30,7 +30,7 @@ class RoomService:
             self.room.id,
             fishjam.create_agent(
                 self.room.id,
-                AgentOptions(output=GeminiIntegration.GeminiInputAudioSettings)
+                AgentOptions(output=GeminiIntegration.GEMINI_INPUT_AUDIO_SETTINGS),
             ),
             self._worker,
         )
