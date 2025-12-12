@@ -9,7 +9,6 @@ except ImportError:
         "Install it with `pip install 'fishjam-server-sdk[gemini]'`"
     )
 
-from functools import singledispatch
 from typing import Optional, Union
 
 from fishjam import AgentOutputOptions
@@ -20,26 +19,29 @@ def _get_headers():
     return {"x-goog-api-client": f"fishjam-python-server-sdk/{get_version()}"}
 
 
-@singledispatch
 def _add_fishjam_header(
     http_options: Optional[Union[types.HttpOptions, types.HttpOptionsDict]],
-) -> Union[types.HttpOptions, types.HttpOptionsDict]: ...
+) -> Union[types.HttpOptions, types.HttpOptionsDict]:
+    if http_options is None:
+        return _add_fishjam_header_none()
+    if isinstance(http_options, types.HttpOptions):
+        return _add_fishjam_header_object(http_options)
+    return _add_fishjam_header_dict(http_options)
 
 
-@_add_fishjam_header.register
-def _(http_options: types.HttpOptions) -> types.HttpOptions:
+def _add_fishjam_header_object(http_options: types.HttpOptions) -> types.HttpOptions:
     http_options.headers = (http_options.headers or {}) | _get_headers()
     return http_options
 
 
-@_add_fishjam_header.register
-def _(http_options: types.HttpOptionsDict) -> types.HttpOptionsDict:
+def _add_fishjam_header_dict(
+    http_options: types.HttpOptionsDict,
+) -> types.HttpOptionsDict:
     headers = (http_options.get("headers") or {}) | _get_headers()
     return http_options | {"headers": headers}
 
 
-@_add_fishjam_header.register
-def _(_http_options: None) -> types.HttpOptionsDict:
+def _add_fishjam_header_none() -> types.HttpOptionsDict:
     return {"headers": _get_headers()}
 
 
