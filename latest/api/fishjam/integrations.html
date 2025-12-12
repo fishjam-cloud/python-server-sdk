@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Peer - Fishjam Python Server SDK</title>
+        <title>Integrations - Fishjam Python Server SDK</title>
         <link href="../../css/bootstrap.min.css" rel="stylesheet">
         <link href="../../css/fontawesome.min.css" rel="stylesheet">
         <link href="../../css/brands.min.css" rel="stylesheet">
@@ -71,11 +71,11 @@
 </li>
             
 <li>
-    <a href="integrations.html" class="dropdown-item">Integrations</a>
+    <a href="integrations.html" class="dropdown-item active" aria-current="page">Integrations</a>
 </li>
             
 <li>
-    <a href="peer.html" class="dropdown-item active" aria-current="page">Peer</a>
+    <a href="peer.html" class="dropdown-item">Peer</a>
 </li>
             
 <li>
@@ -99,12 +99,12 @@
 
                     <ul class="nav navbar-nav ms-md-auto">
                             <li class="nav-item">
-                                <a rel="prev" href="integrations.html" class="nav-link">
+                                <a rel="prev" href="events.html" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="room.html" class="nav-link">
+                                <a rel="next" href="peer.html" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -168,55 +168,10 @@
 
 
 
-
-            <h2>API Documentation</h2>
-                <ul class="memberlist">
-            <li>
-                    <a class="class" href="#PeerMetadata">PeerMetadata</a>
-                            <ul class="memberlist">
-                        <li>
-                                <a class="function" href="#PeerMetadata.__init__">PeerMetadata</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#PeerMetadata.additional_properties">additional_properties</a>
-                        </li>
-                        <li>
-                                <a class="function" href="#PeerMetadata.to_dict">to_dict</a>
-                        </li>
-                        <li>
-                                <a class="function" href="#PeerMetadata.from_dict">from_dict</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#PeerMetadata.additional_keys">additional_keys</a>
-                        </li>
-                </ul>
-
-            </li>
-            <li>
-                    <a class="class" href="#PeerStatus">PeerStatus</a>
-                            <ul class="memberlist">
-                        <li>
-                                <a class="variable" href="#PeerStatus.CONNECTED">CONNECTED</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#PeerStatus.DISCONNECTED">DISCONNECTED</a>
-                        </li>
-                </ul>
-
-            </li>
-            <li>
-                    <a class="class" href="#PeerType">PeerType</a>
-                            <ul class="memberlist">
-                        <li>
-                                <a class="variable" href="#PeerType.AGENT">AGENT</a>
-                        </li>
-                        <li>
-                                <a class="variable" href="#PeerType.WEBRTC">WEBRTC</a>
-                        </li>
-                </ul>
-
-            </li>
-    </ul>
+            <h2>Submodules</h2>
+            <ul>
+                    <li><a href="integrations/gemini.html">gemini</a></li>
+            </ul>
 
 
 
@@ -231,408 +186,15 @@
             <section class="module-info">
 
 
-                        <input id="mod-peer-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                        <input id="mod-integrations-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 
-                        <label class="view-source-button" for="mod-peer-view-source"><span>View Source</span></label>
+                        <label class="view-source-button" for="mod-integrations-view-source"><span>View Source</span></label>
 
-                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos"> 1</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">fishjam._openapi_client.models</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-</span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>    <span class="n">PeerMetadata</span><span class="p">,</span>
-</span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a>    <span class="n">PeerStatus</span><span class="p">,</span>
-</span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a>    <span class="n">PeerType</span><span class="p">,</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a><span class="p">)</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>    <span class="s2">&quot;PeerMetadata&quot;</span><span class="p">,</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="s2">&quot;PeerStatus&quot;</span><span class="p">,</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="s2">&quot;PeerType&quot;</span><span class="p">,</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a><span class="p">]</span>
+                        <div class="pdoc-code codehilite"><pre><span></span><span id="L-1"><a href="#L-1"><span class="linenos">1</span></a>
 </span></pre></div>
 
 
             </section>
-                <section id="PeerMetadata">
-                            <input id="PeerMetadata-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-
-    <span class="def">class</span>
-    <span class="name">PeerMetadata</span>:
-
-                <label class="view-source-button" for="PeerMetadata-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#PeerMetadata"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata-11"><a href="#PeerMetadata-11"><span class="linenos">11</span></a><span class="nd">@_attrs_define</span>
-</span><span id="PeerMetadata-12"><a href="#PeerMetadata-12"><span class="linenos">12</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PeerMetadata</span><span class="p">:</span>
-</span><span id="PeerMetadata-13"><a href="#PeerMetadata-13"><span class="linenos">13</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom metadata set by the peer</span>
-</span><span id="PeerMetadata-14"><a href="#PeerMetadata-14"><span class="linenos">14</span></a>
-</span><span id="PeerMetadata-15"><a href="#PeerMetadata-15"><span class="linenos">15</span></a><span class="sd">    Example:</span>
-</span><span id="PeerMetadata-16"><a href="#PeerMetadata-16"><span class="linenos">16</span></a><span class="sd">        {&#39;name&#39;: &#39;FishjamUser&#39;}</span>
-</span><span id="PeerMetadata-17"><a href="#PeerMetadata-17"><span class="linenos">17</span></a>
-</span><span id="PeerMetadata-18"><a href="#PeerMetadata-18"><span class="linenos">18</span></a><span class="sd">    &quot;&quot;&quot;</span>
-</span><span id="PeerMetadata-19"><a href="#PeerMetadata-19"><span class="linenos">19</span></a>
-</span><span id="PeerMetadata-20"><a href="#PeerMetadata-20"><span class="linenos">20</span></a>    <span class="n">additional_properties</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">_attrs_field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
-</span><span id="PeerMetadata-21"><a href="#PeerMetadata-21"><span class="linenos">21</span></a>
-</span><span id="PeerMetadata-22"><a href="#PeerMetadata-22"><span class="linenos">22</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="PeerMetadata-23"><a href="#PeerMetadata-23"><span class="linenos">23</span></a>        <span class="n">field_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span id="PeerMetadata-24"><a href="#PeerMetadata-24"><span class="linenos">24</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">)</span>
-</span><span id="PeerMetadata-25"><a href="#PeerMetadata-25"><span class="linenos">25</span></a>
-</span><span id="PeerMetadata-26"><a href="#PeerMetadata-26"><span class="linenos">26</span></a>        <span class="k">return</span> <span class="n">field_dict</span>
-</span><span id="PeerMetadata-27"><a href="#PeerMetadata-27"><span class="linenos">27</span></a>
-</span><span id="PeerMetadata-28"><a href="#PeerMetadata-28"><span class="linenos">28</span></a>    <span class="nd">@classmethod</span>
-</span><span id="PeerMetadata-29"><a href="#PeerMetadata-29"><span class="linenos">29</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-</span><span id="PeerMetadata-30"><a href="#PeerMetadata-30"><span class="linenos">30</span></a>        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">src_dict</span><span class="p">)</span>
-</span><span id="PeerMetadata-31"><a href="#PeerMetadata-31"><span class="linenos">31</span></a>        <span class="n">peer_metadata</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
-</span><span id="PeerMetadata-32"><a href="#PeerMetadata-32"><span class="linenos">32</span></a>
-</span><span id="PeerMetadata-33"><a href="#PeerMetadata-33"><span class="linenos">33</span></a>        <span class="n">peer_metadata</span><span class="o">.</span><span class="n">additional_properties</span> <span class="o">=</span> <span class="n">d</span>
-</span><span id="PeerMetadata-34"><a href="#PeerMetadata-34"><span class="linenos">34</span></a>        <span class="k">return</span> <span class="n">peer_metadata</span>
-</span><span id="PeerMetadata-35"><a href="#PeerMetadata-35"><span class="linenos">35</span></a>
-</span><span id="PeerMetadata-36"><a href="#PeerMetadata-36"><span class="linenos">36</span></a>    <span class="nd">@property</span>
-</span><span id="PeerMetadata-37"><a href="#PeerMetadata-37"><span class="linenos">37</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">additional_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="PeerMetadata-38"><a href="#PeerMetadata-38"><span class="linenos">38</span></a>        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-</span><span id="PeerMetadata-39"><a href="#PeerMetadata-39"><span class="linenos">39</span></a>
-</span><span id="PeerMetadata-40"><a href="#PeerMetadata-40"><span class="linenos">40</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-</span><span id="PeerMetadata-41"><a href="#PeerMetadata-41"><span class="linenos">41</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-</span><span id="PeerMetadata-42"><a href="#PeerMetadata-42"><span class="linenos">42</span></a>
-</span><span id="PeerMetadata-43"><a href="#PeerMetadata-43"><span class="linenos">43</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="PeerMetadata-44"><a href="#PeerMetadata-44"><span class="linenos">44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-</span><span id="PeerMetadata-45"><a href="#PeerMetadata-45"><span class="linenos">45</span></a>
-</span><span id="PeerMetadata-46"><a href="#PeerMetadata-46"><span class="linenos">46</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="PeerMetadata-47"><a href="#PeerMetadata-47"><span class="linenos">47</span></a>        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-</span><span id="PeerMetadata-48"><a href="#PeerMetadata-48"><span class="linenos">48</span></a>
-</span><span id="PeerMetadata-49"><a href="#PeerMetadata-49"><span class="linenos">49</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="PeerMetadata-50"><a href="#PeerMetadata-50"><span class="linenos">50</span></a>        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Custom metadata set by the peer</p>
-
-<p>Example:</p>
-
-<ul>
-<li>{'name': 'FishjamUser'}</li>
-</ul>
-</div>
-
-
-                            <div id="PeerMetadata.__init__" class="classattr">
-                                        <input id="PeerMetadata.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr function">
-
-        <span class="name">PeerMetadata</span><span class="signature pdoc-code condensed">()</span>
-
-                <label class="view-source-button" for="PeerMetadata.__init__-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#PeerMetadata.__init__"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata.__init__-23"><a href="#PeerMetadata.__init__-23"><span class="linenos">23</span></a><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="p">):</span>
-</span><span id="PeerMetadata.__init__-24"><a href="#PeerMetadata.__init__-24"><span class="linenos">24</span></a>    <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span> <span class="o">=</span> <span class="n">__attr_factory_additional_properties</span><span class="p">()</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Method generated by attrs for class PeerMetadata.</p>
-</div>
-
-
-                            </div>
-                            <div id="PeerMetadata.additional_properties" class="classattr">
-                                <div class="attr variable">
-            <span class="name">additional_properties</span><span class="annotation">: dict[str, typing.Any]</span>
-
-
-    </div>
-    <a class="headerlink" href="#PeerMetadata.additional_properties"></a>
-
-
-
-                            </div>
-                            <div id="PeerMetadata.to_dict" class="classattr">
-                                        <input id="PeerMetadata.to_dict-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr function">
-
-        <span class="def">def</span>
-        <span class="name">to_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span>:</span></span>
-
-                <label class="view-source-button" for="PeerMetadata.to_dict-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#PeerMetadata.to_dict"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata.to_dict-22"><a href="#PeerMetadata.to_dict-22"><span class="linenos">22</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="PeerMetadata.to_dict-23"><a href="#PeerMetadata.to_dict-23"><span class="linenos">23</span></a>        <span class="n">field_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span id="PeerMetadata.to_dict-24"><a href="#PeerMetadata.to_dict-24"><span class="linenos">24</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">)</span>
-</span><span id="PeerMetadata.to_dict-25"><a href="#PeerMetadata.to_dict-25"><span class="linenos">25</span></a>
-</span><span id="PeerMetadata.to_dict-26"><a href="#PeerMetadata.to_dict-26"><span class="linenos">26</span></a>        <span class="k">return</span> <span class="n">field_dict</span>
-</span></pre></div>
-
-
-
-
-                            </div>
-                            <div id="PeerMetadata.from_dict" class="classattr">
-                                        <input id="PeerMetadata.from_dict-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr function">
-                    <div class="decorator">@classmethod</div>
-
-        <span class="def">def</span>
-        <span class="name">from_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="o">~</span><span class="n">T</span><span class="p">]</span>, </span><span class="param"><span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span></span><span class="return-annotation">) -> <span class="o">~</span><span class="n">T</span>:</span></span>
-
-                <label class="view-source-button" for="PeerMetadata.from_dict-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#PeerMetadata.from_dict"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata.from_dict-28"><a href="#PeerMetadata.from_dict-28"><span class="linenos">28</span></a>    <span class="nd">@classmethod</span>
-</span><span id="PeerMetadata.from_dict-29"><a href="#PeerMetadata.from_dict-29"><span class="linenos">29</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-</span><span id="PeerMetadata.from_dict-30"><a href="#PeerMetadata.from_dict-30"><span class="linenos">30</span></a>        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">src_dict</span><span class="p">)</span>
-</span><span id="PeerMetadata.from_dict-31"><a href="#PeerMetadata.from_dict-31"><span class="linenos">31</span></a>        <span class="n">peer_metadata</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
-</span><span id="PeerMetadata.from_dict-32"><a href="#PeerMetadata.from_dict-32"><span class="linenos">32</span></a>
-</span><span id="PeerMetadata.from_dict-33"><a href="#PeerMetadata.from_dict-33"><span class="linenos">33</span></a>        <span class="n">peer_metadata</span><span class="o">.</span><span class="n">additional_properties</span> <span class="o">=</span> <span class="n">d</span>
-</span><span id="PeerMetadata.from_dict-34"><a href="#PeerMetadata.from_dict-34"><span class="linenos">34</span></a>        <span class="k">return</span> <span class="n">peer_metadata</span>
-</span></pre></div>
-
-
-
-
-                            </div>
-                            <div id="PeerMetadata.additional_keys" class="classattr">
-                                        <input id="PeerMetadata.additional_keys-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr variable">
-            <span class="name">additional_keys</span><span class="annotation">: list[str]</span>
-
-                <label class="view-source-button" for="PeerMetadata.additional_keys-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#PeerMetadata.additional_keys"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata.additional_keys-36"><a href="#PeerMetadata.additional_keys-36"><span class="linenos">36</span></a>    <span class="nd">@property</span>
-</span><span id="PeerMetadata.additional_keys-37"><a href="#PeerMetadata.additional_keys-37"><span class="linenos">37</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">additional_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="PeerMetadata.additional_keys-38"><a href="#PeerMetadata.additional_keys-38"><span class="linenos">38</span></a>        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-</span></pre></div>
-
-
-
-
-                            </div>
-                </section>
-                <section id="PeerStatus">
-                            <input id="PeerStatus-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-
-    <span class="def">class</span>
-    <span class="name">PeerStatus</span><wbr>(<span class="base">builtins.str</span>, <span class="base">enum.Enum</span>):
-
-                <label class="view-source-button" for="PeerStatus-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#PeerStatus"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerStatus-5"><a href="#PeerStatus-5"><span class="linenos"> 5</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PeerStatus</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-</span><span id="PeerStatus-6"><a href="#PeerStatus-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Informs about the peer status&quot;&quot;&quot;</span>
-</span><span id="PeerStatus-7"><a href="#PeerStatus-7"><span class="linenos"> 7</span></a>
-</span><span id="PeerStatus-8"><a href="#PeerStatus-8"><span class="linenos"> 8</span></a>    <span class="n">CONNECTED</span> <span class="o">=</span> <span class="s2">&quot;connected&quot;</span>
-</span><span id="PeerStatus-9"><a href="#PeerStatus-9"><span class="linenos"> 9</span></a>    <span class="n">DISCONNECTED</span> <span class="o">=</span> <span class="s2">&quot;disconnected&quot;</span>
-</span><span id="PeerStatus-10"><a href="#PeerStatus-10"><span class="linenos">10</span></a>
-</span><span id="PeerStatus-11"><a href="#PeerStatus-11"><span class="linenos">11</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="PeerStatus-12"><a href="#PeerStatus-12"><span class="linenos">12</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Informs about the peer status</p>
-</div>
-
-
-                            <div id="PeerStatus.CONNECTED" class="classattr">
-                                <div class="attr variable">
-            <span class="name">CONNECTED</span>        =
-<span class="default_value">&lt;<a href="#PeerStatus.CONNECTED">PeerStatus.CONNECTED</a>: &#39;connected&#39;&gt;</span>
-
-
-    </div>
-    <a class="headerlink" href="#PeerStatus.CONNECTED"></a>
-
-
-
-                            </div>
-                            <div id="PeerStatus.DISCONNECTED" class="classattr">
-                                <div class="attr variable">
-            <span class="name">DISCONNECTED</span>        =
-<span class="default_value">&lt;<a href="#PeerStatus.DISCONNECTED">PeerStatus.DISCONNECTED</a>: &#39;disconnected&#39;&gt;</span>
-
-
-    </div>
-    <a class="headerlink" href="#PeerStatus.DISCONNECTED"></a>
-
-
-
-                            </div>
-                            <div class="inherited">
-                                <h5>Inherited Members</h5>
-                                <dl>
-                                    <div><dt>enum.Enum</dt>
-                                <dd id="PeerStatus.name" class="variable">name</dd>
-                <dd id="PeerStatus.value" class="variable">value</dd>
-
-            </div>
-            <div><dt>builtins.str</dt>
-                                <dd id="PeerStatus.encode" class="function">encode</dd>
-                <dd id="PeerStatus.replace" class="function">replace</dd>
-                <dd id="PeerStatus.split" class="function">split</dd>
-                <dd id="PeerStatus.rsplit" class="function">rsplit</dd>
-                <dd id="PeerStatus.join" class="function">join</dd>
-                <dd id="PeerStatus.capitalize" class="function">capitalize</dd>
-                <dd id="PeerStatus.casefold" class="function">casefold</dd>
-                <dd id="PeerStatus.title" class="function">title</dd>
-                <dd id="PeerStatus.center" class="function">center</dd>
-                <dd id="PeerStatus.count" class="function">count</dd>
-                <dd id="PeerStatus.expandtabs" class="function">expandtabs</dd>
-                <dd id="PeerStatus.find" class="function">find</dd>
-                <dd id="PeerStatus.partition" class="function">partition</dd>
-                <dd id="PeerStatus.index" class="function">index</dd>
-                <dd id="PeerStatus.ljust" class="function">ljust</dd>
-                <dd id="PeerStatus.lower" class="function">lower</dd>
-                <dd id="PeerStatus.lstrip" class="function">lstrip</dd>
-                <dd id="PeerStatus.rfind" class="function">rfind</dd>
-                <dd id="PeerStatus.rindex" class="function">rindex</dd>
-                <dd id="PeerStatus.rjust" class="function">rjust</dd>
-                <dd id="PeerStatus.rstrip" class="function">rstrip</dd>
-                <dd id="PeerStatus.rpartition" class="function">rpartition</dd>
-                <dd id="PeerStatus.splitlines" class="function">splitlines</dd>
-                <dd id="PeerStatus.strip" class="function">strip</dd>
-                <dd id="PeerStatus.swapcase" class="function">swapcase</dd>
-                <dd id="PeerStatus.translate" class="function">translate</dd>
-                <dd id="PeerStatus.upper" class="function">upper</dd>
-                <dd id="PeerStatus.startswith" class="function">startswith</dd>
-                <dd id="PeerStatus.endswith" class="function">endswith</dd>
-                <dd id="PeerStatus.removeprefix" class="function">removeprefix</dd>
-                <dd id="PeerStatus.removesuffix" class="function">removesuffix</dd>
-                <dd id="PeerStatus.isascii" class="function">isascii</dd>
-                <dd id="PeerStatus.islower" class="function">islower</dd>
-                <dd id="PeerStatus.isupper" class="function">isupper</dd>
-                <dd id="PeerStatus.istitle" class="function">istitle</dd>
-                <dd id="PeerStatus.isspace" class="function">isspace</dd>
-                <dd id="PeerStatus.isdecimal" class="function">isdecimal</dd>
-                <dd id="PeerStatus.isdigit" class="function">isdigit</dd>
-                <dd id="PeerStatus.isnumeric" class="function">isnumeric</dd>
-                <dd id="PeerStatus.isalpha" class="function">isalpha</dd>
-                <dd id="PeerStatus.isalnum" class="function">isalnum</dd>
-                <dd id="PeerStatus.isidentifier" class="function">isidentifier</dd>
-                <dd id="PeerStatus.isprintable" class="function">isprintable</dd>
-                <dd id="PeerStatus.zfill" class="function">zfill</dd>
-                <dd id="PeerStatus.format" class="function">format</dd>
-                <dd id="PeerStatus.format_map" class="function">format_map</dd>
-                <dd id="PeerStatus.maketrans" class="function">maketrans</dd>
-
-            </div>
-                                </dl>
-                            </div>
-                </section>
-                <section id="PeerType">
-                            <input id="PeerType-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
-<div class="attr class">
-
-    <span class="def">class</span>
-    <span class="name">PeerType</span><wbr>(<span class="base">builtins.str</span>, <span class="base">enum.Enum</span>):
-
-                <label class="view-source-button" for="PeerType-view-source"><span>View Source</span></label>
-
-    </div>
-    <a class="headerlink" href="#PeerType"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerType-5"><a href="#PeerType-5"><span class="linenos"> 5</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PeerType</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">Enum</span><span class="p">):</span>
-</span><span id="PeerType-6"><a href="#PeerType-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Peer type&quot;&quot;&quot;</span>
-</span><span id="PeerType-7"><a href="#PeerType-7"><span class="linenos"> 7</span></a>
-</span><span id="PeerType-8"><a href="#PeerType-8"><span class="linenos"> 8</span></a>    <span class="n">AGENT</span> <span class="o">=</span> <span class="s2">&quot;agent&quot;</span>
-</span><span id="PeerType-9"><a href="#PeerType-9"><span class="linenos"> 9</span></a>    <span class="n">WEBRTC</span> <span class="o">=</span> <span class="s2">&quot;webrtc&quot;</span>
-</span><span id="PeerType-10"><a href="#PeerType-10"><span class="linenos">10</span></a>
-</span><span id="PeerType-11"><a href="#PeerType-11"><span class="linenos">11</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="PeerType-12"><a href="#PeerType-12"><span class="linenos">12</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
-</span></pre></div>
-
-
-            <div class="docstring"><p>Peer type</p>
-</div>
-
-
-                            <div id="PeerType.AGENT" class="classattr">
-                                <div class="attr variable">
-            <span class="name">AGENT</span>        =
-<span class="default_value">&lt;<a href="#PeerType.AGENT">PeerType.AGENT</a>: &#39;agent&#39;&gt;</span>
-
-
-    </div>
-    <a class="headerlink" href="#PeerType.AGENT"></a>
-
-
-
-                            </div>
-                            <div id="PeerType.WEBRTC" class="classattr">
-                                <div class="attr variable">
-            <span class="name">WEBRTC</span>        =
-<span class="default_value">&lt;<a href="#PeerType.WEBRTC">PeerType.WEBRTC</a>: &#39;webrtc&#39;&gt;</span>
-
-
-    </div>
-    <a class="headerlink" href="#PeerType.WEBRTC"></a>
-
-
-
-                            </div>
-                            <div class="inherited">
-                                <h5>Inherited Members</h5>
-                                <dl>
-                                    <div><dt>enum.Enum</dt>
-                                <dd id="PeerType.name" class="variable">name</dd>
-                <dd id="PeerType.value" class="variable">value</dd>
-
-            </div>
-            <div><dt>builtins.str</dt>
-                                <dd id="PeerType.encode" class="function">encode</dd>
-                <dd id="PeerType.replace" class="function">replace</dd>
-                <dd id="PeerType.split" class="function">split</dd>
-                <dd id="PeerType.rsplit" class="function">rsplit</dd>
-                <dd id="PeerType.join" class="function">join</dd>
-                <dd id="PeerType.capitalize" class="function">capitalize</dd>
-                <dd id="PeerType.casefold" class="function">casefold</dd>
-                <dd id="PeerType.title" class="function">title</dd>
-                <dd id="PeerType.center" class="function">center</dd>
-                <dd id="PeerType.count" class="function">count</dd>
-                <dd id="PeerType.expandtabs" class="function">expandtabs</dd>
-                <dd id="PeerType.find" class="function">find</dd>
-                <dd id="PeerType.partition" class="function">partition</dd>
-                <dd id="PeerType.index" class="function">index</dd>
-                <dd id="PeerType.ljust" class="function">ljust</dd>
-                <dd id="PeerType.lower" class="function">lower</dd>
-                <dd id="PeerType.lstrip" class="function">lstrip</dd>
-                <dd id="PeerType.rfind" class="function">rfind</dd>
-                <dd id="PeerType.rindex" class="function">rindex</dd>
-                <dd id="PeerType.rjust" class="function">rjust</dd>
-                <dd id="PeerType.rstrip" class="function">rstrip</dd>
-                <dd id="PeerType.rpartition" class="function">rpartition</dd>
-                <dd id="PeerType.splitlines" class="function">splitlines</dd>
-                <dd id="PeerType.strip" class="function">strip</dd>
-                <dd id="PeerType.swapcase" class="function">swapcase</dd>
-                <dd id="PeerType.translate" class="function">translate</dd>
-                <dd id="PeerType.upper" class="function">upper</dd>
-                <dd id="PeerType.startswith" class="function">startswith</dd>
-                <dd id="PeerType.endswith" class="function">endswith</dd>
-                <dd id="PeerType.removeprefix" class="function">removeprefix</dd>
-                <dd id="PeerType.removesuffix" class="function">removesuffix</dd>
-                <dd id="PeerType.isascii" class="function">isascii</dd>
-                <dd id="PeerType.islower" class="function">islower</dd>
-                <dd id="PeerType.isupper" class="function">isupper</dd>
-                <dd id="PeerType.istitle" class="function">istitle</dd>
-                <dd id="PeerType.isspace" class="function">isspace</dd>
-                <dd id="PeerType.isdecimal" class="function">isdecimal</dd>
-                <dd id="PeerType.isdigit" class="function">isdigit</dd>
-                <dd id="PeerType.isnumeric" class="function">isnumeric</dd>
-                <dd id="PeerType.isalpha" class="function">isalpha</dd>
-                <dd id="PeerType.isalnum" class="function">isalnum</dd>
-                <dd id="PeerType.isidentifier" class="function">isidentifier</dd>
-                <dd id="PeerType.isprintable" class="function">isprintable</dd>
-                <dd id="PeerType.zfill" class="function">zfill</dd>
-                <dd id="PeerType.format" class="function">format</dd>
-                <dd id="PeerType.format_map" class="function">format_map</dd>
-                <dd id="PeerType.maketrans" class="function">maketrans</dd>
-
-            </div>
-                                </dl>
-                            </div>
-                </section>
     </main>
 <script>
     function escapeHTML(html) {
