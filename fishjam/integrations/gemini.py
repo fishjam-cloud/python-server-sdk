@@ -5,7 +5,7 @@ try:
     from google.genai.client import DebugConfig
 except ImportError:
     raise ImportError(
-        "To use the Fishjam Gemini integration, you need to import the `gemini` extra."
+        "To use the Fishjam Gemini integration, you need to import the `gemini` extra. "
         "Install it with `pip install 'fishjam-server-sdk[gemini]'`"
     )
 
@@ -54,6 +54,13 @@ class _GeminiIntegration:
         debug_config: Optional[DebugConfig] = None,
         http_options: Optional[Union[types.HttpOptions, types.HttpOptionsDict]] = None,
     ):
+        """Creates and configures a Fishjam-compatible Google GenAI Client.
+
+        See `genai.Client` for configuration options.
+
+        Returns:
+            genai.Client: An instantiated and configured Gemini client.
+        """
         full_http_options = _add_fishjam_header(http_options)
 
         return genai.Client(
@@ -68,6 +75,13 @@ class _GeminiIntegration:
 
     @property
     def GeminiInputAudioSettings(self) -> AgentOutputOptions:
+        """Audio configuration required for Gemini input.
+
+        Gemini requires PCM16 audio at 16,000 Hz for correct processing.
+
+        Returns:
+            AgentOutputOptions: Agent options compatible with the Gemini Live API.
+        """
         return AgentOutputOptions(
             audio_format="pcm16",
             audio_sample_rate=16_000,
@@ -75,3 +89,4 @@ class _GeminiIntegration:
 
 
 GeminiIntegration = _GeminiIntegration()
+"""Integration with the Gemini Live API."""
