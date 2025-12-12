@@ -12,6 +12,8 @@ except ImportError:
 from typing import Optional, Union
 
 from fishjam import AgentOutputOptions
+from fishjam.agent import OutgoingAudioTrackOptions
+from fishjam.events import TrackEncoding
 from fishjam.version import get_version
 
 
@@ -79,7 +81,7 @@ class _GeminiIntegration:
     def GEMINI_INPUT_AUDIO_SETTINGS(self) -> AgentOutputOptions:
         """Audio configuration required for Gemini input.
 
-        Gemini requires PCM16 audio at 16,000 Hz for correct processing.
+        Gemini consumes PCM16 audio at 16,000 Hz.
 
         Returns:
             AgentOutputOptions: Agent options compatible with the Gemini Live API.
@@ -87,6 +89,21 @@ class _GeminiIntegration:
         return AgentOutputOptions(
             audio_format="pcm16",
             audio_sample_rate=16_000,
+        )
+
+    @property
+    def GEMINI_OUTPUT_AUDIO_SETTINGS(self) -> OutgoingAudioTrackOptions:
+        """Audio configuration for an agent's output track.
+
+        Gemini produces PCM16 audio at 24,000 Hz.
+
+        Returns:
+            OutgoingAudioTrackOptions: Track options compatible with the Gemini Live API
+        """
+        return OutgoingAudioTrackOptions(
+            encoding=TrackEncoding.TRACK_ENCODING_PCM16,
+            sample_rate=24_000,
+            channels=1,
         )
 
     @property
