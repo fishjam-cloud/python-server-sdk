@@ -17,8 +17,6 @@ COPY examples/selective_subscription/pyproject.toml ./examples/selective_subscri
 
 COPY uv.lock .
 
-RUN uv sync --locked --no-install-project
+RUN uv sync --locked --no-install-project --all-extras
 
 COPY . /app
-
-RUN uv sync --locked
