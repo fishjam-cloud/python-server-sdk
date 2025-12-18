@@ -4,7 +4,7 @@ from flask import Flask, abort, jsonify, request
 from room_service import RoomService
 
 from fishjam import receive_binary
-from fishjam.room import RoomConfigRoomType
+from fishjam.room import RoomType
 
 
 def setup_routes(app: Flask, room_service: RoomService):
@@ -23,7 +23,7 @@ def setup_routes(app: Flask, room_service: RoomService):
             return abort(400)
 
         try:
-            room_type = RoomConfigRoomType(raw_room_type) if raw_room_type else None
+            room_type = RoomType(raw_room_type) if raw_room_type else None
         except ValueError:
             return abort(400)
 

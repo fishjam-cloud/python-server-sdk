@@ -9,11 +9,11 @@ from typing import (
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.peer_options_agent_subscribe_mode import PeerOptionsAgentSubscribeMode
+from ..models.subscribe_mode import SubscribeMode
 from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
-    from ..models.peer_options_agent_output import PeerOptionsAgentOutput
+    from ..models.agent_output import AgentOutput
 
 
 T = TypeVar("T", bound="PeerOptionsAgent")
@@ -24,15 +24,12 @@ class PeerOptionsAgent:
     """Options specific to the Agent peer
 
     Attributes:
-        output (Union[Unset, PeerOptionsAgentOutput]): Output audio options
-        subscribe_mode (Union[Unset, PeerOptionsAgentSubscribeMode]): Configuration of peer's subscribing policy
-            Default: PeerOptionsAgentSubscribeMode.AUTO.
+        output (Union[Unset, AgentOutput]): Output audio options
+        subscribe_mode (Union[Unset, SubscribeMode]): Configuration of peer's subscribing policy
     """
 
-    output: Union[Unset, "PeerOptionsAgentOutput"] = UNSET
-    subscribe_mode: Union[Unset, PeerOptionsAgentSubscribeMode] = (
-        PeerOptionsAgentSubscribeMode.AUTO
-    )
+    output: Union[Unset, "AgentOutput"] = UNSET
+    subscribe_mode: Union[Unset, SubscribeMode] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -56,22 +53,22 @@ class PeerOptionsAgent:
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
-        from ..models.peer_options_agent_output import PeerOptionsAgentOutput
+        from ..models.agent_output import AgentOutput
 
         d = dict(src_dict)
         _output = d.pop("output", UNSET)
-        output: Union[Unset, PeerOptionsAgentOutput]
+        output: Union[Unset, AgentOutput]
         if isinstance(_output, Unset):
             output = UNSET
         else:
-            output = PeerOptionsAgentOutput.from_dict(_output)
+            output = AgentOutput.from_dict(_output)
 
         _subscribe_mode = d.pop("subscribeMode", UNSET)
-        subscribe_mode: Union[Unset, PeerOptionsAgentSubscribeMode]
+        subscribe_mode: Union[Unset, SubscribeMode]
         if isinstance(_subscribe_mode, Unset):
             subscribe_mode = UNSET
         else:
-            subscribe_mode = PeerOptionsAgentSubscribeMode(_subscribe_mode)
+            subscribe_mode = SubscribeMode(_subscribe_mode)
 
         peer_options_agent = cls(
             output=output,

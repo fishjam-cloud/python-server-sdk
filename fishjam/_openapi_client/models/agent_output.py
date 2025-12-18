@@ -8,34 +8,24 @@ from typing import (
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.peer_options_agent_output_audio_format import (
-    PeerOptionsAgentOutputAudioFormat,
-)
-from ..models.peer_options_agent_output_audio_sample_rate import (
-    PeerOptionsAgentOutputAudioSampleRate,
-)
+from ..models.audio_format import AudioFormat
+from ..models.audio_sample_rate import AudioSampleRate
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="PeerOptionsAgentOutput")
+T = TypeVar("T", bound="AgentOutput")
 
 
 @_attrs_define
-class PeerOptionsAgentOutput:
+class AgentOutput:
     """Output audio options
 
     Attributes:
-        audio_format (Union[Unset, PeerOptionsAgentOutputAudioFormat]): The format of the output audio Default:
-            PeerOptionsAgentOutputAudioFormat.PCM16. Example: pcm16.
-        audio_sample_rate (Union[Unset, PeerOptionsAgentOutputAudioSampleRate]): The sample rate of the output audio
-            Default: PeerOptionsAgentOutputAudioSampleRate.VALUE_16000. Example: 16000.
+        audio_format (Union[Unset, AudioFormat]): The format of the output audio Example: pcm16.
+        audio_sample_rate (Union[Unset, AudioSampleRate]): The sample rate of the output audio Example: 16000.
     """
 
-    audio_format: Union[Unset, PeerOptionsAgentOutputAudioFormat] = (
-        PeerOptionsAgentOutputAudioFormat.PCM16
-    )
-    audio_sample_rate: Union[Unset, PeerOptionsAgentOutputAudioSampleRate] = (
-        PeerOptionsAgentOutputAudioSampleRate.VALUE_16000
-    )
+    audio_format: Union[Unset, AudioFormat] = UNSET
+    audio_sample_rate: Union[Unset, AudioSampleRate] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -61,28 +51,26 @@ class PeerOptionsAgentOutput:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
         _audio_format = d.pop("audioFormat", UNSET)
-        audio_format: Union[Unset, PeerOptionsAgentOutputAudioFormat]
+        audio_format: Union[Unset, AudioFormat]
         if isinstance(_audio_format, Unset):
             audio_format = UNSET
         else:
-            audio_format = PeerOptionsAgentOutputAudioFormat(_audio_format)
+            audio_format = AudioFormat(_audio_format)
 
         _audio_sample_rate = d.pop("audioSampleRate", UNSET)
-        audio_sample_rate: Union[Unset, PeerOptionsAgentOutputAudioSampleRate]
+        audio_sample_rate: Union[Unset, AudioSampleRate]
         if isinstance(_audio_sample_rate, Unset):
             audio_sample_rate = UNSET
         else:
-            audio_sample_rate = PeerOptionsAgentOutputAudioSampleRate(
-                _audio_sample_rate
-            )
+            audio_sample_rate = AudioSampleRate(_audio_sample_rate)
 
-        peer_options_agent_output = cls(
+        agent_output = cls(
             audio_format=audio_format,
             audio_sample_rate=audio_sample_rate,
         )
 
-        peer_options_agent_output.additional_properties = d
-        return peer_options_agent_output
+        agent_output.additional_properties = d
+        return agent_output
 
     @property
     def additional_keys(self) -> list[str]:

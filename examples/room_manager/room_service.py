@@ -6,7 +6,7 @@ from typing import List
 import betterproto
 
 from fishjam import FishjamClient, PeerOptions, Room, RoomOptions
-from fishjam._openapi_client.models import RoomConfigRoomType
+from fishjam._openapi_client.models import RoomType
 from fishjam.events import ServerMessagePeerCrashed as PeerCrashed
 from fishjam.events import ServerMessagePeerDeleted as PeerDeleted
 from fishjam.events import ServerMessageRoomCrashed as RoomCrashed
@@ -41,7 +41,7 @@ class RoomService:
         self,
         room_name: str,
         username: str,
-        room_type: RoomConfigRoomType | None,
+        room_type: RoomType | None,
     ) -> PeerAccess:
         room = self.__find_or_create_room(room_name, room_type)
         peer_access = self.peer_name_to_access.get(username)
@@ -67,9 +67,7 @@ class RoomService:
             case _:
                 pass
 
-    def __find_or_create_room(
-        self, room_name: str, room_type: RoomConfigRoomType | None
-    ) -> Room:
+    def __find_or_create_room(self, room_name: str, room_type: RoomType | None) -> Room:
         if room_name in self.room_name_to_room_id:
             self.logger.info("Room %s, already exists in the Fishjam", room_name)
 
@@ -94,7 +92,6 @@ class RoomService:
         room_id = self.room_name_to_room_id[room_name]
 
         options = PeerOptions(
-            enable_simulcast=self.config.enable_simulcast,
             metadata={"username": peer_name},
         )
         peer, token = self.fishjam_client.create_peer(room_id, options=options)

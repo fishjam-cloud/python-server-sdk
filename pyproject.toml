@@ -1,6 +1,6 @@
 [project]
 name = "fishjam-server-sdk"
-version = "0.23.0"
+version = "0.24.0"
 description = "Python server SDK for the Fishjam"
 authors = [{ name = "Fishjam Team", email = "contact@fishjam.io" }]
 requires-python = ">=3.11"

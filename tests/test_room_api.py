@@ -23,8 +23,8 @@ from fishjam.peer import (
 )
 from fishjam.room import (
     RoomConfig,
-    RoomConfigRoomType,
-    RoomConfigVideoCodec,
+    RoomType,
+    VideoCodec,
 )
 
 HOST = "fishjam" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
@@ -66,7 +66,7 @@ class TestCreateRoom:
         config = RoomConfig(
             max_peers=None,
             webhook_url=None,
-            room_type=RoomConfigRoomType(CONFERENCE),
+            room_type=RoomType(CONFERENCE),
         )
 
         assert room == Room(
@@ -87,9 +87,9 @@ class TestCreateRoom:
 
         config = RoomConfig(
             max_peers=MAX_PEERS,
-            video_codec=RoomConfigVideoCodec(CODEC_H264),
+            video_codec=VideoCodec(CODEC_H264),
             webhook_url=None,
-            room_type=RoomConfigRoomType(AUDIO_ONLY),
+            room_type=RoomType(AUDIO_ONLY),
         )
 
         assert room == Room(
@@ -144,7 +144,7 @@ class TestGetRoom:
         config = RoomConfig(
             max_peers=None,
             webhook_url=None,
-            room_type=RoomConfigRoomType(CONFERENCE),
+            room_type=RoomType(CONFERENCE),
         )
 
         assert Room(
@@ -186,7 +186,7 @@ class TestCreatePeer:
         assert peer in room.peers
 
     def test_with_specified_options(self, room_api: FishjamClient):
-        options = PeerOptions(enable_simulcast=True)
+        options = PeerOptions()
 
         room = room_api.create_room()
         peer, _token = room_api.create_peer(room.id, options=options)
