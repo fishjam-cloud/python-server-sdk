@@ -141,7 +141,7 @@ def generate_docusaurus():
         content = f.read_text(encoding="utf-8")
         safe_content = clean_mdx_content(content)
         rel_path = f.relative_to(input)
-        dest_path = out / rel_path.with_suffix(".md")
+        dest_path = out / rel_path.parent / rel_path.stem / "index.md"
         dest_path.parent.mkdir(parents=True, exist_ok=True)
 
         dest_path.write_text(safe_content, encoding="utf-8")
