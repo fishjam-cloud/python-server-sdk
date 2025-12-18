@@ -1,7 +1,7 @@
 from enum import Enum
 
 
-class RoomConfigVideoCodec(str, Enum):
+class VideoCodec(str, Enum):
     """Enforces video codec for each peer in the room"""
 
     H264 = "h264"

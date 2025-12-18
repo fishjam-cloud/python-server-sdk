@@ -4,11 +4,11 @@ from typing import Any, TypeVar
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-T = TypeVar("T", bound="TrackMetadataType0")
+T = TypeVar("T", bound="TrackMetadata")
 
 
 @_attrs_define
-class TrackMetadataType0:
+class TrackMetadata:
     """
     Example:
         {'source': 'camera'}
@@ -26,10 +26,10 @@ class TrackMetadataType0:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        track_metadata_type_0 = cls()
+        track_metadata = cls()
 
-        track_metadata_type_0.additional_properties = d
-        return track_metadata_type_0
+        track_metadata.additional_properties = d
+        return track_metadata
 
     @property
     def additional_keys(self) -> list[str]:

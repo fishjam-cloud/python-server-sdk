@@ -20,27 +20,26 @@ from fishjam._openapi_client.api.viewer import (
 )
 from fishjam._openapi_client.models import (
     AddPeerBody,
+    AgentOutput,
+    AudioFormat,
+    AudioSampleRate,
     Peer,
     PeerDetailsResponse,
     PeerOptionsAgent,
-    PeerOptionsAgentOutput,
-    PeerOptionsAgentOutputAudioFormat,
-    PeerOptionsAgentOutputAudioSampleRate,
-    PeerOptionsAgentSubscribeMode,
     PeerOptionsWebRTC,
-    PeerOptionsWebRTCMetadata,
-    PeerOptionsWebRTCSubscribeMode,
     PeerRefreshTokenResponse,
     PeerType,
     RoomConfig,
-    RoomConfigRoomType,
-    RoomConfigVideoCodec,
     RoomCreateDetailsResponse,
     RoomDetailsResponse,
     RoomsListingResponse,
+    RoomType,
     StreamerToken,
+    SubscribeMode,
     SubscribeTracksBody,
+    VideoCodec,
     ViewerToken,
+    WebRTCMetadata,
 )
 from fishjam._openapi_client.types import UNSET
 from fishjam.agent import Agent
@@ -102,13 +101,10 @@ class PeerOptions:
     """Options specific to a WebRTC Peer.
 
     Attributes:
-        enable_simulcast: Enables the peer to use simulcast.
         metadata: Peer metadata.
         subscribe_mode: Configuration of peer's subscribing policy.
     """
 
-    enable_simulcast: bool = True
-    """Enables the peer to use simulcast"""
     metadata: dict[str, Any] | None = None
     """Peer metadata"""
     subscribe_mode: Literal["auto", "manual"] = "auto"
@@ -178,9 +174,8 @@ class FishjamClient(Client):
 
         peer_metadata = self.__parse_peer_metadata(options.metadata)
         peer_options = PeerOptionsWebRTC(
-            enable_simulcast=options.enable_simulcast,
             metadata=peer_metadata,
-            subscribe_mode=PeerOptionsWebRTCSubscribeMode(options.subscribe_mode),
+            subscribe_mode=SubscribeMode(options.subscribe_mode),
         )
         body = AddPeerBody(type_=PeerType.WEBRTC, options=peer_options)
 
@@ -206,15 +201,11 @@ class FishjamClient(Client):
         body = AddPeerBody(
             type_=PeerType.AGENT,
             options=PeerOptionsAgent(
-                output=PeerOptionsAgentOutput(
-                    audio_format=PeerOptionsAgentOutputAudioFormat(
-                        options.output.audio_format
-                    ),
-                    audio_sample_rate=PeerOptionsAgentOutputAudioSampleRate(
-                        options.output.audio_sample_rate
-                    ),
+                output=AgentOutput(
+                    audio_format=AudioFormat(options.output.audio_format),
+                    audio_sample_rate=AudioSampleRate(options.output.audio_sample_rate),
                 ),
-                subscribe_mode=PeerOptionsAgentSubscribeMode(options.subscribe_mode),
+                subscribe_mode=SubscribeMode(options.subscribe_mode),
             ),
         )
 
@@ -239,13 +230,13 @@ class FishjamClient(Client):
         if options.video_codec is None:
             codec = UNSET
         else:
-            codec = RoomConfigVideoCodec(options.video_codec)
+            codec = VideoCodec(options.video_codec)
 
         config = RoomConfig(
             max_peers=options.max_peers,
             video_codec=codec,
             webhook_url=options.webhook_url,
-            room_type=RoomConfigRoomType(options.room_type),
+            room_type=RoomType(options.room_type),
             public=options.public,
         )
 
@@ -377,8 +368,8 @@ class FishjamClient(Client):
             body=SubscribeTracksBody(track_ids=track_ids),
         )
 
-    def __parse_peer_metadata(self, metadata: dict | None) -> PeerOptionsWebRTCMetadata:
-        peer_metadata = PeerOptionsWebRTCMetadata()
+    def __parse_peer_metadata(self, metadata: dict | None) -> WebRTCMetadata:
+        peer_metadata = WebRTCMetadata()
 
         if not metadata:
             return peer_metadata
