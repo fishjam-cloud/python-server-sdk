@@ -67,6 +67,7 @@ class TestCreateRoom:
             max_peers=None,
             webhook_url=None,
             room_type=RoomType(CONFERENCE),
+            video_codec=VideoCodec.H264,
         )
 
         assert room == Room(
@@ -77,7 +78,7 @@ class TestCreateRoom:
 
         assert room in room_api.get_all_rooms()
 
-    def test_valid_params(self, room_api):
+    def test_valid_params(self, room_api: FishjamClient):
         options = RoomOptions(
             max_peers=MAX_PEERS,
             video_codec=CODEC_H264,
@@ -87,7 +88,7 @@ class TestCreateRoom:
 
         config = RoomConfig(
             max_peers=MAX_PEERS,
-            video_codec=VideoCodec(CODEC_H264),
+            video_codec=VideoCodec.H264,
             webhook_url=None,
             room_type=RoomType(AUDIO_ONLY),
         )
@@ -100,36 +101,37 @@ class TestCreateRoom:
 
         assert room in room_api.get_all_rooms()
 
-    def test_invalid_max_peers(self, room_api):
+    def test_invalid_max_peers(self, room_api: FishjamClient):
         options = RoomOptions(max_peers="10")
 
         with pytest.raises(BadRequestError):
             room_api.create_room(options)
 
-    def test_invalid_video_codec(self, room_api):
+    def test_invalid_video_codec(self, room_api: FishjamClient):
         with pytest.raises(ValueError):
             options = RoomOptions(video_codec="h420")
             room_api.create_room(options)
 
 
 class TestDeleteRoom:
-    def test_valid(self, room_api):
+    def test_valid(self, room_api: FishjamClient):
         room = room_api.create_room()
 
         room_api.delete_room(room.id)
-        assert room not in room_api.get_all_rooms()
+        for r in room_api.get_all_rooms():
+            assert room.id != r.id
 
-    def test_invalid_id(self, room_api):
+    def test_invalid_id(self, room_api: FishjamClient):
         with pytest.raises(BadRequestError):
             room_api.delete_room("invalid_id")
 
-    def test_id_not_found(self, room_api):
+    def test_id_not_found(self, room_api: FishjamClient):
         with pytest.raises(NotFoundError):
             room_api.delete_room("515c8b52-168b-4b39-a227-4d6b4f102a56")
 
 
 class TestGetAllRooms:
-    def test_valid(self, room_api):
+    def test_valid(self, room_api: FishjamClient):
         room = room_api.create_room()
         all_rooms = room_api.get_all_rooms()
 
@@ -145,6 +147,7 @@ class TestGetRoom:
             max_peers=None,
             webhook_url=None,
             room_type=RoomType(CONFERENCE),
+            video_codec=VideoCodec.H264,
         )
 
         assert Room(
@@ -157,7 +160,7 @@ class TestGetRoom:
         with pytest.raises(NotFoundError):
             room_api.get_room("invalid_id")
 
-    def test_id_not_found(self, room_api):
+    def test_id_not_found(self, room_api: FishjamClient):
         with pytest.raises(NotFoundError):
             room_api.get_room("515c8b52-168b-4b39-a227-4d6b4f102a56")
 
