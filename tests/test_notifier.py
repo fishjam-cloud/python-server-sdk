@@ -23,8 +23,8 @@ from tests.support.asyncio_utils import assert_events, cancel
 from tests.support.peer_socket import PeerSocket
 from tests.support.webhook_notifier import run_server
 
-HOST = "fishjam" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
-FISHJAM_URL = f"http://{HOST}:5002"
+FISHJAM_HOST = "caddy" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
+FISHJAM_URL = f"http://{FISHJAM_HOST}:5555"
 FISHJAM_ID = FISHJAM_URL
 SERVER_API_TOKEN = os.getenv("MANAGEMENT_TOKEN", "development")
 WEBHOOK_ADDRESS = "test" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"

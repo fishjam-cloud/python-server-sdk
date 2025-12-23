@@ -1,36 +1,60 @@
 services:
   fishjam:
-    image: "ghcr.io/fishjam-cloud/fishjam:${TAG:-edge-88258de-1764324482}"
+    image: ghcr.io/fishjam-cloud/fishjam:edge
     container_name: fishjam
     restart: on-failure
     healthcheck:
       test: >
-        curl --fail-with-body -H "Authorization: Bearer 12345" http://fishjam:5002/admin/health
+        curl --fail-with-body -H "Authorization: Bearer admin" 
+        http://fishjam:5002/admin/health || exit 1
       interval: 3s
       retries: 2
       timeout: 2s
       start_period: 30s
     environment:
       FJ_HOST: "fishjam:5002"
-      FJ_ADMIN_TOKEN: "12345"
+      FJ_ADMIN_TOKEN: "admin"
       FJ_PORT: 5002
-      FJ_SECRET_KEY_BASE: "super-secret-key"
+      FJ_TEST_USER_TOKEN: "development"
+      FJ_CHECK_ORIGIN: "false"
+      # Fisthank
+      FJ_FISHTANK_TOKEN: "foo"
+      FJ_FISHTANK_ADDRESS: fishtank:50051
+      # Broadcaster
       FJ_BROADCASTING_ENABLED: "true"
       FJ_BROADCASTER_URL: "http://broadcaster:4000"
       FJ_BROADCASTER_TOKEN: "broadcaster_token"
       FJ_BROADCASTER_WHIP_TOKEN: "whip_token"
+      # Dev
+      LOG_LEVEL: "debug"
+      
     ports:
       - "5002:5002"
-      - "49999:49999"
-      - "50000-50050:50000-50050/udp"
 
-  fishjam-prep:
-    image: curlimages/curl:8.12.1
-    command: >
-      curl --fail-with-body -H "Authorization: Bearer 12345" -XPOST http://fishjam:5002/admin/user --json '{"id": "testuser", "token": "development"}'
-    depends_on:
-      fishjam:
-        condition: service_healthy
+  fishtank: 
+    image: ghcr.io/fishjam-cloud/fishtank:edge
+    container_name: fishtank
+    restart: on-failure
+    environment:
+      FT_FISHJAM_NOTIFICATIONS_ENDPOINT: http://fishjam:5002/notifications/fishtank
+      FT_FISHJAM_TOKEN: "foo"
+      FT_STRUCTURED_LOGGING: true
+    healthcheck:
+      interval: 3s
+      retries: 2
+      timeout: 2s
+      start_period: 30s
+    ports: 
+     - "8080:8080"
+
+  caddy:
+    image: caddy
+    container_name: caddy
+    restart: unless-stopped
+    ports:
+      - 5555:5555
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
 
   test:
     container_name: test
@@ -39,9 +63,13 @@ services:
       dockerfile: tests/Dockerfile
       args:
         PYTHON_VERSION: ${PYTHON_VERSION:-3.11}
-    command: uv run pytest
+    command: uv run pytest -s -vv
     environment:
       DOCKER_TEST: "TRUE"
     depends_on:
-      fishjam-prep:
-        condition: service_completed_successfully
+      fishtank: 
+        condition: service_healthy
+      fishjam: 
+        condition: service_healthy
+      caddy:
+        condition: service_started
