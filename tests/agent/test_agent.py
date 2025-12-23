@@ -15,8 +15,8 @@ from fishjam.events._protos.fishjam import (
 )
 from fishjam.events.allowed_notifications import AllowedNotification
 
-HOST = "fishjam" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
-FISHJAM_ID = f"http://{HOST}:5002"
+HOST = "caddy" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
+FISHJAM_ID = f"http://{HOST}:5555"
 SERVER_API_TOKEN = os.getenv("MANAGEMENT_TOKEN", "development")
 
 

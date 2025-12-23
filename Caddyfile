@@ -1,0 +1,13 @@
+:5555 {
+    handle /socket/peer/websocket* {
+        reverse_proxy fishtank:8080
+    }
+
+    handle /socket/agent/websocket* {
+        reverse_proxy fishtank:8080
+    }
+
+    handle {
+        reverse_proxy fishjam:5002
+    }
+}
