@@ -49,7 +49,7 @@ services:
 
   caddy:
     image: caddy
-    container_name: caddy
+    container_name: proxy
     restart: unless-stopped
     ports:
       - 5555:5555

@@ -27,7 +27,7 @@ from fishjam.room import (
     VideoCodec,
 )
 
-HOST = "caddy" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
+HOST = "proxy" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
 FISHJAM_ID = f"http://{HOST}:5555"
 MANAGEMENT_TOKEN = os.getenv("MANAGEMENT_TOKEN", "development")
 
