@@ -27,8 +27,8 @@ from fishjam.room import (
     VideoCodec,
 )
 
-HOST = "fishjam" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
-FISHJAM_ID = f"http://{HOST}:5002"
+HOST = "proxy" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
+FISHJAM_ID = f"http://{HOST}:5555"
 MANAGEMENT_TOKEN = os.getenv("MANAGEMENT_TOKEN", "development")
 
 MAX_PEERS = 10
@@ -64,7 +64,7 @@ class TestCreateRoom:
         room = room_api.create_room()
 
         config = RoomConfig(
-            max_peers=None,
+            max_peers=0,
             webhook_url=None,
             room_type=RoomType(CONFERENCE),
             video_codec=VideoCodec.H264,
@@ -127,7 +127,9 @@ class TestDeleteRoom:
 
     def test_id_not_found(self, room_api: FishjamClient):
         with pytest.raises(NotFoundError):
-            room_api.delete_room("515c8b52-168b-4b39-a227-4d6b4f102a56")
+            room_api.delete_room(
+                "7ef-a0b0-6db20b2ef65c-7a696f6d6f-70726f64756374696f6e-6e6f6e6f6465406e6f686f7374"
+            )
 
 
 class TestGetAllRooms:
@@ -144,7 +146,7 @@ class TestGetRoom:
         room = room_api.create_room()
 
         config = RoomConfig(
-            max_peers=None,
+            max_peers=0,
             webhook_url=None,
             room_type=RoomType(CONFERENCE),
             video_codec=VideoCodec.H264,
@@ -261,7 +263,7 @@ class TestCreateLivestreamViewerToken:
     def test_invalid(self, room_api: FishjamClient):
         room = room_api.create_room()
 
-        with pytest.raises(BadRequestError):
+        with pytest.raises(NotFoundError):
             room_api.create_livestream_viewer_token(room.id)
 
 
@@ -275,5 +277,5 @@ class TestCreateLivestreamStreamerToken:
     def test_invalid(self, room_api: FishjamClient):
         room = room_api.create_room()
 
-        with pytest.raises(BadRequestError):
+        with pytest.raises(NotFoundError):
             room_api.create_livestream_streamer_token(room.id)
