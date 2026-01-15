@@ -4,6 +4,8 @@ from typing import Any, Optional, Union
 import httpx
 from attrs import define, evolve, field
 
+from fishjam.version import get_version
+
 
 @define
 class Client:
@@ -229,6 +231,7 @@ class AuthenticatedClient:
             self._headers[self.auth_header_name] = (
                 f"{self.prefix} {self.token}" if self.prefix else self.token
             )
+            self._headers["x-sdk_version"] = f"py-{get_version()}"
             self._client = httpx.Client(
                 base_url=self._base_url,
                 cookies=self._cookies,
@@ -265,6 +268,7 @@ class AuthenticatedClient:
             self._headers[self.auth_header_name] = (
                 f"{self.prefix} {self.token}" if self.prefix else self.token
             )
+            self._headers["x-sdk_version"] = f"py-{get_version()}"
             self._async_client = httpx.AsyncClient(
                 base_url=self._base_url,
                 cookies=self._cookies,
