@@ -193,6 +193,9 @@ class AuthenticatedClient:
     prefix: str = "Bearer"
     auth_header_name: str = "Authorization"
 
+    api_prefix: str = "python-server"
+    api_header_name: str = "x-fishjam-api-client"
+
     def with_headers(self, headers: dict[str, str]) -> "AuthenticatedClient":
         """Get a new client matching this one with additional headers"""
         if self._client is not None:
@@ -231,7 +234,7 @@ class AuthenticatedClient:
             self._headers[self.auth_header_name] = (
                 f"{self.prefix} {self.token}" if self.prefix else self.token
             )
-            self._headers["x-sdk_version"] = f"py-{get_version()}"
+            self._headers[self.api_header_name] = f"{self.api_prefix}-{get_version()}"
             self._client = httpx.Client(
                 base_url=self._base_url,
                 cookies=self._cookies,
@@ -268,7 +271,7 @@ class AuthenticatedClient:
             self._headers[self.auth_header_name] = (
                 f"{self.prefix} {self.token}" if self.prefix else self.token
             )
-            self._headers["x-sdk_version"] = f"py-{get_version()}"
+            self._headers[self.api_header_name] = f"{self.api_prefix}-{get_version()}"
             self._async_client = httpx.AsyncClient(
                 base_url=self._base_url,
                 cookies=self._cookies,
