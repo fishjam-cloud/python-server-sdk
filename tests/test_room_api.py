@@ -56,7 +56,10 @@ class TestAuthentication:
 
 class TestApiVersionHeaders:
     def test_client_sets_sdk_header_sync(self):
-        client = FishjamClient(FISHJAM_ID, MANAGEMENT_TOKEN)
+        client = FishjamClient(
+            base_url="https://example.com",
+            management_token="token123",
+        )
         httpx_client = client.get_httpx_client()
         try:
             headers = httpx_client.headers
@@ -69,7 +72,10 @@ class TestApiVersionHeaders:
             httpx_client.close()
 
     def test_client_sets_sdk_header_async(self):
-        client = FishjamClient(FISHJAM_ID, MANAGEMENT_TOKEN)
+        client = FishjamClient(
+            base_url="https://example.com",
+            management_token="token456",
+        )
         async_client = client.get_async_httpx_client()
         try:
             headers = async_client.headers
