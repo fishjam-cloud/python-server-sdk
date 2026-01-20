@@ -11,7 +11,11 @@ from fishjam.version import get_version
 class Client:
     def __init__(self, fishjam_id: str, management_token: str):
         self._fishjam_url = get_fishjam_url(fishjam_id)
-        self.client = AuthenticatedClient(self._fishjam_url, token=management_token, headers={"x-fishjam-api-client": f"python-server-{get_version()}"})
+        self.client = AuthenticatedClient(
+            self._fishjam_url,
+            token=management_token,
+            headers={"x-fishjam-api-client": f"python-server-{get_version()}"},
+        )
 
     def _request(self, method, **kwargs):
         response = method.sync_detailed(client=self.client, **kwargs)
