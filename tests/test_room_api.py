@@ -135,7 +135,7 @@ class TestCreateRoom:
         assert room in room_api.get_all_rooms()
 
     def test_invalid_max_peers(self, room_api: FishjamClient):
-        options = RoomOptions(max_peers="10")
+        options = RoomOptions(max_peers="nan")
 
         with pytest.raises(BadRequestError):
             room_api.create_room(options)
