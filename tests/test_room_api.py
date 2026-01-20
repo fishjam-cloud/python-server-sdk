@@ -53,7 +53,6 @@ class TestAuthentication:
 
         assert room in all_rooms
 
-
 class TestApiVersionHeaders:
     def test_client_sets_sdk_header_sync(self):
         client = FishjamClient(
@@ -70,7 +69,7 @@ class TestApiVersionHeaders:
             )
         finally:
             httpx_client.close()
-
+    
     def test_client_sets_sdk_header_async(self):
         client = FishjamClient(
             base_url="https://example.com",
@@ -86,7 +85,6 @@ class TestApiVersionHeaders:
             )
         finally:
             import asyncio
-
             asyncio.run(async_client.aclose())
 
 
