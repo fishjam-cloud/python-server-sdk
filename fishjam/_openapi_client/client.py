@@ -170,6 +170,8 @@ class AuthenticatedClient:
         token: The token to use for authentication
         prefix: The prefix to use for the Authorization header
         auth_header_name: The name of the Authorization header
+        api_prefix: The prefix to use for the api version header
+        api_header_name: The name of the api version header
     """
 
     raise_on_unexpected_status: bool = field(default=False, kw_only=True)
@@ -192,6 +194,8 @@ class AuthenticatedClient:
     token: str
     prefix: str = "Bearer"
     auth_header_name: str = "Authorization"
+    api_prefix: str = "python-server"
+    api_header_name: str = "x-fishjam-api-client"
 
     def with_headers(self, headers: dict[str, str]) -> "AuthenticatedClient":
         """Get a new client matching this one with additional headers"""
@@ -231,7 +235,8 @@ class AuthenticatedClient:
             self._headers[self.auth_header_name] = (
                 f"{self.prefix} {self.token}" if self.prefix else self.token
             )
-            self._headers["x-fishjam-api-client"] = f"python-server-{get_version()}"
+            self._headers[self.api_header_name] = f"{self.api_prefix}-{get_version()}"
+
             self._client = httpx.Client(
                 base_url=self._base_url,
                 cookies=self._cookies,
@@ -268,7 +273,8 @@ class AuthenticatedClient:
             self._headers[self.auth_header_name] = (
                 f"{self.prefix} {self.token}" if self.prefix else self.token
             )
-            self._headers["x-fishjam-api-client"] = f"python-server-{get_version()}"
+            self._headers[self.api_header_name] = f"{self.api_prefix}-{get_version()}"
+
             self._async_client = httpx.AsyncClient(
                 base_url=self._base_url,
                 cookies=self._cookies,

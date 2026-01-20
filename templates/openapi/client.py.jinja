@@ -18,6 +18,8 @@ from fishjam.version import get_version
     "token": namespace(type="str", default="", docstring="The token to use for authentication"),
     "prefix": namespace(type="str", default='"Bearer"', docstring="The prefix to use for the Authorization header"),
     "auth_header_name": namespace(type="str", default='"Authorization"', docstring="The name of the Authorization header"),
+    "api_prefix": namespace(type="str", default='"python-server"', docstring="The prefix to use for the api version header"),
+    "api_header_name": namespace(type="str", default='"x-fishjam-api-client"', docstring="The name of the api version header"),
 } %}
 
 {% macro attr_in_class_docstring(name) %}
@@ -181,6 +183,8 @@ class AuthenticatedClient:
         {{ attr_in_class_docstring("token") | indent(8) }}
         {{ attr_in_class_docstring("prefix") | indent(8) }}
         {{ attr_in_class_docstring("auth_header_name") | indent(8) }}
+        {{ attr_in_class_docstring("api_prefix") | indent(8) }}
+        {{ attr_in_class_docstring("api_header_name") | indent(8) }}
 {% endif %}
     """
 
@@ -188,6 +192,12 @@ class AuthenticatedClient:
     {{ declare_attr("token") | indent(4) }}
     {{ declare_attr("prefix") | indent(4) }}
     {{ declare_attr("auth_header_name") | indent(4) }}
+    {{ declare_attr("api_prefix") | indent(4) }}
+    {{ declare_attr("api_header_name") | indent(4) }}
 
 {{ builders("AuthenticatedClient") }}
-{{ httpx_stuff("AuthenticatedClient", "self._headers[self.auth_header_name] = f\"{self.prefix} {self.token}\" if self.prefix else self.token; self._headers[\"x-fishjam-api-client\"] = f\"python-server-{get_version()}\"") }}
+{% set auth_constructor %}
+self._headers[self.auth_header_name] = f"{self.prefix} {self.token}" if self.prefix else self.token
+self._headers[self.api_header_name] = f"{self.api_prefix}-{get_version()}"
+{% endset %}
+{{ httpx_stuff("AuthenticatedClient", auth_constructor) }}
