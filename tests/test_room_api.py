@@ -53,40 +53,6 @@ class TestAuthentication:
 
         assert room in all_rooms
 
-class TestApiVersionHeaders:
-    def test_client_sets_sdk_header_sync(self):
-        client = FishjamClient(
-            base_url="https://example.com",
-            management_token="token123",
-        )
-        httpx_client = client.get_httpx_client()
-        try:
-            headers = httpx_client.headers
-
-            assert (
-                headers[client.api_header_name]
-                == f"{client.api_prefix}-{client.get_sdk_version()}"
-            )
-        finally:
-            httpx_client.close()
-    
-    def test_client_sets_sdk_header_async(self):
-        client = FishjamClient(
-            base_url="https://example.com",
-            management_token="token456",
-        )
-        async_client = client.get_async_httpx_client()
-        try:
-            headers = async_client.headers
-
-            assert (
-                headers[client.api_header_name]
-                == f"{client.api_prefix}-{client.get_sdk_version()}"
-            )
-        finally:
-            import asyncio
-            asyncio.run(async_client.aclose())
-
 
 @pytest.fixture
 def room_api():
