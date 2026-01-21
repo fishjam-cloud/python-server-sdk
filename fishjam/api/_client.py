@@ -14,7 +14,7 @@ class Client:
         self.client = AuthenticatedClient(
             self._fishjam_url,
             token=management_token,
-            headers={"x-fishjam-api-client": f"python-server-{get_version()}"},
+            headers={"x-fishjam-api-client": f"python-server/{get_version()}"},
         )
 
     def _request(self, method, **kwargs):

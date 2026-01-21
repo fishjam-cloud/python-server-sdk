@@ -83,7 +83,7 @@ class TestAPIClientHeader:
         assert captured_headers is not None
         assert "x-fishjam-api-client" in captured_headers
 
-        expected_header_value = f"python-server-{get_version()}"
+        expected_header_value = f"python-server/{get_version()}"
         assert captured_headers["x-fishjam-api-client"] == expected_header_value
 
 
