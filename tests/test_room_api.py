@@ -1,5 +1,7 @@
 import os
+from unittest.mock import Mock, patch
 
+import httpx
 import pytest
 
 from fishjam import (
@@ -26,6 +28,7 @@ from fishjam.room import (
     RoomType,
     VideoCodec,
 )
+from fishjam.version import get_version
 
 HOST = "proxy" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
 FISHJAM_ID = f"http://{HOST}:5555"
@@ -52,6 +55,36 @@ class TestAuthentication:
         all_rooms = room_api.get_all_rooms()
 
         assert room in all_rooms
+
+
+class TestAPIClientHeader:
+    def test_x_fishjam_api_client_header_is_sent(self):
+        mock_response = Mock(spec=httpx.Response)
+        mock_response.status_code = 200
+        mock_response.headers = httpx.Headers({})
+        mock_response.json.return_value = {"data": []}
+
+        captured_headers = None
+
+        def mock_send(request, **kwargs):
+            nonlocal captured_headers
+            captured_headers = dict(request.headers)
+            return mock_response
+
+        room_api = FishjamClient(FISHJAM_ID, MANAGEMENT_TOKEN)
+
+        with patch.object(httpx.HTTPTransport, "handle_request", side_effect=mock_send):
+            try:
+                room_api.get_all_rooms()
+            except Exception:
+                # We don't care if the request fails, we just want to check the headers
+                pass
+
+        assert captured_headers is not None
+        assert "x-fishjam-api-client" in captured_headers
+
+        expected_header_value = f"python-server/{get_version()}"
+        assert captured_headers["x-fishjam-api-client"] == expected_header_value
 
 
 @pytest.fixture
@@ -102,7 +135,7 @@ class TestCreateRoom:
         assert room in room_api.get_all_rooms()
 
     def test_invalid_max_peers(self, room_api: FishjamClient):
-        options = RoomOptions(max_peers="10")
+        options = RoomOptions(max_peers="nan")
 
         with pytest.raises(BadRequestError):
             room_api.create_room(options)
