@@ -34,10 +34,16 @@ class Client:
         deprecation_warning = headers.get("x-fishjam-api-deprecated")
         if deprecation_warning and not self.warnings_shown:
             self.warnings_shown = True
-            deprecation_warning = json.loads(deprecation_warning)
+            try:
+                deprecation_data = json.loads(deprecation_warning)
+            except (json.JSONDecodeError, TypeError, ValueError):
+                return
 
-            status = deprecation_warning["status"]
-            msg = deprecation_warning["message"]
+            status = deprecation_data["status"]
+            msg = deprecation_data["message"]
+
+            if not status or not msg:
+                return
 
             match status:
                 case "unsupported":
