@@ -1,3 +1,5 @@
+import json
+import warnings
 from typing import cast
 
 from fishjam._openapi_client.client import AuthenticatedClient
@@ -16,12 +18,39 @@ class Client:
             token=management_token,
             headers={"x-fishjam-api-client": f"python-server/{get_version()}"},
         )
+        self.warnings_shown = False
 
     def _request(self, method, **kwargs):
         response = method.sync_detailed(client=self.client, **kwargs)
+        self._handle_deprecation_header(response.headers)
 
         if isinstance(response.parsed, Error):
             response = cast(Response[Error], response)
             raise HTTPError.from_response(response)
 
         return response.parsed
+
+    def _handle_deprecation_header(self, headers):
+        deprecation_warning = headers.get("x-fishjam-api-deprecated")
+        if deprecation_warning and not self.warnings_shown:
+            self.warnings_shown = True
+            try:
+                deprecation_data = json.loads(deprecation_warning)
+            except (json.JSONDecodeError, TypeError, ValueError):
+                return
+
+            status = deprecation_data["status"]
+            msg = deprecation_data["message"]
+
+            if not status or not msg:
+                return
+
+            match status:
+                case "unsupported":
+                    warnings.warn(message=msg, category=UserWarning, stacklevel=4)
+                case "deprecated":
+                    warnings.warn(
+                        message=msg, category=DeprecationWarning, stacklevel=4
+                    )
+                case _:
+                    pass
