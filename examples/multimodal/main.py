@@ -1,0 +1,35 @@
+from contextlib import asynccontextmanager
+from typing import Annotated
+
+from fastapi import Depends, FastAPI
+from multimodal.notifier import make_notifier
+from multimodal.room import RoomService, fishjam
+from multimodal.worker import async_worker
+
+_room_service: RoomService | None = None
+
+
+def get_room_service():
+    if not _room_service:
+        raise RuntimeError("Application skipped lifespan events!")
+    return _room_service
+
+
+@asynccontextmanager
+async def lifespan(_app: FastAPI):
+    async with async_worker() as worker:
+        global _room_service
+        _room_service = RoomService(worker)
+        notifier = make_notifier(_room_service)
+        worker.run_in_background(notifier.connect())
+
+        yield
+
+
+app = FastAPI(lifespan=lifespan)
+
+
+@app.get("/")
+def get_peer(room_service: Annotated[RoomService, Depends(get_room_service)]):
+    _peer, token = fishjam.create_peer(room_service.get_room().id)
+    return token
