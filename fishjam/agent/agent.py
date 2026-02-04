@@ -14,9 +14,9 @@ from fishjam.agent.errors import AgentAuthError
 from fishjam.events._protos.fishjam import (
     AgentRequest,
     AgentRequestAddTrack,
-    AgentRequestCaptureImage,
     AgentRequestAddTrackCodecParameters,
     AgentRequestAuthRequest,
+    AgentRequestCaptureImage,
     AgentRequestInterruptTrack,
     AgentResponse,
 )
@@ -154,11 +154,18 @@ class AgentSession:
         return OutgoingTrack(id=track_id, session=self, options=options)
 
     async def capture_image(self, track_id: str):
+        """Requests a image capture from a remote track.
+
+        The captured image will be delivered as an
+        :class:`IncomingTrackImage` message through :func:`receive`.
+
+        Args:
+            track_id: The identifier of the track to capture an image from.
+        """
         message = AgentRequest(
             capture_image=AgentRequestCaptureImage(track_id=track_id)
         )
         await self._send(message)
-        return
 
     async def _send(self, message: AgentRequest):
         await self._ws.send(bytes(message), text=False)

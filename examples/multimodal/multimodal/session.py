@@ -1,7 +1,6 @@
 import asyncio
 from asyncio import Event, Queue, TaskGroup
 from typing import Callable
-import base64
 
 from google.genai.live import AsyncSession
 from google.genai.types import Blob
