@@ -86,7 +86,8 @@ class MultimodalSession:
                     and (parts := model_turn.parts)
                 ):
                     for part in parts:
-                        self._on_audio(part.inline_data.data)
-                if message.server_content.model_turn:
-                    if message.server_content.turn_complete:
+                        if part.inline_data and part.inline_data.data:
+                            self._on_audio(part.inline_data.data)
+                if content and content.model_turn:
+                    if content.turn_complete:
                         print("\n--- Turn Finished ---")

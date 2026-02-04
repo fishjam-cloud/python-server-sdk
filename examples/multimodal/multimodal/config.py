@@ -1,13 +1,13 @@
 import os
 
-from google.genai.types import Modality
+from google.genai.types import LiveConnectConfigDict, Modality
 
 FISHJAM_ID = os.getenv("FISHJAM_ID", "")
 FISHJAM_TOKEN = os.environ["FISHJAM_MANAGEMENT_TOKEN"]
 
 MULTIMODAL_MODEL = "gemini-2.5-flash-native-audio-preview-12-2025"
 
-MULTIMODAL_CONFIG = {
+MULTIMODAL_CONFIG: LiveConnectConfigDict = {
     "response_modalities": [Modality.AUDIO],
     "thinking_config": {
         "include_thoughts": False,
