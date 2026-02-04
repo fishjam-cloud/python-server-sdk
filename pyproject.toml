@@ -110,7 +110,6 @@ exclude = [
     "lib",
     "fishjam/_openapi_client",
     "tests",
-    "examples/poet_chat",
 ]
 typeCheckingMode = "basic"
 venv = ".venv"
