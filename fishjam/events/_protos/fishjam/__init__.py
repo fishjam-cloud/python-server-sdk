@@ -38,6 +38,9 @@ class AgentRequest(betterproto.Message):
     interrupt_track: "AgentRequestInterruptTrack" = betterproto.message_field(
         5, group="content"
     )
+    capture_image: "AgentRequestCaptureImage" = betterproto.message_field(
+        6, group="content"
+    )
 
 
 @dataclass(eq=False, repr=False)
@@ -96,6 +99,11 @@ class AgentRequestInterruptTrack(betterproto.Message):
 
 
 @dataclass(eq=False, repr=False)
+class AgentRequestCaptureImage(betterproto.Message):
+    track_id: str = betterproto.string_field(1)
+
+
+@dataclass(eq=False, repr=False)
 class AgentResponse(betterproto.Message):
     """Defines any type of message passed from Fishjam to agent peer"""
 
@@ -103,6 +111,9 @@ class AgentResponse(betterproto.Message):
         1, group="content"
     )
     track_data: "AgentResponseTrackData" = betterproto.message_field(2, group="content")
+    track_image: "AgentResponseTrackImage" = betterproto.message_field(
+        3, group="content"
+    )
 
 
 @dataclass(eq=False, repr=False)
@@ -118,6 +129,13 @@ class AgentResponseTrackData(betterproto.Message):
 
     peer_id: str = betterproto.string_field(1)
     track: "notifications.Track" = betterproto.message_field(2)
+    data: bytes = betterproto.bytes_field(3)
+
+
+@dataclass(eq=False, repr=False)
+class AgentResponseTrackImage(betterproto.Message):
+    track_id: str = betterproto.string_field(1)
+    content_type: str = betterproto.string_field(2)
     data: bytes = betterproto.bytes_field(3)
 
 
@@ -202,6 +220,12 @@ class ServerMessage(betterproto.Message):
     )
     streamer_disconnected: "ServerMessageStreamerDisconnected" = (
         betterproto.message_field(27, group="content")
+    )
+    channel_added: "ServerMessageChannelAdded" = betterproto.message_field(
+        28, group="content"
+    )
+    channel_removed: "ServerMessageChannelRemoved" = betterproto.message_field(
+        29, group="content"
     )
 
     def __post_init__(self) -> None:
@@ -293,7 +317,7 @@ class ServerMessageAuthRequest(betterproto.Message):
 
 @dataclass(eq=False, repr=False)
 class ServerMessageSubscribeRequest(betterproto.Message):
-    """Request sent by peer to subsribe for certain message type"""
+    """Request sent by peer to subscribe for certain message type"""
 
     event_type: "ServerMessageEventType" = betterproto.enum_field(1)
 
@@ -330,7 +354,7 @@ class ServerMessageHlsPlayable(betterproto.Message):
 @dataclass(eq=False, repr=False)
 class ServerMessageHlsUploaded(betterproto.Message):
     """
-    Notification sent when the HLS recording is successfully uploded to AWS S3
+    Notification sent when the HLS recording is successfully uploaded to AWS S3
     """
 
     room_id: str = betterproto.string_field(1)
@@ -381,6 +405,26 @@ class ServerMessageTrackMetadataUpdated(betterproto.Message):
     peer_id: str = betterproto.string_field(2, group="endpoint_info")
     component_id: str = betterproto.string_field(3, group="endpoint_info")
     track: "notifications.Track" = betterproto.message_field(4)
+
+
+@dataclass(eq=False, repr=False)
+class ServerMessageChannelAdded(betterproto.Message):
+    """Notification sent when a peer creates a channel"""
+
+    room_id: str = betterproto.string_field(1)
+    peer_id: str = betterproto.string_field(2, group="endpoint_info")
+    component_id: str = betterproto.string_field(3, group="endpoint_info")
+    channel_id: str = betterproto.string_field(4)
+
+
+@dataclass(eq=False, repr=False)
+class ServerMessageChannelRemoved(betterproto.Message):
+    """Notification sent when a peer deletes a channel"""
+
+    room_id: str = betterproto.string_field(1)
+    peer_id: str = betterproto.string_field(2, group="endpoint_info")
+    component_id: str = betterproto.string_field(3, group="endpoint_info")
+    channel_id: str = betterproto.string_field(4)
 
 
 @dataclass(eq=False, repr=False)

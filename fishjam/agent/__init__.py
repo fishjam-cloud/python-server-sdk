@@ -2,6 +2,7 @@ from .agent import (
     Agent,
     AgentSession,
     IncomingTrackData,
+    IncomingTrackImage,
     OutgoingAudioTrackOptions,
     OutgoingTrack,
 )
@@ -13,6 +14,7 @@ __all__ = [
     "AgentSession",
     "AgentAuthError",
     "IncomingTrackData",
+    "IncomingTrackImage",
     "OutgoingTrack",
     "OutgoingAudioTrackOptions",
 ]

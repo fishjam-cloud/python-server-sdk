@@ -16,14 +16,16 @@ from fishjam.events._protos.fishjam import (
     AgentRequestAddTrack,
     AgentRequestAddTrackCodecParameters,
     AgentRequestAuthRequest,
+    AgentRequestCaptureImage,
     AgentRequestInterruptTrack,
     AgentResponse,
 )
 from fishjam.events._protos.fishjam import AgentRequestTrackData as OutgoingTrackData
 from fishjam.events._protos.fishjam import AgentResponseTrackData as IncomingTrackData
+from fishjam.events._protos.fishjam import AgentResponseTrackImage as IncomingTrackImage
 from fishjam.events._protos.fishjam.notifications import Track, TrackEncoding, TrackType
 
-IncomingAgentMessage = IncomingTrackData
+IncomingAgentMessage = IncomingTrackData | IncomingTrackImage
 
 
 @dataclass
@@ -120,6 +122,8 @@ class AgentSession:
             match msg:
                 case IncomingTrackData() as content:
                     yield content
+                case IncomingTrackImage() as content:
+                    yield content
 
     async def add_track(self, options: OutgoingAudioTrackOptions) -> OutgoingTrack:
         """Adds a track to the connected agent with the specified options.
@@ -148,6 +152,20 @@ class AgentSession:
         )
         await self._send(message)
         return OutgoingTrack(id=track_id, session=self, options=options)
+
+    async def capture_image(self, track_id: str):
+        """Requests a image capture from a remote track.
+
+        The captured image will be delivered as an
+        :class:`IncomingTrackImage` message through :func:`receive`.
+
+        Args:
+            track_id: The identifier of the track to capture an image from.
+        """
+        message = AgentRequest(
+            capture_image=AgentRequestCaptureImage(track_id=track_id)
+        )
+        await self._send(message)
 
     async def _send(self, message: AgentRequest):
         await self._ws.send(bytes(message), text=False)
