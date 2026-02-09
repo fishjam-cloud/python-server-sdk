@@ -1,0 +1,4 @@
+import os
+
+FISHJAM_ID = os.environ["FISHJAM_ID"]
+FISHJAM_MANAGEMENT_TOKEN = os.environ["FISHJAM_MANAGEMENT_TOKEN"]

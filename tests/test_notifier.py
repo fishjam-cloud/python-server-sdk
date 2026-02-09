@@ -1,7 +1,6 @@
 # pylint: disable=locally-disabled, missing-class-docstring, missing-function-docstring, redefined-outer-name, too-few-public-methods, missing-module-docstring
 
 import asyncio
-import os
 import socket
 import time
 from multiprocessing import Process, Queue
@@ -20,15 +19,10 @@ from fishjam.events import (
     ServerMessageRoomDeleted,
 )
 from tests.support.asyncio_utils import assert_events, cancel
+from tests.support.env import FISHJAM_ID, FISHJAM_MANAGEMENT_TOKEN
 from tests.support.peer_socket import PeerSocket
-from tests.support.webhook_notifier import run_server
+from tests.support.webhook_notifier import WEBHOOK_SERVER_URL, WEBHOOK_URL, run_server
 
-FISHJAM_HOST = "proxy" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
-FISHJAM_URL = f"http://{FISHJAM_HOST}:5555"
-FISHJAM_ID = FISHJAM_URL
-SERVER_API_TOKEN = os.getenv("MANAGEMENT_TOKEN", "development")
-WEBHOOK_ADDRESS = "test" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
-WEBHOOK_URL = f"http://{WEBHOOK_ADDRESS}:5000/webhook"
 queue = Queue()
 
 
@@ -40,7 +34,7 @@ def start_server():
     timeout = 60  # wait maximum of 60 seconds
     while True:
         try:
-            response = requests.get(f"http://{WEBHOOK_ADDRESS}:5000/", timeout=1_000)
+            response = requests.get(WEBHOOK_SERVER_URL, timeout=1_000)
             if response.status_code == 200:  # Or another condition
                 break
         except (requests.ConnectionError, socket.error):
@@ -59,7 +53,7 @@ class TestConnectingToServer:
     async def test_valid_credentials(self):
         notifier = FishjamNotifier(
             fishjam_id=FISHJAM_ID,
-            management_token=SERVER_API_TOKEN,
+            management_token=FISHJAM_MANAGEMENT_TOKEN,
         )
 
         @notifier.on_server_notification
@@ -77,14 +71,14 @@ class TestConnectingToServer:
 
 @pytest.fixture
 def room_api():
-    return FishjamClient(FISHJAM_ID, SERVER_API_TOKEN)
+    return FishjamClient(FISHJAM_ID, FISHJAM_MANAGEMENT_TOKEN)
 
 
 @pytest.fixture
 def notifier():
     notifier = FishjamNotifier(
         fishjam_id=FISHJAM_ID,
-        management_token=SERVER_API_TOKEN,
+        management_token=FISHJAM_MANAGEMENT_TOKEN,
     )
 
     return notifier
@@ -133,7 +127,7 @@ class TestReceivingNotifications:
         room = room_api.create_room(options=options)
 
         peer, token = room_api.create_peer(room.id)
-        peer_socket = PeerSocket(fishjam_url=FISHJAM_URL)
+        peer_socket = PeerSocket(fishjam_url=FISHJAM_ID)
         peer_task = asyncio.create_task(peer_socket.connect(token))
 
         await peer_socket.wait_ready()
@@ -168,7 +162,7 @@ class TestReceivingNotifications:
         room = room_api.create_room(options=options)
         _peer, token = room_api.create_peer(room.id)
 
-        peer_socket = PeerSocket(fishjam_url=FISHJAM_URL)
+        peer_socket = PeerSocket(fishjam_url=FISHJAM_ID)
         peer_task = asyncio.create_task(peer_socket.connect(token))
 
         await peer_socket.wait_ready()
