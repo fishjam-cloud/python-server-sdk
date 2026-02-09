@@ -36,19 +36,10 @@ def start_server():
     flask_process = Process(target=run_server, args=(queue,))
     flask_process.start()
 
-    timeout = 60  # wait maximum of 60 seconds
-    while True:
-        try:
-            response = requests.get(WEBHOOK_SERVER_URL, timeout=1_000)
-            if response.status_code == 200:  # Or another condition
-                break
-        except (requests.ConnectionError, socket.error):
-            time.sleep(1)  # wait for 1 second before trying again
-            timeout -= 1
-            if timeout == 0:
-                pytest.fail("Server did not start in the expected time")
+    response = requests.get(WEBHOOK_SERVER_URL, timeout=3)
+    response.raise_for_status()
 
-    yield  # This is where the testing happens.
+    yield
 
     flask_process.terminate()
 
