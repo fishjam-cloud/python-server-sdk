@@ -35,12 +35,10 @@ class RoomCreateDetailsResponseData:
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "fishjam_address": fishjam_address,
-                "room": room,
-            }
-        )
+        field_dict.update({
+            "fishjam_address": fishjam_address,
+            "room": room,
+        })
 
         return field_dict
 

@@ -26,11 +26,9 @@ class SubscribeTracksBody:
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update(
-            {
-                "track_ids": track_ids,
-            }
-        )
+        field_dict.update({
+            "track_ids": track_ids,
+        })
 
         return field_dict
 
