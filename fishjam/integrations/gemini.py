@@ -104,7 +104,6 @@ class _GeminiIntegration:
             encoding=TrackEncoding.TRACK_ENCODING_PCM16,
             sample_rate=24_000,
             channels=1,
-            metadata={"type": "microphone"},
         )
 
     @property

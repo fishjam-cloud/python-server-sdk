@@ -6,7 +6,6 @@ from .agent import MultimodalAgent
 from .config import FISHJAM_ID, FISHJAM_TOKEN
 from .worker import BackgroundWorker
 
-print("Fishjam ID", FISHJAM_ID)
 fishjam = FishjamClient(FISHJAM_ID, FISHJAM_TOKEN)
 
 
@@ -35,6 +34,3 @@ class RoomService:
             ),
             self._worker,
         )
-
-    def get_agent(self):
-        return self.agent
