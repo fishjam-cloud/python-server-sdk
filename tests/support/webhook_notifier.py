@@ -26,7 +26,3 @@ def run_server(queue):
     global DATA_QUEUE
     DATA_QUEUE = queue
     app.run(port=5000, host="0.0.0.0", use_reloader=False, debug=False, threaded=True)
-
-
-WEBHOOK_SERVER_URL = "http://localhost:5000/"
-WEBHOOK_URL = f"{WEBHOOK_SERVER_URL}webhook"

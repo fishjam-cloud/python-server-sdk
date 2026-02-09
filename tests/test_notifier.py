@@ -19,9 +19,14 @@ from fishjam.events import (
     ServerMessageRoomDeleted,
 )
 from tests.support.asyncio_utils import assert_events, cancel
-from tests.support.env import FISHJAM_ID, FISHJAM_MANAGEMENT_TOKEN
+from tests.support.env import (
+    FISHJAM_ID,
+    FISHJAM_MANAGEMENT_TOKEN,
+    WEBHOOK_SERVER_URL,
+    WEBHOOK_URL,
+)
 from tests.support.peer_socket import PeerSocket
-from tests.support.webhook_notifier import WEBHOOK_SERVER_URL, WEBHOOK_URL, run_server
+from tests.support.webhook_notifier import run_server
 
 queue = Queue()
 

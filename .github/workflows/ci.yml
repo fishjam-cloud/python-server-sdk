@@ -30,6 +30,9 @@ jobs:
       - name: Install project dependencies
         run: uv sync --locked --all-extras --dev --all-packages
 
+      - name: Start localtunnel
+        run: npx localtunnel --port 5000 > tunnel.log 2>&1 &
+
       - name: Format
         run: uv run format_check
 
@@ -40,8 +43,12 @@ jobs:
         run: uv run pyright
       
       - name: Run tests
-        run: uv run pytest
+        run: |
+          WEBHOOK_SERVER_URL="$(grep -o 'https://[^ ]*' tunnel.log | head -n 1)"
+          if [ -z "$WEBHOOK_SERVER_URL" ]; then
+            echo "Failed to setup localtunnel!"
+          fi
+          uv run pytest
         env:
           FISHJAM_ID: ${{ secrets.CI_FISHJAM_ID }}
           FISHJAM_MANAGEMENT_TOKEN: ${{ secrets.CI_FISHJAM_MANAGEMENT_TOKEN }}
-
