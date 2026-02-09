@@ -64,7 +64,6 @@ members = [
     ".",
     "examples/poet_chat",
     "examples/selective_subscription",
-    "examples/multimodal",
 ]
 
 [tool.hatch.build.targets.sdist]
