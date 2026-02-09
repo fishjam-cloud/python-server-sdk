@@ -29,12 +29,14 @@ async def create_peer(request: Request) -> Response:
 
         peer, token = room_service.create_peer()
 
-        return JSONResponse({
-            "peer_id": peer.id,
-            "token": token,
-            "room_name": room_name,
-            "peer_name": peer_name,
-        })
+        return JSONResponse(
+            {
+                "peer_id": peer.id,
+                "token": token,
+                "room_name": room_name,
+                "peer_name": peer_name,
+            }
+        )
     except Exception as e:
         return JSONResponse({"error": str(e)}, status_code=500)
 

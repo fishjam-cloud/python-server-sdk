@@ -43,11 +43,13 @@ class Room:
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "config": config,
-            "id": id,
-            "peers": peers,
-        })
+        field_dict.update(
+            {
+                "config": config,
+                "id": id,
+                "peers": peers,
+            }
+        )
 
         return field_dict
 

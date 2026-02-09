@@ -41,11 +41,13 @@ class Streamer:
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "id": id,
-            "status": status,
-            "token": token,
-        })
+        field_dict.update(
+            {
+                "id": id,
+                "status": status,
+                "token": token,
+            }
+        )
 
         return field_dict
 

@@ -72,15 +72,17 @@ class Peer:
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "id": id,
-            "metadata": metadata,
-            "status": status,
-            "subscribeMode": subscribe_mode,
-            "subscriptions": subscriptions,
-            "tracks": tracks,
-            "type": type_,
-        })
+        field_dict.update(
+            {
+                "id": id,
+                "metadata": metadata,
+                "status": status,
+                "subscribeMode": subscribe_mode,
+                "subscriptions": subscriptions,
+                "tracks": tracks,
+                "type": type_,
+            }
+        )
 
         return field_dict
 

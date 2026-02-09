@@ -5,8 +5,8 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
-from ...models.add_peer_body import AddPeerBody
 from ...models.error import Error
+from ...models.peer_config import PeerConfig
 from ...models.peer_details_response import PeerDetailsResponse
 from ...types import Response
 
@@ -14,7 +14,7 @@ from ...types import Response
 def _get_kwargs(
     room_id: str,
     *,
-    body: AddPeerBody,
+    body: PeerConfig,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -81,13 +81,13 @@ def sync_detailed(
     room_id: str,
     *,
     client: AuthenticatedClient,
-    body: AddPeerBody,
+    body: PeerConfig,
 ) -> Response[Union[Error, PeerDetailsResponse]]:
     """Create peer
 
     Args:
         room_id (str):
-        body (AddPeerBody):
+        body (PeerConfig): Peer configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -113,13 +113,13 @@ def sync(
     room_id: str,
     *,
     client: AuthenticatedClient,
-    body: AddPeerBody,
+    body: PeerConfig,
 ) -> Optional[Union[Error, PeerDetailsResponse]]:
     """Create peer
 
     Args:
         room_id (str):
-        body (AddPeerBody):
+        body (PeerConfig): Peer configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -140,13 +140,13 @@ async def asyncio_detailed(
     room_id: str,
     *,
     client: AuthenticatedClient,
-    body: AddPeerBody,
+    body: PeerConfig,
 ) -> Response[Union[Error, PeerDetailsResponse]]:
     """Create peer
 
     Args:
         room_id (str):
-        body (AddPeerBody):
+        body (PeerConfig): Peer configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -170,13 +170,13 @@ async def asyncio(
     room_id: str,
     *,
     client: AuthenticatedClient,
-    body: AddPeerBody,
+    body: PeerConfig,
 ) -> Optional[Union[Error, PeerDetailsResponse]]:
     """Create peer
 
     Args:
         room_id (str):
-        body (AddPeerBody):
+        body (PeerConfig): Peer configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

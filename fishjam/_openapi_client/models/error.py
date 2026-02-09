@@ -23,9 +23,11 @@ class Error:
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
-        field_dict.update({
-            "errors": errors,
-        })
+        field_dict.update(
+            {
+                "errors": errors,
+            }
+        )
 
         return field_dict
 

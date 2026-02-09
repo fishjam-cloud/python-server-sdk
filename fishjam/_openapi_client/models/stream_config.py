@@ -7,7 +7,6 @@ from typing import (
 )
 
 from attrs import define as _attrs_define
-from attrs import field as _attrs_field
 
 from ..types import UNSET, Unset
 
@@ -21,11 +20,12 @@ class StreamConfig:
     Attributes:
         audio_only (Union[None, Unset, bool]): Restrics stream to audio only Default: False.
         public (Union[Unset, bool]): True if livestream viewers can omit specifying a token. Default: False.
+        webhook_url (Union[None, Unset, str]): Webhook URL for receiving server notifications
     """
 
     audio_only: Union[None, Unset, bool] = False
     public: Union[Unset, bool] = False
-    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
+    webhook_url: Union[None, Unset, str] = UNSET
 
     def to_dict(self) -> dict[str, Any]:
         audio_only: Union[None, Unset, bool]
@@ -36,13 +36,21 @@ class StreamConfig:
 
         public = self.public
 
+        webhook_url: Union[None, Unset, str]
+        if isinstance(self.webhook_url, Unset):
+            webhook_url = UNSET
+        else:
+            webhook_url = self.webhook_url
+
         field_dict: dict[str, Any] = {}
-        field_dict.update(self.additional_properties)
+
         field_dict.update({})
         if audio_only is not UNSET:
             field_dict["audioOnly"] = audio_only
         if public is not UNSET:
             field_dict["public"] = public
+        if webhook_url is not UNSET:
+            field_dict["webhookUrl"] = webhook_url
 
         return field_dict
 
@@ -61,26 +69,19 @@ class StreamConfig:
 
         public = d.pop("public", UNSET)
 
+        def _parse_webhook_url(data: object) -> Union[None, Unset, str]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(Union[None, Unset, str], data)
+
+        webhook_url = _parse_webhook_url(d.pop("webhookUrl", UNSET))
+
         stream_config = cls(
             audio_only=audio_only,
             public=public,
+            webhook_url=webhook_url,
         )
 
-        stream_config.additional_properties = d
         return stream_config
-
-    @property
-    def additional_keys(self) -> list[str]:
-        return list(self.additional_properties.keys())
-
-    def __getitem__(self, key: str) -> Any:
-        return self.additional_properties[key]
-
-    def __setitem__(self, key: str, value: Any) -> None:
-        self.additional_properties[key] = value
-
-    def __delitem__(self, key: str) -> None:
-        del self.additional_properties[key]
-
-    def __contains__(self, key: str) -> bool:
-        return key in self.additional_properties

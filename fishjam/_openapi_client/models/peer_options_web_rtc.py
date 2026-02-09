@@ -7,7 +7,6 @@ from typing import (
 )
 
 from attrs import define as _attrs_define
-from attrs import field as _attrs_field
 
 from ..models.subscribe_mode import SubscribeMode
 from ..types import UNSET, Unset
@@ -30,7 +29,6 @@ class PeerOptionsWebRTC:
 
     metadata: Union[Unset, "WebRTCMetadata"] = UNSET
     subscribe_mode: Union[Unset, SubscribeMode] = UNSET
-    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         metadata: Union[Unset, dict[str, Any]] = UNSET
@@ -42,7 +40,7 @@ class PeerOptionsWebRTC:
             subscribe_mode = self.subscribe_mode.value
 
         field_dict: dict[str, Any] = {}
-        field_dict.update(self.additional_properties)
+
         field_dict.update({})
         if metadata is not UNSET:
             field_dict["metadata"] = metadata
@@ -75,21 +73,4 @@ class PeerOptionsWebRTC:
             subscribe_mode=subscribe_mode,
         )
 
-        peer_options_web_rtc.additional_properties = d
         return peer_options_web_rtc
-
-    @property
-    def additional_keys(self) -> list[str]:
-        return list(self.additional_properties.keys())
-
-    def __getitem__(self, key: str) -> Any:
-        return self.additional_properties[key]
-
-    def __setitem__(self, key: str, value: Any) -> None:
-        self.additional_properties[key] = value
-
-    def __delitem__(self, key: str) -> None:
-        del self.additional_properties[key]
-
-    def __contains__(self, key: str) -> bool:
-        return key in self.additional_properties
