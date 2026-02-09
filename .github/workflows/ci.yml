@@ -31,7 +31,7 @@ jobs:
         run: uv sync --locked --all-extras --dev --all-packages
 
       - name: Start localtunnel
-        run: npx localtunnel --port 5000 > tunnel.log 2>&1 &
+        run: npx localtunnel --port 5000 2>&1 | tee tunnel.log &
 
       - name: Format
         run: uv run format_check
