@@ -39,7 +39,7 @@ jobs:
       - name: Type check
         run: uv run pyright
       
-      - name: Type check
+      - name: Run tests
         run: uv run pytest
         env:
           FISHJAM_ID: ${{ secrets.CI_FISHJAM_ID }}
