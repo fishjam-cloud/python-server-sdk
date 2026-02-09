@@ -1,7 +1,6 @@
 import asyncio
 
 from fishjam.agent import Agent
-from fishjam.agent.agent import IncomingTrackData
 from transcription.worker import BackgroundWorker
 
 from .transcription import TranscriptionSession
@@ -20,8 +19,6 @@ class TranscriptionAgent:
             print(f"Agent connected to room {self._room_id}")
 
             async for track_data in session.receive():
-                if not isinstance(track_data, IncomingTrackData):
-                    continue
                 if track_data.peer_id not in self._sessions:
                     return
                 self._sessions[track_data.peer_id].transcribe(track_data.data)
