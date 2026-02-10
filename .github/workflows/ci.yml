@@ -12,7 +12,7 @@ jobs:
           enable-cache: true
 
       - name: Install project dependencies
-        run: uv sync --locked --all-extras --dev
+        run: uv sync --locked --all-extras --all-packages
 
       - name: Format Check
         run: uv run format_check
@@ -33,7 +33,7 @@ jobs:
           enable-cache: true
 
       - name: Install project dependencies
-        run: uv sync --locked --all-extras --dev
+        run: uv sync --locked --all-extras --all-packages
 
       - name: Type check
         run: uv run pyright
@@ -50,7 +50,7 @@ jobs:
           enable-cache: true
 
       - name: Install project dependencies
-        run: uv sync --locked --all-extras --dev
+        run: uv sync --locked --all-extras --all-packages
 
       - name: Initialize Localtunnel
         id: tunnel
