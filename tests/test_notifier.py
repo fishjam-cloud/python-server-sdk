@@ -1,8 +1,6 @@
 # pylint: disable=locally-disabled, missing-class-docstring, missing-function-docstring, redefined-outer-name, too-few-public-methods, missing-module-docstring
 
 import asyncio
-import socket
-import time
 from multiprocessing import Process, Queue
 
 import pytest
