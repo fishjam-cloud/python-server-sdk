@@ -1,5 +1,4 @@
 import asyncio
-import os
 from contextlib import suppress
 
 import pytest
@@ -14,15 +13,12 @@ from fishjam.events._protos.fishjam import (
     ServerMessagePeerMetadataUpdated,
 )
 from fishjam.events.allowed_notifications import AllowedNotification
-
-HOST = "proxy" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
-FISHJAM_ID = f"http://{HOST}:5555"
-SERVER_API_TOKEN = os.getenv("MANAGEMENT_TOKEN", "development")
+from tests.support.env import FISHJAM_ID, FISHJAM_MANAGEMENT_TOKEN
 
 
 @pytest.fixture
 def room_api():
-    return FishjamClient(FISHJAM_ID, SERVER_API_TOKEN)
+    return FishjamClient(FISHJAM_ID, FISHJAM_MANAGEMENT_TOKEN)
 
 
 @pytest.fixture
@@ -43,7 +39,7 @@ def agent(room: Room, room_api: FishjamClient):
 async def notifier():
     notifier = FishjamNotifier(
         fishjam_id=FISHJAM_ID,
-        management_token=SERVER_API_TOKEN,
+        management_token=FISHJAM_MANAGEMENT_TOKEN,
     )
 
     @notifier.on_server_notification

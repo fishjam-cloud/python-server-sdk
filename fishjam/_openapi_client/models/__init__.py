@@ -1,11 +1,11 @@
 """Contains all the data models used in inputs/outputs"""
 
-from .add_peer_body import AddPeerBody
 from .agent_output import AgentOutput
 from .audio_format import AudioFormat
 from .audio_sample_rate import AudioSampleRate
 from .error import Error
 from .peer import Peer
+from .peer_config import PeerConfig
 from .peer_details_response import PeerDetailsResponse
 from .peer_details_response_data import PeerDetailsResponseData
 from .peer_metadata import PeerMetadata
@@ -41,12 +41,12 @@ from .viewer_token import ViewerToken
 from .web_rtc_metadata import WebRTCMetadata
 
 __all__ = (
-    "AddPeerBody",
     "AgentOutput",
     "AudioFormat",
     "AudioSampleRate",
     "Error",
     "Peer",
+    "PeerConfig",
     "PeerDetailsResponse",
     "PeerDetailsResponseData",
     "PeerMetadata",

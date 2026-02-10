@@ -29,11 +29,3 @@ async def _assert_messages(notifier_callback, message_checks):
         raise asyncio.exceptions.TimeoutError(
             f"{message_checks[0]} hasn't been received within timeout"
         ) from exc
-
-
-async def cancel(task):
-    task.cancel()
-    try:
-        await task
-    except asyncio.exceptions.CancelledError:
-        pass

@@ -130,7 +130,7 @@ class FishjamNotifier:
             raise RuntimeError("Notification handler is not defined")
 
         while True:
-            message = cast(bytes, await self._websocket.recv())
+            message = await self._websocket.recv(decode=False)
             message = ServerMessage().parse(message)
             _which, message = betterproto.which_one_of(message, "content")
 

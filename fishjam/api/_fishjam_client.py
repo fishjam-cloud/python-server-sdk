@@ -19,11 +19,11 @@ from fishjam._openapi_client.api.viewer import (
     generate_viewer_token as viewer_generate_viewer_token,
 )
 from fishjam._openapi_client.models import (
-    AddPeerBody,
     AgentOutput,
     AudioFormat,
     AudioSampleRate,
     Peer,
+    PeerConfig,
     PeerDetailsResponse,
     PeerOptionsAgent,
     PeerOptionsWebRTC,
@@ -177,7 +177,7 @@ class FishjamClient(Client):
             metadata=peer_metadata,
             subscribe_mode=SubscribeMode(options.subscribe_mode),
         )
-        body = AddPeerBody(type_=PeerType.WEBRTC, options=peer_options)
+        body = PeerConfig(type_=PeerType.WEBRTC, options=peer_options)
 
         resp = cast(
             PeerDetailsResponse,
@@ -198,7 +198,7 @@ class FishjamClient(Client):
                 and Fishjam URL.
         """
         options = options or AgentOptions()
-        body = AddPeerBody(
+        body = PeerConfig(
             type_=PeerType.AGENT,
             options=PeerOptionsAgent(
                 output=AgentOutput(

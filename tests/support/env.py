@@ -1,0 +1,6 @@
+import os
+
+FISHJAM_ID = os.environ["FISHJAM_ID"]
+FISHJAM_MANAGEMENT_TOKEN = os.environ["FISHJAM_MANAGEMENT_TOKEN"]
+WEBHOOK_SERVER_URL = os.getenv("WEBHOOK_SERVER_URL", "http://localhost:5000")
+WEBHOOK_URL = f"{WEBHOOK_SERVER_URL}/webhook"

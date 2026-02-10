@@ -1,14 +1,13 @@
 # pylint: disable=locally-disabled, missing-class-docstring, missing-function-docstring, redefined-outer-name, too-few-public-methods, missing-module-docstring
 
 import asyncio
-import os
-import socket
-import time
 from multiprocessing import Process, Queue
 
 import pytest
 import requests
 import websockets
+from requests.adapters import HTTPAdapter
+from urllib3 import Retry
 
 from fishjam import FishjamClient, FishjamNotifier, RoomOptions
 from fishjam.events import (
@@ -19,16 +18,16 @@ from fishjam.events import (
     ServerMessageRoomCreated,
     ServerMessageRoomDeleted,
 )
-from tests.support.asyncio_utils import assert_events, cancel
+from tests.support.asyncio_utils import assert_events
+from tests.support.env import (
+    FISHJAM_ID,
+    FISHJAM_MANAGEMENT_TOKEN,
+    WEBHOOK_SERVER_URL,
+    WEBHOOK_URL,
+)
 from tests.support.peer_socket import PeerSocket
 from tests.support.webhook_notifier import run_server
 
-FISHJAM_HOST = "proxy" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
-FISHJAM_URL = f"http://{FISHJAM_HOST}:5555"
-FISHJAM_ID = FISHJAM_URL
-SERVER_API_TOKEN = os.getenv("MANAGEMENT_TOKEN", "development")
-WEBHOOK_ADDRESS = "test" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
-WEBHOOK_URL = f"http://{WEBHOOK_ADDRESS}:5000/webhook"
 queue = Queue()
 
 
@@ -37,19 +36,21 @@ def start_server():
     flask_process = Process(target=run_server, args=(queue,))
     flask_process.start()
 
-    timeout = 60  # wait maximum of 60 seconds
-    while True:
-        try:
-            response = requests.get(f"http://{WEBHOOK_ADDRESS}:5000/", timeout=1_000)
-            if response.status_code == 200:  # Or another condition
-                break
-        except (requests.ConnectionError, socket.error):
-            time.sleep(1)  # wait for 1 second before trying again
-            timeout -= 1
-            if timeout == 0:
-                pytest.fail("Server did not start in the expected time")
+    session = requests.Session()
+    session.mount(
+        "http",
+        HTTPAdapter(
+            max_retries=Retry(
+                total=5,
+                backoff_factor=0.25,
+            )
+        ),
+    )
 
-    yield  # This is where the testing happens.
+    response = session.get(WEBHOOK_SERVER_URL, timeout=5)
+    response.raise_for_status()
+
+    yield
 
     flask_process.terminate()
 
@@ -59,32 +60,35 @@ class TestConnectingToServer:
     async def test_valid_credentials(self):
         notifier = FishjamNotifier(
             fishjam_id=FISHJAM_ID,
-            management_token=SERVER_API_TOKEN,
+            management_token=FISHJAM_MANAGEMENT_TOKEN,
         )
 
         @notifier.on_server_notification
         def handle_notitifcation(_notification):
             pass
 
-        notifier_task = asyncio.create_task(notifier.connect())
-        await notifier.wait_ready()
-        assert (
-            notifier._websocket and notifier._websocket.state == websockets.State.OPEN
-        )
+        async with asyncio.TaskGroup() as tg:
+            notifier_task = tg.create_task(notifier.connect())
+            await notifier.wait_ready()
 
-        await cancel(notifier_task)
+            assert (
+                notifier._websocket
+                and notifier._websocket.state == websockets.State.OPEN
+            )
+
+            notifier_task.cancel()
 
 
 @pytest.fixture
 def room_api():
-    return FishjamClient(FISHJAM_ID, SERVER_API_TOKEN)
+    return FishjamClient(FISHJAM_ID, FISHJAM_MANAGEMENT_TOKEN)
 
 
 @pytest.fixture
 def notifier():
     notifier = FishjamNotifier(
         fishjam_id=FISHJAM_ID,
-        management_token=SERVER_API_TOKEN,
+        management_token=FISHJAM_MANAGEMENT_TOKEN,
     )
 
     return notifier
@@ -96,18 +100,21 @@ class TestReceivingNotifications:
         self, room_api: FishjamClient, notifier: FishjamNotifier
     ):
         event_checks = [ServerMessageRoomCreated, ServerMessageRoomDeleted]
-        assert_task = asyncio.create_task(assert_events(notifier, event_checks.copy()))
 
-        notifier_task = asyncio.create_task(notifier.connect())
-        await notifier.wait_ready()
+        async with asyncio.TaskGroup() as tg:
+            assert_task = tg.create_task(assert_events(notifier, event_checks.copy()))
 
-        options = RoomOptions(webhook_url=WEBHOOK_URL)
-        room = room_api.create_room(options=options)
+            notifier_task = tg.create_task(notifier.connect())
+            await notifier.wait_ready()
 
-        room_api.delete_room(room.id)
+            options = RoomOptions(webhook_url=WEBHOOK_URL)
+            room = room_api.create_room(options=options)
 
-        await assert_task
-        await cancel(notifier_task)
+            room_api.delete_room(room.id)
+
+            await assert_task
+
+            notifier_task.cancel()
 
         for event in event_checks:
             self.assert_event(event)
@@ -124,26 +131,29 @@ class TestReceivingNotifications:
             ServerMessagePeerDeleted,
             ServerMessageRoomDeleted,
         ]
-        assert_task = asyncio.create_task(assert_events(notifier, event_checks.copy()))
 
-        notifier_task = asyncio.create_task(notifier.connect())
-        await notifier.wait_ready()
+        async with asyncio.TaskGroup() as tg:
+            assert_task = tg.create_task(assert_events(notifier, event_checks.copy()))
 
-        options = RoomOptions(webhook_url=WEBHOOK_URL)
-        room = room_api.create_room(options=options)
+            notifier_task = tg.create_task(notifier.connect())
+            await notifier.wait_ready()
 
-        peer, token = room_api.create_peer(room.id)
-        peer_socket = PeerSocket(fishjam_url=FISHJAM_URL)
-        peer_task = asyncio.create_task(peer_socket.connect(token))
+            options = RoomOptions(webhook_url=WEBHOOK_URL)
+            room = room_api.create_room(options=options)
 
-        await peer_socket.wait_ready()
+            peer, token = room_api.create_peer(room.id)
+            peer_socket = PeerSocket(fishjam_url=FISHJAM_ID)
+            peer_socket_task = tg.create_task(peer_socket.connect(token))
 
-        room_api.delete_peer(room.id, peer.id)
-        room_api.delete_room(room.id)
+            await peer_socket.wait_ready()
 
-        await assert_task
-        await cancel(peer_task)
-        await cancel(notifier_task)
+            room_api.delete_peer(room.id, peer.id)
+            room_api.delete_room(room.id)
+
+            await assert_task
+
+            notifier_task.cancel()
+            peer_socket_task.cancel()
 
         for event in event_checks:
             self.assert_event(event)
@@ -159,29 +169,32 @@ class TestReceivingNotifications:
             ServerMessagePeerDeleted,
             ServerMessageRoomDeleted,
         ]
-        assert_task = asyncio.create_task(assert_events(notifier, event_checks.copy()))
 
-        notifier_task = asyncio.create_task(notifier.connect())
-        await notifier.wait_ready()
+        async with asyncio.TaskGroup() as tg:
+            assert_task = tg.create_task(assert_events(notifier, event_checks.copy()))
 
-        options = RoomOptions(webhook_url=WEBHOOK_URL)
-        room = room_api.create_room(options=options)
-        _peer, token = room_api.create_peer(room.id)
+            notifier_task = tg.create_task(notifier.connect())
+            await notifier.wait_ready()
 
-        peer_socket = PeerSocket(fishjam_url=FISHJAM_URL)
-        peer_task = asyncio.create_task(peer_socket.connect(token))
+            options = RoomOptions(webhook_url=WEBHOOK_URL)
+            room = room_api.create_room(options=options)
+            _peer, token = room_api.create_peer(room.id)
 
-        await peer_socket.wait_ready()
+            peer_socket = PeerSocket(fishjam_url=FISHJAM_ID)
+            peer_socket_task = tg.create_task(peer_socket.connect(token))
 
-        room_api.delete_room(room.id)
+            await peer_socket.wait_ready()
 
-        await assert_task
-        await cancel(peer_task)
-        await cancel(notifier_task)
+            room_api.delete_room(room.id)
+
+            await assert_task
+
+            notifier_task.cancel()
+            peer_socket_task.cancel()
 
         for event in event_checks:
             self.assert_event(event)
 
     def assert_event(self, event):
-        data = queue.get(timeout=2.5)
+        data = queue.get(timeout=5)
         assert data == event or isinstance(data, event)
