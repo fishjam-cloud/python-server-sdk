@@ -6,6 +6,8 @@ from multiprocessing import Process, Queue
 import pytest
 import requests
 import websockets
+from requests.adapters import HTTPAdapter
+from urllib3 import Retry
 
 from fishjam import FishjamClient, FishjamNotifier, RoomOptions
 from fishjam.events import (
@@ -34,7 +36,18 @@ def start_server():
     flask_process = Process(target=run_server, args=(queue,))
     flask_process.start()
 
-    response = requests.get(WEBHOOK_SERVER_URL, timeout=5)
+    session = requests.Session()
+    session.mount(
+        "http",
+        HTTPAdapter(
+            max_retries=Retry(
+                total=5,
+                backoff_factor=0.25,
+            )
+        ),
+    )
+
+    response = session.get(WEBHOOK_SERVER_URL, timeout=5)
     response.raise_for_status()
 
     yield
