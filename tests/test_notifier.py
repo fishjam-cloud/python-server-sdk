@@ -38,7 +38,7 @@ def start_server():
 
     session = requests.Session()
     session.mount(
-        "http",
+        "http://",
         HTTPAdapter(
             max_retries=Retry(
                 total=5,

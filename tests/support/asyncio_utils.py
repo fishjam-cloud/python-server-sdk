@@ -16,9 +16,10 @@ async def _assert_messages(notifier_callback, message_checks):
 
     @notifier_callback
     def handle_message(message):
-        expected_msg = message_checks[0]
-        if message == expected_msg or isinstance(message, expected_msg):
-            message_checks.pop(0)
+        if len(message_checks) > 0:
+            expected_msg = message_checks[0]
+            if message == expected_msg or isinstance(message, expected_msg):
+                message_checks.pop(0)
 
         if message_checks == []:
             success_event.set()
