@@ -3,55 +3,82 @@ name: CI
 on: [push]
 
 jobs:
-  static-checks:
+  lint-and-format:
     runs-on: ubuntu-latest
-    strategy:
-      matrix:
-        python-version:
-          - "3.11"
-          - "3.12"
-          - "3.13"
-    name: static-checks
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Set up Python
-        uses: actions/setup-python@v5
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
         with:
-          python-version: ${{ matrix.python-version }}
-
-      - name: Install uv
-        uses: astral-sh/setup-uv@v6
-        with:
-          python-version: ${{ matrix.python-version }}
           enable-cache: true
 
       - name: Install project dependencies
-        run: uv sync --locked --all-extras --dev --all-packages
+        run: uv sync --locked --all-extras --dev
 
-      - name: Start localtunnel
-        run: npx localtunnel --port 5000 2>&1 | tee tunnel.log &
-
-      - name: Format
+      - name: Format Check
         run: uv run format_check
 
       - name: Lint
         run: uv run lint
 
+  type-check:
+    runs-on: ubuntu-latest
+    strategy: &strategy
+      matrix:
+        python-version: ["3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+
+      - name: Install project dependencies
+        run: uv sync --locked --all-extras --dev
+
       - name: Type check
         run: uv run pyright
-      
-      - name: Run tests
+
+  test:
+    runs-on: ubuntu-latest
+    needs: [lint-and-format]
+    strategy: *strategy
+    steps:
+      - uses: actions/checkout@v4
+      - uses: astral-sh/setup-uv@v6
+        with:
+          python-version: ${{ matrix.python-version }}
+          enable-cache: true
+
+      - name: Install project dependencies
+        run: uv sync --locked --all-extras --dev
+
+      - name: Initialize Localtunnel
+        id: tunnel
         run: |
-          PUBLIC_URL="$(grep -o 'https://[^ ]*' tunnel.log | head -n 1)"
-          if [ -z "$PUBLIC_URL" ]; then
-            echo "Failed to setup localtunnel!"
-            cat tunnel.log
-            exit 1
-          fi
-          echo "Webhook URL: $PUBLIC_URL"
-          WEBHOOK_SERVER_URL="$PUBLIC_URL" uv run pytest
+          npx localtunnel --port 5000 > tunnel.log 2>&1 &
+          
+          # Poll for the URL
+          TIMEOUT=10
+          ELAPSED=0
+          echo "Waiting for localtunnel to generate URL..."
+          
+          while ! grep -q "https://" tunnel.log; do
+            if [ $ELAPSED -ge $TIMEOUT ]; then
+              echo "Error: Localtunnel timed out after ${TIMEOUT}s"
+              cat tunnel.log
+              exit 1
+            fi
+            sleep 1
+            ELAPSED=$((ELAPSED + 1))
+          done
+          
+          TUNNEL_URL=$(grep -o 'https://[^ ]*' tunnel.log | head -n 1)
+          echo "url=$TUNNEL_URL" >> $GITHUB_OUTPUT
+          echo "Localtunnel is live at: $TUNNEL_URL"
+
+      - name: Run tests
+        run: uv run pytest
         env:
+          WEBHOOK_SERVER_URL: ${{ steps.tunnel.outputs.url }}
           FISHJAM_ID: ${{ secrets.CI_FISHJAM_ID }}
           FISHJAM_MANAGEMENT_TOKEN: ${{ secrets.CI_FISHJAM_MANAGEMENT_TOKEN }}
