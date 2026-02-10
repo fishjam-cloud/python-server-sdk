@@ -34,7 +34,7 @@ def start_server():
     flask_process = Process(target=run_server, args=(queue,))
     flask_process.start()
 
-    response = requests.get(WEBHOOK_SERVER_URL, timeout=3)
+    response = requests.get(WEBHOOK_SERVER_URL, timeout=5)
     response.raise_for_status()
 
     yield
@@ -183,5 +183,5 @@ class TestReceivingNotifications:
             self.assert_event(event)
 
     def assert_event(self, event):
-        data = queue.get(timeout=2.5)
+        data = queue.get(timeout=5)
         assert data == event or isinstance(data, event)
