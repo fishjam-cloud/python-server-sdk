@@ -6,7 +6,6 @@ from typing import (
 )
 
 from attrs import define as _attrs_define
-from attrs import field as _attrs_field
 
 from ..models.audio_format import AudioFormat
 from ..models.audio_sample_rate import AudioSampleRate
@@ -26,7 +25,6 @@ class AgentOutput:
 
     audio_format: Union[Unset, AudioFormat] = UNSET
     audio_sample_rate: Union[Unset, AudioSampleRate] = UNSET
-    additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
         audio_format: Union[Unset, str] = UNSET
@@ -38,7 +36,7 @@ class AgentOutput:
             audio_sample_rate = self.audio_sample_rate.value
 
         field_dict: dict[str, Any] = {}
-        field_dict.update(self.additional_properties)
+
         field_dict.update({})
         if audio_format is not UNSET:
             field_dict["audioFormat"] = audio_format
@@ -69,21 +67,4 @@ class AgentOutput:
             audio_sample_rate=audio_sample_rate,
         )
 
-        agent_output.additional_properties = d
         return agent_output
-
-    @property
-    def additional_keys(self) -> list[str]:
-        return list(self.additional_properties.keys())
-
-    def __getitem__(self, key: str) -> Any:
-        return self.additional_properties[key]
-
-    def __setitem__(self, key: str, value: Any) -> None:
-        self.additional_properties[key] = value
-
-    def __delitem__(self, key: str) -> None:
-        del self.additional_properties[key]
-
-    def __contains__(self, key: str) -> bool:
-        return key in self.additional_properties

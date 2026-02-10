@@ -1,4 +1,3 @@
-import os
 from unittest.mock import Mock, patch
 
 import httpx
@@ -29,10 +28,7 @@ from fishjam.room import (
     VideoCodec,
 )
 from fishjam.version import get_version
-
-HOST = "proxy" if os.getenv("DOCKER_TEST") == "TRUE" else "localhost"
-FISHJAM_ID = f"http://{HOST}:5555"
-MANAGEMENT_TOKEN = os.getenv("MANAGEMENT_TOKEN", "development")
+from tests.support.env import FISHJAM_ID, FISHJAM_MANAGEMENT_TOKEN
 
 MAX_PEERS = 10
 CODEC_H264 = "h264"
@@ -49,7 +45,7 @@ class TestAuthentication:
             room_api.create_room()
 
     def test_valid_token(self):
-        room_api = FishjamClient(FISHJAM_ID, MANAGEMENT_TOKEN)
+        room_api = FishjamClient(FISHJAM_ID, FISHJAM_MANAGEMENT_TOKEN)
 
         room = room_api.create_room()
         all_rooms = room_api.get_all_rooms()
@@ -71,7 +67,7 @@ class TestAPIClientHeader:
             captured_headers = dict(request.headers)
             return mock_response
 
-        room_api = FishjamClient(FISHJAM_ID, MANAGEMENT_TOKEN)
+        room_api = FishjamClient(FISHJAM_ID, FISHJAM_MANAGEMENT_TOKEN)
 
         with patch.object(httpx.HTTPTransport, "handle_request", side_effect=mock_send):
             try:
@@ -89,7 +85,7 @@ class TestAPIClientHeader:
 
 @pytest.fixture
 def room_api():
-    return FishjamClient(FISHJAM_ID, MANAGEMENT_TOKEN)
+    return FishjamClient(FISHJAM_ID, FISHJAM_MANAGEMENT_TOKEN)
 
 
 class TestCreateRoom:
