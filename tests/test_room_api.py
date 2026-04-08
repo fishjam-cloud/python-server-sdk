@@ -7,6 +7,7 @@ from fishjam import (
     FishjamClient,
     Peer,
     PeerOptions,
+    PeerOptionsVapi,
     Room,
     RoomOptions,
 )
@@ -249,6 +250,27 @@ class TestCreatePeer:
 
         with pytest.raises(ConflictError):
             room_api.create_peer(room.id)
+
+
+class TestCreateVapiAgent:
+    def test_create_vapi_agent(self, room_api: FishjamClient):
+        room = room_api.create_room()
+        options = PeerOptionsVapi(api_key="test_api_key", call_id="test_call_id")
+        peer = room_api.create_vapi_agent(room.id, options=options)
+
+        assert peer.type_ == PeerType.VAPI
+
+        room = room_api.get_room(room.id)
+        assert any(p.id == peer.id for p in room.peers)
+
+    def test_delete_vapi_agent(self, room_api: FishjamClient):
+        room = room_api.create_room()
+        options = PeerOptionsVapi(api_key="test_api_key", call_id="test_call_id")
+        peer = room_api.create_vapi_agent(room.id, options=options)
+
+        room_api.delete_peer(room.id, peer.id)
+
+        assert [] == room_api.get_room(room.id).peers
 
 
 class TestDeletePeer:

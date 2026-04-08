@@ -24,6 +24,7 @@ def check_exit_code(command):
     if exit_code != 0:
         sys.exit(exit_code)
 
+
 def run_tests():
     check_exit_code("uv run pytest")
 
