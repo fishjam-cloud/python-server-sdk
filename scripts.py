@@ -26,7 +26,7 @@ def check_exit_code(command):
 
 
 def run_tests():
-    check_exit_code("uv run pytest")
+    check_exit_code("uv run --env-file .env pytest")
 
 
 def run_formatter():

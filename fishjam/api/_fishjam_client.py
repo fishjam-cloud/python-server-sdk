@@ -226,7 +226,7 @@ class FishjamClient(Client):
 
         Args:
             room_id: The ID of the room where the vapi agent will be created.
-            options: Configuration options for the peer. Defaults to None.
+            options: Configuration options for the vapi peer.
 
         Returns:
             - Peer: The created peer object.
