@@ -12,6 +12,7 @@ from ..models.peer_type import PeerType
 
 if TYPE_CHECKING:
     from ..models.peer_options_agent import PeerOptionsAgent
+    from ..models.peer_options_vapi import PeerOptionsVapi
     from ..models.peer_options_web_rtc import PeerOptionsWebRTC
 
 
@@ -23,18 +24,21 @@ class PeerConfig:
     """Peer configuration
 
     Attributes:
-        options (Union['PeerOptionsAgent', 'PeerOptionsWebRTC']): Peer-specific options
+        options (Union['PeerOptionsAgent', 'PeerOptionsVapi', 'PeerOptionsWebRTC']): Peer-specific options
         type_ (PeerType): Peer type Example: webrtc.
     """
 
-    options: Union["PeerOptionsAgent", "PeerOptionsWebRTC"]
+    options: Union["PeerOptionsAgent", "PeerOptionsVapi", "PeerOptionsWebRTC"]
     type_: PeerType
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.peer_options_agent import PeerOptionsAgent
         from ..models.peer_options_web_rtc import PeerOptionsWebRTC
 
         options: dict[str, Any]
         if isinstance(self.options, PeerOptionsWebRTC):
+            options = self.options.to_dict()
+        elif isinstance(self.options, PeerOptionsAgent):
             options = self.options.to_dict()
         else:
             options = self.options.to_dict()
@@ -53,13 +57,14 @@ class PeerConfig:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.peer_options_agent import PeerOptionsAgent
+        from ..models.peer_options_vapi import PeerOptionsVapi
         from ..models.peer_options_web_rtc import PeerOptionsWebRTC
 
         d = dict(src_dict)
 
         def _parse_options(
             data: object,
-        ) -> Union["PeerOptionsAgent", "PeerOptionsWebRTC"]:
+        ) -> Union["PeerOptionsAgent", "PeerOptionsVapi", "PeerOptionsWebRTC"]:
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
@@ -70,11 +75,19 @@ class PeerConfig:
                 return componentsschemas_peer_options_type_0
             except:  # noqa: E722
                 pass
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemas_peer_options_type_1 = PeerOptionsAgent.from_dict(data)
+
+                return componentsschemas_peer_options_type_1
+            except:  # noqa: E722
+                pass
             if not isinstance(data, dict):
                 raise TypeError()
-            componentsschemas_peer_options_type_1 = PeerOptionsAgent.from_dict(data)
+            componentsschemas_peer_options_type_2 = PeerOptionsVapi.from_dict(data)
 
-            return componentsschemas_peer_options_type_1
+            return componentsschemas_peer_options_type_2
 
         options = _parse_options(d.pop("options"))
 

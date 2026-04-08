@@ -22,8 +22,7 @@ Homepage = "https://github.com/fishjam-cloud/python-server-sdk"
 Documentation = "https://fishjam-cloud.github.io/python-server-sdk/fishjam"
 
 [project.scripts]
-ci_test = "scripts:run_tests"
-local_test = "scripts:run_local_test"
+test = "scripts:run_tests"
 format = "scripts:run_formatter"
 format_check = "scripts:run_format_check"
 lint = "scripts:run_linter"
@@ -53,6 +52,7 @@ test = [
     "pytest-asyncio>=0.21.1,<0.22",
     "requests>=2.31.0,<3",
     "flask>=3.0.3,<4",
+    "google-genai>=1.43.0"
 ]
 
 [tool.uv]

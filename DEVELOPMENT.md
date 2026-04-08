@@ -18,16 +18,10 @@ uv run ./compile_proto.sh
 
 ## Testing
 
-You can test the SDK by running
+You can test the SDK by running. Remember to pass the testing credentials in .env file.
 
 ```console
-uv run ci_test
-```
-
-In local development you can use
-
-```console
-uv run local_test
+uv run test
 ```
 
 ## Format & Lint

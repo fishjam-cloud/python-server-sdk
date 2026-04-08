@@ -24,7 +24,6 @@ class Stream:
     """Describes stream status
 
     Attributes:
-        connected_viewers (int): Number of connected viewers
         id (str): Assigned stream id
         public (bool):
         streamers (list['Streamer']): List of all streamers
@@ -32,7 +31,6 @@ class Stream:
         audio_only (Union[Unset, bool]): True if stream is restricted to audio only
     """
 
-    connected_viewers: int
     id: str
     public: bool
     streamers: list["Streamer"]
@@ -41,8 +39,6 @@ class Stream:
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        connected_viewers = self.connected_viewers
-
         id = self.id
 
         public = self.public
@@ -62,7 +58,6 @@ class Stream:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({
-            "connectedViewers": connected_viewers,
             "id": id,
             "public": public,
             "streamers": streamers,
@@ -79,8 +74,6 @@ class Stream:
         from ..models.viewer import Viewer
 
         d = dict(src_dict)
-        connected_viewers = d.pop("connectedViewers")
-
         id = d.pop("id")
 
         public = d.pop("public")
@@ -102,7 +95,6 @@ class Stream:
         audio_only = d.pop("audioOnly", UNSET)
 
         stream = cls(
-            connected_viewers=connected_viewers,
             id=id,
             public=public,
             streamers=streamers,

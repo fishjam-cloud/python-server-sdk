@@ -26,6 +26,7 @@ from fishjam._openapi_client.models import (
     PeerConfig,
     PeerDetailsResponse,
     PeerOptionsAgent,
+    PeerOptionsVapi,
     PeerOptionsWebRTC,
     PeerRefreshTokenResponse,
     PeerType,
@@ -126,7 +127,7 @@ class AgentOutputOptions:
 
 @dataclass
 class AgentOptions:
-    """Options specific to a WebRTC Peer.
+    """Options specific to an Agent Peer.
 
     Attributes:
         output: Configuration for the agent's output options.
@@ -215,6 +216,29 @@ class FishjamClient(Client):
         )
 
         return Agent(resp.data.peer.id, room_id, resp.data.token, self._fishjam_url)
+
+    def create_vapi_agent(
+        self,
+        room_id: str,
+        options: PeerOptionsVapi,
+    ) -> Peer:
+        """Creates a vapi agent in the room.
+
+        Args:
+            room_id: The ID of the room where the vapi agent will be created.
+            options: Configuration options for the vapi peer.
+
+        Returns:
+            - Peer: The created peer object.
+        """
+        body = PeerConfig(type_=PeerType.VAPI, options=options)
+
+        resp = cast(
+            PeerDetailsResponse,
+            self._request(room_add_peer, room_id=room_id, body=body),
+        )
+
+        return resp.data.peer
 
     def create_room(self, options: RoomOptions | None = None) -> Room:
         """Creates a new room.

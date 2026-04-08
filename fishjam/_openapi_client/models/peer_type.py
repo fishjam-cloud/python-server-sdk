@@ -5,6 +5,7 @@ class PeerType(str, Enum):
     """Peer type"""
 
     AGENT = "agent"
+    VAPI = "vapi"
     WEBRTC = "webrtc"
 
     def __str__(self) -> str:

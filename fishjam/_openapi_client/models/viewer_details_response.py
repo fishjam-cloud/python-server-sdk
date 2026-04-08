@@ -1,63 +1,55 @@
 from collections.abc import Mapping
-from typing import Any, TypeVar
+from typing import (
+    TYPE_CHECKING,
+    Any,
+    TypeVar,
+)
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
-from ..models.streamer_status import StreamerStatus
+if TYPE_CHECKING:
+    from ..models.viewer import Viewer
 
-T = TypeVar("T", bound="Streamer")
+
+T = TypeVar("T", bound="ViewerDetailsResponse")
 
 
 @_attrs_define
-class Streamer:
-    """Describes streamer status
+class ViewerDetailsResponse:
+    """Response containing viewer details
 
     Attributes:
-        id (str): Assigned streamer id
-        status (StreamerStatus):
-        token (str):  Example: 5cdac726-57a3-4ecb-b1d5-72a3d62ec242.
+        data (Viewer): Describes viewer status
     """
 
-    id: str
-    status: StreamerStatus
-    token: str
+    data: "Viewer"
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        id = self.id
-
-        status = self.status.value
-
-        token = self.token
+        data = self.data.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({
-            "id": id,
-            "status": status,
-            "token": token,
+            "data": data,
         })
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.viewer import Viewer
+
         d = dict(src_dict)
-        id = d.pop("id")
+        data = Viewer.from_dict(d.pop("data"))
 
-        status = StreamerStatus(d.pop("status"))
-
-        token = d.pop("token")
-
-        streamer = cls(
-            id=id,
-            status=status,
-            token=token,
+        viewer_details_response = cls(
+            data=data,
         )
 
-        streamer.additional_properties = d
-        return streamer
+        viewer_details_response.additional_properties = d
+        return viewer_details_response
 
     @property
     def additional_keys(self) -> list[str]:

@@ -356,6 +356,7 @@ dev = [
 ]
 test = [
     { name = "flask" },
+    { name = "google-genai" },
     { name = "pytest" },
     { name = "pytest-asyncio" },
     { name = "requests" },
@@ -389,6 +390,7 @@ dev = [
 ]
 test = [
     { name = "flask", specifier = ">=3.0.3,<4" },
+    { name = "google-genai", specifier = ">=1.43.0" },
     { name = "pytest", specifier = ">=7.4.2,<8" },
     { name = "pytest-asyncio", specifier = ">=0.21.1,<0.22" },
     { name = "requests", specifier = ">=2.31.0,<3" },
