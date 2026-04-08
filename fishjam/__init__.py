@@ -20,6 +20,7 @@ from fishjam.api._fishjam_client import (
     FishjamClient,
     Peer,
     PeerOptions,
+    PeerOptionsVapi,
     Room,
     RoomOptions,
 )
@@ -32,6 +33,7 @@ __all__ = [
     "receive_binary",
     "PeerMetadata",
     "PeerOptions",
+    "PeerOptionsVapi",
     "RoomOptions",
     "AgentOptions",
     "AgentOutputOptions",

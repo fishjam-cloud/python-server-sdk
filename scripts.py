@@ -24,19 +24,8 @@ def check_exit_code(command):
     if exit_code != 0:
         sys.exit(exit_code)
 
-
 def run_tests():
-    check_exit_code("docker rm -f fishjam")
-    check_exit_code("docker compose -f docker-compose-test.yaml pull")
-    check_exit_code(
-        "docker compose -f docker-compose-test.yaml up --build --remove-orphans test \
-        --exit-code-from test"
-    )
-    check_exit_code("docker compose -f docker-compose-test.yaml down")
-
-
-def run_local_test():
-    check_exit_code('uv run pytest -m "not file_component_sources" -vv')
+    check_exit_code("uv run pytest")
 
 
 def run_formatter():

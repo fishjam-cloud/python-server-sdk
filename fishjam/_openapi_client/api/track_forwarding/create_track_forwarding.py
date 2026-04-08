@@ -1,25 +1,27 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any, Optional, Union, cast
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.stream_config import StreamConfig
-from ...models.stream_details_response import StreamDetailsResponse
+from ...models.track_forwarding import TrackForwarding
 from ...types import Response
 
 
 def _get_kwargs(
+    room_id: str,
     *,
-    body: StreamConfig,
+    body: TrackForwarding,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/livestream",
+        "url": "/room/{room_id}/track_forwardings".format(
+            room_id=room_id,
+        ),
     }
 
     _kwargs["json"] = body.to_dict()
@@ -32,10 +34,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, StreamDetailsResponse]]:
+) -> Optional[Union[Any, Error]]:
     if response.status_code == 201:
-        response_201 = StreamDetailsResponse.from_dict(response.json())
-
+        response_201 = cast(Any, None)
         return response_201
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
@@ -45,10 +46,10 @@ def _parse_response(
         response_401 = Error.from_dict(response.json())
 
         return response_401
-    if response.status_code == 503:
-        response_503 = Error.from_dict(response.json())
+    if response.status_code == 404:
+        response_404 = Error.from_dict(response.json())
 
-        return response_503
+        return response_404
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -57,7 +58,7 @@ def _parse_response(
 
 def _build_response(
     *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, StreamDetailsResponse]]:
+) -> Response[Union[Any, Error]]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -67,24 +68,27 @@ def _build_response(
 
 
 def sync_detailed(
+    room_id: str,
     *,
     client: AuthenticatedClient,
-    body: StreamConfig,
-) -> Response[Union[Error, StreamDetailsResponse]]:
-    """Creates stream
+    body: TrackForwarding,
+) -> Response[Union[Any, Error]]:
+    """Creates a track forwarding in a room
 
     Args:
-        body (StreamConfig): Stream configuration
+        room_id (str):
+        body (TrackForwarding): Track forwardings for a room
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, StreamDetailsResponse]]
+        Response[Union[Any, Error]]
     """
 
     kwargs = _get_kwargs(
+        room_id=room_id,
         body=body,
     )
 
@@ -96,48 +100,54 @@ def sync_detailed(
 
 
 def sync(
+    room_id: str,
     *,
     client: AuthenticatedClient,
-    body: StreamConfig,
-) -> Optional[Union[Error, StreamDetailsResponse]]:
-    """Creates stream
+    body: TrackForwarding,
+) -> Optional[Union[Any, Error]]:
+    """Creates a track forwarding in a room
 
     Args:
-        body (StreamConfig): Stream configuration
+        room_id (str):
+        body (TrackForwarding): Track forwardings for a room
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, StreamDetailsResponse]
+        Union[Any, Error]
     """
 
     return sync_detailed(
+        room_id=room_id,
         client=client,
         body=body,
     ).parsed
 
 
 async def asyncio_detailed(
+    room_id: str,
     *,
     client: AuthenticatedClient,
-    body: StreamConfig,
-) -> Response[Union[Error, StreamDetailsResponse]]:
-    """Creates stream
+    body: TrackForwarding,
+) -> Response[Union[Any, Error]]:
+    """Creates a track forwarding in a room
 
     Args:
-        body (StreamConfig): Stream configuration
+        room_id (str):
+        body (TrackForwarding): Track forwardings for a room
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, StreamDetailsResponse]]
+        Response[Union[Any, Error]]
     """
 
     kwargs = _get_kwargs(
+        room_id=room_id,
         body=body,
     )
 
@@ -147,25 +157,28 @@ async def asyncio_detailed(
 
 
 async def asyncio(
+    room_id: str,
     *,
     client: AuthenticatedClient,
-    body: StreamConfig,
-) -> Optional[Union[Error, StreamDetailsResponse]]:
-    """Creates stream
+    body: TrackForwarding,
+) -> Optional[Union[Any, Error]]:
+    """Creates a track forwarding in a room
 
     Args:
-        body (StreamConfig): Stream configuration
+        room_id (str):
+        body (TrackForwarding): Track forwardings for a room
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, StreamDetailsResponse]
+        Union[Any, Error]
     """
 
     return (
         await asyncio_detailed(
+            room_id=room_id,
             client=client,
             body=body,
         )

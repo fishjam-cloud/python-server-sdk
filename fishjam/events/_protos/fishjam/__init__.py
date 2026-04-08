@@ -4,6 +4,7 @@
 # This file has been @generated
 import warnings
 from dataclasses import dataclass
+from typing import Optional
 
 import betterproto
 
@@ -14,6 +15,7 @@ class ServerMessagePeerType(betterproto.Enum):
     PEER_TYPE_UNSPECIFIED = 0
     PEER_TYPE_WEBRTC = 1
     PEER_TYPE_AGENT = 2
+    PEER_TYPE_VAPI = 3
 
 
 class ServerMessageEventType(betterproto.Enum):
@@ -21,6 +23,12 @@ class ServerMessageEventType(betterproto.Enum):
 
     EVENT_TYPE_UNSPECIFIED = 0
     EVENT_TYPE_SERVER_NOTIFICATION = 1
+
+
+class ServerMessageVadNotificationStatus(betterproto.Enum):
+    STATUS_UNSPECIFIED = 0
+    STATUS_SILENCE = 1
+    STATUS_SPEECH = 2
 
 
 @dataclass(eq=False, repr=False)
@@ -143,21 +151,6 @@ class AgentResponseTrackImage(betterproto.Message):
 class ServerMessage(betterproto.Message):
     """Defines any type of message passed between FJ and server peer"""
 
-    room_crashed: "ServerMessageRoomCrashed" = betterproto.message_field(
-        1, group="content"
-    )
-    peer_connected: "ServerMessagePeerConnected" = betterproto.message_field(
-        2, group="content"
-    )
-    peer_disconnected: "ServerMessagePeerDisconnected" = betterproto.message_field(
-        3, group="content"
-    )
-    peer_crashed: "ServerMessagePeerCrashed" = betterproto.message_field(
-        4, group="content"
-    )
-    component_crashed: "ServerMessageComponentCrashed" = betterproto.message_field(
-        5, group="content"
-    )
     authenticated: "ServerMessageAuthenticated" = betterproto.message_field(
         6, group="content"
     )
@@ -176,14 +169,17 @@ class ServerMessage(betterproto.Message):
     room_deleted: "ServerMessageRoomDeleted" = betterproto.message_field(
         11, group="content"
     )
-    hls_playable: "ServerMessageHlsPlayable" = betterproto.message_field(
-        13, group="content"
+    room_crashed: "ServerMessageRoomCrashed" = betterproto.message_field(
+        1, group="content"
     )
-    hls_uploaded: "ServerMessageHlsUploaded" = betterproto.message_field(
-        14, group="content"
+    peer_connected: "ServerMessagePeerConnected" = betterproto.message_field(
+        2, group="content"
     )
-    hls_upload_crashed: "ServerMessageHlsUploadCrashed" = betterproto.message_field(
-        15, group="content"
+    peer_disconnected: "ServerMessagePeerDisconnected" = betterproto.message_field(
+        3, group="content"
+    )
+    peer_crashed: "ServerMessagePeerCrashed" = betterproto.message_field(
+        4, group="content"
     )
     peer_metadata_updated: "ServerMessagePeerMetadataUpdated" = (
         betterproto.message_field(16, group="content")
@@ -203,11 +199,20 @@ class ServerMessage(betterproto.Message):
     peer_deleted: "ServerMessagePeerDeleted" = betterproto.message_field(
         21, group="content"
     )
-    stream_connected: "ServerMessageStreamConnected" = betterproto.message_field(
-        22, group="content"
+    channel_added: "ServerMessageChannelAdded" = betterproto.message_field(
+        28, group="content"
     )
-    stream_disconnected: "ServerMessageStreamDisconnected" = betterproto.message_field(
-        23, group="content"
+    channel_removed: "ServerMessageChannelRemoved" = betterproto.message_field(
+        29, group="content"
+    )
+    track_forwarding: "ServerMessageTrackForwarding" = betterproto.message_field(
+        30, group="content"
+    )
+    track_forwarding_removed: "ServerMessageTrackForwardingRemoved" = (
+        betterproto.message_field(31, group="content")
+    )
+    vad_notification: "ServerMessageVadNotification" = betterproto.message_field(
+        32, group="content"
     )
     viewer_connected: "ServerMessageViewerConnected" = betterproto.message_field(
         24, group="content"
@@ -221,11 +226,23 @@ class ServerMessage(betterproto.Message):
     streamer_disconnected: "ServerMessageStreamerDisconnected" = (
         betterproto.message_field(27, group="content")
     )
-    channel_added: "ServerMessageChannelAdded" = betterproto.message_field(
-        28, group="content"
+    stream_connected: "ServerMessageStreamConnected" = betterproto.message_field(
+        22, group="content"
     )
-    channel_removed: "ServerMessageChannelRemoved" = betterproto.message_field(
-        29, group="content"
+    stream_disconnected: "ServerMessageStreamDisconnected" = betterproto.message_field(
+        23, group="content"
+    )
+    hls_playable: "ServerMessageHlsPlayable" = betterproto.message_field(
+        13, group="content"
+    )
+    hls_uploaded: "ServerMessageHlsUploaded" = betterproto.message_field(
+        14, group="content"
+    )
+    hls_upload_crashed: "ServerMessageHlsUploadCrashed" = betterproto.message_field(
+        15, group="content"
+    )
+    component_crashed: "ServerMessageComponentCrashed" = betterproto.message_field(
+        5, group="content"
     )
 
     def __post_init__(self) -> None:
@@ -237,6 +254,22 @@ class ServerMessage(betterproto.Message):
         if self.is_set("stream_disconnected"):
             warnings.warn(
                 "ServerMessage.stream_disconnected is deprecated", DeprecationWarning
+            )
+        if self.is_set("hls_playable"):
+            warnings.warn(
+                "ServerMessage.hls_playable is deprecated", DeprecationWarning
+            )
+        if self.is_set("hls_uploaded"):
+            warnings.warn(
+                "ServerMessage.hls_uploaded is deprecated", DeprecationWarning
+            )
+        if self.is_set("hls_upload_crashed"):
+            warnings.warn(
+                "ServerMessage.hls_upload_crashed is deprecated", DeprecationWarning
+            )
+        if self.is_set("component_crashed"):
+            warnings.warn(
+                "ServerMessage.component_crashed is deprecated", DeprecationWarning
             )
 
 
@@ -425,6 +458,45 @@ class ServerMessageChannelRemoved(betterproto.Message):
     peer_id: str = betterproto.string_field(2, group="endpoint_info")
     component_id: str = betterproto.string_field(3, group="endpoint_info")
     channel_id: str = betterproto.string_field(4)
+
+
+@dataclass(eq=False, repr=False)
+class ServerMessageTrackForwarding(betterproto.Message):
+    """
+    Sent when there is an upsert to track forwardings from Fishjam to
+    Composition
+    """
+
+    room_id: str = betterproto.string_field(1)
+    peer_id: str = betterproto.string_field(2)
+    composition_url: str = betterproto.string_field(3)
+    input_id: str = betterproto.string_field(4)
+    audio_track: Optional["notifications.Track"] = betterproto.message_field(
+        5, optional=True, group="_audio_track"
+    )
+    video_track: Optional["notifications.Track"] = betterproto.message_field(
+        6, optional=True, group="_video_track"
+    )
+
+
+@dataclass(eq=False, repr=False)
+class ServerMessageTrackForwardingRemoved(betterproto.Message):
+    """Sent when track forwarding is removed"""
+
+    room_id: str = betterproto.string_field(1)
+    peer_id: str = betterproto.string_field(2)
+    composition_url: str = betterproto.string_field(3)
+    input_id: str = betterproto.string_field(4)
+
+
+@dataclass(eq=False, repr=False)
+class ServerMessageVadNotification(betterproto.Message):
+    """Notification sent when voice activity changes on a track"""
+
+    room_id: str = betterproto.string_field(1)
+    peer_id: str = betterproto.string_field(2)
+    track_id: str = betterproto.string_field(3)
+    status: "ServerMessageVadNotificationStatus" = betterproto.enum_field(4)
 
 
 @dataclass(eq=False, repr=False)

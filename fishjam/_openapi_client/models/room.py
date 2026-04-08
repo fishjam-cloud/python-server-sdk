@@ -3,12 +3,17 @@ from typing import (
     TYPE_CHECKING,
     Any,
     TypeVar,
+    Union,
+    cast,
 )
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
 
+from ..types import UNSET, Unset
+
 if TYPE_CHECKING:
+    from ..models.composition_info import CompositionInfo
     from ..models.peer import Peer
     from ..models.room_config import RoomConfig
 
@@ -24,14 +29,18 @@ class Room:
         config (RoomConfig): Room configuration
         id (str): Room ID Example: room-1.
         peers (list['Peer']): List of all peers
+        composition_info (Union['CompositionInfo', None, Unset]): Composition and track forwarding state for the room
     """
 
     config: "RoomConfig"
     id: str
     peers: list["Peer"]
+    composition_info: Union["CompositionInfo", None, Unset] = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.composition_info import CompositionInfo
+
         config = self.config.to_dict()
 
         id = self.id
@@ -41,6 +50,14 @@ class Room:
             peers_item = peers_item_data.to_dict()
             peers.append(peers_item)
 
+        composition_info: Union[None, Unset, dict[str, Any]]
+        if isinstance(self.composition_info, Unset):
+            composition_info = UNSET
+        elif isinstance(self.composition_info, CompositionInfo):
+            composition_info = self.composition_info.to_dict()
+        else:
+            composition_info = self.composition_info
+
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({
@@ -48,11 +65,14 @@ class Room:
             "id": id,
             "peers": peers,
         })
+        if composition_info is not UNSET:
+            field_dict["compositionInfo"] = composition_info
 
         return field_dict
 
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
+        from ..models.composition_info import CompositionInfo
         from ..models.peer import Peer
         from ..models.room_config import RoomConfig
 
@@ -68,10 +88,32 @@ class Room:
 
             peers.append(peers_item)
 
+        def _parse_composition_info(
+            data: object,
+        ) -> Union["CompositionInfo", None, Unset]:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemas_composition_info_type_0 = CompositionInfo.from_dict(
+                    data
+                )
+
+                return componentsschemas_composition_info_type_0
+            except:  # noqa: E722
+                pass
+            return cast(Union["CompositionInfo", None, Unset], data)
+
+        composition_info = _parse_composition_info(d.pop("compositionInfo", UNSET))
+
         room = cls(
             config=config,
             id=id,
             peers=peers,
+            composition_info=composition_info,
         )
 
         room.additional_properties = d

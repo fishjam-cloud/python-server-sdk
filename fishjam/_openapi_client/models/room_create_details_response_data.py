@@ -19,24 +19,18 @@ T = TypeVar("T", bound="RoomCreateDetailsResponseData")
 class RoomCreateDetailsResponseData:
     """
     Attributes:
-        fishjam_address (str): Fishjam instance address where the room was created. This might be different than the
-            address of Fishjam where the request was sent only when running a cluster of Fishjams. Example: fishjam1:5003.
         room (Room): Description of the room state
     """
 
-    fishjam_address: str
     room: "Room"
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        fishjam_address = self.fishjam_address
-
         room = self.room.to_dict()
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({
-            "fishjam_address": fishjam_address,
             "room": room,
         })
 
@@ -47,12 +41,9 @@ class RoomCreateDetailsResponseData:
         from ..models.room import Room
 
         d = dict(src_dict)
-        fishjam_address = d.pop("fishjam_address")
-
         room = Room.from_dict(d.pop("room"))
 
         room_create_details_response_data = cls(
-            fishjam_address=fishjam_address,
             room=room,
         )
 
