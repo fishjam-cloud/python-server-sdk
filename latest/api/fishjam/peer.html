@@ -211,6 +211,9 @@
                                 <a class="variable" href="#PeerType.AGENT">AGENT</a>
                         </li>
                         <li>
+                                <a class="variable" href="#PeerType.VAPI">VAPI</a>
+                        </li>
+                        <li>
                                 <a class="variable" href="#PeerType.WEBRTC">WEBRTC</a>
                         </li>
                 </ul>
@@ -537,10 +540,11 @@
 </span><span id="PeerType-6"><a href="#PeerType-6"><span class="linenos"> 6</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Peer type&quot;&quot;&quot;</span>
 </span><span id="PeerType-7"><a href="#PeerType-7"><span class="linenos"> 7</span></a>
 </span><span id="PeerType-8"><a href="#PeerType-8"><span class="linenos"> 8</span></a>    <span class="n">AGENT</span> <span class="o">=</span> <span class="s2">&quot;agent&quot;</span>
-</span><span id="PeerType-9"><a href="#PeerType-9"><span class="linenos"> 9</span></a>    <span class="n">WEBRTC</span> <span class="o">=</span> <span class="s2">&quot;webrtc&quot;</span>
-</span><span id="PeerType-10"><a href="#PeerType-10"><span class="linenos">10</span></a>
-</span><span id="PeerType-11"><a href="#PeerType-11"><span class="linenos">11</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="PeerType-12"><a href="#PeerType-12"><span class="linenos">12</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+</span><span id="PeerType-9"><a href="#PeerType-9"><span class="linenos"> 9</span></a>    <span class="n">VAPI</span> <span class="o">=</span> <span class="s2">&quot;vapi&quot;</span>
+</span><span id="PeerType-10"><a href="#PeerType-10"><span class="linenos">10</span></a>    <span class="n">WEBRTC</span> <span class="o">=</span> <span class="s2">&quot;webrtc&quot;</span>
+</span><span id="PeerType-11"><a href="#PeerType-11"><span class="linenos">11</span></a>
+</span><span id="PeerType-12"><a href="#PeerType-12"><span class="linenos">12</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__str__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+</span><span id="PeerType-13"><a href="#PeerType-13"><span class="linenos">13</span></a>        <span class="k">return</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
 </span></pre></div>
 
 
@@ -556,6 +560,18 @@
 
     </div>
     <a class="headerlink" href="#PeerType.AGENT"></a>
+
+
+
+                            </div>
+                            <div id="PeerType.VAPI" class="classattr">
+                                <div class="attr variable">
+            <span class="name">VAPI</span>        =
+<span class="default_value">&lt;<a href="#PeerType.VAPI">PeerType.VAPI</a>: &#39;vapi&#39;&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#PeerType.VAPI"></a>
 
 
 
