@@ -1,9 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 
@@ -18,12 +16,12 @@ class TrackForwarding:
 
     Attributes:
         composition_url (str): URL for the composition
-        selector (Union[Unset, str]): Selects tracks that should be forwarded, currently only "all" is supported
-            Default: 'all'.
+        selector (str | Unset): Selects tracks that should be forwarded, currently only "all" is supported Default:
+            'all'.
     """
 
     composition_url: str
-    selector: Union[Unset, str] = "all"
+    selector: str | Unset = "all"
 
     def to_dict(self) -> dict[str, Any]:
         composition_url = self.composition_url

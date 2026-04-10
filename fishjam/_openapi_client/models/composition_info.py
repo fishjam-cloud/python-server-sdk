@@ -1,9 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    TypeVar,
-)
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,11 +19,11 @@ class CompositionInfo:
 
     Attributes:
         composition_url (str): URL of the active composition Example: https://rtc.fishjam.io/api/composition/12asdfxcf.
-        forwardings (list['TrackForwardingInfo']): List of active track forwardings
+        forwardings (list[TrackForwardingInfo]): List of active track forwardings
     """
 
     composition_url: str
-    forwardings: list["TrackForwardingInfo"]
+    forwardings: list[TrackForwardingInfo]
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

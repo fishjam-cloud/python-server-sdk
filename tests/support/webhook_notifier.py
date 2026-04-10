@@ -5,7 +5,7 @@ from flask import Flask, Response, request
 from fishjam import receive_binary
 
 app = Flask(__name__)
-DATA_QUEUE = None
+QUEUES = None
 
 
 @app.route("/", methods=["GET"])
@@ -17,12 +17,14 @@ def respond_default():
 def respond_root():
     data = request.get_data()
     msg = receive_binary(data)
-    DATA_QUEUE.put(msg)
+    if msg is not None:
+        for q in QUEUES.values():
+            q.put(msg)
 
     return Response(status=200)
 
 
-def run_server(queue):
-    global DATA_QUEUE
-    DATA_QUEUE = queue
+def run_server(queues):
+    global QUEUES
+    QUEUES = queues
     app.run(port=5000, host="0.0.0.0", use_reloader=False, debug=False, threaded=True)

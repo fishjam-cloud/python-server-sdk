@@ -1,10 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -26,16 +23,16 @@ class Stream:
     Attributes:
         id (str): Assigned stream id
         public (bool):
-        streamers (list['Streamer']): List of all streamers
-        viewers (list['Viewer']): List of all viewers
-        audio_only (Union[Unset, bool]): True if stream is restricted to audio only
+        streamers (list[Streamer]): List of all streamers
+        viewers (list[Viewer]): List of all viewers
+        audio_only (bool | Unset): True if stream is restricted to audio only
     """
 
     id: str
     public: bool
-    streamers: list["Streamer"]
-    viewers: list["Viewer"]
-    audio_only: Union[Unset, bool] = UNSET
+    streamers: list[Streamer]
+    viewers: list[Viewer]
+    audio_only: bool | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

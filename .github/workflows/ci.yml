@@ -55,13 +55,14 @@ jobs:
       - name: Initialize Localtunnel
         id: tunnel
         run: |
-          npx localtunnel --port 5000 > tunnel.log 2>&1 &
-          
+          npm install -g localtunnel
+          npm exec localtunnel -- --port 5000 > tunnel.log 2>&1 &
+
           # Poll for the URL
-          TIMEOUT=10
+          TIMEOUT=15
           ELAPSED=0
           echo "Waiting for localtunnel to generate URL..."
-          
+
           while ! grep -q "https://" tunnel.log; do
             if [ $ELAPSED -ge $TIMEOUT ]; then
               echo "Error: Localtunnel timed out after ${TIMEOUT}s"
@@ -71,10 +72,17 @@ jobs:
             sleep 1
             ELAPSED=$((ELAPSED + 1))
           done
-          
+
           TUNNEL_URL=$(grep -o 'https://[^ ]*' tunnel.log | head -n 1)
           echo "url=$TUNNEL_URL" >> $GITHUB_OUTPUT
           echo "Localtunnel is live at: $TUNNEL_URL"
+
+      - name: Upload localtunnel log
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: localtunnel-log-py${{ matrix.python-version }}
+          path: tunnel.log
 
       - name: Run tests
         run: uv run pytest

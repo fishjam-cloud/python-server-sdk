@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 
 import httpx
 
@@ -16,7 +17,7 @@ def _get_kwargs(
     _kwargs: dict[str, Any] = {
         "method": "post",
         "url": "/livestream/{stream_id}/streamer".format(
-            stream_id=stream_id,
+            stream_id=quote(str(stream_id), safe=""),
         ),
     }
 
@@ -24,24 +25,28 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, StreamerDetailsResponse]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | StreamerDetailsResponse | None:
     if response.status_code == 201:
         response_201 = StreamerDetailsResponse.from_dict(response.json())
 
         return response_201
+
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
         return response_401
+
     if response.status_code == 404:
         response_404 = Error.from_dict(response.json())
 
         return response_404
+
     if response.status_code == 503:
         response_503 = Error.from_dict(response.json())
 
         return response_503
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -49,8 +54,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, StreamerDetailsResponse]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | StreamerDetailsResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -63,7 +68,7 @@ def sync_detailed(
     stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[Error, StreamerDetailsResponse]]:
+) -> Response[Error | StreamerDetailsResponse]:
     """Creates streamer
 
     Args:
@@ -74,7 +79,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, StreamerDetailsResponse]]
+        Response[Error | StreamerDetailsResponse]
     """
 
     kwargs = _get_kwargs(
@@ -92,7 +97,7 @@ def sync(
     stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[Error, StreamerDetailsResponse]]:
+) -> Error | StreamerDetailsResponse | None:
     """Creates streamer
 
     Args:
@@ -103,7 +108,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, StreamerDetailsResponse]
+        Error | StreamerDetailsResponse
     """
 
     return sync_detailed(
@@ -116,7 +121,7 @@ async def asyncio_detailed(
     stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Union[Error, StreamerDetailsResponse]]:
+) -> Response[Error | StreamerDetailsResponse]:
     """Creates streamer
 
     Args:
@@ -127,7 +132,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, StreamerDetailsResponse]]
+        Response[Error | StreamerDetailsResponse]
     """
 
     kwargs = _get_kwargs(
@@ -143,7 +148,7 @@ async def asyncio(
     stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Optional[Union[Error, StreamerDetailsResponse]]:
+) -> Error | StreamerDetailsResponse | None:
     """Creates streamer
 
     Args:
@@ -154,7 +159,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, StreamerDetailsResponse]
+        Error | StreamerDetailsResponse
     """
 
     return (

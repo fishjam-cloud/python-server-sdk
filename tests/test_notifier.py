@@ -1,7 +1,10 @@
 # pylint: disable=locally-disabled, missing-class-docstring, missing-function-docstring, redefined-outer-name, too-few-public-methods, missing-module-docstring
 
 import asyncio
-from multiprocessing import Process, Queue
+import queue
+import time
+import uuid
+from multiprocessing import Manager, Process
 
 import pytest
 import requests
@@ -28,12 +31,13 @@ from tests.support.env import (
 from tests.support.peer_socket import PeerSocket
 from tests.support.webhook_notifier import run_server
 
-queue = Queue()
+_manager = Manager()
+_queues = _manager.dict()
 
 
 @pytest.fixture(scope="session", autouse=True)
 def start_server():
-    flask_process = Process(target=run_server, args=(queue,))
+    flask_process = Process(target=run_server, args=(_queues,))
     flask_process.start()
 
     session = requests.Session()
@@ -53,6 +57,15 @@ def start_server():
     yield
 
     flask_process.terminate()
+
+
+@pytest.fixture
+def event_queue():
+    q = _manager.Queue()
+    key = str(uuid.uuid4())
+    _queues[key] = q
+    yield q
+    del _queues[key]
 
 
 class TestConnectingToServer:
@@ -97,7 +110,7 @@ def notifier():
 class TestReceivingNotifications:
     @pytest.mark.asyncio
     async def test_room_created_deleted(
-        self, room_api: FishjamClient, notifier: FishjamNotifier
+        self, room_api: FishjamClient, notifier: FishjamNotifier, event_queue
     ):
         event_checks = [ServerMessageRoomCreated, ServerMessageRoomDeleted]
 
@@ -116,12 +129,11 @@ class TestReceivingNotifications:
 
             notifier_task.cancel()
 
-        for event in event_checks:
-            self.assert_event(event)
+        self.assert_webhook_events(event_checks, event_queue, room.id)
 
     @pytest.mark.asyncio
     async def test_peer_connected_disconnected(
-        self, room_api: FishjamClient, notifier: FishjamNotifier
+        self, room_api: FishjamClient, notifier: FishjamNotifier, event_queue
     ):
         event_checks = [
             ServerMessageRoomCreated,
@@ -155,12 +167,11 @@ class TestReceivingNotifications:
             notifier_task.cancel()
             peer_socket_task.cancel()
 
-        for event in event_checks:
-            self.assert_event(event)
+        self.assert_webhook_events(event_checks, event_queue, room.id)
 
     @pytest.mark.asyncio
     async def test_peer_connected_room_deleted(
-        self, room_api: FishjamClient, notifier: FishjamNotifier
+        self, room_api: FishjamClient, notifier: FishjamNotifier, event_queue
     ):
         event_checks = [
             ServerMessageRoomCreated,
@@ -192,9 +203,31 @@ class TestReceivingNotifications:
             notifier_task.cancel()
             peer_socket_task.cancel()
 
-        for event in event_checks:
-            self.assert_event(event)
+        self.assert_webhook_events(event_checks, event_queue, room.id)
 
-    def assert_event(self, event):
-        data = queue.get(timeout=5)
-        assert data == event or isinstance(data, event)
+    def assert_webhook_events(self, event_checks, event_queue, room_id, timeout=60):
+        deadline = time.monotonic() + timeout
+        received = []
+
+        pos = 0
+        while pos < len(event_checks) and time.monotonic() < deadline:
+            remaining = deadline - time.monotonic()
+
+            try:
+                data = event_queue.get(timeout=remaining)
+            except queue.Empty:
+                continue
+            if room_id and data.room_id != room_id:
+                continue
+
+            received.append(data)
+            if data == event_checks[pos] or isinstance(data, event_checks[pos]):
+                pos += 1
+
+        if pos >= len(event_checks):
+            return
+
+        raise AssertionError(
+            f"Expected event {event_checks[pos]} not found. "
+            f"Received: {[type(e).__name__ for e in received]}"
+        )

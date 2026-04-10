@@ -1,10 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 
@@ -24,11 +21,11 @@ class PeerConfig:
     """Peer configuration
 
     Attributes:
-        options (Union['PeerOptionsAgent', 'PeerOptionsVapi', 'PeerOptionsWebRTC']): Peer-specific options
+        options (PeerOptionsAgent | PeerOptionsVapi | PeerOptionsWebRTC): Peer-specific options
         type_ (PeerType): Peer type Example: webrtc.
     """
 
-    options: Union["PeerOptionsAgent", "PeerOptionsVapi", "PeerOptionsWebRTC"]
+    options: PeerOptionsAgent | PeerOptionsVapi | PeerOptionsWebRTC
     type_: PeerType
 
     def to_dict(self) -> dict[str, Any]:
@@ -64,7 +61,7 @@ class PeerConfig:
 
         def _parse_options(
             data: object,
-        ) -> Union["PeerOptionsAgent", "PeerOptionsVapi", "PeerOptionsWebRTC"]:
+        ) -> PeerOptionsAgent | PeerOptionsVapi | PeerOptionsWebRTC:
             try:
                 if not isinstance(data, dict):
                     raise TypeError()
@@ -73,7 +70,7 @@ class PeerConfig:
                 )
 
                 return componentsschemas_peer_options_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             try:
                 if not isinstance(data, dict):
@@ -81,7 +78,7 @@ class PeerConfig:
                 componentsschemas_peer_options_type_1 = PeerOptionsAgent.from_dict(data)
 
                 return componentsschemas_peer_options_type_1
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
             if not isinstance(data, dict):
                 raise TypeError()

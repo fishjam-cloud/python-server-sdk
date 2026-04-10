@@ -1,11 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    TypeVar,
-    Union,
-    cast,
-)
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -25,14 +21,14 @@ class Track:
     """Describes media track of a Peer
 
     Attributes:
-        id (Union[Unset, str]): Assigned track id Example: 8dbd2e6b-a1e7-4670-95a2-0262aa6c6321.
-        metadata (Union['TrackMetadata', None, Unset]):  Example: {'source': 'camera'}.
-        type_ (Union[Unset, TrackType]):
+        id (str | Unset): Assigned track id Example: 8dbd2e6b-a1e7-4670-95a2-0262aa6c6321.
+        metadata (None | TrackMetadata | Unset):  Example: {'source': 'camera'}.
+        type_ (TrackType | Unset):
     """
 
-    id: Union[Unset, str] = UNSET
-    metadata: Union["TrackMetadata", None, Unset] = UNSET
-    type_: Union[Unset, TrackType] = UNSET
+    id: str | Unset = UNSET
+    metadata: None | TrackMetadata | Unset = UNSET
+    type_: TrackType | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -40,7 +36,7 @@ class Track:
 
         id = self.id
 
-        metadata: Union[None, Unset, dict[str, Any]]
+        metadata: dict[str, Any] | None | Unset
         if isinstance(self.metadata, Unset):
             metadata = UNSET
         elif isinstance(self.metadata, TrackMetadata):
@@ -48,7 +44,7 @@ class Track:
         else:
             metadata = self.metadata
 
-        type_: Union[Unset, str] = UNSET
+        type_: str | Unset = UNSET
         if not isinstance(self.type_, Unset):
             type_ = self.type_.value
 
@@ -71,7 +67,7 @@ class Track:
         d = dict(src_dict)
         id = d.pop("id", UNSET)
 
-        def _parse_metadata(data: object) -> Union["TrackMetadata", None, Unset]:
+        def _parse_metadata(data: object) -> None | TrackMetadata | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -82,14 +78,14 @@ class Track:
                 componentsschemas_track_metadata_type_0 = TrackMetadata.from_dict(data)
 
                 return componentsschemas_track_metadata_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
-            return cast(Union["TrackMetadata", None, Unset], data)
+            return cast(None | TrackMetadata | Unset, data)
 
         metadata = _parse_metadata(d.pop("metadata", UNSET))
 
         _type_ = d.pop("type", UNSET)
-        type_: Union[Unset, TrackType]
+        type_: TrackType | Unset
         if isinstance(_type_, Unset):
             type_ = UNSET
         else:

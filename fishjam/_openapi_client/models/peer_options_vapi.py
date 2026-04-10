@@ -1,9 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import Any, TypeVar
 
 from attrs import define as _attrs_define
 
@@ -20,19 +18,19 @@ class PeerOptionsVapi:
     Attributes:
         api_key (str): VAPI API key
         call_id (str): VAPI call ID
-        subscribe_mode (Union[Unset, SubscribeMode]): Configuration of peer's subscribing policy
+        subscribe_mode (SubscribeMode | Unset): Configuration of peer's subscribing policy
     """
 
     api_key: str
     call_id: str
-    subscribe_mode: Union[Unset, SubscribeMode] = UNSET
+    subscribe_mode: SubscribeMode | Unset = UNSET
 
     def to_dict(self) -> dict[str, Any]:
         api_key = self.api_key
 
         call_id = self.call_id
 
-        subscribe_mode: Union[Unset, str] = UNSET
+        subscribe_mode: str | Unset = UNSET
         if not isinstance(self.subscribe_mode, Unset):
             subscribe_mode = self.subscribe_mode.value
 
@@ -55,7 +53,7 @@ class PeerOptionsVapi:
         call_id = d.pop("callId")
 
         _subscribe_mode = d.pop("subscribeMode", UNSET)
-        subscribe_mode: Union[Unset, SubscribeMode]
+        subscribe_mode: SubscribeMode | Unset
         if isinstance(_subscribe_mode, Unset):
             subscribe_mode = UNSET
         else:
