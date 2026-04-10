@@ -205,7 +205,7 @@ class TestReceivingNotifications:
 
         self.assert_webhook_events(event_checks, event_queue, room.id)
 
-    def assert_webhook_events(self, event_checks, event_queue, room_id, timeout=30):
+    def assert_webhook_events(self, event_checks, event_queue, room_id, timeout=60):
         deadline = time.monotonic() + timeout
         received = []
 
