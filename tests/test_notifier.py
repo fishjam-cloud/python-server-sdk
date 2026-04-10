@@ -1,6 +1,8 @@
 # pylint: disable=locally-disabled, missing-class-docstring, missing-function-docstring, redefined-outer-name, too-few-public-methods, missing-module-docstring
 
 import asyncio
+import queue
+import time
 import uuid
 from multiprocessing import Manager, Process
 
@@ -127,8 +129,7 @@ class TestReceivingNotifications:
 
             notifier_task.cancel()
 
-        for event in event_checks:
-            self.assert_event(event, event_queue, room.id)
+        self.assert_webhook_events(event_checks, event_queue, room.id)
 
     @pytest.mark.asyncio
     async def test_peer_connected_disconnected(
@@ -166,8 +167,7 @@ class TestReceivingNotifications:
             notifier_task.cancel()
             peer_socket_task.cancel()
 
-        for event in event_checks:
-            self.assert_event(event, event_queue, room.id)
+        self.assert_webhook_events(event_checks, event_queue, room.id)
 
     @pytest.mark.asyncio
     async def test_peer_connected_room_deleted(
@@ -203,14 +203,31 @@ class TestReceivingNotifications:
             notifier_task.cancel()
             peer_socket_task.cancel()
 
-        for event in event_checks:
-            self.assert_event(event, event_queue, room.id)
+        self.assert_webhook_events(event_checks, event_queue, room.id)
 
-    def assert_event(self, event, event_queue, room_id=None):
-        for _ in range(20):
-            data = event_queue.get(timeout=10)
+    def assert_webhook_events(self, event_checks, event_queue, room_id, timeout=30):
+        deadline = time.monotonic() + timeout
+        received = []
+
+        pos = 0
+        while pos < len(event_checks) and time.monotonic() < deadline:
+            remaining = deadline - time.monotonic()
+
+            try:
+                data = event_queue.get(timeout=remaining)
+            except queue.Empty:
+                continue
             if room_id and data.room_id != room_id:
                 continue
-            if data == event or isinstance(data, event):
-                return
-        raise AssertionError(f"Expected {event} but last received: {data}")
+
+            received.append(data)
+            if data == event_checks[pos] or isinstance(data, event_checks[pos]):
+                pos += 1
+
+        if pos >= len(event_checks):
+            return
+
+        raise AssertionError(
+            f"Expected event {event_checks[pos]} not found. "
+            f"Received: {[type(e).__name__ for e in received]}"
+        )
