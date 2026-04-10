@@ -264,46 +264,46 @@
 
     </div>
     <a class="headerlink" href="#PeerMetadata"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata-11"><a href="#PeerMetadata-11"><span class="linenos">11</span></a><span class="nd">@_attrs_define</span>
-</span><span id="PeerMetadata-12"><a href="#PeerMetadata-12"><span class="linenos">12</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PeerMetadata</span><span class="p">:</span>
-</span><span id="PeerMetadata-13"><a href="#PeerMetadata-13"><span class="linenos">13</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom metadata set by the peer</span>
-</span><span id="PeerMetadata-14"><a href="#PeerMetadata-14"><span class="linenos">14</span></a>
-</span><span id="PeerMetadata-15"><a href="#PeerMetadata-15"><span class="linenos">15</span></a><span class="sd">    Example:</span>
-</span><span id="PeerMetadata-16"><a href="#PeerMetadata-16"><span class="linenos">16</span></a><span class="sd">        {&#39;name&#39;: &#39;FishjamUser&#39;}</span>
-</span><span id="PeerMetadata-17"><a href="#PeerMetadata-17"><span class="linenos">17</span></a>
-</span><span id="PeerMetadata-18"><a href="#PeerMetadata-18"><span class="linenos">18</span></a><span class="sd">    &quot;&quot;&quot;</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata-13"><a href="#PeerMetadata-13"><span class="linenos">13</span></a><span class="nd">@_attrs_define</span>
+</span><span id="PeerMetadata-14"><a href="#PeerMetadata-14"><span class="linenos">14</span></a><span class="k">class</span><span class="w"> </span><span class="nc">PeerMetadata</span><span class="p">:</span>
+</span><span id="PeerMetadata-15"><a href="#PeerMetadata-15"><span class="linenos">15</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Custom metadata set by the peer</span>
+</span><span id="PeerMetadata-16"><a href="#PeerMetadata-16"><span class="linenos">16</span></a>
+</span><span id="PeerMetadata-17"><a href="#PeerMetadata-17"><span class="linenos">17</span></a><span class="sd">    Example:</span>
+</span><span id="PeerMetadata-18"><a href="#PeerMetadata-18"><span class="linenos">18</span></a><span class="sd">        {&#39;name&#39;: &#39;FishjamUser&#39;}</span>
 </span><span id="PeerMetadata-19"><a href="#PeerMetadata-19"><span class="linenos">19</span></a>
-</span><span id="PeerMetadata-20"><a href="#PeerMetadata-20"><span class="linenos">20</span></a>    <span class="n">additional_properties</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">_attrs_field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+</span><span id="PeerMetadata-20"><a href="#PeerMetadata-20"><span class="linenos">20</span></a><span class="sd">    &quot;&quot;&quot;</span>
 </span><span id="PeerMetadata-21"><a href="#PeerMetadata-21"><span class="linenos">21</span></a>
-</span><span id="PeerMetadata-22"><a href="#PeerMetadata-22"><span class="linenos">22</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="PeerMetadata-23"><a href="#PeerMetadata-23"><span class="linenos">23</span></a>        <span class="n">field_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span id="PeerMetadata-24"><a href="#PeerMetadata-24"><span class="linenos">24</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">)</span>
-</span><span id="PeerMetadata-25"><a href="#PeerMetadata-25"><span class="linenos">25</span></a>
-</span><span id="PeerMetadata-26"><a href="#PeerMetadata-26"><span class="linenos">26</span></a>        <span class="k">return</span> <span class="n">field_dict</span>
+</span><span id="PeerMetadata-22"><a href="#PeerMetadata-22"><span class="linenos">22</span></a>    <span class="n">additional_properties</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">_attrs_field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+</span><span id="PeerMetadata-23"><a href="#PeerMetadata-23"><span class="linenos">23</span></a>
+</span><span id="PeerMetadata-24"><a href="#PeerMetadata-24"><span class="linenos">24</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="PeerMetadata-25"><a href="#PeerMetadata-25"><span class="linenos">25</span></a>        <span class="n">field_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="PeerMetadata-26"><a href="#PeerMetadata-26"><span class="linenos">26</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">)</span>
 </span><span id="PeerMetadata-27"><a href="#PeerMetadata-27"><span class="linenos">27</span></a>
-</span><span id="PeerMetadata-28"><a href="#PeerMetadata-28"><span class="linenos">28</span></a>    <span class="nd">@classmethod</span>
-</span><span id="PeerMetadata-29"><a href="#PeerMetadata-29"><span class="linenos">29</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-</span><span id="PeerMetadata-30"><a href="#PeerMetadata-30"><span class="linenos">30</span></a>        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">src_dict</span><span class="p">)</span>
-</span><span id="PeerMetadata-31"><a href="#PeerMetadata-31"><span class="linenos">31</span></a>        <span class="n">peer_metadata</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
-</span><span id="PeerMetadata-32"><a href="#PeerMetadata-32"><span class="linenos">32</span></a>
-</span><span id="PeerMetadata-33"><a href="#PeerMetadata-33"><span class="linenos">33</span></a>        <span class="n">peer_metadata</span><span class="o">.</span><span class="n">additional_properties</span> <span class="o">=</span> <span class="n">d</span>
-</span><span id="PeerMetadata-34"><a href="#PeerMetadata-34"><span class="linenos">34</span></a>        <span class="k">return</span> <span class="n">peer_metadata</span>
-</span><span id="PeerMetadata-35"><a href="#PeerMetadata-35"><span class="linenos">35</span></a>
-</span><span id="PeerMetadata-36"><a href="#PeerMetadata-36"><span class="linenos">36</span></a>    <span class="nd">@property</span>
-</span><span id="PeerMetadata-37"><a href="#PeerMetadata-37"><span class="linenos">37</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">additional_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="PeerMetadata-38"><a href="#PeerMetadata-38"><span class="linenos">38</span></a>        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
-</span><span id="PeerMetadata-39"><a href="#PeerMetadata-39"><span class="linenos">39</span></a>
-</span><span id="PeerMetadata-40"><a href="#PeerMetadata-40"><span class="linenos">40</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
-</span><span id="PeerMetadata-41"><a href="#PeerMetadata-41"><span class="linenos">41</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-</span><span id="PeerMetadata-42"><a href="#PeerMetadata-42"><span class="linenos">42</span></a>
-</span><span id="PeerMetadata-43"><a href="#PeerMetadata-43"><span class="linenos">43</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="PeerMetadata-44"><a href="#PeerMetadata-44"><span class="linenos">44</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-</span><span id="PeerMetadata-45"><a href="#PeerMetadata-45"><span class="linenos">45</span></a>
-</span><span id="PeerMetadata-46"><a href="#PeerMetadata-46"><span class="linenos">46</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
-</span><span id="PeerMetadata-47"><a href="#PeerMetadata-47"><span class="linenos">47</span></a>        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
-</span><span id="PeerMetadata-48"><a href="#PeerMetadata-48"><span class="linenos">48</span></a>
-</span><span id="PeerMetadata-49"><a href="#PeerMetadata-49"><span class="linenos">49</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
-</span><span id="PeerMetadata-50"><a href="#PeerMetadata-50"><span class="linenos">50</span></a>        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span>
+</span><span id="PeerMetadata-28"><a href="#PeerMetadata-28"><span class="linenos">28</span></a>        <span class="k">return</span> <span class="n">field_dict</span>
+</span><span id="PeerMetadata-29"><a href="#PeerMetadata-29"><span class="linenos">29</span></a>
+</span><span id="PeerMetadata-30"><a href="#PeerMetadata-30"><span class="linenos">30</span></a>    <span class="nd">@classmethod</span>
+</span><span id="PeerMetadata-31"><a href="#PeerMetadata-31"><span class="linenos">31</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+</span><span id="PeerMetadata-32"><a href="#PeerMetadata-32"><span class="linenos">32</span></a>        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">src_dict</span><span class="p">)</span>
+</span><span id="PeerMetadata-33"><a href="#PeerMetadata-33"><span class="linenos">33</span></a>        <span class="n">peer_metadata</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
+</span><span id="PeerMetadata-34"><a href="#PeerMetadata-34"><span class="linenos">34</span></a>
+</span><span id="PeerMetadata-35"><a href="#PeerMetadata-35"><span class="linenos">35</span></a>        <span class="n">peer_metadata</span><span class="o">.</span><span class="n">additional_properties</span> <span class="o">=</span> <span class="n">d</span>
+</span><span id="PeerMetadata-36"><a href="#PeerMetadata-36"><span class="linenos">36</span></a>        <span class="k">return</span> <span class="n">peer_metadata</span>
+</span><span id="PeerMetadata-37"><a href="#PeerMetadata-37"><span class="linenos">37</span></a>
+</span><span id="PeerMetadata-38"><a href="#PeerMetadata-38"><span class="linenos">38</span></a>    <span class="nd">@property</span>
+</span><span id="PeerMetadata-39"><a href="#PeerMetadata-39"><span class="linenos">39</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">additional_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="PeerMetadata-40"><a href="#PeerMetadata-40"><span class="linenos">40</span></a>        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</span><span id="PeerMetadata-41"><a href="#PeerMetadata-41"><span class="linenos">41</span></a>
+</span><span id="PeerMetadata-42"><a href="#PeerMetadata-42"><span class="linenos">42</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+</span><span id="PeerMetadata-43"><a href="#PeerMetadata-43"><span class="linenos">43</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</span><span id="PeerMetadata-44"><a href="#PeerMetadata-44"><span class="linenos">44</span></a>
+</span><span id="PeerMetadata-45"><a href="#PeerMetadata-45"><span class="linenos">45</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="PeerMetadata-46"><a href="#PeerMetadata-46"><span class="linenos">46</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="PeerMetadata-47"><a href="#PeerMetadata-47"><span class="linenos">47</span></a>
+</span><span id="PeerMetadata-48"><a href="#PeerMetadata-48"><span class="linenos">48</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="PeerMetadata-49"><a href="#PeerMetadata-49"><span class="linenos">49</span></a>        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</span><span id="PeerMetadata-50"><a href="#PeerMetadata-50"><span class="linenos">50</span></a>
+</span><span id="PeerMetadata-51"><a href="#PeerMetadata-51"><span class="linenos">51</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="PeerMetadata-52"><a href="#PeerMetadata-52"><span class="linenos">52</span></a>        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span>
 </span></pre></div>
 
 
@@ -339,7 +339,7 @@
                             </div>
                             <div id="PeerMetadata.additional_properties" class="classattr">
                                 <div class="attr variable">
-            <span class="name">additional_properties</span><span class="annotation">: dict[str, typing.Any]</span>
+            <span class="name">additional_properties</span><span class="annotation">: &#39;dict[str, Any]&#39;</span>
 
 
     </div>
@@ -353,17 +353,17 @@
 <div class="attr function">
 
         <span class="def">def</span>
-        <span class="name">to_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span>:</span></span>
+        <span class="name">to_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="s1">&#39;dict[str, Any]&#39;</span>:</span></span>
 
                 <label class="view-source-button" for="PeerMetadata.to_dict-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#PeerMetadata.to_dict"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata.to_dict-22"><a href="#PeerMetadata.to_dict-22"><span class="linenos">22</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
-</span><span id="PeerMetadata.to_dict-23"><a href="#PeerMetadata.to_dict-23"><span class="linenos">23</span></a>        <span class="n">field_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
-</span><span id="PeerMetadata.to_dict-24"><a href="#PeerMetadata.to_dict-24"><span class="linenos">24</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">)</span>
-</span><span id="PeerMetadata.to_dict-25"><a href="#PeerMetadata.to_dict-25"><span class="linenos">25</span></a>
-</span><span id="PeerMetadata.to_dict-26"><a href="#PeerMetadata.to_dict-26"><span class="linenos">26</span></a>        <span class="k">return</span> <span class="n">field_dict</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata.to_dict-24"><a href="#PeerMetadata.to_dict-24"><span class="linenos">24</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="PeerMetadata.to_dict-25"><a href="#PeerMetadata.to_dict-25"><span class="linenos">25</span></a>        <span class="n">field_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="PeerMetadata.to_dict-26"><a href="#PeerMetadata.to_dict-26"><span class="linenos">26</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">)</span>
+</span><span id="PeerMetadata.to_dict-27"><a href="#PeerMetadata.to_dict-27"><span class="linenos">27</span></a>
+</span><span id="PeerMetadata.to_dict-28"><a href="#PeerMetadata.to_dict-28"><span class="linenos">28</span></a>        <span class="k">return</span> <span class="n">field_dict</span>
 </span></pre></div>
 
 
@@ -376,19 +376,19 @@
                     <div class="decorator">@classmethod</div>
 
         <span class="def">def</span>
-        <span class="name">from_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="o">~</span><span class="n">T</span><span class="p">]</span>, </span><span class="param"><span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">typing</span><span class="o">.</span><span class="n">Any</span><span class="p">]</span></span><span class="return-annotation">) -> <span class="o">~</span><span class="n">T</span>:</span></span>
+        <span class="name">from_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span><span class="p">:</span> <span class="s1">&#39;type[T]&#39;</span>, </span><span class="param"><span class="n">src_dict</span><span class="p">:</span> <span class="s1">&#39;Mapping[str, Any]&#39;</span></span><span class="return-annotation">) -> <span class="s1">&#39;T&#39;</span>:</span></span>
 
                 <label class="view-source-button" for="PeerMetadata.from_dict-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#PeerMetadata.from_dict"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata.from_dict-28"><a href="#PeerMetadata.from_dict-28"><span class="linenos">28</span></a>    <span class="nd">@classmethod</span>
-</span><span id="PeerMetadata.from_dict-29"><a href="#PeerMetadata.from_dict-29"><span class="linenos">29</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
-</span><span id="PeerMetadata.from_dict-30"><a href="#PeerMetadata.from_dict-30"><span class="linenos">30</span></a>        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">src_dict</span><span class="p">)</span>
-</span><span id="PeerMetadata.from_dict-31"><a href="#PeerMetadata.from_dict-31"><span class="linenos">31</span></a>        <span class="n">peer_metadata</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
-</span><span id="PeerMetadata.from_dict-32"><a href="#PeerMetadata.from_dict-32"><span class="linenos">32</span></a>
-</span><span id="PeerMetadata.from_dict-33"><a href="#PeerMetadata.from_dict-33"><span class="linenos">33</span></a>        <span class="n">peer_metadata</span><span class="o">.</span><span class="n">additional_properties</span> <span class="o">=</span> <span class="n">d</span>
-</span><span id="PeerMetadata.from_dict-34"><a href="#PeerMetadata.from_dict-34"><span class="linenos">34</span></a>        <span class="k">return</span> <span class="n">peer_metadata</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata.from_dict-30"><a href="#PeerMetadata.from_dict-30"><span class="linenos">30</span></a>    <span class="nd">@classmethod</span>
+</span><span id="PeerMetadata.from_dict-31"><a href="#PeerMetadata.from_dict-31"><span class="linenos">31</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+</span><span id="PeerMetadata.from_dict-32"><a href="#PeerMetadata.from_dict-32"><span class="linenos">32</span></a>        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">src_dict</span><span class="p">)</span>
+</span><span id="PeerMetadata.from_dict-33"><a href="#PeerMetadata.from_dict-33"><span class="linenos">33</span></a>        <span class="n">peer_metadata</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">()</span>
+</span><span id="PeerMetadata.from_dict-34"><a href="#PeerMetadata.from_dict-34"><span class="linenos">34</span></a>
+</span><span id="PeerMetadata.from_dict-35"><a href="#PeerMetadata.from_dict-35"><span class="linenos">35</span></a>        <span class="n">peer_metadata</span><span class="o">.</span><span class="n">additional_properties</span> <span class="o">=</span> <span class="n">d</span>
+</span><span id="PeerMetadata.from_dict-36"><a href="#PeerMetadata.from_dict-36"><span class="linenos">36</span></a>        <span class="k">return</span> <span class="n">peer_metadata</span>
 </span></pre></div>
 
 
@@ -398,15 +398,15 @@
                             <div id="PeerMetadata.additional_keys" class="classattr">
                                         <input id="PeerMetadata.additional_keys-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr variable">
-            <span class="name">additional_keys</span><span class="annotation">: list[str]</span>
+            <span class="name">additional_keys</span><span class="annotation">: &#39;list[str]&#39;</span>
 
                 <label class="view-source-button" for="PeerMetadata.additional_keys-view-source"><span>View Source</span></label>
 
     </div>
     <a class="headerlink" href="#PeerMetadata.additional_keys"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata.additional_keys-36"><a href="#PeerMetadata.additional_keys-36"><span class="linenos">36</span></a>    <span class="nd">@property</span>
-</span><span id="PeerMetadata.additional_keys-37"><a href="#PeerMetadata.additional_keys-37"><span class="linenos">37</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">additional_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
-</span><span id="PeerMetadata.additional_keys-38"><a href="#PeerMetadata.additional_keys-38"><span class="linenos">38</span></a>        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="PeerMetadata.additional_keys-38"><a href="#PeerMetadata.additional_keys-38"><span class="linenos">38</span></a>    <span class="nd">@property</span>
+</span><span id="PeerMetadata.additional_keys-39"><a href="#PeerMetadata.additional_keys-39"><span class="linenos">39</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">additional_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="PeerMetadata.additional_keys-40"><a href="#PeerMetadata.additional_keys-40"><span class="linenos">40</span></a>        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 </span></pre></div>
 
 
