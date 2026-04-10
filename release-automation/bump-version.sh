@@ -22,7 +22,7 @@ while read -r line; do
     else
         echo "asdf plugin $PLUGIN_NAME already added"
     fi
-done < .tool-versions
+done <.tool-versions
 
 asdf install
 
@@ -30,10 +30,10 @@ uv version "$VERSION"
 uv run ./compile_proto.sh
 
 # Update OpenAPI client
-curl -H "Authorization: token $GH_TOKEN" \
+curl --fail-with-body -sS -H "Authorization: token $GH_TOKEN" \
     -H "Accept: application/vnd.github.v3.raw" \
     -L "https://raw.githubusercontent.com/fishjam-cloud/fishjam/main/openapi.yaml" \
-     -o openapi.yaml
+    -o openapi.yaml
 
 uv run update_client ./openapi.yaml
 rm openapi.yaml
