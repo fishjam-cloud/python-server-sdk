@@ -1,10 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 
@@ -23,19 +20,19 @@ class PeerOptionsAgent:
     """Options specific to the Agent peer
 
     Attributes:
-        output (Union[Unset, AgentOutput]): Output audio options
-        subscribe_mode (Union[Unset, SubscribeMode]): Configuration of peer's subscribing policy
+        output (AgentOutput | Unset): Output audio options
+        subscribe_mode (SubscribeMode | Unset): Configuration of peer's subscribing policy
     """
 
-    output: Union[Unset, "AgentOutput"] = UNSET
-    subscribe_mode: Union[Unset, SubscribeMode] = UNSET
+    output: AgentOutput | Unset = UNSET
+    subscribe_mode: SubscribeMode | Unset = UNSET
 
     def to_dict(self) -> dict[str, Any]:
-        output: Union[Unset, dict[str, Any]] = UNSET
+        output: dict[str, Any] | Unset = UNSET
         if not isinstance(self.output, Unset):
             output = self.output.to_dict()
 
-        subscribe_mode: Union[Unset, str] = UNSET
+        subscribe_mode: str | Unset = UNSET
         if not isinstance(self.subscribe_mode, Unset):
             subscribe_mode = self.subscribe_mode.value
 
@@ -55,14 +52,14 @@ class PeerOptionsAgent:
 
         d = dict(src_dict)
         _output = d.pop("output", UNSET)
-        output: Union[Unset, AgentOutput]
+        output: AgentOutput | Unset
         if isinstance(_output, Unset):
             output = UNSET
         else:
             output = AgentOutput.from_dict(_output)
 
         _subscribe_mode = d.pop("subscribeMode", UNSET)
-        subscribe_mode: Union[Unset, SubscribeMode]
+        subscribe_mode: SubscribeMode | Unset
         if isinstance(_subscribe_mode, Unset):
             subscribe_mode = UNSET
         else:

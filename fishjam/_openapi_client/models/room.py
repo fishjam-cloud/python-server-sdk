@@ -1,11 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    TypeVar,
-    Union,
-    cast,
-)
+from typing import TYPE_CHECKING, Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -28,14 +24,14 @@ class Room:
     Attributes:
         config (RoomConfig): Room configuration
         id (str): Room ID Example: room-1.
-        peers (list['Peer']): List of all peers
-        composition_info (Union['CompositionInfo', None, Unset]): Composition and track forwarding state for the room
+        peers (list[Peer]): List of all peers
+        composition_info (CompositionInfo | None | Unset): Composition and track forwarding state for the room
     """
 
-    config: "RoomConfig"
+    config: RoomConfig
     id: str
-    peers: list["Peer"]
-    composition_info: Union["CompositionInfo", None, Unset] = UNSET
+    peers: list[Peer]
+    composition_info: CompositionInfo | None | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -50,7 +46,7 @@ class Room:
             peers_item = peers_item_data.to_dict()
             peers.append(peers_item)
 
-        composition_info: Union[None, Unset, dict[str, Any]]
+        composition_info: dict[str, Any] | None | Unset
         if isinstance(self.composition_info, Unset):
             composition_info = UNSET
         elif isinstance(self.composition_info, CompositionInfo):
@@ -88,9 +84,7 @@ class Room:
 
             peers.append(peers_item)
 
-        def _parse_composition_info(
-            data: object,
-        ) -> Union["CompositionInfo", None, Unset]:
+        def _parse_composition_info(data: object) -> CompositionInfo | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
@@ -103,9 +97,9 @@ class Room:
                 )
 
                 return componentsschemas_composition_info_type_0
-            except:  # noqa: E722
+            except (TypeError, ValueError, AttributeError, KeyError):
                 pass
-            return cast(Union["CompositionInfo", None, Unset], data)
+            return cast(CompositionInfo | None | Unset, data)
 
         composition_info = _parse_composition_info(d.pop("compositionInfo", UNSET))
 

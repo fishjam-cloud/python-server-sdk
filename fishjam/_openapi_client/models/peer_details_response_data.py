@@ -1,10 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    TYPE_CHECKING,
-    Any,
-    TypeVar,
-    Union,
-)
+from typing import TYPE_CHECKING, Any, TypeVar
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -24,13 +21,13 @@ class PeerDetailsResponseData:
     Attributes:
         peer (Peer): Describes peer status
         token (str): Token for authorizing websocket connection Example: 5cdac726-57a3-4ecb-b1d5-72a3d62ec242.
-        peer_websocket_url (Union[Unset, str]): Websocket URL to which peer has to connect Example:
+        peer_websocket_url (str | Unset): Websocket URL to which peer has to connect Example:
             www.fishjam.org/socket/peer.
     """
 
-    peer: "Peer"
+    peer: Peer
     token: str
-    peer_websocket_url: Union[Unset, str] = UNSET
+    peer_websocket_url: str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:

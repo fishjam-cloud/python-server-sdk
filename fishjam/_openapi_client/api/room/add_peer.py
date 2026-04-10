@@ -1,5 +1,6 @@
 from http import HTTPStatus
-from typing import Any, Optional, Union
+from typing import Any
+from urllib.parse import quote
 
 import httpx
 
@@ -8,24 +9,25 @@ from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.peer_config import PeerConfig
 from ...models.peer_details_response import PeerDetailsResponse
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     room_id: str,
     *,
-    body: PeerConfig,
+    body: PeerConfig | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
     _kwargs: dict[str, Any] = {
         "method": "post",
         "url": "/room/{room_id}/peer".format(
-            room_id=room_id,
+            room_id=quote(str(room_id), safe=""),
         ),
     }
 
-    _kwargs["json"] = body.to_dict()
+    if not isinstance(body, Unset):
+        _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
 
@@ -34,36 +36,43 @@ def _get_kwargs(
 
 
 def _parse_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Optional[Union[Error, PeerDetailsResponse]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Error | PeerDetailsResponse | None:
     if response.status_code == 201:
         response_201 = PeerDetailsResponse.from_dict(response.json())
 
         return response_201
+
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
 
         return response_400
+
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
         return response_401
+
     if response.status_code == 402:
         response_402 = Error.from_dict(response.json())
 
         return response_402
+
     if response.status_code == 404:
         response_404 = Error.from_dict(response.json())
 
         return response_404
+
     if response.status_code == 409:
         response_409 = Error.from_dict(response.json())
 
         return response_409
+
     if response.status_code == 503:
         response_503 = Error.from_dict(response.json())
 
         return response_503
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -71,8 +80,8 @@ def _parse_response(
 
 
 def _build_response(
-    *, client: Union[AuthenticatedClient, Client], response: httpx.Response
-) -> Response[Union[Error, PeerDetailsResponse]]:
+    *, client: AuthenticatedClient | Client, response: httpx.Response
+) -> Response[Error | PeerDetailsResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -85,20 +94,20 @@ def sync_detailed(
     room_id: str,
     *,
     client: AuthenticatedClient,
-    body: PeerConfig,
-) -> Response[Union[Error, PeerDetailsResponse]]:
+    body: PeerConfig | Unset = UNSET,
+) -> Response[Error | PeerDetailsResponse]:
     """Create peer
 
     Args:
         room_id (str):
-        body (PeerConfig): Peer configuration
+        body (PeerConfig | Unset): Peer configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, PeerDetailsResponse]]
+        Response[Error | PeerDetailsResponse]
     """
 
     kwargs = _get_kwargs(
@@ -117,20 +126,20 @@ def sync(
     room_id: str,
     *,
     client: AuthenticatedClient,
-    body: PeerConfig,
-) -> Optional[Union[Error, PeerDetailsResponse]]:
+    body: PeerConfig | Unset = UNSET,
+) -> Error | PeerDetailsResponse | None:
     """Create peer
 
     Args:
         room_id (str):
-        body (PeerConfig): Peer configuration
+        body (PeerConfig | Unset): Peer configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, PeerDetailsResponse]
+        Error | PeerDetailsResponse
     """
 
     return sync_detailed(
@@ -144,20 +153,20 @@ async def asyncio_detailed(
     room_id: str,
     *,
     client: AuthenticatedClient,
-    body: PeerConfig,
-) -> Response[Union[Error, PeerDetailsResponse]]:
+    body: PeerConfig | Unset = UNSET,
+) -> Response[Error | PeerDetailsResponse]:
     """Create peer
 
     Args:
         room_id (str):
-        body (PeerConfig): Peer configuration
+        body (PeerConfig | Unset): Peer configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Union[Error, PeerDetailsResponse]]
+        Response[Error | PeerDetailsResponse]
     """
 
     kwargs = _get_kwargs(
@@ -174,20 +183,20 @@ async def asyncio(
     room_id: str,
     *,
     client: AuthenticatedClient,
-    body: PeerConfig,
-) -> Optional[Union[Error, PeerDetailsResponse]]:
+    body: PeerConfig | Unset = UNSET,
+) -> Error | PeerDetailsResponse | None:
     """Create peer
 
     Args:
         room_id (str):
-        body (PeerConfig): Peer configuration
+        body (PeerConfig | Unset): Peer configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Union[Error, PeerDetailsResponse]
+        Error | PeerDetailsResponse
     """
 
     return (

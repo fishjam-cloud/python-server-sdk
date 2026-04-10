@@ -1,10 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-    cast,
-)
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 
@@ -18,17 +15,17 @@ class StreamConfig:
     """Stream configuration
 
     Attributes:
-        audio_only (Union[None, Unset, bool]): Restrics stream to audio only Default: False.
-        public (Union[Unset, bool]): True if livestream viewers can omit specifying a token. Default: False.
-        webhook_url (Union[None, Unset, str]): Webhook URL for receiving server notifications
+        audio_only (bool | None | Unset): Restrics stream to audio only Default: False.
+        public (bool | Unset): True if livestream viewers can omit specifying a token. Default: False.
+        webhook_url (None | str | Unset): Webhook URL for receiving server notifications
     """
 
-    audio_only: Union[None, Unset, bool] = False
-    public: Union[Unset, bool] = False
-    webhook_url: Union[None, Unset, str] = UNSET
+    audio_only: bool | None | Unset = False
+    public: bool | Unset = False
+    webhook_url: None | str | Unset = UNSET
 
     def to_dict(self) -> dict[str, Any]:
-        audio_only: Union[None, Unset, bool]
+        audio_only: bool | None | Unset
         if isinstance(self.audio_only, Unset):
             audio_only = UNSET
         else:
@@ -36,7 +33,7 @@ class StreamConfig:
 
         public = self.public
 
-        webhook_url: Union[None, Unset, str]
+        webhook_url: None | str | Unset
         if isinstance(self.webhook_url, Unset):
             webhook_url = UNSET
         else:
@@ -58,23 +55,23 @@ class StreamConfig:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
 
-        def _parse_audio_only(data: object) -> Union[None, Unset, bool]:
+        def _parse_audio_only(data: object) -> bool | None | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, bool], data)
+            return cast(bool | None | Unset, data)
 
         audio_only = _parse_audio_only(d.pop("audioOnly", UNSET))
 
         public = d.pop("public", UNSET)
 
-        def _parse_webhook_url(data: object) -> Union[None, Unset, str]:
+        def _parse_webhook_url(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         webhook_url = _parse_webhook_url(d.pop("webhookUrl", UNSET))
 

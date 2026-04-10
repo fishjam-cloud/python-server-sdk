@@ -1,10 +1,7 @@
+from __future__ import annotations
+
 from collections.abc import Mapping
-from typing import (
-    Any,
-    TypeVar,
-    Union,
-    cast,
-)
+from typing import Any, TypeVar, cast
 
 from attrs import define as _attrs_define
 from attrs import field as _attrs_field
@@ -21,14 +18,14 @@ class TrackForwardingInfo:
     Attributes:
         input_id (str): Input ID used by the composition Example: input-1.
         peer_id (str): Peer ID Example: peer-1.
-        audio_track_id (Union[None, Unset, str]): ID of the forwarded audio track Example: track-audio-1.
-        video_track_id (Union[None, Unset, str]): ID of the forwarded video track Example: track-video-1.
+        audio_track_id (None | str | Unset): ID of the forwarded audio track Example: track-audio-1.
+        video_track_id (None | str | Unset): ID of the forwarded video track Example: track-video-1.
     """
 
     input_id: str
     peer_id: str
-    audio_track_id: Union[None, Unset, str] = UNSET
-    video_track_id: Union[None, Unset, str] = UNSET
+    audio_track_id: None | str | Unset = UNSET
+    video_track_id: None | str | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
@@ -36,13 +33,13 @@ class TrackForwardingInfo:
 
         peer_id = self.peer_id
 
-        audio_track_id: Union[None, Unset, str]
+        audio_track_id: None | str | Unset
         if isinstance(self.audio_track_id, Unset):
             audio_track_id = UNSET
         else:
             audio_track_id = self.audio_track_id
 
-        video_track_id: Union[None, Unset, str]
+        video_track_id: None | str | Unset
         if isinstance(self.video_track_id, Unset):
             video_track_id = UNSET
         else:
@@ -68,21 +65,21 @@ class TrackForwardingInfo:
 
         peer_id = d.pop("peerId")
 
-        def _parse_audio_track_id(data: object) -> Union[None, Unset, str]:
+        def _parse_audio_track_id(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         audio_track_id = _parse_audio_track_id(d.pop("audioTrackId", UNSET))
 
-        def _parse_video_track_id(data: object) -> Union[None, Unset, str]:
+        def _parse_video_track_id(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(Union[None, Unset, str], data)
+            return cast(None | str | Unset, data)
 
         video_track_id = _parse_video_track_id(d.pop("videoTrackId", UNSET))
 
