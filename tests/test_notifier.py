@@ -1,7 +1,7 @@
 # pylint: disable=locally-disabled, missing-class-docstring, missing-function-docstring, redefined-outer-name, too-few-public-methods, missing-module-docstring
 
 import asyncio
-from multiprocessing import Process, Queue
+from multiprocessing import Manager, Process
 
 import pytest
 import requests
@@ -28,12 +28,13 @@ from tests.support.env import (
 from tests.support.peer_socket import PeerSocket
 from tests.support.webhook_notifier import run_server
 
-queue = Queue()
+_manager = Manager()
+_queues = _manager.list()
 
 
 @pytest.fixture(scope="session", autouse=True)
 def start_server():
-    flask_process = Process(target=run_server, args=(queue,))
+    flask_process = Process(target=run_server, args=(_queues,))
     flask_process.start()
 
     session = requests.Session()
@@ -53,6 +54,14 @@ def start_server():
     yield
 
     flask_process.terminate()
+
+
+@pytest.fixture
+def event_queue():
+    q = _manager.Queue()
+    _queues.append(q)
+    yield q
+    _queues.remove(q)
 
 
 class TestConnectingToServer:
@@ -97,7 +106,7 @@ def notifier():
 class TestReceivingNotifications:
     @pytest.mark.asyncio
     async def test_room_created_deleted(
-        self, room_api: FishjamClient, notifier: FishjamNotifier
+        self, room_api: FishjamClient, notifier: FishjamNotifier, event_queue
     ):
         event_checks = [ServerMessageRoomCreated, ServerMessageRoomDeleted]
 
@@ -117,11 +126,11 @@ class TestReceivingNotifications:
             notifier_task.cancel()
 
         for event in event_checks:
-            self.assert_event(event)
+            self.assert_event(event, event_queue)
 
     @pytest.mark.asyncio
     async def test_peer_connected_disconnected(
-        self, room_api: FishjamClient, notifier: FishjamNotifier
+        self, room_api: FishjamClient, notifier: FishjamNotifier, event_queue
     ):
         event_checks = [
             ServerMessageRoomCreated,
@@ -156,11 +165,11 @@ class TestReceivingNotifications:
             peer_socket_task.cancel()
 
         for event in event_checks:
-            self.assert_event(event)
+            self.assert_event(event, event_queue)
 
     @pytest.mark.asyncio
     async def test_peer_connected_room_deleted(
-        self, room_api: FishjamClient, notifier: FishjamNotifier
+        self, room_api: FishjamClient, notifier: FishjamNotifier, event_queue
     ):
         event_checks = [
             ServerMessageRoomCreated,
@@ -193,8 +202,8 @@ class TestReceivingNotifications:
             peer_socket_task.cancel()
 
         for event in event_checks:
-            self.assert_event(event)
+            self.assert_event(event, event_queue)
 
-    def assert_event(self, event):
-        data = queue.get(timeout=5)
+    def assert_event(self, event, event_queue):
+        data = event_queue.get(timeout=5)
         assert data == event or isinstance(data, event)
