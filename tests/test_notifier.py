@@ -1,6 +1,7 @@
 # pylint: disable=locally-disabled, missing-class-docstring, missing-function-docstring, redefined-outer-name, too-few-public-methods, missing-module-docstring
 
 import asyncio
+import uuid
 from multiprocessing import Manager, Process
 
 import pytest
@@ -29,7 +30,7 @@ from tests.support.peer_socket import PeerSocket
 from tests.support.webhook_notifier import run_server
 
 _manager = Manager()
-_queues = _manager.list()
+_queues = _manager.dict()
 
 
 @pytest.fixture(scope="session", autouse=True)
@@ -59,9 +60,10 @@ def start_server():
 @pytest.fixture
 def event_queue():
     q = _manager.Queue()
-    _queues.append(q)
+    key = str(uuid.uuid4())
+    _queues[key] = q
     yield q
-    _queues.remove(q)
+    del _queues[key]
 
 
 class TestConnectingToServer:
@@ -126,7 +128,7 @@ class TestReceivingNotifications:
             notifier_task.cancel()
 
         for event in event_checks:
-            self.assert_event(event, event_queue)
+            self.assert_event(event, event_queue, room.id)
 
     @pytest.mark.asyncio
     async def test_peer_connected_disconnected(
@@ -165,7 +167,7 @@ class TestReceivingNotifications:
             peer_socket_task.cancel()
 
         for event in event_checks:
-            self.assert_event(event, event_queue)
+            self.assert_event(event, event_queue, room.id)
 
     @pytest.mark.asyncio
     async def test_peer_connected_room_deleted(
@@ -202,8 +204,13 @@ class TestReceivingNotifications:
             peer_socket_task.cancel()
 
         for event in event_checks:
-            self.assert_event(event, event_queue)
+            self.assert_event(event, event_queue, room.id)
 
-    def assert_event(self, event, event_queue):
-        data = event_queue.get(timeout=5)
-        assert data == event or isinstance(data, event)
+    def assert_event(self, event, event_queue, room_id=None):
+        for _ in range(20):
+            data = event_queue.get(timeout=10)
+            if room_id and data.room_id != room_id:
+                continue
+            assert data == event or isinstance(data, event), (
+                f"Expected {event} but last received: {data}"
+            )

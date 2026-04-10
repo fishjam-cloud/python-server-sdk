@@ -17,8 +17,9 @@ def respond_default():
 def respond_root():
     data = request.get_data()
     msg = receive_binary(data)
-    for q in QUEUES:
-        q.put(msg)
+    if msg is not None:
+        for q in QUEUES.values():
+            q.put(msg)
 
     return Response(status=200)
 
