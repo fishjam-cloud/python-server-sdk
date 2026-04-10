@@ -211,6 +211,6 @@ class TestReceivingNotifications:
             data = event_queue.get(timeout=10)
             if room_id and data.room_id != room_id:
                 continue
-            assert data == event or isinstance(data, event), (
-                f"Expected {event} but last received: {data}"
-            )
+            if data == event or isinstance(data, event):
+                return
+        raise AssertionError(f"Expected {event} but last received: {data}")
