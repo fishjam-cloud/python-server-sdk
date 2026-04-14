@@ -378,7 +378,7 @@ class FishjamClient(Client):
         """
         response = cast(
             MoqToken,
-            self._request(create_moq_publisher_token, stream_name=stream_name),
+            self._request(create_moq_publisher_token, stream_id=stream_name),
         )
 
         return response.token
@@ -394,7 +394,7 @@ class FishjamClient(Client):
         """
         response = cast(
             MoqToken,
-            self._request(create_moq_subscriber_token, stream_name=stream_name),
+            self._request(create_moq_subscriber_token, stream_id=stream_name),
         )
 
         return response.token
