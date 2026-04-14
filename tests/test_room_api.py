@@ -318,3 +318,29 @@ class TestCreateLivestreamStreamerToken:
 
         with pytest.raises(NotFoundError):
             room_api.create_livestream_streamer_token(room.id)
+
+
+class TestCreateMoqPublisherToken:
+    def test_valid(self, room_api: FishjamClient):
+        token = room_api.create_moq_publisher_token("test-stream")
+
+        assert isinstance(token, str)
+
+    def test_unauthorized(self):
+        room_api = FishjamClient(FISHJAM_ID, "invalid")
+
+        with pytest.raises(UnauthorizedError):
+            room_api.create_moq_publisher_token("test-stream")
+
+
+class TestCreateMoqSubscriberToken:
+    def test_valid(self, room_api: FishjamClient):
+        token = room_api.create_moq_subscriber_token("test-stream")
+
+        assert isinstance(token, str)
+
+    def test_unauthorized(self):
+        room_api = FishjamClient(FISHJAM_ID, "invalid")
+
+        with pytest.raises(UnauthorizedError):
+            room_api.create_moq_subscriber_token("test-stream")

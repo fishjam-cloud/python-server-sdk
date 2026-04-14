@@ -18,10 +18,15 @@ from fishjam._openapi_client.api.streamer import (
 from fishjam._openapi_client.api.viewer import (
     generate_viewer_token as viewer_generate_viewer_token,
 )
+from fishjam._openapi_client.api.moq import (
+    create_moq_publisher_token,
+    create_moq_subscriber_token,
+)
 from fishjam._openapi_client.models import (
     AgentOutput,
     AudioFormat,
     AudioSampleRate,
+    MoqToken,
     Peer,
     PeerConfig,
     PeerDetailsResponse,
@@ -358,6 +363,38 @@ class FishjamClient(Client):
         response = cast(
             StreamerToken,
             self._request(streamer_generate_streamer_token, room_id=room_id),
+        )
+
+        return response.token
+
+    def create_moq_publisher_token(self, stream_name: str) -> str:
+        """Generates a MoQ publisher token for the given stream.
+
+        Args:
+            stream_name: The name of the MoQ stream.
+
+        Returns:
+            str: The generated publisher token.
+        """
+        response = cast(
+            MoqToken,
+            self._request(create_moq_publisher_token, stream_name=stream_name),
+        )
+
+        return response.token
+
+    def create_moq_subscriber_token(self, stream_name: str) -> str:
+        """Generates a MoQ subscriber token for the given stream.
+
+        Args:
+            stream_name: The name of the MoQ stream.
+
+        Returns:
+            str: The generated subscriber token.
+        """
+        response = cast(
+            MoqToken,
+            self._request(create_moq_subscriber_token, stream_name=stream_name),
         )
 
         return response.token
