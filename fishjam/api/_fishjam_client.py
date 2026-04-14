@@ -3,6 +3,10 @@
 from dataclasses import dataclass, field
 from typing import Any, Literal, cast
 
+from fishjam._openapi_client.api.moq import (
+    create_moq_publisher_token,
+    create_moq_subscriber_token,
+)
 from fishjam._openapi_client.api.room import add_peer as room_add_peer
 from fishjam._openapi_client.api.room import create_room as room_create_room
 from fishjam._openapi_client.api.room import delete_peer as room_delete_peer
@@ -17,10 +21,6 @@ from fishjam._openapi_client.api.streamer import (
 )
 from fishjam._openapi_client.api.viewer import (
     generate_viewer_token as viewer_generate_viewer_token,
-)
-from fishjam._openapi_client.api.moq import (
-    create_moq_publisher_token,
-    create_moq_subscriber_token,
 )
 from fishjam._openapi_client.models import (
     AgentOutput,
