@@ -5,6 +5,8 @@ from typing import Any, Literal, cast
 
 from fishjam._openapi_client.api.moq import (
     create_moq_publisher_token as moq_create_publisher_token,
+)
+from fishjam._openapi_client.api.moq import (
     create_moq_subscriber_token as moq_create_subscriber_token,
 )
 from fishjam._openapi_client.api.room import add_peer as room_add_peer
@@ -367,34 +369,34 @@ class FishjamClient(Client):
 
         return response.token
 
-    def create_moq_publisher_token(self, stream_name: str) -> str:
+    def create_moq_publisher_token(self, stream_id: str) -> str:
         """Generates a MoQ publisher token for the given stream.
 
         Args:
-            stream_name: The name of the MoQ stream.
+            stream_id: The name of the MoQ stream.
 
         Returns:
             str: The generated publisher token.
         """
         response = cast(
             MoqToken,
-            self._request(moq_create_publisher_token, stream_id=stream_name),
+            self._request(moq_create_publisher_token, stream_id=stream_id),
         )
 
         return response.token
 
-    def create_moq_subscriber_token(self, stream_name: str) -> str:
+    def create_moq_subscriber_token(self, stream_id: str) -> str:
         """Generates a MoQ subscriber token for the given stream.
 
         Args:
-            stream_name: The name of the MoQ stream.
+            stream_id: The name of the MoQ stream.
 
         Returns:
             str: The generated subscriber token.
         """
         response = cast(
             MoqToken,
-            self._request(moq_create_subscriber_token, stream_id=stream_name),
+            self._request(moq_create_subscriber_token, stream_id=stream_id),
         )
 
         return response.token
