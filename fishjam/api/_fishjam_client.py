@@ -4,8 +4,8 @@ from dataclasses import dataclass, field
 from typing import Any, Literal, cast
 
 from fishjam._openapi_client.api.moq import (
-    create_moq_publisher_token,
-    create_moq_subscriber_token,
+    create_moq_publisher_token as moq_create_publisher_token,
+    create_moq_subscriber_token as moq_create_subscriber_token,
 )
 from fishjam._openapi_client.api.room import add_peer as room_add_peer
 from fishjam._openapi_client.api.room import create_room as room_create_room
@@ -378,7 +378,7 @@ class FishjamClient(Client):
         """
         response = cast(
             MoqToken,
-            self._request(create_moq_publisher_token, stream_id=stream_name),
+            self._request(moq_create_publisher_token, stream_id=stream_name),
         )
 
         return response.token
@@ -394,7 +394,7 @@ class FishjamClient(Client):
         """
         response = cast(
             MoqToken,
-            self._request(create_moq_subscriber_token, stream_id=stream_name),
+            self._request(moq_create_subscriber_token, stream_id=stream_name),
         )
 
         return response.token
