@@ -351,6 +351,78 @@
 
             </li>
             <li>
+                    <a class="class" href="#ServerMessageStreamerConnected">ServerMessageStreamerConnected</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#ServerMessageStreamerConnected.__init__">ServerMessageStreamerConnected</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ServerMessageStreamerConnected.stream_id">stream_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ServerMessageStreamerConnected.streamer_id">streamer_id</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#ServerMessageStreamerDisconnected">ServerMessageStreamerDisconnected</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#ServerMessageStreamerDisconnected.__init__">ServerMessageStreamerDisconnected</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ServerMessageStreamerDisconnected.stream_id">stream_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ServerMessageStreamerDisconnected.streamer_id">streamer_id</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#ServerMessageChannelAdded">ServerMessageChannelAdded</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#ServerMessageChannelAdded.__init__">ServerMessageChannelAdded</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ServerMessageChannelAdded.room_id">room_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ServerMessageChannelAdded.peer_id">peer_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ServerMessageChannelAdded.component_id">component_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ServerMessageChannelAdded.channel_id">channel_id</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
+                    <a class="class" href="#ServerMessageChannelRemoved">ServerMessageChannelRemoved</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#ServerMessageChannelRemoved.__init__">ServerMessageChannelRemoved</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ServerMessageChannelRemoved.room_id">room_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ServerMessageChannelRemoved.peer_id">peer_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ServerMessageChannelRemoved.component_id">component_id</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#ServerMessageChannelRemoved.channel_id">channel_id</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
                     <a class="class" href="#ServerMessageTrackAdded">ServerMessageTrackAdded</a>
                             <ul class="memberlist">
                         <li>
@@ -545,48 +617,56 @@
 </span><span id="L-2"><a href="#L-2"><span class="linenos"> 2</span></a>
 </span><span id="L-3"><a href="#L-3"><span class="linenos"> 3</span></a><span class="c1"># Exported messages</span>
 </span><span id="L-4"><a href="#L-4"><span class="linenos"> 4</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">fishjam.events._protos.fishjam</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
-</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    <span class="n">ServerMessagePeerAdded</span><span class="p">,</span>
-</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>    <span class="n">ServerMessagePeerConnected</span><span class="p">,</span>
-</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>    <span class="n">ServerMessagePeerCrashed</span><span class="p">,</span>
-</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>    <span class="n">ServerMessagePeerDeleted</span><span class="p">,</span>
-</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="n">ServerMessagePeerDisconnected</span><span class="p">,</span>
-</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="n">ServerMessagePeerMetadataUpdated</span><span class="p">,</span>
-</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>    <span class="n">ServerMessagePeerType</span><span class="p">,</span>
-</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="n">ServerMessageRoomCrashed</span><span class="p">,</span>
-</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="n">ServerMessageRoomCreated</span><span class="p">,</span>
-</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>    <span class="n">ServerMessageRoomDeleted</span><span class="p">,</span>
-</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>    <span class="n">ServerMessageStreamConnected</span><span class="p">,</span>
-</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="n">ServerMessageStreamDisconnected</span><span class="p">,</span>
-</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="n">ServerMessageTrackAdded</span><span class="p">,</span>
-</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">ServerMessageTrackMetadataUpdated</span><span class="p">,</span>
-</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="n">ServerMessageTrackRemoved</span><span class="p">,</span>
-</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">ServerMessageViewerConnected</span><span class="p">,</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="n">ServerMessageViewerDisconnected</span><span class="p">,</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a><span class="p">)</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">fishjam.events._protos.fishjam.notifications</span><span class="w"> </span><span class="kn">import</span> <span class="n">Track</span><span class="p">,</span> <span class="n">TrackEncoding</span><span class="p">,</span> <span class="n">TrackType</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="s2">&quot;ServerMessageRoomCreated&quot;</span><span class="p">,</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a>    <span class="s2">&quot;ServerMessageRoomDeleted&quot;</span><span class="p">,</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>    <span class="s2">&quot;ServerMessageRoomCrashed&quot;</span><span class="p">,</span>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>    <span class="s2">&quot;ServerMessagePeerAdded&quot;</span><span class="p">,</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="s2">&quot;ServerMessagePeerConnected&quot;</span><span class="p">,</span>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="s2">&quot;ServerMessagePeerDeleted&quot;</span><span class="p">,</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="s2">&quot;ServerMessagePeerDisconnected&quot;</span><span class="p">,</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="s2">&quot;ServerMessagePeerMetadataUpdated&quot;</span><span class="p">,</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="s2">&quot;ServerMessagePeerCrashed&quot;</span><span class="p">,</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="s2">&quot;ServerMessageStreamConnected&quot;</span><span class="p">,</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="s2">&quot;ServerMessageStreamDisconnected&quot;</span><span class="p">,</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="s2">&quot;ServerMessageTrackAdded&quot;</span><span class="p">,</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    <span class="s2">&quot;ServerMessageTrackMetadataUpdated&quot;</span><span class="p">,</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="s2">&quot;ServerMessageTrackRemoved&quot;</span><span class="p">,</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="s2">&quot;ServerMessageViewerConnected&quot;</span><span class="p">,</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>    <span class="s2">&quot;ServerMessageViewerDisconnected&quot;</span><span class="p">,</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>    <span class="s2">&quot;Track&quot;</span><span class="p">,</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>    <span class="s2">&quot;TrackEncoding&quot;</span><span class="p">,</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>    <span class="s2">&quot;TrackType&quot;</span><span class="p">,</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>    <span class="s2">&quot;ServerMessagePeerType&quot;</span><span class="p">,</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a><span class="p">]</span>
+</span><span id="L-5"><a href="#L-5"><span class="linenos"> 5</span></a>    <span class="n">ServerMessageChannelAdded</span><span class="p">,</span>
+</span><span id="L-6"><a href="#L-6"><span class="linenos"> 6</span></a>    <span class="n">ServerMessageChannelRemoved</span><span class="p">,</span>
+</span><span id="L-7"><a href="#L-7"><span class="linenos"> 7</span></a>    <span class="n">ServerMessagePeerAdded</span><span class="p">,</span>
+</span><span id="L-8"><a href="#L-8"><span class="linenos"> 8</span></a>    <span class="n">ServerMessagePeerConnected</span><span class="p">,</span>
+</span><span id="L-9"><a href="#L-9"><span class="linenos"> 9</span></a>    <span class="n">ServerMessagePeerCrashed</span><span class="p">,</span>
+</span><span id="L-10"><a href="#L-10"><span class="linenos">10</span></a>    <span class="n">ServerMessagePeerDeleted</span><span class="p">,</span>
+</span><span id="L-11"><a href="#L-11"><span class="linenos">11</span></a>    <span class="n">ServerMessagePeerDisconnected</span><span class="p">,</span>
+</span><span id="L-12"><a href="#L-12"><span class="linenos">12</span></a>    <span class="n">ServerMessagePeerMetadataUpdated</span><span class="p">,</span>
+</span><span id="L-13"><a href="#L-13"><span class="linenos">13</span></a>    <span class="n">ServerMessagePeerType</span><span class="p">,</span>
+</span><span id="L-14"><a href="#L-14"><span class="linenos">14</span></a>    <span class="n">ServerMessageRoomCrashed</span><span class="p">,</span>
+</span><span id="L-15"><a href="#L-15"><span class="linenos">15</span></a>    <span class="n">ServerMessageRoomCreated</span><span class="p">,</span>
+</span><span id="L-16"><a href="#L-16"><span class="linenos">16</span></a>    <span class="n">ServerMessageRoomDeleted</span><span class="p">,</span>
+</span><span id="L-17"><a href="#L-17"><span class="linenos">17</span></a>    <span class="n">ServerMessageStreamConnected</span><span class="p">,</span>
+</span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">ServerMessageStreamDisconnected</span><span class="p">,</span>
+</span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="n">ServerMessageStreamerConnected</span><span class="p">,</span>
+</span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">ServerMessageStreamerDisconnected</span><span class="p">,</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="n">ServerMessageTrackAdded</span><span class="p">,</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="n">ServerMessageTrackMetadataUpdated</span><span class="p">,</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="n">ServerMessageTrackRemoved</span><span class="p">,</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="n">ServerMessageViewerConnected</span><span class="p">,</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="n">ServerMessageViewerDisconnected</span><span class="p">,</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="p">)</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">fishjam.events._protos.fishjam.notifications</span><span class="w"> </span><span class="kn">import</span> <span class="n">Track</span><span class="p">,</span> <span class="n">TrackEncoding</span><span class="p">,</span> <span class="n">TrackType</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>    <span class="s2">&quot;ServerMessageRoomCreated&quot;</span><span class="p">,</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>    <span class="s2">&quot;ServerMessageRoomDeleted&quot;</span><span class="p">,</span>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="s2">&quot;ServerMessageRoomCrashed&quot;</span><span class="p">,</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="s2">&quot;ServerMessagePeerAdded&quot;</span><span class="p">,</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="s2">&quot;ServerMessagePeerConnected&quot;</span><span class="p">,</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="s2">&quot;ServerMessagePeerDeleted&quot;</span><span class="p">,</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="s2">&quot;ServerMessagePeerDisconnected&quot;</span><span class="p">,</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="s2">&quot;ServerMessagePeerMetadataUpdated&quot;</span><span class="p">,</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    <span class="s2">&quot;ServerMessagePeerCrashed&quot;</span><span class="p">,</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="s2">&quot;ServerMessageStreamConnected&quot;</span><span class="p">,</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="s2">&quot;ServerMessageStreamDisconnected&quot;</span><span class="p">,</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>    <span class="s2">&quot;ServerMessageStreamerConnected&quot;</span><span class="p">,</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>    <span class="s2">&quot;ServerMessageStreamerDisconnected&quot;</span><span class="p">,</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>    <span class="s2">&quot;ServerMessageChannelAdded&quot;</span><span class="p">,</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>    <span class="s2">&quot;ServerMessageChannelRemoved&quot;</span><span class="p">,</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>    <span class="s2">&quot;ServerMessageTrackAdded&quot;</span><span class="p">,</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>    <span class="s2">&quot;ServerMessageTrackMetadataUpdated&quot;</span><span class="p">,</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>    <span class="s2">&quot;ServerMessageTrackRemoved&quot;</span><span class="p">,</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>    <span class="s2">&quot;ServerMessageViewerConnected&quot;</span><span class="p">,</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>    <span class="s2">&quot;ServerMessageViewerDisconnected&quot;</span><span class="p">,</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>    <span class="s2">&quot;Track&quot;</span><span class="p">,</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>    <span class="s2">&quot;TrackEncoding&quot;</span><span class="p">,</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>    <span class="s2">&quot;TrackType&quot;</span><span class="p">,</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>    <span class="s2">&quot;ServerMessagePeerType&quot;</span><span class="p">,</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="p">]</span>
 </span></pre></div>
 
 
@@ -1505,6 +1585,370 @@
                 <dd id="ServerMessageStreamDisconnected.to_pydict" class="function">to_pydict</dd>
                 <dd id="ServerMessageStreamDisconnected.from_pydict" class="function">from_pydict</dd>
                 <dd id="ServerMessageStreamDisconnected.is_set" class="function">is_set</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="ServerMessageStreamerConnected">
+                            <input id="ServerMessageStreamerConnected-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+                    <div class="decorator">@dataclass(eq=False, repr=False)</div>
+
+    <span class="def">class</span>
+    <span class="name">ServerMessageStreamerConnected</span><wbr>(<span class="base">betterproto.Message</span>):
+
+                <label class="view-source-button" for="ServerMessageStreamerConnected-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#ServerMessageStreamerConnected"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageStreamerConnected-533"><a href="#ServerMessageStreamerConnected-533"><span class="linenos">533</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessageStreamerConnected-534"><a href="#ServerMessageStreamerConnected-534"><span class="linenos">534</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageStreamerConnected</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessageStreamerConnected-535"><a href="#ServerMessageStreamerConnected-535"><span class="linenos">535</span></a>    <span class="n">stream_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="ServerMessageStreamerConnected-536"><a href="#ServerMessageStreamerConnected-536"><span class="linenos">536</span></a>    <span class="n">streamer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span></pre></div>
+
+
+
+
+                            <div id="ServerMessageStreamerConnected.__init__" class="classattr">
+                                <div class="attr function">
+
+        <span class="name">ServerMessageStreamerConnected</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">stream_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>, </span><span class="param"><span class="n">streamer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessageStreamerConnected.__init__"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessageStreamerConnected.stream_id" class="classattr">
+                                <div class="attr variable">
+            <span class="name">stream_id</span><span class="annotation">: str</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessageStreamerConnected.stream_id"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessageStreamerConnected.streamer_id" class="classattr">
+                                <div class="attr variable">
+            <span class="name">streamer_id</span><span class="annotation">: str</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessageStreamerConnected.streamer_id"></a>
+
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>betterproto.Message</dt>
+                                <dd id="ServerMessageStreamerConnected.SerializeToString" class="function">SerializeToString</dd>
+                <dd id="ServerMessageStreamerConnected.parse" class="function">parse</dd>
+                <dd id="ServerMessageStreamerConnected.FromString" class="function">FromString</dd>
+                <dd id="ServerMessageStreamerConnected.to_dict" class="function">to_dict</dd>
+                <dd id="ServerMessageStreamerConnected.from_dict" class="function">from_dict</dd>
+                <dd id="ServerMessageStreamerConnected.to_json" class="function">to_json</dd>
+                <dd id="ServerMessageStreamerConnected.from_json" class="function">from_json</dd>
+                <dd id="ServerMessageStreamerConnected.to_pydict" class="function">to_pydict</dd>
+                <dd id="ServerMessageStreamerConnected.from_pydict" class="function">from_pydict</dd>
+                <dd id="ServerMessageStreamerConnected.is_set" class="function">is_set</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="ServerMessageStreamerDisconnected">
+                            <input id="ServerMessageStreamerDisconnected-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+                    <div class="decorator">@dataclass(eq=False, repr=False)</div>
+
+    <span class="def">class</span>
+    <span class="name">ServerMessageStreamerDisconnected</span><wbr>(<span class="base">betterproto.Message</span>):
+
+                <label class="view-source-button" for="ServerMessageStreamerDisconnected-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#ServerMessageStreamerDisconnected"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageStreamerDisconnected-539"><a href="#ServerMessageStreamerDisconnected-539"><span class="linenos">539</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessageStreamerDisconnected-540"><a href="#ServerMessageStreamerDisconnected-540"><span class="linenos">540</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageStreamerDisconnected</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessageStreamerDisconnected-541"><a href="#ServerMessageStreamerDisconnected-541"><span class="linenos">541</span></a>    <span class="n">stream_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="ServerMessageStreamerDisconnected-542"><a href="#ServerMessageStreamerDisconnected-542"><span class="linenos">542</span></a>    <span class="n">streamer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+</span></pre></div>
+
+
+
+
+                            <div id="ServerMessageStreamerDisconnected.__init__" class="classattr">
+                                <div class="attr function">
+
+        <span class="name">ServerMessageStreamerDisconnected</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">stream_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>, </span><span class="param"><span class="n">streamer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessageStreamerDisconnected.__init__"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessageStreamerDisconnected.stream_id" class="classattr">
+                                <div class="attr variable">
+            <span class="name">stream_id</span><span class="annotation">: str</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessageStreamerDisconnected.stream_id"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessageStreamerDisconnected.streamer_id" class="classattr">
+                                <div class="attr variable">
+            <span class="name">streamer_id</span><span class="annotation">: str</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessageStreamerDisconnected.streamer_id"></a>
+
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>betterproto.Message</dt>
+                                <dd id="ServerMessageStreamerDisconnected.SerializeToString" class="function">SerializeToString</dd>
+                <dd id="ServerMessageStreamerDisconnected.parse" class="function">parse</dd>
+                <dd id="ServerMessageStreamerDisconnected.FromString" class="function">FromString</dd>
+                <dd id="ServerMessageStreamerDisconnected.to_dict" class="function">to_dict</dd>
+                <dd id="ServerMessageStreamerDisconnected.from_dict" class="function">from_dict</dd>
+                <dd id="ServerMessageStreamerDisconnected.to_json" class="function">to_json</dd>
+                <dd id="ServerMessageStreamerDisconnected.from_json" class="function">from_json</dd>
+                <dd id="ServerMessageStreamerDisconnected.to_pydict" class="function">to_pydict</dd>
+                <dd id="ServerMessageStreamerDisconnected.from_pydict" class="function">from_pydict</dd>
+                <dd id="ServerMessageStreamerDisconnected.is_set" class="function">is_set</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="ServerMessageChannelAdded">
+                            <input id="ServerMessageChannelAdded-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+                    <div class="decorator">@dataclass(eq=False, repr=False)</div>
+
+    <span class="def">class</span>
+    <span class="name">ServerMessageChannelAdded</span><wbr>(<span class="base">betterproto.Message</span>):
+
+                <label class="view-source-button" for="ServerMessageChannelAdded-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#ServerMessageChannelAdded"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageChannelAdded-444"><a href="#ServerMessageChannelAdded-444"><span class="linenos">444</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessageChannelAdded-445"><a href="#ServerMessageChannelAdded-445"><span class="linenos">445</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageChannelAdded</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessageChannelAdded-446"><a href="#ServerMessageChannelAdded-446"><span class="linenos">446</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a peer creates a channel&quot;&quot;&quot;</span>
+</span><span id="ServerMessageChannelAdded-447"><a href="#ServerMessageChannelAdded-447"><span class="linenos">447</span></a>
+</span><span id="ServerMessageChannelAdded-448"><a href="#ServerMessageChannelAdded-448"><span class="linenos">448</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="ServerMessageChannelAdded-449"><a href="#ServerMessageChannelAdded-449"><span class="linenos">449</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;endpoint_info&quot;</span><span class="p">)</span>
+</span><span id="ServerMessageChannelAdded-450"><a href="#ServerMessageChannelAdded-450"><span class="linenos">450</span></a>    <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;endpoint_info&quot;</span><span class="p">)</span>
+</span><span id="ServerMessageChannelAdded-451"><a href="#ServerMessageChannelAdded-451"><span class="linenos">451</span></a>    <span class="n">channel_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Notification sent when a peer creates a channel</p>
+</div>
+
+
+                            <div id="ServerMessageChannelAdded.__init__" class="classattr">
+                                <div class="attr function">
+
+        <span class="name">ServerMessageChannelAdded</span><span class="signature pdoc-code multiline">(<span class="param">    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">channel_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessageChannelAdded.__init__"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessageChannelAdded.room_id" class="classattr">
+                                <div class="attr variable">
+            <span class="name">room_id</span><span class="annotation">: str</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessageChannelAdded.room_id"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessageChannelAdded.peer_id" class="classattr">
+                                <div class="attr variable">
+            <span class="name">peer_id</span><span class="annotation">: str</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessageChannelAdded.peer_id"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessageChannelAdded.component_id" class="classattr">
+                                <div class="attr variable">
+            <span class="name">component_id</span><span class="annotation">: str</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessageChannelAdded.component_id"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessageChannelAdded.channel_id" class="classattr">
+                                <div class="attr variable">
+            <span class="name">channel_id</span><span class="annotation">: str</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessageChannelAdded.channel_id"></a>
+
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>betterproto.Message</dt>
+                                <dd id="ServerMessageChannelAdded.SerializeToString" class="function">SerializeToString</dd>
+                <dd id="ServerMessageChannelAdded.parse" class="function">parse</dd>
+                <dd id="ServerMessageChannelAdded.FromString" class="function">FromString</dd>
+                <dd id="ServerMessageChannelAdded.to_dict" class="function">to_dict</dd>
+                <dd id="ServerMessageChannelAdded.from_dict" class="function">from_dict</dd>
+                <dd id="ServerMessageChannelAdded.to_json" class="function">to_json</dd>
+                <dd id="ServerMessageChannelAdded.from_json" class="function">from_json</dd>
+                <dd id="ServerMessageChannelAdded.to_pydict" class="function">to_pydict</dd>
+                <dd id="ServerMessageChannelAdded.from_pydict" class="function">from_pydict</dd>
+                <dd id="ServerMessageChannelAdded.is_set" class="function">is_set</dd>
+
+            </div>
+                                </dl>
+                            </div>
+                </section>
+                <section id="ServerMessageChannelRemoved">
+                            <input id="ServerMessageChannelRemoved-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+                    <div class="decorator">@dataclass(eq=False, repr=False)</div>
+
+    <span class="def">class</span>
+    <span class="name">ServerMessageChannelRemoved</span><wbr>(<span class="base">betterproto.Message</span>):
+
+                <label class="view-source-button" for="ServerMessageChannelRemoved-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#ServerMessageChannelRemoved"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="ServerMessageChannelRemoved-454"><a href="#ServerMessageChannelRemoved-454"><span class="linenos">454</span></a><span class="nd">@dataclass</span><span class="p">(</span><span class="n">eq</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="nb">repr</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+</span><span id="ServerMessageChannelRemoved-455"><a href="#ServerMessageChannelRemoved-455"><span class="linenos">455</span></a><span class="k">class</span><span class="w"> </span><span class="nc">ServerMessageChannelRemoved</span><span class="p">(</span><span class="n">betterproto</span><span class="o">.</span><span class="n">Message</span><span class="p">):</span>
+</span><span id="ServerMessageChannelRemoved-456"><a href="#ServerMessageChannelRemoved-456"><span class="linenos">456</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Notification sent when a peer deletes a channel&quot;&quot;&quot;</span>
+</span><span id="ServerMessageChannelRemoved-457"><a href="#ServerMessageChannelRemoved-457"><span class="linenos">457</span></a>
+</span><span id="ServerMessageChannelRemoved-458"><a href="#ServerMessageChannelRemoved-458"><span class="linenos">458</span></a>    <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+</span><span id="ServerMessageChannelRemoved-459"><a href="#ServerMessageChannelRemoved-459"><span class="linenos">459</span></a>    <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;endpoint_info&quot;</span><span class="p">)</span>
+</span><span id="ServerMessageChannelRemoved-460"><a href="#ServerMessageChannelRemoved-460"><span class="linenos">460</span></a>    <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">group</span><span class="o">=</span><span class="s2">&quot;endpoint_info&quot;</span><span class="p">)</span>
+</span><span id="ServerMessageChannelRemoved-461"><a href="#ServerMessageChannelRemoved-461"><span class="linenos">461</span></a>    <span class="n">channel_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">betterproto</span><span class="o">.</span><span class="n">string_field</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Notification sent when a peer deletes a channel</p>
+</div>
+
+
+                            <div id="ServerMessageChannelRemoved.__init__" class="classattr">
+                                <div class="attr function">
+
+        <span class="name">ServerMessageChannelRemoved</span><span class="signature pdoc-code multiline">(<span class="param">  <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param"> <span class="n">component_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span>,</span><span class="param">    <span class="n">channel_id</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="o">&lt;</span><span class="nb">object</span> <span class="nb">object</span><span class="o">&gt;</span></span>)</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessageChannelRemoved.__init__"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessageChannelRemoved.room_id" class="classattr">
+                                <div class="attr variable">
+            <span class="name">room_id</span><span class="annotation">: str</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessageChannelRemoved.room_id"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessageChannelRemoved.peer_id" class="classattr">
+                                <div class="attr variable">
+            <span class="name">peer_id</span><span class="annotation">: str</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessageChannelRemoved.peer_id"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessageChannelRemoved.component_id" class="classattr">
+                                <div class="attr variable">
+            <span class="name">component_id</span><span class="annotation">: str</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessageChannelRemoved.component_id"></a>
+
+
+
+                            </div>
+                            <div id="ServerMessageChannelRemoved.channel_id" class="classattr">
+                                <div class="attr variable">
+            <span class="name">channel_id</span><span class="annotation">: str</span>        =
+<span class="default_value">&lt;object object&gt;</span>
+
+
+    </div>
+    <a class="headerlink" href="#ServerMessageChannelRemoved.channel_id"></a>
+
+
+
+                            </div>
+                            <div class="inherited">
+                                <h5>Inherited Members</h5>
+                                <dl>
+                                    <div><dt>betterproto.Message</dt>
+                                <dd id="ServerMessageChannelRemoved.SerializeToString" class="function">SerializeToString</dd>
+                <dd id="ServerMessageChannelRemoved.parse" class="function">parse</dd>
+                <dd id="ServerMessageChannelRemoved.FromString" class="function">FromString</dd>
+                <dd id="ServerMessageChannelRemoved.to_dict" class="function">to_dict</dd>
+                <dd id="ServerMessageChannelRemoved.from_dict" class="function">from_dict</dd>
+                <dd id="ServerMessageChannelRemoved.to_json" class="function">to_json</dd>
+                <dd id="ServerMessageChannelRemoved.from_json" class="function">from_json</dd>
+                <dd id="ServerMessageChannelRemoved.to_pydict" class="function">to_pydict</dd>
+                <dd id="ServerMessageChannelRemoved.from_pydict" class="function">from_pydict</dd>
+                <dd id="ServerMessageChannelRemoved.is_set" class="function">is_set</dd>
 
             </div>
                                 </dl>
