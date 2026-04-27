@@ -2,6 +2,8 @@
 
 # Exported messages
 from fishjam.events._protos.fishjam import (
+    ServerMessageChannelAdded,
+    ServerMessageChannelRemoved,
     ServerMessagePeerAdded,
     ServerMessagePeerConnected,
     ServerMessagePeerCrashed,
@@ -14,6 +16,8 @@ from fishjam.events._protos.fishjam import (
     ServerMessageRoomDeleted,
     ServerMessageStreamConnected,
     ServerMessageStreamDisconnected,
+    ServerMessageStreamerConnected,
+    ServerMessageStreamerDisconnected,
     ServerMessageTrackAdded,
     ServerMessageTrackMetadataUpdated,
     ServerMessageTrackRemoved,
@@ -34,6 +38,10 @@ __all__ = [
     "ServerMessagePeerCrashed",
     "ServerMessageStreamConnected",
     "ServerMessageStreamDisconnected",
+    "ServerMessageStreamerConnected",
+    "ServerMessageStreamerDisconnected",
+    "ServerMessageChannelAdded",
+    "ServerMessageChannelRemoved",
     "ServerMessageTrackAdded",
     "ServerMessageTrackMetadataUpdated",
     "ServerMessageTrackRemoved",
