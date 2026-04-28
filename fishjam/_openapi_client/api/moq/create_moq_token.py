@@ -1,6 +1,5 @@
 from http import HTTPStatus
 from typing import Any
-from urllib.parse import quote
 
 import httpx
 
@@ -8,19 +7,27 @@ from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.moq_token import MoqToken
-from ...types import Response
+from ...models.moq_token_config import MoqTokenConfig
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
-    stream_id: str,
+    *,
+    body: MoqTokenConfig | Unset = UNSET,
 ) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
+
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/moq/{stream_id}/publisher".format(
-            stream_id=quote(str(stream_id), safe=""),
-        ),
+        "url": "/moq/token",
     }
 
+    if not isinstance(body, Unset):
+        _kwargs["json"] = body.to_dict()
+
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
     return _kwargs
 
 
@@ -31,6 +38,11 @@ def _parse_response(
         response_200 = MoqToken.from_dict(response.json())
 
         return response_200
+
+    if response.status_code == 400:
+        response_400 = Error.from_dict(response.json())
+
+        return response_400
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
@@ -60,14 +72,14 @@ def _build_response(
 
 
 def sync_detailed(
-    stream_id: str,
     *,
     client: AuthenticatedClient,
+    body: MoqTokenConfig | Unset = UNSET,
 ) -> Response[Error | MoqToken]:
-    """Creates a MoQ publisher token for the given stream
+    """Creates a MoQ token for the given stream
 
     Args:
-        stream_id (str):
+        body (MoqTokenConfig | Unset): MoQ token configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -78,7 +90,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        stream_id=stream_id,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -89,14 +101,14 @@ def sync_detailed(
 
 
 def sync(
-    stream_id: str,
     *,
     client: AuthenticatedClient,
+    body: MoqTokenConfig | Unset = UNSET,
 ) -> Error | MoqToken | None:
-    """Creates a MoQ publisher token for the given stream
+    """Creates a MoQ token for the given stream
 
     Args:
-        stream_id (str):
+        body (MoqTokenConfig | Unset): MoQ token configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -107,20 +119,20 @@ def sync(
     """
 
     return sync_detailed(
-        stream_id=stream_id,
         client=client,
+        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    stream_id: str,
     *,
     client: AuthenticatedClient,
+    body: MoqTokenConfig | Unset = UNSET,
 ) -> Response[Error | MoqToken]:
-    """Creates a MoQ publisher token for the given stream
+    """Creates a MoQ token for the given stream
 
     Args:
-        stream_id (str):
+        body (MoqTokenConfig | Unset): MoQ token configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -131,7 +143,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        stream_id=stream_id,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -140,14 +152,14 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    stream_id: str,
     *,
     client: AuthenticatedClient,
+    body: MoqTokenConfig | Unset = UNSET,
 ) -> Error | MoqToken | None:
-    """Creates a MoQ publisher token for the given stream
+    """Creates a MoQ token for the given stream
 
     Args:
-        stream_id (str):
+        body (MoqTokenConfig | Unset): MoQ token configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -159,7 +171,7 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            stream_id=stream_id,
             client=client,
+            body=body,
         )
     ).parsed

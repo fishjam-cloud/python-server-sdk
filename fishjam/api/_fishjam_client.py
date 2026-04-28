@@ -4,10 +4,7 @@ from dataclasses import dataclass, field
 from typing import Any, Literal, cast
 
 from fishjam._openapi_client.api.moq import (
-    create_moq_publisher_token as moq_create_publisher_token,
-)
-from fishjam._openapi_client.api.moq import (
-    create_moq_subscriber_token as moq_create_subscriber_token,
+    create_moq_token as moq_create_token,
 )
 from fishjam._openapi_client.api.room import add_peer as room_add_peer
 from fishjam._openapi_client.api.room import create_room as room_create_room
@@ -29,6 +26,7 @@ from fishjam._openapi_client.models import (
     AudioFormat,
     AudioSampleRate,
     MoqToken,
+    MoqTokenConfig,
     Peer,
     PeerConfig,
     PeerDetailsResponse,
@@ -369,34 +367,26 @@ class FishjamClient(Client):
 
         return response.token
 
-    def create_moq_publisher_token(self, stream_id: str) -> str:
-        """Generates a MoQ publisher token for the given stream.
+    def create_moq_token(
+        self,
+        publish_path: str | None = None,
+        subscribe_path: str | None = None,
+    ) -> str:
+        """Generates a MoQ token.
 
         Args:
-            stream_id: The name of the MoQ stream.
+            publish_path: Path the token grants publish access to.
+            subscribe_path: Path the token grants subscribe access to.
 
         Returns:
-            str: The generated publisher token.
+            str: The generated token.
         """
-        response = cast(
-            MoqToken,
-            self._request(moq_create_publisher_token, stream_id=stream_id),
+        config = MoqTokenConfig(
+            publish_path=publish_path, subscribe_path=subscribe_path
         )
-
-        return response.token
-
-    def create_moq_subscriber_token(self, stream_id: str) -> str:
-        """Generates a MoQ subscriber token for the given stream.
-
-        Args:
-            stream_id: The name of the MoQ stream.
-
-        Returns:
-            str: The generated subscriber token.
-        """
         response = cast(
             MoqToken,
-            self._request(moq_create_subscriber_token, stream_id=stream_id),
+            self._request(moq_create_token, body=config),
         )
 
         return response.token
