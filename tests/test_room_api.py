@@ -320,9 +320,25 @@ class TestCreateLivestreamStreamerToken:
             room_api.create_livestream_streamer_token(room.id)
 
 
-class TestCreateMoqPublisherToken:
-    def test_valid(self, room_api: FishjamClient):
-        token = room_api.create_moq_publisher_token("test-stream")
+class TestCreateMoqToken:
+    def test_no_params(self, room_api: FishjamClient):
+        with pytest.raises(BadRequestError):
+            room_api.create_moq_token()
+
+    def test_valid_publish(self, room_api: FishjamClient):
+        token = room_api.create_moq_token(publish_path="test-stream")
+
+        assert isinstance(token, str)
+
+    def test_valid_subscribe(self, room_api: FishjamClient):
+        token = room_api.create_moq_token(subscribe_path="test-stream")
+
+        assert isinstance(token, str)
+
+    def test_valid_both(self, room_api: FishjamClient):
+        token = room_api.create_moq_token(
+            publish_path="test-stream", subscribe_path="test-stream"
+        )
 
         assert isinstance(token, str)
 
@@ -330,17 +346,4 @@ class TestCreateMoqPublisherToken:
         room_api = FishjamClient(FISHJAM_ID, "invalid")
 
         with pytest.raises(UnauthorizedError):
-            room_api.create_moq_publisher_token("test-stream")
-
-
-class TestCreateMoqSubscriberToken:
-    def test_valid(self, room_api: FishjamClient):
-        token = room_api.create_moq_subscriber_token("test-stream")
-
-        assert isinstance(token, str)
-
-    def test_unauthorized(self):
-        room_api = FishjamClient(FISHJAM_ID, "invalid")
-
-        with pytest.raises(UnauthorizedError):
-            room_api.create_moq_subscriber_token("test-stream")
+            room_api.create_moq_token(publish_path="test-stream")
