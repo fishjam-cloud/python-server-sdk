@@ -80,16 +80,17 @@ class TestConnectingToServer:
         def handle_notitifcation(_notification):
             pass
 
-        async with asyncio.TaskGroup() as tg:
-            notifier_task = tg.create_task(notifier.connect())
+        notifier_task = asyncio.ensure_future(notifier.connect())
+        try:
             await notifier.wait_ready()
 
             assert (
                 notifier._websocket
                 and notifier._websocket.state == websockets.State.OPEN
             )
-
+        finally:
             notifier_task.cancel()
+            await asyncio.gather(notifier_task, return_exceptions=True)
 
 
 @pytest.fixture
@@ -114,10 +115,11 @@ class TestReceivingNotifications:
     ):
         event_checks = [ServerMessageRoomCreated, ServerMessageRoomDeleted]
 
-        async with asyncio.TaskGroup() as tg:
-            assert_task = tg.create_task(assert_events(notifier, event_checks.copy()))
-
-            notifier_task = tg.create_task(notifier.connect())
+        assert_task = asyncio.ensure_future(
+            assert_events(notifier, event_checks.copy())
+        )
+        notifier_task = asyncio.ensure_future(notifier.connect())
+        try:
             await notifier.wait_ready()
 
             options = RoomOptions(webhook_url=WEBHOOK_URL)
@@ -126,8 +128,10 @@ class TestReceivingNotifications:
             room_api.delete_room(room.id)
 
             await assert_task
-
+        finally:
+            assert_task.cancel()
             notifier_task.cancel()
+            await asyncio.gather(assert_task, notifier_task, return_exceptions=True)
 
         self.assert_webhook_events(event_checks, event_queue, room.id)
 
@@ -144,10 +148,12 @@ class TestReceivingNotifications:
             ServerMessageRoomDeleted,
         ]
 
-        async with asyncio.TaskGroup() as tg:
-            assert_task = tg.create_task(assert_events(notifier, event_checks.copy()))
-
-            notifier_task = tg.create_task(notifier.connect())
+        assert_task = asyncio.ensure_future(
+            assert_events(notifier, event_checks.copy())
+        )
+        notifier_task = asyncio.ensure_future(notifier.connect())
+        tasks = [assert_task, notifier_task]
+        try:
             await notifier.wait_ready()
 
             options = RoomOptions(webhook_url=WEBHOOK_URL)
@@ -155,7 +161,8 @@ class TestReceivingNotifications:
 
             peer, token = room_api.create_peer(room.id)
             peer_socket = PeerSocket(fishjam_url=FISHJAM_ID)
-            peer_socket_task = tg.create_task(peer_socket.connect(token))
+            peer_socket_task = asyncio.ensure_future(peer_socket.connect(token))
+            tasks.append(peer_socket_task)
 
             await peer_socket.wait_ready()
 
@@ -163,9 +170,10 @@ class TestReceivingNotifications:
             room_api.delete_room(room.id)
 
             await assert_task
-
-            notifier_task.cancel()
-            peer_socket_task.cancel()
+        finally:
+            for task in tasks:
+                task.cancel()
+            await asyncio.gather(*tasks, return_exceptions=True)
 
         self.assert_webhook_events(event_checks, event_queue, room.id)
 
@@ -181,10 +189,12 @@ class TestReceivingNotifications:
             ServerMessageRoomDeleted,
         ]
 
-        async with asyncio.TaskGroup() as tg:
-            assert_task = tg.create_task(assert_events(notifier, event_checks.copy()))
-
-            notifier_task = tg.create_task(notifier.connect())
+        assert_task = asyncio.ensure_future(
+            assert_events(notifier, event_checks.copy())
+        )
+        notifier_task = asyncio.ensure_future(notifier.connect())
+        tasks = [assert_task, notifier_task]
+        try:
             await notifier.wait_ready()
 
             options = RoomOptions(webhook_url=WEBHOOK_URL)
@@ -192,16 +202,18 @@ class TestReceivingNotifications:
             _peer, token = room_api.create_peer(room.id)
 
             peer_socket = PeerSocket(fishjam_url=FISHJAM_ID)
-            peer_socket_task = tg.create_task(peer_socket.connect(token))
+            peer_socket_task = asyncio.ensure_future(peer_socket.connect(token))
+            tasks.append(peer_socket_task)
 
             await peer_socket.wait_ready()
 
             room_api.delete_room(room.id)
 
             await assert_task
-
-            notifier_task.cancel()
-            peer_socket_task.cancel()
+        finally:
+            for task in tasks:
+                task.cancel()
+            await asyncio.gather(*tasks, return_exceptions=True)
 
         self.assert_webhook_events(event_checks, event_queue, room.id)
 

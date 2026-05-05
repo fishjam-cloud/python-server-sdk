@@ -54,9 +54,8 @@ async def notifier():
     yield notifier
 
     task.cancel()
-    with suppress(asyncio.TimeoutError):
-        async with asyncio.timeout(0):
-            await task
+    with suppress(asyncio.CancelledError):
+        await task
 
 
 class TestAgentApi:
