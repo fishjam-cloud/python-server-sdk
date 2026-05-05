@@ -74,7 +74,7 @@ jobs:
           npm exec localtunnel -- --port 5000 > tunnel.log 2>&1 &
 
           # Poll for the URL
-          TIMEOUT=15
+          TIMEOUT=90
           ELAPSED=0
           echo "Waiting for localtunnel to generate URL..."
 
