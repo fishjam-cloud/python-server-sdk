@@ -45,9 +45,7 @@ class TestAuthentication:
         with pytest.raises(UnauthorizedError):
             room_api.create_room()
 
-    def test_valid_token(self):
-        room_api = FishjamClient(FISHJAM_ID, FISHJAM_MANAGEMENT_TOKEN)
-
+    def test_valid_token(self, room_api: FishjamClient):
         room = room_api.create_room()
         all_rooms = room_api.get_all_rooms()
 
@@ -82,11 +80,6 @@ class TestAPIClientHeader:
 
         expected_header_value = f"python-server/{get_version()}"
         assert captured_headers["x-fishjam-api-client"] == expected_header_value
-
-
-@pytest.fixture
-def room_api():
-    return FishjamClient(FISHJAM_ID, FISHJAM_MANAGEMENT_TOKEN)
 
 
 class TestCreateRoom:
