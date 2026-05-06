@@ -110,7 +110,7 @@ class TestReceivingNotifications:
     ):
         event_checks = [ServerMessageRoomCreated, ServerMessageRoomDeleted]
 
-        room_id_future: asyncio.Future = asyncio.get_event_loop().create_future()
+        room_id_future: asyncio.Future = asyncio.get_running_loop().create_future()
         assert_task = asyncio.ensure_future(
             assert_events(notifier, event_checks.copy(), room_id_future=room_id_future)
         )
@@ -145,7 +145,7 @@ class TestReceivingNotifications:
             ServerMessageRoomDeleted,
         ]
 
-        room_id_future: asyncio.Future = asyncio.get_event_loop().create_future()
+        room_id_future: asyncio.Future = asyncio.get_running_loop().create_future()
         assert_task = asyncio.ensure_future(
             assert_events(notifier, event_checks.copy(), room_id_future=room_id_future)
         )
@@ -189,7 +189,7 @@ class TestReceivingNotifications:
             ServerMessageRoomDeleted,
         ]
 
-        room_id_future: asyncio.Future = asyncio.get_event_loop().create_future()
+        room_id_future: asyncio.Future = asyncio.get_running_loop().create_future()
         assert_task = asyncio.ensure_future(
             assert_events(notifier, event_checks.copy(), room_id_future=room_id_future)
         )
