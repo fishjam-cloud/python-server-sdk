@@ -94,11 +94,6 @@ class TestConnectingToServer:
 
 
 @pytest.fixture
-def room_api():
-    return FishjamClient(FISHJAM_ID, FISHJAM_MANAGEMENT_TOKEN)
-
-
-@pytest.fixture
 def notifier():
     notifier = FishjamNotifier(
         fishjam_id=FISHJAM_ID,
@@ -115,8 +110,9 @@ class TestReceivingNotifications:
     ):
         event_checks = [ServerMessageRoomCreated, ServerMessageRoomDeleted]
 
+        room_id_future: asyncio.Future = asyncio.get_running_loop().create_future()
         assert_task = asyncio.ensure_future(
-            assert_events(notifier, event_checks.copy())
+            assert_events(notifier, event_checks.copy(), room_id_future=room_id_future)
         )
         notifier_task = asyncio.ensure_future(notifier.connect())
         try:
@@ -124,6 +120,7 @@ class TestReceivingNotifications:
 
             options = RoomOptions(webhook_url=WEBHOOK_URL)
             room = room_api.create_room(options=options)
+            room_id_future.set_result(room.id)
 
             room_api.delete_room(room.id)
 
@@ -148,8 +145,9 @@ class TestReceivingNotifications:
             ServerMessageRoomDeleted,
         ]
 
+        room_id_future: asyncio.Future = asyncio.get_running_loop().create_future()
         assert_task = asyncio.ensure_future(
-            assert_events(notifier, event_checks.copy())
+            assert_events(notifier, event_checks.copy(), room_id_future=room_id_future)
         )
         notifier_task = asyncio.ensure_future(notifier.connect())
         tasks = [assert_task, notifier_task]
@@ -158,6 +156,7 @@ class TestReceivingNotifications:
 
             options = RoomOptions(webhook_url=WEBHOOK_URL)
             room = room_api.create_room(options=options)
+            room_id_future.set_result(room.id)
 
             peer, token = room_api.create_peer(room.id)
             peer_socket = PeerSocket(fishjam_url=FISHJAM_ID)
@@ -185,12 +184,14 @@ class TestReceivingNotifications:
             ServerMessageRoomCreated,
             ServerMessagePeerAdded,
             ServerMessagePeerConnected,
+            ServerMessagePeerDisconnected,
             ServerMessagePeerDeleted,
             ServerMessageRoomDeleted,
         ]
 
+        room_id_future: asyncio.Future = asyncio.get_running_loop().create_future()
         assert_task = asyncio.ensure_future(
-            assert_events(notifier, event_checks.copy())
+            assert_events(notifier, event_checks.copy(), room_id_future=room_id_future)
         )
         notifier_task = asyncio.ensure_future(notifier.connect())
         tasks = [assert_task, notifier_task]
@@ -199,6 +200,7 @@ class TestReceivingNotifications:
 
             options = RoomOptions(webhook_url=WEBHOOK_URL)
             room = room_api.create_room(options=options)
+            room_id_future.set_result(room.id)
             _peer, token = room_api.create_peer(room.id)
 
             peer_socket = PeerSocket(fishjam_url=FISHJAM_ID)
