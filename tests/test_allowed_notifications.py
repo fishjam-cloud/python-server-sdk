@@ -20,6 +20,8 @@ IGNORED_NOTIFICATIONS = {
     "ServerMessageTrackForwarding",
     "ServerMessageTrackForwardingRemoved",
     "ServerMessageVadNotification",
+    # Webhook-only transport wrapper; the WebSocket notifier never receives it.
+    "ServerMessageNotificationBatch",
     # Deprecated in the proto.
     "ServerMessageStreamConnected",
     "ServerMessageStreamDisconnected",
