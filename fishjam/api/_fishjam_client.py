@@ -3,22 +3,22 @@
 from dataclasses import dataclass, field
 from typing import Any, Literal, cast
 
-from fishjam._openapi_client.api.moq import (
+from fishjam._openapi_client.api.mo_q import (
     create_moq_token as moq_create_token,
 )
-from fishjam._openapi_client.api.room import add_peer as room_add_peer
-from fishjam._openapi_client.api.room import create_room as room_create_room
-from fishjam._openapi_client.api.room import delete_peer as room_delete_peer
-from fishjam._openapi_client.api.room import delete_room as room_delete_room
-from fishjam._openapi_client.api.room import get_all_rooms as room_get_all_rooms
-from fishjam._openapi_client.api.room import get_room as room_get_room
-from fishjam._openapi_client.api.room import refresh_token as room_refresh_token
-from fishjam._openapi_client.api.room import subscribe_peer as room_subscribe_peer
-from fishjam._openapi_client.api.room import subscribe_tracks as room_subscribe_tracks
-from fishjam._openapi_client.api.streamer import (
+from fishjam._openapi_client.api.rooms import add_peer as room_add_peer
+from fishjam._openapi_client.api.rooms import create_room as room_create_room
+from fishjam._openapi_client.api.rooms import delete_peer as room_delete_peer
+from fishjam._openapi_client.api.rooms import delete_room as room_delete_room
+from fishjam._openapi_client.api.rooms import get_all_rooms as room_get_all_rooms
+from fishjam._openapi_client.api.rooms import get_room as room_get_room
+from fishjam._openapi_client.api.rooms import refresh_token as room_refresh_token
+from fishjam._openapi_client.api.rooms import subscribe_peer as room_subscribe_peer
+from fishjam._openapi_client.api.rooms import subscribe_tracks as room_subscribe_tracks
+from fishjam._openapi_client.api.streamers import (
     generate_streamer_token as streamer_generate_streamer_token,
 )
-from fishjam._openapi_client.api.viewer import (
+from fishjam._openapi_client.api.viewers import (
     generate_viewer_token as viewer_generate_viewer_token,
 )
 from fishjam._openapi_client.models import (
