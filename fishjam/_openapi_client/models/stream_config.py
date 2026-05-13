@@ -16,11 +16,15 @@ class StreamConfig:
 
     Attributes:
         audio_only (bool | None | Unset): Restrics stream to audio only Default: False.
+        batch_webhook_notifications (bool | Unset): If true, webhook notifications for this stream are coalesced into a
+            single NotificationBatch per HTTP send instead of one request per notification. VAD notifications are
+            unaffected. Default: False.
         public (bool | Unset): True if livestream viewers can omit specifying a token. Default: False.
         webhook_url (None | str | Unset): Webhook URL for receiving server notifications
     """
 
     audio_only: bool | None | Unset = False
+    batch_webhook_notifications: bool | Unset = False
     public: bool | Unset = False
     webhook_url: None | str | Unset = UNSET
 
@@ -30,6 +34,8 @@ class StreamConfig:
             audio_only = UNSET
         else:
             audio_only = self.audio_only
+
+        batch_webhook_notifications = self.batch_webhook_notifications
 
         public = self.public
 
@@ -44,6 +50,8 @@ class StreamConfig:
         field_dict.update({})
         if audio_only is not UNSET:
             field_dict["audioOnly"] = audio_only
+        if batch_webhook_notifications is not UNSET:
+            field_dict["batchWebhookNotifications"] = batch_webhook_notifications
         if public is not UNSET:
             field_dict["public"] = public
         if webhook_url is not UNSET:
@@ -64,6 +72,8 @@ class StreamConfig:
 
         audio_only = _parse_audio_only(d.pop("audioOnly", UNSET))
 
+        batch_webhook_notifications = d.pop("batchWebhookNotifications", UNSET)
+
         public = d.pop("public", UNSET)
 
         def _parse_webhook_url(data: object) -> None | str | Unset:
@@ -77,6 +87,7 @@ class StreamConfig:
 
         stream_config = cls(
             audio_only=audio_only,
+            batch_webhook_notifications=batch_webhook_notifications,
             public=public,
             webhook_url=webhook_url,
         )

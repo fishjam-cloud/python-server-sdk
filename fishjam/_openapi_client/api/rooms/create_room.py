@@ -6,20 +6,20 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.moq_token import MoqToken
-from ...models.moq_token_config import MoqTokenConfig
+from ...models.room_config import RoomConfig
+from ...models.room_create_details_response import RoomCreateDetailsResponse
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    body: MoqTokenConfig | Unset = UNSET,
+    body: RoomConfig | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/moq/token",
+        "url": "/room",
     }
 
     if not isinstance(body, Unset):
@@ -33,11 +33,11 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error | MoqToken | None:
-    if response.status_code == 200:
-        response_200 = MoqToken.from_dict(response.json())
+) -> Error | RoomCreateDetailsResponse | None:
+    if response.status_code == 201:
+        response_201 = RoomCreateDetailsResponse.from_dict(response.json())
 
-        return response_200
+        return response_201
 
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
@@ -48,6 +48,11 @@ def _parse_response(
         response_401 = Error.from_dict(response.json())
 
         return response_401
+
+    if response.status_code == 402:
+        response_402 = Error.from_dict(response.json())
+
+        return response_402
 
     if response.status_code == 503:
         response_503 = Error.from_dict(response.json())
@@ -62,7 +67,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error | MoqToken]:
+) -> Response[Error | RoomCreateDetailsResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -74,19 +79,21 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    body: MoqTokenConfig | Unset = UNSET,
-) -> Response[Error | MoqToken]:
-    """Creates a MoQ token for the given stream
+    body: RoomConfig | Unset = UNSET,
+) -> Response[Error | RoomCreateDetailsResponse]:
+    """Create a room
+
+     Create a new room with the given configuration.
 
     Args:
-        body (MoqTokenConfig | Unset): MoQ token configuration
+        body (RoomConfig | Unset): Room configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | MoqToken]
+        Response[Error | RoomCreateDetailsResponse]
     """
 
     kwargs = _get_kwargs(
@@ -103,19 +110,21 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    body: MoqTokenConfig | Unset = UNSET,
-) -> Error | MoqToken | None:
-    """Creates a MoQ token for the given stream
+    body: RoomConfig | Unset = UNSET,
+) -> Error | RoomCreateDetailsResponse | None:
+    """Create a room
+
+     Create a new room with the given configuration.
 
     Args:
-        body (MoqTokenConfig | Unset): MoQ token configuration
+        body (RoomConfig | Unset): Room configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | MoqToken
+        Error | RoomCreateDetailsResponse
     """
 
     return sync_detailed(
@@ -127,19 +136,21 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    body: MoqTokenConfig | Unset = UNSET,
-) -> Response[Error | MoqToken]:
-    """Creates a MoQ token for the given stream
+    body: RoomConfig | Unset = UNSET,
+) -> Response[Error | RoomCreateDetailsResponse]:
+    """Create a room
+
+     Create a new room with the given configuration.
 
     Args:
-        body (MoqTokenConfig | Unset): MoQ token configuration
+        body (RoomConfig | Unset): Room configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | MoqToken]
+        Response[Error | RoomCreateDetailsResponse]
     """
 
     kwargs = _get_kwargs(
@@ -154,19 +165,21 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    body: MoqTokenConfig | Unset = UNSET,
-) -> Error | MoqToken | None:
-    """Creates a MoQ token for the given stream
+    body: RoomConfig | Unset = UNSET,
+) -> Error | RoomCreateDetailsResponse | None:
+    """Create a room
+
+     Create a new room with the given configuration.
 
     Args:
-        body (MoqTokenConfig | Unset): MoQ token configuration
+        body (RoomConfig | Unset): Room configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | MoqToken
+        Error | RoomCreateDetailsResponse
     """
 
     return (

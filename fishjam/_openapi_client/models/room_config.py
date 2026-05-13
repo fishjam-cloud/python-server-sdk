@@ -17,6 +17,9 @@ class RoomConfig:
     """Room configuration
 
     Attributes:
+        batch_webhook_notifications (bool | Unset): If true, webhook notifications for this room are coalesced into a
+            single NotificationBatch per HTTP send instead of one request per notification. VAD notifications are
+            unaffected. Default: False.
         max_peers (int | None | Unset): Maximum amount of peers allowed into the room Example: 10.
         public (bool | Unset): True if livestream viewers can omit specifying a token. Default: False.
         room_type (RoomType | Unset): The use-case of the room. If not provided, this defaults to conference.
@@ -25,6 +28,7 @@ class RoomConfig:
             https://backend.address.com/fishjam-notifications-endpoint.
     """
 
+    batch_webhook_notifications: bool | Unset = False
     max_peers: int | None | Unset = UNSET
     public: bool | Unset = False
     room_type: RoomType | Unset = UNSET
@@ -32,6 +36,8 @@ class RoomConfig:
     webhook_url: None | str | Unset = UNSET
 
     def to_dict(self) -> dict[str, Any]:
+        batch_webhook_notifications = self.batch_webhook_notifications
+
         max_peers: int | None | Unset
         if isinstance(self.max_peers, Unset):
             max_peers = UNSET
@@ -57,6 +63,8 @@ class RoomConfig:
         field_dict: dict[str, Any] = {}
 
         field_dict.update({})
+        if batch_webhook_notifications is not UNSET:
+            field_dict["batchWebhookNotifications"] = batch_webhook_notifications
         if max_peers is not UNSET:
             field_dict["maxPeers"] = max_peers
         if public is not UNSET:
@@ -73,6 +81,7 @@ class RoomConfig:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
+        batch_webhook_notifications = d.pop("batchWebhookNotifications", UNSET)
 
         def _parse_max_peers(data: object) -> int | None | Unset:
             if data is None:
@@ -109,6 +118,7 @@ class RoomConfig:
         webhook_url = _parse_webhook_url(d.pop("webhookUrl", UNSET))
 
         room_config = cls(
+            batch_webhook_notifications=batch_webhook_notifications,
             max_peers=max_peers,
             public=public,
             room_type=room_type,

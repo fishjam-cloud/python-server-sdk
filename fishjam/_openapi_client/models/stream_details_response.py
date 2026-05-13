@@ -18,7 +18,7 @@ class StreamDetailsResponse:
     """Response containing stream details
 
     Attributes:
-        data (Stream): Describes stream status
+        data (Stream): State of a stream
     """
 
     data: Stream

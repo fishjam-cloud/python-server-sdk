@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class TrackType(str, Enum):
-    """None"""
+    """Media type carried by the track"""
 
     AUDIO = "audio"
     VIDEO = "video"

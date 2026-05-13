@@ -18,7 +18,7 @@ class RoomDetailsResponse:
     """Response containing room details
 
     Attributes:
-        data (Room): Description of the room state
+        data (Room): State of a room
     """
 
     data: Room

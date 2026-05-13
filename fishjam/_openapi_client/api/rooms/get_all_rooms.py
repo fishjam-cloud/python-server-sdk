@@ -1,25 +1,19 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
+from ...models.rooms_listing_response import RoomsListingResponse
 from ...types import Response
 
 
-def _get_kwargs(
-    room_id: str,
-    id: str,
-) -> dict[str, Any]:
+def _get_kwargs() -> dict[str, Any]:
     _kwargs: dict[str, Any] = {
-        "method": "delete",
-        "url": "/room/{room_id}/peer/{id}".format(
-            room_id=quote(str(room_id), safe=""),
-            id=quote(str(id), safe=""),
-        ),
+        "method": "get",
+        "url": "/room",
     }
 
     return _kwargs
@@ -27,30 +21,16 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Any | Error | None:
-    if response.status_code == 204:
-        response_204 = cast(Any, None)
-        return response_204
+) -> Error | RoomsListingResponse | None:
+    if response.status_code == 200:
+        response_200 = RoomsListingResponse.from_dict(response.json())
 
-    if response.status_code == 400:
-        response_400 = Error.from_dict(response.json())
-
-        return response_400
+        return response_200
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
         return response_401
-
-    if response.status_code == 404:
-        response_404 = Error.from_dict(response.json())
-
-        return response_404
-
-    if response.status_code == 503:
-        response_503 = Error.from_dict(response.json())
-
-        return response_503
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -60,7 +40,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Any | Error]:
+) -> Response[Error | RoomsListingResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -70,29 +50,22 @@ def _build_response(
 
 
 def sync_detailed(
-    room_id: str,
-    id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Any | Error]:
-    """Delete peer
+) -> Response[Error | RoomsListingResponse]:
+    """List all rooms
 
-    Args:
-        room_id (str):
-        id (str):
+     List all rooms and livestreams.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error]
+        Response[Error | RoomsListingResponse]
     """
 
-    kwargs = _get_kwargs(
-        room_id=room_id,
-        id=id,
-    )
+    kwargs = _get_kwargs()
 
     response = client.get_httpx_client().request(
         **kwargs,
@@ -102,56 +75,43 @@ def sync_detailed(
 
 
 def sync(
-    room_id: str,
-    id: str,
     *,
     client: AuthenticatedClient,
-) -> Any | Error | None:
-    """Delete peer
+) -> Error | RoomsListingResponse | None:
+    """List all rooms
 
-    Args:
-        room_id (str):
-        id (str):
+     List all rooms and livestreams.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error
+        Error | RoomsListingResponse
     """
 
     return sync_detailed(
-        room_id=room_id,
-        id=id,
         client=client,
     ).parsed
 
 
 async def asyncio_detailed(
-    room_id: str,
-    id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Any | Error]:
-    """Delete peer
+) -> Response[Error | RoomsListingResponse]:
+    """List all rooms
 
-    Args:
-        room_id (str):
-        id (str):
+     List all rooms and livestreams.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error]
+        Response[Error | RoomsListingResponse]
     """
 
-    kwargs = _get_kwargs(
-        room_id=room_id,
-        id=id,
-    )
+    kwargs = _get_kwargs()
 
     response = await client.get_async_httpx_client().request(**kwargs)
 
@@ -159,29 +119,23 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    room_id: str,
-    id: str,
     *,
     client: AuthenticatedClient,
-) -> Any | Error | None:
-    """Delete peer
+) -> Error | RoomsListingResponse | None:
+    """List all rooms
 
-    Args:
-        room_id (str):
-        id (str):
+     List all rooms and livestreams.
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error
+        Error | RoomsListingResponse
     """
 
     return (
         await asyncio_detailed(
-            room_id=room_id,
-            id=id,
             client=client,
         )
     ).parsed

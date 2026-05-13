@@ -7,56 +7,35 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.subscribe_tracks_body import SubscribeTracksBody
-from ...types import UNSET, Response, Unset
+from ...types import Response
 
 
 def _get_kwargs(
-    room_id: str,
-    id: str,
-    *,
-    body: SubscribeTracksBody | Unset = UNSET,
+    stream_id: str,
+    viewer_id: str,
 ) -> dict[str, Any]:
-    headers: dict[str, Any] = {}
-
     _kwargs: dict[str, Any] = {
-        "method": "post",
-        "url": "/room/{room_id}/peer/{id}/subscribe_tracks".format(
-            room_id=quote(str(room_id), safe=""),
-            id=quote(str(id), safe=""),
+        "method": "delete",
+        "url": "/livestream/{stream_id}/viewer/{viewer_id}".format(
+            stream_id=quote(str(stream_id), safe=""),
+            viewer_id=quote(str(viewer_id), safe=""),
         ),
     }
 
-    if not isinstance(body, Unset):
-        _kwargs["json"] = body.to_dict()
-
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
     return _kwargs
 
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Any | Error | None:
-    if response.status_code == 200:
-        response_200 = cast(Any, None)
-        return response_200
-
-    if response.status_code == 400:
-        response_400 = Error.from_dict(response.json())
-
-        return response_400
+    if response.status_code == 204:
+        response_204 = cast(Any, None)
+        return response_204
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
         return response_401
-
-    if response.status_code == 404:
-        response_404 = Error.from_dict(response.json())
-
-        return response_404
 
     if response.status_code == 503:
         response_503 = Error.from_dict(response.json())
@@ -81,18 +60,18 @@ def _build_response(
 
 
 def sync_detailed(
-    room_id: str,
-    id: str,
+    stream_id: str,
+    viewer_id: str,
     *,
     client: AuthenticatedClient,
-    body: SubscribeTracksBody | Unset = UNSET,
 ) -> Response[Any | Error]:
-    """Subscribe peer to specific tracks
+    """Delete a viewer
+
+     Delete a viewer from a stream and revoke its token.
 
     Args:
-        room_id (str):
-        id (str):
-        body (SubscribeTracksBody | Unset):
+        stream_id (str):
+        viewer_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -103,9 +82,8 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        room_id=room_id,
-        id=id,
-        body=body,
+        stream_id=stream_id,
+        viewer_id=viewer_id,
     )
 
     response = client.get_httpx_client().request(
@@ -116,18 +94,18 @@ def sync_detailed(
 
 
 def sync(
-    room_id: str,
-    id: str,
+    stream_id: str,
+    viewer_id: str,
     *,
     client: AuthenticatedClient,
-    body: SubscribeTracksBody | Unset = UNSET,
 ) -> Any | Error | None:
-    """Subscribe peer to specific tracks
+    """Delete a viewer
+
+     Delete a viewer from a stream and revoke its token.
 
     Args:
-        room_id (str):
-        id (str):
-        body (SubscribeTracksBody | Unset):
+        stream_id (str):
+        viewer_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -138,26 +116,25 @@ def sync(
     """
 
     return sync_detailed(
-        room_id=room_id,
-        id=id,
+        stream_id=stream_id,
+        viewer_id=viewer_id,
         client=client,
-        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    room_id: str,
-    id: str,
+    stream_id: str,
+    viewer_id: str,
     *,
     client: AuthenticatedClient,
-    body: SubscribeTracksBody | Unset = UNSET,
 ) -> Response[Any | Error]:
-    """Subscribe peer to specific tracks
+    """Delete a viewer
+
+     Delete a viewer from a stream and revoke its token.
 
     Args:
-        room_id (str):
-        id (str):
-        body (SubscribeTracksBody | Unset):
+        stream_id (str):
+        viewer_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -168,9 +145,8 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        room_id=room_id,
-        id=id,
-        body=body,
+        stream_id=stream_id,
+        viewer_id=viewer_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -179,18 +155,18 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    room_id: str,
-    id: str,
+    stream_id: str,
+    viewer_id: str,
     *,
     client: AuthenticatedClient,
-    body: SubscribeTracksBody | Unset = UNSET,
 ) -> Any | Error | None:
-    """Subscribe peer to specific tracks
+    """Delete a viewer
+
+     Delete a viewer from a stream and revoke its token.
 
     Args:
-        room_id (str):
-        id (str):
-        body (SubscribeTracksBody | Unset):
+        stream_id (str):
+        viewer_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -202,9 +178,8 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            room_id=room_id,
-            id=id,
+            stream_id=stream_id,
+            viewer_id=viewer_id,
             client=client,
-            body=body,
         )
     ).parsed

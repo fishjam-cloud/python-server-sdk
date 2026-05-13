@@ -62,7 +62,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Error]:
-    """Deletes stream
+    """Delete a stream
+
+     Delete a stream by id and disconnect all of its streamers and viewers.
 
     Args:
         stream_id (str):
@@ -91,7 +93,9 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Any | Error | None:
-    """Deletes stream
+    """Delete a stream
+
+     Delete a stream by id and disconnect all of its streamers and viewers.
 
     Args:
         stream_id (str):
@@ -115,7 +119,9 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Any | Error]:
-    """Deletes stream
+    """Delete a stream
+
+     Delete a stream by id and disconnect all of its streamers and viewers.
 
     Args:
         stream_id (str):
@@ -142,7 +148,9 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Any | Error | None:
-    """Deletes stream
+    """Delete a stream
+
+     Delete a stream by id and disconnect all of its streamers and viewers.
 
     Args:
         stream_id (str):

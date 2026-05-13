@@ -11,10 +11,10 @@ T = TypeVar("T", bound="ViewerToken")
 
 @_attrs_define
 class ViewerToken:
-    """Token for authorizing broadcaster viewer connection
+    """Viewer authorization token
 
     Attributes:
-        token (str):  Example: 5cdac726-57a3-4ecb-b1d5-72a3d62ec242.
+        token (str): Token viewer should authorize with Example: 5cdac726-57a3-4ecb-b1d5-72a3d62ec242.
     """
 
     token: str

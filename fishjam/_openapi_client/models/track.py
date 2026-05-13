@@ -18,12 +18,13 @@ T = TypeVar("T", bound="Track")
 
 @_attrs_define
 class Track:
-    """Describes media track of a Peer
+    """Media track of a Peer
 
     Attributes:
         id (str | Unset): Assigned track id Example: 8dbd2e6b-a1e7-4670-95a2-0262aa6c6321.
-        metadata (None | TrackMetadata | Unset):  Example: {'source': 'camera'}.
-        type_ (TrackType | Unset):
+        metadata (None | TrackMetadata | Unset): Metadata attached to the track by the peer Example: {'source':
+            'camera'}.
+        type_ (TrackType | Unset): Media type carried by the track
     """
 
     id: str | Unset = UNSET

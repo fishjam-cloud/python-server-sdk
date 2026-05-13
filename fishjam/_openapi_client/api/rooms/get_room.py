@@ -74,7 +74,9 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Error | RoomDetailsResponse]:
-    """Shows information about the room
+    """Get a room
+
+     Get a room by id.
 
     Args:
         room_id (str):
@@ -103,7 +105,9 @@ def sync(
     *,
     client: AuthenticatedClient,
 ) -> Error | RoomDetailsResponse | None:
-    """Shows information about the room
+    """Get a room
+
+     Get a room by id.
 
     Args:
         room_id (str):
@@ -127,7 +131,9 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
 ) -> Response[Error | RoomDetailsResponse]:
-    """Shows information about the room
+    """Get a room
+
+     Get a room by id.
 
     Args:
         room_id (str):
@@ -154,7 +160,9 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
 ) -> Error | RoomDetailsResponse | None:
-    """Shows information about the room
+    """Get a room
+
+     Get a room by id.
 
     Args:
         room_id (str):

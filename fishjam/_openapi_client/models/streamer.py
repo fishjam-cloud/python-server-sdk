@@ -17,8 +17,8 @@ class Streamer:
 
     Attributes:
         id (str): Assigned streamer id
-        status (StreamerStatus):
-        token (str):  Example: 5cdac726-57a3-4ecb-b1d5-72a3d62ec242.
+        status (StreamerStatus): Streamer connection status
+        token (str): Token streamer should authorize with Example: 5cdac726-57a3-4ecb-b1d5-72a3d62ec242.
     """
 
     id: str

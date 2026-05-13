@@ -17,7 +17,7 @@ T = TypeVar("T", bound="RoomCreateDetailsResponseData")
 class RoomCreateDetailsResponseData:
     """
     Attributes:
-        room (Room): Description of the room state
+        room (Room): State of a room
     """
 
     room: Room

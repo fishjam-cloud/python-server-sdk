@@ -1,4 +1,4 @@
-"""A client library for accessing Fishjam Media Server"""
+"""A client library for accessing Fishjam API"""
 
 from .client import AuthenticatedClient, Client
 

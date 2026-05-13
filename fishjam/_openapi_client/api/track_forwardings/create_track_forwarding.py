@@ -7,39 +7,38 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...types import UNSET, Response, Unset
+from ...models.track_forwarding import TrackForwarding
+from ...types import Response
 
 
 def _get_kwargs(
     room_id: str,
-    id: str,
     *,
-    peer_id: str | Unset = UNSET,
+    body: TrackForwarding,
 ) -> dict[str, Any]:
-    params: dict[str, Any] = {}
-
-    params["peer_id"] = peer_id
-
-    params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
+    headers: dict[str, Any] = {}
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/room/{room_id}/peer/{id}/subscribe_peer".format(
+        "url": "/room/{room_id}/track_forwardings".format(
             room_id=quote(str(room_id), safe=""),
-            id=quote(str(id), safe=""),
         ),
-        "params": params,
     }
 
+    _kwargs["json"] = body.to_dict()
+
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
     return _kwargs
 
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Any | Error | None:
-    if response.status_code == 200:
-        response_200 = cast(Any, None)
-        return response_200
+    if response.status_code == 201:
+        response_201 = cast(Any, None)
+        return response_201
 
     if response.status_code == 400:
         response_400 = Error.from_dict(response.json())
@@ -55,11 +54,6 @@ def _parse_response(
         response_404 = Error.from_dict(response.json())
 
         return response_404
-
-    if response.status_code == 503:
-        response_503 = Error.from_dict(response.json())
-
-        return response_503
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -80,17 +74,17 @@ def _build_response(
 
 def sync_detailed(
     room_id: str,
-    id: str,
     *,
     client: AuthenticatedClient,
-    peer_id: str | Unset = UNSET,
+    body: TrackForwarding,
 ) -> Response[Any | Error]:
-    """Subscribe peer to another peer's tracks
+    """Create a track forwarding
+
+     Forward a room's tracks into an external composition.
 
     Args:
         room_id (str):
-        id (str):
-        peer_id (str | Unset):
+        body (TrackForwarding): Track forwardings for a room
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -102,8 +96,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         room_id=room_id,
-        id=id,
-        peer_id=peer_id,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -115,17 +108,17 @@ def sync_detailed(
 
 def sync(
     room_id: str,
-    id: str,
     *,
     client: AuthenticatedClient,
-    peer_id: str | Unset = UNSET,
+    body: TrackForwarding,
 ) -> Any | Error | None:
-    """Subscribe peer to another peer's tracks
+    """Create a track forwarding
+
+     Forward a room's tracks into an external composition.
 
     Args:
         room_id (str):
-        id (str):
-        peer_id (str | Unset):
+        body (TrackForwarding): Track forwardings for a room
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -137,25 +130,24 @@ def sync(
 
     return sync_detailed(
         room_id=room_id,
-        id=id,
         client=client,
-        peer_id=peer_id,
+        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
     room_id: str,
-    id: str,
     *,
     client: AuthenticatedClient,
-    peer_id: str | Unset = UNSET,
+    body: TrackForwarding,
 ) -> Response[Any | Error]:
-    """Subscribe peer to another peer's tracks
+    """Create a track forwarding
+
+     Forward a room's tracks into an external composition.
 
     Args:
         room_id (str):
-        id (str):
-        peer_id (str | Unset):
+        body (TrackForwarding): Track forwardings for a room
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -167,8 +159,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         room_id=room_id,
-        id=id,
-        peer_id=peer_id,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -178,17 +169,17 @@ async def asyncio_detailed(
 
 async def asyncio(
     room_id: str,
-    id: str,
     *,
     client: AuthenticatedClient,
-    peer_id: str | Unset = UNSET,
+    body: TrackForwarding,
 ) -> Any | Error | None:
-    """Subscribe peer to another peer's tracks
+    """Create a track forwarding
+
+     Forward a room's tracks into an external composition.
 
     Args:
         room_id (str):
-        id (str):
-        peer_id (str | Unset):
+        body (TrackForwarding): Track forwardings for a room
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -201,8 +192,7 @@ async def asyncio(
     return (
         await asyncio_detailed(
             room_id=room_id,
-            id=id,
             client=client,
-            peer_id=peer_id,
+            body=body,
         )
     ).parsed

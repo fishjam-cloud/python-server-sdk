@@ -1,41 +1,34 @@
 from http import HTTPStatus
 from typing import Any
+from urllib.parse import quote
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.stream_config import StreamConfig
-from ...models.stream_details_response import StreamDetailsResponse
-from ...types import UNSET, Response, Unset
+from ...models.streamer_token import StreamerToken
+from ...types import Response
 
 
 def _get_kwargs(
-    *,
-    body: StreamConfig | Unset = UNSET,
+    room_id: str,
 ) -> dict[str, Any]:
-    headers: dict[str, Any] = {}
-
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/livestream",
+        "url": "/room/{room_id}/streamer".format(
+            room_id=quote(str(room_id), safe=""),
+        ),
     }
 
-    if not isinstance(body, Unset):
-        _kwargs["json"] = body.to_dict()
-
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
     return _kwargs
 
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error | StreamDetailsResponse | None:
+) -> Error | StreamerToken | None:
     if response.status_code == 201:
-        response_201 = StreamDetailsResponse.from_dict(response.json())
+        response_201 = StreamerToken.from_dict(response.json())
 
         return response_201
 
@@ -48,6 +41,11 @@ def _parse_response(
         response_401 = Error.from_dict(response.json())
 
         return response_401
+
+    if response.status_code == 404:
+        response_404 = Error.from_dict(response.json())
+
+        return response_404
 
     if response.status_code == 503:
         response_503 = Error.from_dict(response.json())
@@ -62,7 +60,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error | StreamDetailsResponse]:
+) -> Response[Error | StreamerToken]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -72,25 +70,27 @@ def _build_response(
 
 
 def sync_detailed(
+    room_id: str,
     *,
     client: AuthenticatedClient,
-    body: StreamConfig | Unset = UNSET,
-) -> Response[Error | StreamDetailsResponse]:
-    """Creates stream
+) -> Response[Error | StreamerToken]:
+    """Create a streamer token
+
+     Issue a fresh streamer token.
 
     Args:
-        body (StreamConfig | Unset): Stream configuration
+        room_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | StreamDetailsResponse]
+        Response[Error | StreamerToken]
     """
 
     kwargs = _get_kwargs(
-        body=body,
+        room_id=room_id,
     )
 
     response = client.get_httpx_client().request(
@@ -101,49 +101,53 @@ def sync_detailed(
 
 
 def sync(
+    room_id: str,
     *,
     client: AuthenticatedClient,
-    body: StreamConfig | Unset = UNSET,
-) -> Error | StreamDetailsResponse | None:
-    """Creates stream
+) -> Error | StreamerToken | None:
+    """Create a streamer token
+
+     Issue a fresh streamer token.
 
     Args:
-        body (StreamConfig | Unset): Stream configuration
+        room_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | StreamDetailsResponse
+        Error | StreamerToken
     """
 
     return sync_detailed(
+        room_id=room_id,
         client=client,
-        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
+    room_id: str,
     *,
     client: AuthenticatedClient,
-    body: StreamConfig | Unset = UNSET,
-) -> Response[Error | StreamDetailsResponse]:
-    """Creates stream
+) -> Response[Error | StreamerToken]:
+    """Create a streamer token
+
+     Issue a fresh streamer token.
 
     Args:
-        body (StreamConfig | Unset): Stream configuration
+        room_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | StreamDetailsResponse]
+        Response[Error | StreamerToken]
     """
 
     kwargs = _get_kwargs(
-        body=body,
+        room_id=room_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -152,26 +156,28 @@ async def asyncio_detailed(
 
 
 async def asyncio(
+    room_id: str,
     *,
     client: AuthenticatedClient,
-    body: StreamConfig | Unset = UNSET,
-) -> Error | StreamDetailsResponse | None:
-    """Creates stream
+) -> Error | StreamerToken | None:
+    """Create a streamer token
+
+     Issue a fresh streamer token.
 
     Args:
-        body (StreamConfig | Unset): Stream configuration
+        room_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | StreamDetailsResponse
+        Error | StreamerToken
     """
 
     return (
         await asyncio_detailed(
+            room_id=room_id,
             client=client,
-            body=body,
         )
     ).parsed

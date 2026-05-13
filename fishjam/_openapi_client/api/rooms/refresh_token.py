@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
 
 import httpx
@@ -7,37 +7,31 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.track_forwarding import TrackForwarding
+from ...models.peer_refresh_token_response import PeerRefreshTokenResponse
 from ...types import Response
 
 
 def _get_kwargs(
     room_id: str,
-    *,
-    body: TrackForwarding,
+    id: str,
 ) -> dict[str, Any]:
-    headers: dict[str, Any] = {}
-
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/room/{room_id}/track_forwardings".format(
+        "url": "/room/{room_id}/peer/{id}/refresh_token".format(
             room_id=quote(str(room_id), safe=""),
+            id=quote(str(id), safe=""),
         ),
     }
 
-    _kwargs["json"] = body.to_dict()
-
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
     return _kwargs
 
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Any | Error | None:
+) -> Error | PeerRefreshTokenResponse | None:
     if response.status_code == 201:
-        response_201 = cast(Any, None)
+        response_201 = PeerRefreshTokenResponse.from_dict(response.json())
+
         return response_201
 
     if response.status_code == 400:
@@ -55,6 +49,11 @@ def _parse_response(
 
         return response_404
 
+    if response.status_code == 503:
+        response_503 = Error.from_dict(response.json())
+
+        return response_503
+
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -63,7 +62,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Any | Error]:
+) -> Response[Error | PeerRefreshTokenResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -74,27 +73,29 @@ def _build_response(
 
 def sync_detailed(
     room_id: str,
+    id: str,
     *,
     client: AuthenticatedClient,
-    body: TrackForwarding,
-) -> Response[Any | Error]:
-    """Creates a track forwarding in a room
+) -> Response[Error | PeerRefreshTokenResponse]:
+    """Refresh a peer token
+
+     Issue a fresh connection token for an existing peer.
 
     Args:
         room_id (str):
-        body (TrackForwarding): Track forwardings for a room
+        id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error]
+        Response[Error | PeerRefreshTokenResponse]
     """
 
     kwargs = _get_kwargs(
         room_id=room_id,
-        body=body,
+        id=id,
     )
 
     response = client.get_httpx_client().request(
@@ -106,54 +107,58 @@ def sync_detailed(
 
 def sync(
     room_id: str,
+    id: str,
     *,
     client: AuthenticatedClient,
-    body: TrackForwarding,
-) -> Any | Error | None:
-    """Creates a track forwarding in a room
+) -> Error | PeerRefreshTokenResponse | None:
+    """Refresh a peer token
+
+     Issue a fresh connection token for an existing peer.
 
     Args:
         room_id (str):
-        body (TrackForwarding): Track forwardings for a room
+        id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error
+        Error | PeerRefreshTokenResponse
     """
 
     return sync_detailed(
         room_id=room_id,
+        id=id,
         client=client,
-        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
     room_id: str,
+    id: str,
     *,
     client: AuthenticatedClient,
-    body: TrackForwarding,
-) -> Response[Any | Error]:
-    """Creates a track forwarding in a room
+) -> Response[Error | PeerRefreshTokenResponse]:
+    """Refresh a peer token
+
+     Issue a fresh connection token for an existing peer.
 
     Args:
         room_id (str):
-        body (TrackForwarding): Track forwardings for a room
+        id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error]
+        Response[Error | PeerRefreshTokenResponse]
     """
 
     kwargs = _get_kwargs(
         room_id=room_id,
-        body=body,
+        id=id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -163,28 +168,30 @@ async def asyncio_detailed(
 
 async def asyncio(
     room_id: str,
+    id: str,
     *,
     client: AuthenticatedClient,
-    body: TrackForwarding,
-) -> Any | Error | None:
-    """Creates a track forwarding in a room
+) -> Error | PeerRefreshTokenResponse | None:
+    """Refresh a peer token
+
+     Issue a fresh connection token for an existing peer.
 
     Args:
         room_id (str):
-        body (TrackForwarding): Track forwardings for a room
+        id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error
+        Error | PeerRefreshTokenResponse
     """
 
     return (
         await asyncio_detailed(
             room_id=room_id,
+            id=id,
             client=client,
-            body=body,
         )
     ).parsed
