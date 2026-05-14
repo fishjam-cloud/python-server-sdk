@@ -7,7 +7,7 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.streamer_details_response import StreamerDetailsResponse
+from ...models.viewer_details_response import ViewerDetailsResponse
 from ...types import Response
 
 
@@ -16,7 +16,7 @@ def _get_kwargs(
 ) -> dict[str, Any]:
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/livestream/{stream_id}/streamer".format(
+        "url": "/livestream/{stream_id}/viewer".format(
             stream_id=quote(str(stream_id), safe=""),
         ),
     }
@@ -26,9 +26,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error | StreamerDetailsResponse | None:
+) -> Error | ViewerDetailsResponse | None:
     if response.status_code == 201:
-        response_201 = StreamerDetailsResponse.from_dict(response.json())
+        response_201 = ViewerDetailsResponse.from_dict(response.json())
 
         return response_201
 
@@ -55,7 +55,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error | StreamerDetailsResponse]:
+) -> Response[Error | ViewerDetailsResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -68,8 +68,10 @@ def sync_detailed(
     stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Error | StreamerDetailsResponse]:
-    """Creates streamer
+) -> Response[Error | ViewerDetailsResponse]:
+    """Create a viewer
+
+     Create a viewer for a stream and return its credentials.
 
     Args:
         stream_id (str):
@@ -79,7 +81,7 @@ def sync_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | StreamerDetailsResponse]
+        Response[Error | ViewerDetailsResponse]
     """
 
     kwargs = _get_kwargs(
@@ -97,8 +99,10 @@ def sync(
     stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Error | StreamerDetailsResponse | None:
-    """Creates streamer
+) -> Error | ViewerDetailsResponse | None:
+    """Create a viewer
+
+     Create a viewer for a stream and return its credentials.
 
     Args:
         stream_id (str):
@@ -108,7 +112,7 @@ def sync(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | StreamerDetailsResponse
+        Error | ViewerDetailsResponse
     """
 
     return sync_detailed(
@@ -121,8 +125,10 @@ async def asyncio_detailed(
     stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Error | StreamerDetailsResponse]:
-    """Creates streamer
+) -> Response[Error | ViewerDetailsResponse]:
+    """Create a viewer
+
+     Create a viewer for a stream and return its credentials.
 
     Args:
         stream_id (str):
@@ -132,7 +138,7 @@ async def asyncio_detailed(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | StreamerDetailsResponse]
+        Response[Error | ViewerDetailsResponse]
     """
 
     kwargs = _get_kwargs(
@@ -148,8 +154,10 @@ async def asyncio(
     stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Error | StreamerDetailsResponse | None:
-    """Creates streamer
+) -> Error | ViewerDetailsResponse | None:
+    """Create a viewer
+
+     Create a viewer for a stream and return its credentials.
 
     Args:
         stream_id (str):
@@ -159,7 +167,7 @@ async def asyncio(
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | StreamerDetailsResponse
+        Error | ViewerDetailsResponse
     """
 
     return (

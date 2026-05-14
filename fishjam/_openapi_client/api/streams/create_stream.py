@@ -1,29 +1,25 @@
 from http import HTTPStatus
 from typing import Any
-from urllib.parse import quote
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.peer_config import PeerConfig
-from ...models.peer_details_response import PeerDetailsResponse
+from ...models.stream_config import StreamConfig
+from ...models.stream_details_response import StreamDetailsResponse
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
-    room_id: str,
     *,
-    body: PeerConfig | Unset = UNSET,
+    body: StreamConfig | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/room/{room_id}/peer".format(
-            room_id=quote(str(room_id), safe=""),
-        ),
+        "url": "/livestream",
     }
 
     if not isinstance(body, Unset):
@@ -37,9 +33,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error | PeerDetailsResponse | None:
+) -> Error | StreamDetailsResponse | None:
     if response.status_code == 201:
-        response_201 = PeerDetailsResponse.from_dict(response.json())
+        response_201 = StreamDetailsResponse.from_dict(response.json())
 
         return response_201
 
@@ -52,21 +48,6 @@ def _parse_response(
         response_401 = Error.from_dict(response.json())
 
         return response_401
-
-    if response.status_code == 402:
-        response_402 = Error.from_dict(response.json())
-
-        return response_402
-
-    if response.status_code == 404:
-        response_404 = Error.from_dict(response.json())
-
-        return response_404
-
-    if response.status_code == 409:
-        response_409 = Error.from_dict(response.json())
-
-        return response_409
 
     if response.status_code == 503:
         response_503 = Error.from_dict(response.json())
@@ -81,7 +62,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error | PeerDetailsResponse]:
+) -> Response[Error | StreamDetailsResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -91,27 +72,26 @@ def _build_response(
 
 
 def sync_detailed(
-    room_id: str,
     *,
     client: AuthenticatedClient,
-    body: PeerConfig | Unset = UNSET,
-) -> Response[Error | PeerDetailsResponse]:
-    """Create peer
+    body: StreamConfig | Unset = UNSET,
+) -> Response[Error | StreamDetailsResponse]:
+    """Create a stream
+
+     Create a new livestream with the given configuration.
 
     Args:
-        room_id (str):
-        body (PeerConfig | Unset): Peer configuration
+        body (StreamConfig | Unset): Stream configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | PeerDetailsResponse]
+        Response[Error | StreamDetailsResponse]
     """
 
     kwargs = _get_kwargs(
-        room_id=room_id,
         body=body,
     )
 
@@ -123,54 +103,52 @@ def sync_detailed(
 
 
 def sync(
-    room_id: str,
     *,
     client: AuthenticatedClient,
-    body: PeerConfig | Unset = UNSET,
-) -> Error | PeerDetailsResponse | None:
-    """Create peer
+    body: StreamConfig | Unset = UNSET,
+) -> Error | StreamDetailsResponse | None:
+    """Create a stream
+
+     Create a new livestream with the given configuration.
 
     Args:
-        room_id (str):
-        body (PeerConfig | Unset): Peer configuration
+        body (StreamConfig | Unset): Stream configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | PeerDetailsResponse
+        Error | StreamDetailsResponse
     """
 
     return sync_detailed(
-        room_id=room_id,
         client=client,
         body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    room_id: str,
     *,
     client: AuthenticatedClient,
-    body: PeerConfig | Unset = UNSET,
-) -> Response[Error | PeerDetailsResponse]:
-    """Create peer
+    body: StreamConfig | Unset = UNSET,
+) -> Response[Error | StreamDetailsResponse]:
+    """Create a stream
+
+     Create a new livestream with the given configuration.
 
     Args:
-        room_id (str):
-        body (PeerConfig | Unset): Peer configuration
+        body (StreamConfig | Unset): Stream configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | PeerDetailsResponse]
+        Response[Error | StreamDetailsResponse]
     """
 
     kwargs = _get_kwargs(
-        room_id=room_id,
         body=body,
     )
 
@@ -180,28 +158,27 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    room_id: str,
     *,
     client: AuthenticatedClient,
-    body: PeerConfig | Unset = UNSET,
-) -> Error | PeerDetailsResponse | None:
-    """Create peer
+    body: StreamConfig | Unset = UNSET,
+) -> Error | StreamDetailsResponse | None:
+    """Create a stream
+
+     Create a new livestream with the given configuration.
 
     Args:
-        room_id (str):
-        body (PeerConfig | Unset): Peer configuration
+        body (StreamConfig | Unset): Stream configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | PeerDetailsResponse
+        Error | StreamDetailsResponse
     """
 
     return (
         await asyncio_detailed(
-            room_id=room_id,
             client=client,
             body=body,
         )

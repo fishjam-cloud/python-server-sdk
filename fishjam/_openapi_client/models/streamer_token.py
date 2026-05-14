@@ -11,10 +11,10 @@ T = TypeVar("T", bound="StreamerToken")
 
 @_attrs_define
 class StreamerToken:
-    """Token for authorizing broadcaster streamer connection
+    """Streamer authorization token
 
     Attributes:
-        token (str):  Example: 5cdac726-57a3-4ecb-b1d5-72a3d62ec242.
+        token (str): Token streamer should authorize with Example: 5cdac726-57a3-4ecb-b1d5-72a3d62ec242.
     """
 
     token: str

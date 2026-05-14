@@ -11,7 +11,8 @@ T = TypeVar("T", bound="TrackMetadata")
 
 @_attrs_define
 class TrackMetadata:
-    """
+    """Metadata attached to the track by the peer
+
     Example:
         {'source': 'camera'}
 

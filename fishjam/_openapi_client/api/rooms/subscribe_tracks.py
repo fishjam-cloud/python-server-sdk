@@ -1,36 +1,62 @@
 from http import HTTPStatus
-from typing import Any
+from typing import Any, cast
+from urllib.parse import quote
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.streams_listing_response import StreamsListingResponse
-from ...types import Response
+from ...models.subscribe_tracks_body import SubscribeTracksBody
+from ...types import UNSET, Response, Unset
 
 
-def _get_kwargs() -> dict[str, Any]:
+def _get_kwargs(
+    room_id: str,
+    id: str,
+    *,
+    body: SubscribeTracksBody | Unset = UNSET,
+) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
+
     _kwargs: dict[str, Any] = {
-        "method": "get",
-        "url": "/livestream",
+        "method": "post",
+        "url": "/room/{room_id}/peer/{id}/subscribe_tracks".format(
+            room_id=quote(str(room_id), safe=""),
+            id=quote(str(id), safe=""),
+        ),
     }
 
+    if not isinstance(body, Unset):
+        _kwargs["json"] = body.to_dict()
+
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
     return _kwargs
 
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error | StreamsListingResponse | None:
+) -> Any | Error | None:
     if response.status_code == 200:
-        response_200 = StreamsListingResponse.from_dict(response.json())
-
+        response_200 = cast(Any, None)
         return response_200
+
+    if response.status_code == 400:
+        response_400 = Error.from_dict(response.json())
+
+        return response_400
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
         return response_401
+
+    if response.status_code == 404:
+        response_404 = Error.from_dict(response.json())
+
+        return response_404
 
     if response.status_code == 503:
         response_503 = Error.from_dict(response.json())
@@ -45,7 +71,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error | StreamsListingResponse]:
+) -> Response[Any | Error]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -55,20 +81,34 @@ def _build_response(
 
 
 def sync_detailed(
+    room_id: str,
+    id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Error | StreamsListingResponse]:
-    """Show information about all streams
+    body: SubscribeTracksBody | Unset = UNSET,
+) -> Response[Any | Error]:
+    """Subscribe a peer to specific tracks
+
+     Subscribe a peer to a specific list of track IDs in the same room.
+
+    Args:
+        room_id (str):
+        id (str):
+        body (SubscribeTracksBody | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | StreamsListingResponse]
+        Response[Any | Error]
     """
 
-    kwargs = _get_kwargs()
+    kwargs = _get_kwargs(
+        room_id=room_id,
+        id=id,
+        body=body,
+    )
 
     response = client.get_httpx_client().request(
         **kwargs,
@@ -78,39 +118,66 @@ def sync_detailed(
 
 
 def sync(
+    room_id: str,
+    id: str,
     *,
     client: AuthenticatedClient,
-) -> Error | StreamsListingResponse | None:
-    """Show information about all streams
+    body: SubscribeTracksBody | Unset = UNSET,
+) -> Any | Error | None:
+    """Subscribe a peer to specific tracks
+
+     Subscribe a peer to a specific list of track IDs in the same room.
+
+    Args:
+        room_id (str):
+        id (str):
+        body (SubscribeTracksBody | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | StreamsListingResponse
+        Any | Error
     """
 
     return sync_detailed(
+        room_id=room_id,
+        id=id,
         client=client,
+        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
+    room_id: str,
+    id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Error | StreamsListingResponse]:
-    """Show information about all streams
+    body: SubscribeTracksBody | Unset = UNSET,
+) -> Response[Any | Error]:
+    """Subscribe a peer to specific tracks
+
+     Subscribe a peer to a specific list of track IDs in the same room.
+
+    Args:
+        room_id (str):
+        id (str):
+        body (SubscribeTracksBody | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | StreamsListingResponse]
+        Response[Any | Error]
     """
 
-    kwargs = _get_kwargs()
+    kwargs = _get_kwargs(
+        room_id=room_id,
+        id=id,
+        body=body,
+    )
 
     response = await client.get_async_httpx_client().request(**kwargs)
 
@@ -118,21 +185,34 @@ async def asyncio_detailed(
 
 
 async def asyncio(
+    room_id: str,
+    id: str,
     *,
     client: AuthenticatedClient,
-) -> Error | StreamsListingResponse | None:
-    """Show information about all streams
+    body: SubscribeTracksBody | Unset = UNSET,
+) -> Any | Error | None:
+    """Subscribe a peer to specific tracks
+
+     Subscribe a peer to a specific list of track IDs in the same room.
+
+    Args:
+        room_id (str):
+        id (str):
+        body (SubscribeTracksBody | Unset):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | StreamsListingResponse
+        Any | Error
     """
 
     return (
         await asyncio_detailed(
+            room_id=room_id,
+            id=id,
             client=client,
+            body=body,
         )
     ).parsed

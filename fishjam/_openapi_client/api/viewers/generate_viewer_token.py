@@ -7,19 +7,17 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.peer_refresh_token_response import PeerRefreshTokenResponse
+from ...models.viewer_token import ViewerToken
 from ...types import Response
 
 
 def _get_kwargs(
     room_id: str,
-    id: str,
 ) -> dict[str, Any]:
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/room/{room_id}/peer/{id}/refresh_token".format(
+        "url": "/room/{room_id}/viewer".format(
             room_id=quote(str(room_id), safe=""),
-            id=quote(str(id), safe=""),
         ),
     }
 
@@ -28,9 +26,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error | PeerRefreshTokenResponse | None:
+) -> Error | ViewerToken | None:
     if response.status_code == 201:
-        response_201 = PeerRefreshTokenResponse.from_dict(response.json())
+        response_201 = ViewerToken.from_dict(response.json())
 
         return response_201
 
@@ -62,7 +60,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error | PeerRefreshTokenResponse]:
+) -> Response[Error | ViewerToken]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -73,27 +71,26 @@ def _build_response(
 
 def sync_detailed(
     room_id: str,
-    id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Error | PeerRefreshTokenResponse]:
-    """Refresh peer token
+) -> Response[Error | ViewerToken]:
+    """Create a viewer token
+
+     Issue a fresh viewer token.
 
     Args:
         room_id (str):
-        id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | PeerRefreshTokenResponse]
+        Response[Error | ViewerToken]
     """
 
     kwargs = _get_kwargs(
         room_id=room_id,
-        id=id,
     )
 
     response = client.get_httpx_client().request(
@@ -105,54 +102,52 @@ def sync_detailed(
 
 def sync(
     room_id: str,
-    id: str,
     *,
     client: AuthenticatedClient,
-) -> Error | PeerRefreshTokenResponse | None:
-    """Refresh peer token
+) -> Error | ViewerToken | None:
+    """Create a viewer token
+
+     Issue a fresh viewer token.
 
     Args:
         room_id (str):
-        id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | PeerRefreshTokenResponse
+        Error | ViewerToken
     """
 
     return sync_detailed(
         room_id=room_id,
-        id=id,
         client=client,
     ).parsed
 
 
 async def asyncio_detailed(
     room_id: str,
-    id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Error | PeerRefreshTokenResponse]:
-    """Refresh peer token
+) -> Response[Error | ViewerToken]:
+    """Create a viewer token
+
+     Issue a fresh viewer token.
 
     Args:
         room_id (str):
-        id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | PeerRefreshTokenResponse]
+        Response[Error | ViewerToken]
     """
 
     kwargs = _get_kwargs(
         room_id=room_id,
-        id=id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -162,28 +157,27 @@ async def asyncio_detailed(
 
 async def asyncio(
     room_id: str,
-    id: str,
     *,
     client: AuthenticatedClient,
-) -> Error | PeerRefreshTokenResponse | None:
-    """Refresh peer token
+) -> Error | ViewerToken | None:
+    """Create a viewer token
+
+     Issue a fresh viewer token.
 
     Args:
         room_id (str):
-        id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | PeerRefreshTokenResponse
+        Error | ViewerToken
     """
 
     return (
         await asyncio_detailed(
             room_id=room_id,
-            id=id,
             client=client,
         )
     ).parsed

@@ -1,46 +1,53 @@
 from http import HTTPStatus
 from typing import Any
-from urllib.parse import quote
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.stream_details_response import StreamDetailsResponse
-from ...types import Response
+from ...models.moq_token import MoqToken
+from ...models.moq_token_config import MoqTokenConfig
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
-    stream_id: str,
+    *,
+    body: MoqTokenConfig | Unset = UNSET,
 ) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
+
     _kwargs: dict[str, Any] = {
-        "method": "get",
-        "url": "/livestream/{stream_id}".format(
-            stream_id=quote(str(stream_id), safe=""),
-        ),
+        "method": "post",
+        "url": "/moq/token",
     }
 
+    if not isinstance(body, Unset):
+        _kwargs["json"] = body.to_dict()
+
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
     return _kwargs
 
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error | StreamDetailsResponse | None:
+) -> Error | MoqToken | None:
     if response.status_code == 200:
-        response_200 = StreamDetailsResponse.from_dict(response.json())
+        response_200 = MoqToken.from_dict(response.json())
 
         return response_200
+
+    if response.status_code == 400:
+        response_400 = Error.from_dict(response.json())
+
+        return response_400
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
         return response_401
-
-    if response.status_code == 404:
-        response_404 = Error.from_dict(response.json())
-
-        return response_404
 
     if response.status_code == 503:
         response_503 = Error.from_dict(response.json())
@@ -55,7 +62,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error | StreamDetailsResponse]:
+) -> Response[Error | MoqToken]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -65,25 +72,27 @@ def _build_response(
 
 
 def sync_detailed(
-    stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Error | StreamDetailsResponse]:
-    """Shows information about the stream
+    body: MoqTokenConfig | Unset = UNSET,
+) -> Response[Error | MoqToken]:
+    """Create a MoQ token
+
+     Issue a short-lived JWT for a Media over QUIC client.
 
     Args:
-        stream_id (str):
+        body (MoqTokenConfig | Unset): MoQ token configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | StreamDetailsResponse]
+        Response[Error | MoqToken]
     """
 
     kwargs = _get_kwargs(
-        stream_id=stream_id,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -94,49 +103,53 @@ def sync_detailed(
 
 
 def sync(
-    stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Error | StreamDetailsResponse | None:
-    """Shows information about the stream
+    body: MoqTokenConfig | Unset = UNSET,
+) -> Error | MoqToken | None:
+    """Create a MoQ token
+
+     Issue a short-lived JWT for a Media over QUIC client.
 
     Args:
-        stream_id (str):
+        body (MoqTokenConfig | Unset): MoQ token configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | StreamDetailsResponse
+        Error | MoqToken
     """
 
     return sync_detailed(
-        stream_id=stream_id,
         client=client,
+        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Error | StreamDetailsResponse]:
-    """Shows information about the stream
+    body: MoqTokenConfig | Unset = UNSET,
+) -> Response[Error | MoqToken]:
+    """Create a MoQ token
+
+     Issue a short-lived JWT for a Media over QUIC client.
 
     Args:
-        stream_id (str):
+        body (MoqTokenConfig | Unset): MoQ token configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | StreamDetailsResponse]
+        Response[Error | MoqToken]
     """
 
     kwargs = _get_kwargs(
-        stream_id=stream_id,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -145,26 +158,28 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Error | StreamDetailsResponse | None:
-    """Shows information about the stream
+    body: MoqTokenConfig | Unset = UNSET,
+) -> Error | MoqToken | None:
+    """Create a MoQ token
+
+     Issue a short-lived JWT for a Media over QUIC client.
 
     Args:
-        stream_id (str):
+        body (MoqTokenConfig | Unset): MoQ token configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | StreamDetailsResponse
+        Error | MoqToken
     """
 
     return (
         await asyncio_detailed(
-            stream_id=stream_id,
             client=client,
+            body=body,
         )
     ).parsed

@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
 
 import httpx
@@ -7,35 +7,66 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...types import Response
+from ...models.peer_config import PeerConfig
+from ...models.peer_details_response import PeerDetailsResponse
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
-    stream_id: str,
-    viewer_id: str,
+    room_id: str,
+    *,
+    body: PeerConfig | Unset = UNSET,
 ) -> dict[str, Any]:
+    headers: dict[str, Any] = {}
+
     _kwargs: dict[str, Any] = {
-        "method": "delete",
-        "url": "/livestream/{stream_id}/viewer/{viewer_id}".format(
-            stream_id=quote(str(stream_id), safe=""),
-            viewer_id=quote(str(viewer_id), safe=""),
+        "method": "post",
+        "url": "/room/{room_id}/peer".format(
+            room_id=quote(str(room_id), safe=""),
         ),
     }
 
+    if not isinstance(body, Unset):
+        _kwargs["json"] = body.to_dict()
+
+    headers["Content-Type"] = "application/json"
+
+    _kwargs["headers"] = headers
     return _kwargs
 
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Any | Error | None:
-    if response.status_code == 204:
-        response_204 = cast(Any, None)
-        return response_204
+) -> Error | PeerDetailsResponse | None:
+    if response.status_code == 201:
+        response_201 = PeerDetailsResponse.from_dict(response.json())
+
+        return response_201
+
+    if response.status_code == 400:
+        response_400 = Error.from_dict(response.json())
+
+        return response_400
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
         return response_401
+
+    if response.status_code == 402:
+        response_402 = Error.from_dict(response.json())
+
+        return response_402
+
+    if response.status_code == 404:
+        response_404 = Error.from_dict(response.json())
+
+        return response_404
+
+    if response.status_code == 409:
+        response_409 = Error.from_dict(response.json())
+
+        return response_409
 
     if response.status_code == 503:
         response_503 = Error.from_dict(response.json())
@@ -50,7 +81,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Any | Error]:
+) -> Response[Error | PeerDetailsResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -60,28 +91,30 @@ def _build_response(
 
 
 def sync_detailed(
-    stream_id: str,
-    viewer_id: str,
+    room_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Any | Error]:
-    """Deletes viewer
+    body: PeerConfig | Unset = UNSET,
+) -> Response[Error | PeerDetailsResponse]:
+    """Create a peer
+
+     Add a peer to a room and return its connection token.
 
     Args:
-        stream_id (str):
-        viewer_id (str):
+        room_id (str):
+        body (PeerConfig | Unset): Peer configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error]
+        Response[Error | PeerDetailsResponse]
     """
 
     kwargs = _get_kwargs(
-        stream_id=stream_id,
-        viewer_id=viewer_id,
+        room_id=room_id,
+        body=body,
     )
 
     response = client.get_httpx_client().request(
@@ -92,55 +125,59 @@ def sync_detailed(
 
 
 def sync(
-    stream_id: str,
-    viewer_id: str,
+    room_id: str,
     *,
     client: AuthenticatedClient,
-) -> Any | Error | None:
-    """Deletes viewer
+    body: PeerConfig | Unset = UNSET,
+) -> Error | PeerDetailsResponse | None:
+    """Create a peer
+
+     Add a peer to a room and return its connection token.
 
     Args:
-        stream_id (str):
-        viewer_id (str):
+        room_id (str):
+        body (PeerConfig | Unset): Peer configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error
+        Error | PeerDetailsResponse
     """
 
     return sync_detailed(
-        stream_id=stream_id,
-        viewer_id=viewer_id,
+        room_id=room_id,
         client=client,
+        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    stream_id: str,
-    viewer_id: str,
+    room_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Any | Error]:
-    """Deletes viewer
+    body: PeerConfig | Unset = UNSET,
+) -> Response[Error | PeerDetailsResponse]:
+    """Create a peer
+
+     Add a peer to a room and return its connection token.
 
     Args:
-        stream_id (str):
-        viewer_id (str):
+        room_id (str):
+        body (PeerConfig | Unset): Peer configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error]
+        Response[Error | PeerDetailsResponse]
     """
 
     kwargs = _get_kwargs(
-        stream_id=stream_id,
-        viewer_id=viewer_id,
+        room_id=room_id,
+        body=body,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -149,29 +186,31 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    stream_id: str,
-    viewer_id: str,
+    room_id: str,
     *,
     client: AuthenticatedClient,
-) -> Any | Error | None:
-    """Deletes viewer
+    body: PeerConfig | Unset = UNSET,
+) -> Error | PeerDetailsResponse | None:
+    """Create a peer
+
+     Add a peer to a room and return its connection token.
 
     Args:
-        stream_id (str):
-        viewer_id (str):
+        room_id (str):
+        body (PeerConfig | Unset): Peer configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error
+        Error | PeerDetailsResponse
     """
 
     return (
         await asyncio_detailed(
-            stream_id=stream_id,
-            viewer_id=viewer_id,
+            room_id=room_id,
             client=client,
+            body=body,
         )
     ).parsed

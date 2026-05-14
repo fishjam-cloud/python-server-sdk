@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
 
 import httpx
@@ -7,16 +7,17 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
+from ...models.stream_details_response import StreamDetailsResponse
 from ...types import Response
 
 
 def _get_kwargs(
-    room_id: str,
+    stream_id: str,
 ) -> dict[str, Any]:
     _kwargs: dict[str, Any] = {
-        "method": "delete",
-        "url": "/room/{room_id}".format(
-            room_id=quote(str(room_id), safe=""),
+        "method": "get",
+        "url": "/livestream/{stream_id}".format(
+            stream_id=quote(str(stream_id), safe=""),
         ),
     }
 
@@ -25,15 +26,11 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Any | Error | None:
-    if response.status_code == 204:
-        response_204 = cast(Any, None)
-        return response_204
+) -> Error | StreamDetailsResponse | None:
+    if response.status_code == 200:
+        response_200 = StreamDetailsResponse.from_dict(response.json())
 
-    if response.status_code == 400:
-        response_400 = Error.from_dict(response.json())
-
-        return response_400
+        return response_200
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
@@ -58,7 +55,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Any | Error]:
+) -> Response[Error | StreamDetailsResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -68,25 +65,27 @@ def _build_response(
 
 
 def sync_detailed(
-    room_id: str,
+    stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Any | Error]:
-    """Delete the room
+) -> Response[Error | StreamDetailsResponse]:
+    """Get a stream
+
+     Get a stream by id.
 
     Args:
-        room_id (str):
+        stream_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error]
+        Response[Error | StreamDetailsResponse]
     """
 
     kwargs = _get_kwargs(
-        room_id=room_id,
+        stream_id=stream_id,
     )
 
     response = client.get_httpx_client().request(
@@ -97,49 +96,53 @@ def sync_detailed(
 
 
 def sync(
-    room_id: str,
+    stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Any | Error | None:
-    """Delete the room
+) -> Error | StreamDetailsResponse | None:
+    """Get a stream
+
+     Get a stream by id.
 
     Args:
-        room_id (str):
+        stream_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error
+        Error | StreamDetailsResponse
     """
 
     return sync_detailed(
-        room_id=room_id,
+        stream_id=stream_id,
         client=client,
     ).parsed
 
 
 async def asyncio_detailed(
-    room_id: str,
+    stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Any | Error]:
-    """Delete the room
+) -> Response[Error | StreamDetailsResponse]:
+    """Get a stream
+
+     Get a stream by id.
 
     Args:
-        room_id (str):
+        stream_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error]
+        Response[Error | StreamDetailsResponse]
     """
 
     kwargs = _get_kwargs(
-        room_id=room_id,
+        stream_id=stream_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -148,26 +151,28 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    room_id: str,
+    stream_id: str,
     *,
     client: AuthenticatedClient,
-) -> Any | Error | None:
-    """Delete the room
+) -> Error | StreamDetailsResponse | None:
+    """Get a stream
+
+     Get a stream by id.
 
     Args:
-        room_id (str):
+        stream_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error
+        Error | StreamDetailsResponse
     """
 
     return (
         await asyncio_detailed(
-            room_id=room_id,
+            stream_id=stream_id,
             client=client,
         )
     ).parsed

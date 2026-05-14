@@ -2,7 +2,7 @@ from enum import Enum
 
 
 class StreamerStatus(str, Enum):
-    """None"""
+    """Streamer connection status"""
 
     CONNECTED = "connected"
     DISCONNECTED = "disconnected"

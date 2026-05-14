@@ -4,7 +4,10 @@
 # This file has been @generated
 import warnings
 from dataclasses import dataclass
-from typing import Optional
+from typing import (
+    List,
+    Optional,
+)
 
 import betterproto
 
@@ -226,6 +229,11 @@ class ServerMessage(betterproto.Message):
     streamer_disconnected: "ServerMessageStreamerDisconnected" = (
         betterproto.message_field(27, group="content")
     )
+    notification_batch: "ServerMessageNotificationBatch" = betterproto.message_field(
+        33, group="content"
+    )
+    """Batch"""
+
     stream_connected: "ServerMessageStreamConnected" = betterproto.message_field(
         22, group="content"
     )
@@ -539,3 +547,20 @@ class ServerMessageStreamerConnected(betterproto.Message):
 class ServerMessageStreamerDisconnected(betterproto.Message):
     stream_id: str = betterproto.string_field(1)
     streamer_id: str = betterproto.string_field(2)
+
+
+@dataclass(eq=False, repr=False)
+class ServerMessageNotificationBatch(betterproto.Message):
+    """
+    Carries multiple notifications in a single wire frame. Constraints
+    (documented, not schema-enforced):   - Each element's `content` MUST be a
+    notification variant — never     Authenticated, AuthRequest,
+    SubscribeRequest, or SubscribeResponse.   - NotificationBatch MUST NOT be
+    nested inside another NotificationBatch.     The schema technically permits
+    this, but senders must not emit     recursive batches and receivers may
+    treat them as a protocol violation.   - Notifications are delivered in
+    array order; consumers must process     them in order.   - Sent only for
+    webhooks, for peers that .
+    """
+
+    notifications: List["ServerMessage"] = betterproto.message_field(1)

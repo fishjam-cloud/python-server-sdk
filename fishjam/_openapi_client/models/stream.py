@@ -18,11 +18,11 @@ T = TypeVar("T", bound="Stream")
 
 @_attrs_define
 class Stream:
-    """Describes stream status
+    """State of a stream
 
     Attributes:
         id (str): Assigned stream id
-        public (bool):
+        public (bool): True if livestream viewers can omit specifying a token.
         streamers (list[Streamer]): List of all streamers
         viewers (list[Viewer]): List of all viewers
         audio_only (bool | Unset): True if stream is restricted to audio only

@@ -19,7 +19,7 @@ T = TypeVar("T", bound="Room")
 
 @_attrs_define
 class Room:
-    """Description of the room state
+    """State of a room
 
     Attributes:
         config (RoomConfig): Room configuration

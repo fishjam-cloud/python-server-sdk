@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
 
 import httpx
@@ -7,18 +7,17 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
+from ...models.streamer_details_response import StreamerDetailsResponse
 from ...types import Response
 
 
 def _get_kwargs(
     stream_id: str,
-    streamer_id: str,
 ) -> dict[str, Any]:
     _kwargs: dict[str, Any] = {
-        "method": "delete",
-        "url": "/livestream/{stream_id}/streamer/{streamer_id}".format(
+        "method": "post",
+        "url": "/livestream/{stream_id}/streamer".format(
             stream_id=quote(str(stream_id), safe=""),
-            streamer_id=quote(str(streamer_id), safe=""),
         ),
     }
 
@@ -27,15 +26,21 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Any | Error | None:
-    if response.status_code == 204:
-        response_204 = cast(Any, None)
-        return response_204
+) -> Error | StreamerDetailsResponse | None:
+    if response.status_code == 201:
+        response_201 = StreamerDetailsResponse.from_dict(response.json())
+
+        return response_201
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
         return response_401
+
+    if response.status_code == 404:
+        response_404 = Error.from_dict(response.json())
+
+        return response_404
 
     if response.status_code == 503:
         response_503 = Error.from_dict(response.json())
@@ -50,7 +55,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Any | Error]:
+) -> Response[Error | StreamerDetailsResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -61,27 +66,26 @@ def _build_response(
 
 def sync_detailed(
     stream_id: str,
-    streamer_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Any | Error]:
-    """Deletes streamer
+) -> Response[Error | StreamerDetailsResponse]:
+    """Create a streamer
+
+     Create a streamer for a stream and return its credentials.
 
     Args:
         stream_id (str):
-        streamer_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error]
+        Response[Error | StreamerDetailsResponse]
     """
 
     kwargs = _get_kwargs(
         stream_id=stream_id,
-        streamer_id=streamer_id,
     )
 
     response = client.get_httpx_client().request(
@@ -93,54 +97,52 @@ def sync_detailed(
 
 def sync(
     stream_id: str,
-    streamer_id: str,
     *,
     client: AuthenticatedClient,
-) -> Any | Error | None:
-    """Deletes streamer
+) -> Error | StreamerDetailsResponse | None:
+    """Create a streamer
+
+     Create a streamer for a stream and return its credentials.
 
     Args:
         stream_id (str):
-        streamer_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error
+        Error | StreamerDetailsResponse
     """
 
     return sync_detailed(
         stream_id=stream_id,
-        streamer_id=streamer_id,
         client=client,
     ).parsed
 
 
 async def asyncio_detailed(
     stream_id: str,
-    streamer_id: str,
     *,
     client: AuthenticatedClient,
-) -> Response[Any | Error]:
-    """Deletes streamer
+) -> Response[Error | StreamerDetailsResponse]:
+    """Create a streamer
+
+     Create a streamer for a stream and return its credentials.
 
     Args:
         stream_id (str):
-        streamer_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error]
+        Response[Error | StreamerDetailsResponse]
     """
 
     kwargs = _get_kwargs(
         stream_id=stream_id,
-        streamer_id=streamer_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -150,28 +152,27 @@ async def asyncio_detailed(
 
 async def asyncio(
     stream_id: str,
-    streamer_id: str,
     *,
     client: AuthenticatedClient,
-) -> Any | Error | None:
-    """Deletes streamer
+) -> Error | StreamerDetailsResponse | None:
+    """Create a streamer
+
+     Create a streamer for a stream and return its credentials.
 
     Args:
         stream_id (str):
-        streamer_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error
+        Error | StreamerDetailsResponse
     """
 
     return (
         await asyncio_detailed(
             stream_id=stream_id,
-            streamer_id=streamer_id,
             client=client,
         )
     ).parsed
