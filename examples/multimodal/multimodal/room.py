@@ -6,7 +6,9 @@ from .agent import MultimodalAgent
 from .config import FISHJAM_ID, FISHJAM_TOKEN
 from .worker import BackgroundWorker
 
-fishjam = FishjamClient(FISHJAM_ID, FISHJAM_TOKEN)
+fishjam = FishjamClient.create_and_verify(
+    fishjam_id=FISHJAM_ID, management_token=FISHJAM_TOKEN
+)
 
 
 class RoomService:

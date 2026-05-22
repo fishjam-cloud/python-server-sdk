@@ -6,7 +6,9 @@ from transcription.worker import BackgroundWorker
 from .agent import TranscriptionAgent
 from .config import FISHJAM_ID, FISHJAM_TOKEN
 
-fishjam = FishjamClient(FISHJAM_ID, FISHJAM_TOKEN)
+fishjam = FishjamClient.create_and_verify(
+    fishjam_id=FISHJAM_ID, management_token=FISHJAM_TOKEN
+)
 
 
 class RoomService:
