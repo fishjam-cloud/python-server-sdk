@@ -21,7 +21,7 @@ from fishjam.events.allowed_notifications import (
     ALLOWED_NOTIFICATIONS,
     AllowedNotification,
 )
-from fishjam.utils import get_fishjam_url
+from fishjam.utils import get_fishjam_url, validate_fishjam_config
 
 NotificationHandler = (
     Callable[[AllowedNotification], None]
@@ -38,6 +38,7 @@ class FishjamNotifier:
         management_token: str,
     ):
         """Create a FishjamNotifier instance with an ID and management token."""
+        validate_fishjam_config(fishjam_id, management_token)
         websocket_url = get_fishjam_url(fishjam_id).replace("http", "ws")
         self._fishjam_url = f"{websocket_url}/socket/server/websocket"
         self._management_token: str = management_token

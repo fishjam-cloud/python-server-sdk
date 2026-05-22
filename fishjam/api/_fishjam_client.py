@@ -154,11 +154,55 @@ class FishjamClient(Client):
     ):
         """Create a FishjamClient instance.
 
+        Performs only required-field shape validation on the provided
+        credentials. The constructor does NOT contact the Fishjam backend.
+        Use :meth:`create_and_verify` or :meth:`check_credentials` to verify
+        the credentials against the backend.
+
         Args:
             fishjam_id: The unique identifier for the Fishjam instance.
             management_token: The token used for authenticating management operations.
+
+        Raises:
+            MissingFishjamIdError: If ``fishjam_id`` is empty.
+            MissingManagementTokenError: If ``management_token`` is empty.
         """
         super().__init__(fishjam_id=fishjam_id, management_token=management_token)
+
+    @classmethod
+    def create_and_verify(
+        cls, *, fishjam_id: str, management_token: str
+    ) -> "FishjamClient":
+        """Construct a FishjamClient and verify credentials against the backend.
+
+        Args:
+            fishjam_id: The unique identifier for the Fishjam instance.
+            management_token: The token used for authenticating management operations.
+
+        Returns:
+            FishjamClient: A client whose credentials have been verified.
+
+        Raises:
+            MissingFishjamIdError: If ``fishjam_id`` is empty.
+            MissingManagementTokenError: If ``management_token`` is empty.
+            UnauthorizedError: If the credentials are rejected by the backend.
+            NotFoundError: If ``fishjam_id`` does not refer to a known Fishjam.
+        """
+        client = cls(fishjam_id=fishjam_id, management_token=management_token)
+        client.check_credentials()
+        return client
+
+    def check_credentials(self) -> None:
+        """Verify configured credentials by pinging the backend.
+
+        Performs a single lightweight call (``get_all_rooms``) and lets the
+        normal error translation surface any HTTP errors.
+
+        Raises:
+            UnauthorizedError: On 401.
+            NotFoundError: On 404.
+        """
+        self.get_all_rooms()
 
     def create_peer(
         self,

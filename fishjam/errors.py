@@ -4,6 +4,16 @@ from fishjam._openapi_client.models import Error
 from fishjam._openapi_client.types import Response
 
 
+class MissingFishjamIdError(ValueError):
+    def __init__(self) -> None:
+        super().__init__("Fishjam ID is required")
+
+
+class MissingManagementTokenError(ValueError):
+    def __init__(self) -> None:
+        super().__init__("Management Token is required")
+
+
 class HTTPError(Exception):
     """"""
 
