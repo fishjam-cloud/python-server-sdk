@@ -6,13 +6,12 @@ from fishjam._openapi_client.client import AuthenticatedClient
 from fishjam._openapi_client.models import Error
 from fishjam._openapi_client.types import Response
 from fishjam.errors import HTTPError
-from fishjam.utils import get_fishjam_url, validate_fishjam_config
+from fishjam.utils import get_fishjam_url
 from fishjam.version import get_version
 
 
 class Client:
     def __init__(self, fishjam_id: str, management_token: str):
-        validate_fishjam_config(fishjam_id, management_token)
         self._fishjam_url = get_fishjam_url(fishjam_id)
         self.client = AuthenticatedClient(
             self._fishjam_url,

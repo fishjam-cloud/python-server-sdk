@@ -9,11 +9,6 @@ class MissingFishjamIdError(ValueError):
         super().__init__("Fishjam ID is required")
 
 
-class MissingManagementTokenError(ValueError):
-    def __init__(self) -> None:
-        super().__init__("Management Token is required")
-
-
 class HTTPError(Exception):
     """"""
 
@@ -76,6 +71,12 @@ class InternalServerError(HTTPError):
 
 
 class ConflictError(HTTPError):
+    def __init__(self, errors):
+        """@private"""
+        super().__init__(errors)
+
+
+class InvalidFishjamCredentialsError(HTTPError):
     def __init__(self, errors):
         """@private"""
         super().__init__(errors)

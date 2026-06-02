@@ -6,8 +6,9 @@ import pytest
 
 from fishjam import FishjamClient
 from fishjam.errors import (
+    InvalidFishjamCredentialsError,
     MissingFishjamIdError,
-    MissingManagementTokenError,
+    NotFoundError,
     UnauthorizedError,
 )
 
@@ -20,10 +21,6 @@ class TestSyncValidation:
         with pytest.raises(MissingFishjamIdError):
             FishjamClient(fishjam_id="", management_token=VALID_MANAGEMENT_TOKEN)
 
-    def test_empty_management_token_raises(self):
-        with pytest.raises(MissingManagementTokenError):
-            FishjamClient(fishjam_id=VALID_FISHJAM_ID, management_token="")
-
     def test_both_provided_does_not_raise(self):
         FishjamClient(
             fishjam_id=VALID_FISHJAM_ID, management_token=VALID_MANAGEMENT_TOKEN
@@ -31,13 +28,25 @@ class TestSyncValidation:
 
 
 class TestLiveCheck:
-    def test_create_and_verify_raises_unauthorized_on_401(self):
+    def test_create_and_verify_raises_invalid_credentials_on_401(self):
         with patch.object(
             FishjamClient,
             "get_all_rooms",
             side_effect=UnauthorizedError("Invalid token"),
         ):
-            with pytest.raises(UnauthorizedError):
+            with pytest.raises(InvalidFishjamCredentialsError):
+                FishjamClient.create_and_verify(
+                    fishjam_id=VALID_FISHJAM_ID,
+                    management_token=VALID_MANAGEMENT_TOKEN,
+                )
+
+    def test_create_and_verify_raises_invalid_credentials_on_404(self):
+        with patch.object(
+            FishjamClient,
+            "get_all_rooms",
+            side_effect=NotFoundError("Fishjam not found"),
+        ):
+            with pytest.raises(InvalidFishjamCredentialsError):
                 FishjamClient.create_and_verify(
                     fishjam_id=VALID_FISHJAM_ID,
                     management_token=VALID_MANAGEMENT_TOKEN,
@@ -55,7 +64,7 @@ class TestLiveCheck:
             assert isinstance(client, FishjamClient)
             assert mock_get_all.call_count == 1
 
-    def test_check_credentials_raises_unauthorized_on_401(self):
+    def test_check_credentials_raises_invalid_credentials_on_401(self):
         client = FishjamClient(
             fishjam_id=VALID_FISHJAM_ID, management_token=VALID_MANAGEMENT_TOKEN
         )
@@ -64,7 +73,19 @@ class TestLiveCheck:
             "get_all_rooms",
             side_effect=UnauthorizedError("Invalid token"),
         ):
-            with pytest.raises(UnauthorizedError):
+            with pytest.raises(InvalidFishjamCredentialsError):
+                client.check_credentials()
+
+    def test_check_credentials_raises_invalid_credentials_on_404(self):
+        client = FishjamClient(
+            fishjam_id=VALID_FISHJAM_ID, management_token=VALID_MANAGEMENT_TOKEN
+        )
+        with patch.object(
+            FishjamClient,
+            "get_all_rooms",
+            side_effect=NotFoundError("Fishjam not found"),
+        ):
+            with pytest.raises(InvalidFishjamCredentialsError):
                 client.check_credentials()
 
     def test_check_credentials_returns_none_on_success(self):

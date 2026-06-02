@@ -50,6 +50,11 @@ from fishjam._openapi_client.models import (
 from fishjam._openapi_client.types import UNSET
 from fishjam.agent import Agent
 from fishjam.api._client import Client
+from fishjam.errors import (
+    InvalidFishjamCredentialsError,
+    NotFoundError,
+    UnauthorizedError,
+)
 
 
 @dataclass
@@ -154,18 +159,12 @@ class FishjamClient(Client):
     ):
         """Create a FishjamClient instance.
 
-        Performs only required-field shape validation on the provided
-        credentials. The constructor does NOT contact the Fishjam backend.
-        Use :meth:`create_and_verify` or :meth:`check_credentials` to verify
-        the credentials against the backend.
+        Does not contact the Fishjam backend — use :meth:`create_and_verify`
+        or :meth:`check_credentials` to verify credentials live.
 
         Args:
             fishjam_id: The unique identifier for the Fishjam instance.
             management_token: The token used for authenticating management operations.
-
-        Raises:
-            MissingFishjamIdError: If ``fishjam_id`` is empty.
-            MissingManagementTokenError: If ``management_token`` is empty.
         """
         super().__init__(fishjam_id=fishjam_id, management_token=management_token)
 
@@ -183,10 +182,8 @@ class FishjamClient(Client):
             FishjamClient: A client whose credentials have been verified.
 
         Raises:
-            MissingFishjamIdError: If ``fishjam_id`` is empty.
-            MissingManagementTokenError: If ``management_token`` is empty.
-            UnauthorizedError: If the credentials are rejected by the backend.
-            NotFoundError: If ``fishjam_id`` does not refer to a known Fishjam.
+            InvalidFishjamCredentialsError: If the ``fishjam_id`` /
+                ``management_token`` pair is rejected by the backend.
         """
         client = cls(fishjam_id=fishjam_id, management_token=management_token)
         client.check_credentials()
@@ -195,14 +192,15 @@ class FishjamClient(Client):
     def check_credentials(self) -> None:
         """Verify configured credentials by pinging the backend.
 
-        Performs a single lightweight call (``get_all_rooms``) and lets the
-        normal error translation surface any HTTP errors.
-
-        Raises:
-            UnauthorizedError: On 401.
-            NotFoundError: On 404.
+        Performs a single lightweight ``get_all_rooms`` call. A 401 or 404
+        from the backend is translated into
+        :class:`InvalidFishjamCredentialsError`; other HTTP errors propagate
+        as their normal mapped types.
         """
-        self.get_all_rooms()
+        try:
+            self.get_all_rooms()
+        except (UnauthorizedError, NotFoundError) as exc:
+            raise InvalidFishjamCredentialsError(*exc.args) from exc
 
     def create_peer(
         self,
