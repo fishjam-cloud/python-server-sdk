@@ -196,6 +196,10 @@ class FishjamClient(Client):
         from the backend is translated into
         :class:`InvalidFishjamCredentialsError`; other HTTP errors propagate
         as their normal mapped types.
+
+        Raises:
+            InvalidFishjamCredentialsError: If the ``fishjam_id`` /
+                ``management_token`` pair is rejected by the backend.
         """
         try:
             self.get_all_rooms()
