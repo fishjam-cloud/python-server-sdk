@@ -3,6 +3,9 @@
 from dataclasses import dataclass, field
 from typing import Any, Literal, cast
 
+from fishjam._openapi_client.api.credentials import (
+    validate_credentials as credentials_validate_credentials,
+)
 from fishjam._openapi_client.api.mo_q import (
     create_moq_token as moq_create_token,
 )
@@ -53,7 +56,6 @@ from fishjam.api._client import Client
 from fishjam.errors import (
     InvalidFishjamCredentialsError,
     NotFoundError,
-    UnauthorizedError,
 )
 
 
@@ -202,8 +204,8 @@ class FishjamClient(Client):
                 ``management_token`` pair is rejected by the backend.
         """
         try:
-            self.get_all_rooms()
-        except (UnauthorizedError, NotFoundError) as exc:
+            self._request(credentials_validate_credentials)
+        except NotFoundError as exc:
             raise InvalidFishjamCredentialsError(*exc.args) from exc
 
     def create_peer(
