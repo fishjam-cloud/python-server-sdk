@@ -40,9 +40,7 @@ class TestLiveCheck:
                 )
 
     def test_create_and_verify_returns_client_and_pings_once(self):
-        with patch.object(
-            FishjamClient, "_request", return_value=None
-        ) as mock_request:
+        with patch.object(FishjamClient, "_request", return_value=None) as mock_request:
             client = FishjamClient.create_and_verify(
                 fishjam_id=VALID_FISHJAM_ID,
                 management_token=VALID_MANAGEMENT_TOKEN,
