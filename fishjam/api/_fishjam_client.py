@@ -1,6 +1,7 @@
 """Fishjam client used to manage rooms."""
 
 from dataclasses import dataclass, field
+from http import HTTPStatus
 from typing import Any, Literal, cast
 
 from fishjam._openapi_client.api.credentials import (
@@ -55,7 +56,6 @@ from fishjam.agent import Agent
 from fishjam.api._client import Client
 from fishjam.errors import (
     InvalidFishjamCredentialsError,
-    NotFoundError,
 )
 
 
@@ -174,7 +174,7 @@ class FishjamClient(Client):
     def create_and_verify(
         cls, *, fishjam_id: str, management_token: str
     ) -> "FishjamClient":
-        """Construct a FishjamClient and verify credentials against the backend.
+        """Construct a FishjamClient and verify its credentials against the backend.
 
         Args:
             fishjam_id: The unique identifier for the Fishjam instance.
@@ -184,29 +184,23 @@ class FishjamClient(Client):
             FishjamClient: A client whose credentials have been verified.
 
         Raises:
-            InvalidFishjamCredentialsError: If the ``fishjam_id`` /
-                ``management_token`` pair is rejected by the backend.
+            InvalidFishjamCredentialsError: If the token is rejected.
         """
         client = cls(fishjam_id=fishjam_id, management_token=management_token)
         client.check_credentials()
         return client
 
     def check_credentials(self) -> None:
-        """Verify configured credentials by pinging the backend.
-
-        Performs a single lightweight ``get_all_rooms`` call. A 401 or 404
-        from the backend is translated into
-        :class:`InvalidFishjamCredentialsError`; other HTTP errors propagate
-        as their normal mapped types.
+        """Verify the management token via a single ``/validate`` call.
 
         Raises:
-            InvalidFishjamCredentialsError: If the ``fishjam_id`` /
-                ``management_token`` pair is rejected by the backend.
+            InvalidFishjamCredentialsError: If the token is rejected.
         """
-        try:
-            self._request(credentials_validate_credentials)
-        except NotFoundError as exc:
-            raise InvalidFishjamCredentialsError(*exc.args) from exc
+        response = credentials_validate_credentials.sync_detailed(client=self.client)
+        self._handle_deprecation_header(response.headers)
+
+        if response.status_code == HTTPStatus.NOT_FOUND:
+            raise InvalidFishjamCredentialsError("Invalid Fishjam credentials")
 
     def create_peer(
         self,
