@@ -18,8 +18,10 @@ def respond_root():
     data = request.get_data()
     msg = receive_binary(data)
     if msg is not None:
-        for q in QUEUES.values():
-            q.put(msg)
+        notifications = msg if isinstance(msg, list) else [msg]
+        for notification in notifications:
+            for q in QUEUES.values():
+                q.put(notification)
 
     return Response(status=200)
 

@@ -9,11 +9,13 @@ import betterproto
 from websockets.asyncio import client
 from websockets.exceptions import ConnectionClosed
 
+from fishjam._webhook_notifier import _unpack_batch
 from fishjam.events._protos.fishjam import (
     ServerMessage,
     ServerMessageAuthenticated,
     ServerMessageAuthRequest,
     ServerMessageEventType,
+    ServerMessageNotificationBatch,
     ServerMessageSubscribeRequest,
     ServerMessageSubscribeResponse,
 )
@@ -130,14 +132,25 @@ class FishjamNotifier:
             raise RuntimeError("Notification handler is not defined")
 
         while True:
-            message = await self._websocket.recv(decode=False)
-            message = ServerMessage().parse(message)
-            _which, message = betterproto.which_one_of(message, "content")
+            data = await self._websocket.recv(decode=False)
+            message = ServerMessage().parse(data)
+            _which, content = betterproto.which_one_of(message, "content")
 
-            if isinstance(message, ALLOWED_NOTIFICATIONS):
-                res = self._notification_handler(message)
-                if inspect.isawaitable(res):
-                    await res
+            # Batches are documented as webhook-only, but unpack them here too so
+            # the WebSocket path stays robust if one is ever delivered.
+            if isinstance(content, ServerMessageNotificationBatch):
+                for notification in _unpack_batch(content):
+                    await self._dispatch(notification)
+            elif isinstance(content, ALLOWED_NOTIFICATIONS):
+                await self._dispatch(content)
+
+    async def _dispatch(self, notification: AllowedNotification):
+        if not self._notification_handler:
+            raise RuntimeError("Notification handler is not defined")
+
+        res = self._notification_handler(notification)
+        if inspect.isawaitable(res):
+            await res
 
     async def _subscribe_event(self, event: ServerMessageEventType):
         if not self._websocket:

@@ -88,6 +88,9 @@ class RoomOptions:
         room_type: The use-case of the room. If not provided, this defaults
             to conference.
         public: True if livestream viewers can omit specifying a token.
+        batch_webhook_notifications: If true, webhook notifications for this room
+            are coalesced into a single NotificationBatch per HTTP send instead
+            of one request per notification.
     """
 
     max_peers: int | None = None
@@ -107,6 +110,8 @@ class RoomOptions:
     """The use-case of the room. If not provided, this defaults to conference."""
     public: bool = False
     """True if livestream viewers can omit specifying a token."""
+    batch_webhook_notifications: bool = False
+    """Coalesce webhook notifications into a single NotificationBatch per send."""
 
 
 @dataclass
@@ -309,6 +314,7 @@ class FishjamClient(Client):
             webhook_url=options.webhook_url,
             room_type=RoomType(options.room_type),
             public=options.public,
+            batch_webhook_notifications=options.batch_webhook_notifications,
         )
 
         room = cast(
