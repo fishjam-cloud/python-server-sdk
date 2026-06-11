@@ -24,6 +24,7 @@ from fishjam.api._fishjam_client import (
     Room,
     RoomOptions,
 )
+from fishjam.errors import InvalidFishjamCredentialsError, MissingFishjamIdError
 
 __version__ = version.__version__
 
@@ -39,6 +40,8 @@ __all__ = [
     "AgentOutputOptions",
     "Room",
     "Peer",
+    "MissingFishjamIdError",
+    "InvalidFishjamCredentialsError",
     "events",
     "errors",
     "room",

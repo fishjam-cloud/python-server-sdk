@@ -28,7 +28,7 @@ class PeerAccess:
 
 class RoomService:
     def __init__(self, args: Namespace, logger: Logger):
-        self.fishjam_client = FishjamClient(
+        self.fishjam_client = FishjamClient.create_and_verify(
             fishjam_id=args.fishjam_id,
             management_token=args.management_token,
         )

@@ -4,6 +4,11 @@ from fishjam._openapi_client.models import Error
 from fishjam._openapi_client.types import Response
 
 
+class MissingFishjamIdError(ValueError):
+    def __init__(self) -> None:
+        super().__init__("Fishjam ID is required")
+
+
 class HTTPError(Exception):
     """"""
 
@@ -66,6 +71,12 @@ class InternalServerError(HTTPError):
 
 
 class ConflictError(HTTPError):
+    def __init__(self, errors):
+        """@private"""
+        super().__init__(errors)
+
+
+class InvalidFishjamCredentialsError(HTTPError):
     def __init__(self, errors):
         """@private"""
         super().__init__(errors)

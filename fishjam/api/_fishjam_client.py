@@ -1,8 +1,12 @@
 """Fishjam client used to manage rooms."""
 
 from dataclasses import dataclass, field
+from http import HTTPStatus
 from typing import Any, Literal, cast
 
+from fishjam._openapi_client.api.credentials import (
+    validate_credentials as credentials_validate_credentials,
+)
 from fishjam._openapi_client.api.mo_q import (
     create_moq_token as moq_create_token,
 )
@@ -50,6 +54,9 @@ from fishjam._openapi_client.models import (
 from fishjam._openapi_client.types import UNSET
 from fishjam.agent import Agent
 from fishjam.api._client import Client
+from fishjam.errors import (
+    InvalidFishjamCredentialsError,
+)
 
 
 @dataclass
@@ -154,11 +161,46 @@ class FishjamClient(Client):
     ):
         """Create a FishjamClient instance.
 
+        Does not contact the Fishjam backend — use :meth:`create_and_verify`
+        or :meth:`check_credentials` to verify credentials live.
+
         Args:
             fishjam_id: The unique identifier for the Fishjam instance.
             management_token: The token used for authenticating management operations.
         """
         super().__init__(fishjam_id=fishjam_id, management_token=management_token)
+
+    @classmethod
+    def create_and_verify(
+        cls, *, fishjam_id: str, management_token: str
+    ) -> "FishjamClient":
+        """Construct a FishjamClient and verify its credentials against the backend.
+
+        Args:
+            fishjam_id: The unique identifier for the Fishjam instance.
+            management_token: The token used for authenticating management operations.
+
+        Returns:
+            FishjamClient: A client whose credentials have been verified.
+
+        Raises:
+            InvalidFishjamCredentialsError: If the token is rejected.
+        """
+        client = cls(fishjam_id=fishjam_id, management_token=management_token)
+        client.check_credentials()
+        return client
+
+    def check_credentials(self) -> None:
+        """Verify the management token via a single ``/validate`` call.
+
+        Raises:
+            InvalidFishjamCredentialsError: If the token is rejected.
+        """
+        response = credentials_validate_credentials.sync_detailed(client=self.client)
+        self._handle_deprecation_header(response.headers)
+
+        if response.status_code == HTTPStatus.NOT_FOUND:
+            raise InvalidFishjamCredentialsError("Invalid Fishjam credentials")
 
     def create_peer(
         self,

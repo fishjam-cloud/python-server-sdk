@@ -25,4 +25,6 @@ with open(INSTRUCTION_PATH) as prompt:
 with open(GREET_PATH) as prompt:
     OPENAI_GREET = prompt.read()
 
-fishjam_client = FishjamClient(FISHJAM_ID, FISHJAM_TOKEN)
+fishjam_client = FishjamClient.create_and_verify(
+    fishjam_id=FISHJAM_ID, management_token=FISHJAM_TOKEN
+)
