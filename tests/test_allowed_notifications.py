@@ -20,8 +20,8 @@ IGNORED_NOTIFICATIONS = {
     "ServerMessageTrackForwarding",
     "ServerMessageTrackForwardingRemoved",
     "ServerMessageVadNotification",
-    # Transport wrapper, not a user-facing event: `receive_binary` unpacks it
-    # into the individual notifications it carries.
+    # Transport wrapper, not a user-facing event: `decode_server_notifications`
+    # unpacks it into the individual notifications it carries.
     "ServerMessageNotificationBatch",
     # Deprecated in the proto.
     "ServerMessageStreamConnected",

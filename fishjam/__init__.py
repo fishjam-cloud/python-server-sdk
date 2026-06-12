@@ -12,7 +12,7 @@ from fishjam import agent, errors, events, integrations, peer, room, version
 from fishjam._openapi_client.models import PeerMetadata
 
 # API
-from fishjam._webhook_notifier import receive_binary
+from fishjam._webhook_notifier import decode_server_notifications, receive_binary
 from fishjam._ws_notifier import FishjamNotifier
 from fishjam.api._fishjam_client import (
     AgentOptions,
@@ -31,6 +31,7 @@ __version__ = version.__version__
 __all__ = [
     "FishjamClient",
     "FishjamNotifier",
+    "decode_server_notifications",
     "receive_binary",
     "PeerMetadata",
     "PeerOptions",
