@@ -219,6 +219,36 @@ class TestReceivingNotifications:
 
         self.assert_webhook_events(event_checks, event_queue, room.id)
 
+    @pytest.mark.asyncio
+    async def test_batched_webhook_notifications(
+        self, room_api: FishjamClient, event_queue
+    ):
+        event_checks = [
+            ServerMessageRoomCreated,
+            ServerMessagePeerAdded,
+            ServerMessagePeerConnected,
+            ServerMessagePeerDisconnected,
+            ServerMessagePeerDeleted,
+            ServerMessageRoomDeleted,
+        ]
+
+        options = RoomOptions(webhook_url=WEBHOOK_URL, batch_webhook_notifications=True)
+        room = room_api.create_room(options=options)
+        peer, token = room_api.create_peer(room.id)
+
+        peer_socket = PeerSocket(fishjam_url=FISHJAM_ID)
+        peer_socket_task = asyncio.ensure_future(peer_socket.connect(token))
+        try:
+            await peer_socket.wait_ready()
+
+            room_api.delete_peer(room.id, peer.id)
+            room_api.delete_room(room.id)
+        finally:
+            peer_socket_task.cancel()
+            await asyncio.gather(peer_socket_task, return_exceptions=True)
+
+        self.assert_webhook_events(event_checks, event_queue, room.id)
+
     def assert_webhook_events(self, event_checks, event_queue, room_id, timeout=60):
         deadline = time.monotonic() + timeout
         received = []

@@ -2,7 +2,7 @@
 
 from flask import Flask, Response, request
 
-from fishjam import receive_binary
+from fishjam import decode_server_notifications
 
 app = Flask(__name__)
 QUEUES = None
@@ -16,10 +16,9 @@ def respond_default():
 @app.route("/webhook", methods=["POST"])
 def respond_root():
     data = request.get_data()
-    msg = receive_binary(data)
-    if msg is not None:
+    for notification in decode_server_notifications(data):
         for q in QUEUES.values():
-            q.put(msg)
+            q.put(notification)
 
     return Response(status=200)
 

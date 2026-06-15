@@ -3,7 +3,7 @@ from dataclasses import asdict
 from flask import Flask, abort, jsonify, request
 from room_service import RoomService
 
-from fishjam import receive_binary
+from fishjam import decode_server_notifications
 from fishjam.room import RoomType
 
 
@@ -36,9 +36,7 @@ def setup_routes(app: Flask, room_service: RoomService):
 
     @app.post("/api/rooms/webhook")
     def webhook():
-        notification = receive_binary(request.data)
-
-        if notification:
+        for notification in decode_server_notifications(request.data):
             room_service.handle_notification(notification)
 
         return "Webhook Notification Received", 200
