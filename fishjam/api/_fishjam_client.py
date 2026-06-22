@@ -420,14 +420,14 @@ class FishjamClient(Client):
         publish_path: str | None = None,
         subscribe_path: str | None = None,
     ) -> str:
-        """Generates a MoQ token.
+        """Generates a MoQ relay connection URL.
 
         Args:
             publish_path: Path the token grants publish access to.
             subscribe_path: Path the token grants subscribe access to.
 
         Returns:
-            str: The generated token.
+            str: The relay connection URL with the JWT embedded as a ``?jwt=`` query parameter.
         """
         config = MoqTokenConfig(
             publish_path=publish_path, subscribe_path=subscribe_path
@@ -437,7 +437,7 @@ class FishjamClient(Client):
             self._request(moq_create_token, body=config),
         )
 
-        return response.token
+        return response.url
 
     def subscribe_peer(self, room_id: str, peer_id: str, target_peer_id: str):
         """Subscribes a peer to all tracks of another peer.

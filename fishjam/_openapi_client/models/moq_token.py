@@ -11,23 +11,23 @@ T = TypeVar("T", bound="MoqToken")
 
 @_attrs_define
 class MoqToken:
-    """Token for authorizing a MoQ relay connection
+    """Connection details for a MoQ relay client
 
     Attributes:
-        token (str): JWT token for MoQ relay Example: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb290IjoiZmlzaGphbSIsInB1d
-            CI6WyJteS1zdHJlYW0iXSwiZ2V0IjpbXSwiaWF0IjoxNzEzMzYwMDAwLCJleHAiOjE3MTMzNjM2MDB9.abc123.
+        url (str): Relay connection URL with the JWT embedded as a `?jwt=` query parameter. Pass directly to a MoQ
+            client SDK. Example: https://relay.fishjam.io/abc123?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....
     """
 
-    token: str
+    url: str
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
-        token = self.token
+        url = self.url
 
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({
-            "token": token,
+            "url": url,
         })
 
         return field_dict
@@ -35,10 +35,10 @@ class MoqToken:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         d = dict(src_dict)
-        token = d.pop("token")
+        url = d.pop("url")
 
         moq_token = cls(
-            token=token,
+            url=url,
         )
 
         moq_token.additional_properties = d
