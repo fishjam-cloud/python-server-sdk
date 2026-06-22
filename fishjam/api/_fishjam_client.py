@@ -427,7 +427,8 @@ class FishjamClient(Client):
             subscribe_path: Path the token grants subscribe access to.
 
         Returns:
-            str: The relay connection URL with the JWT embedded as a ``?jwt=`` query parameter.
+            str: The relay connection URL with the JWT embedded
+            as a ``?jwt=`` query parameter.
         """
         config = MoqTokenConfig(
             publish_path=publish_path, subscribe_path=subscribe_path
