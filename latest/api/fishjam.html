@@ -232,7 +232,7 @@
                                 <a class="function" href="#FishjamClient.create_livestream_streamer_token">create_livestream_streamer_token</a>
                         </li>
                         <li>
-                                <a class="function" href="#FishjamClient.create_moq_token">create_moq_token</a>
+                                <a class="function" href="#FishjamClient.create_moq_access">create_moq_access</a>
                         </li>
                         <li>
                                 <a class="function" href="#FishjamClient.subscribe_peer">subscribe_peer</a>
@@ -445,6 +445,33 @@
 
             </li>
             <li>
+                    <a class="class" href="#MoqAccess">MoqAccess</a>
+                            <ul class="memberlist">
+                        <li>
+                                <a class="function" href="#MoqAccess.__init__">MoqAccess</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#MoqAccess.connection_url">connection_url</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#MoqAccess.token">token</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#MoqAccess.additional_properties">additional_properties</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#MoqAccess.to_dict">to_dict</a>
+                        </li>
+                        <li>
+                                <a class="function" href="#MoqAccess.from_dict">from_dict</a>
+                        </li>
+                        <li>
+                                <a class="variable" href="#MoqAccess.additional_keys">additional_keys</a>
+                        </li>
+                </ul>
+
+            </li>
+            <li>
                     <a class="class" href="#MissingFishjamIdError">MissingFishjamIdError</a>
                             <ul class="memberlist">
                 </ul>
@@ -607,41 +634,43 @@ you build your next dream product –
 </span><span id="L-18"><a href="#L-18"><span class="linenos">18</span></a>    <span class="n">AgentOptions</span><span class="p">,</span>
 </span><span id="L-19"><a href="#L-19"><span class="linenos">19</span></a>    <span class="n">AgentOutputOptions</span><span class="p">,</span>
 </span><span id="L-20"><a href="#L-20"><span class="linenos">20</span></a>    <span class="n">FishjamClient</span><span class="p">,</span>
-</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="n">Peer</span><span class="p">,</span>
-</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="n">PeerOptions</span><span class="p">,</span>
-</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="n">PeerOptionsVapi</span><span class="p">,</span>
-</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="n">Room</span><span class="p">,</span>
-</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="n">RoomOptions</span><span class="p">,</span>
-</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a><span class="p">)</span>
-</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">fishjam.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">InvalidFishjamCredentialsError</span><span class="p">,</span> <span class="n">MissingFishjamIdError</span>
-</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a>
-</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a><span class="n">__version__</span> <span class="o">=</span> <span class="n">version</span><span class="o">.</span><span class="n">__version__</span>
-</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a>
-</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
-</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a>    <span class="s2">&quot;FishjamClient&quot;</span><span class="p">,</span>
-</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="s2">&quot;FishjamNotifier&quot;</span><span class="p">,</span>
-</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="s2">&quot;decode_server_notifications&quot;</span><span class="p">,</span>
-</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="s2">&quot;receive_binary&quot;</span><span class="p">,</span>
-</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="s2">&quot;PeerMetadata&quot;</span><span class="p">,</span>
-</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="s2">&quot;PeerOptions&quot;</span><span class="p">,</span>
-</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    <span class="s2">&quot;PeerOptionsVapi&quot;</span><span class="p">,</span>
-</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="s2">&quot;RoomOptions&quot;</span><span class="p">,</span>
-</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="s2">&quot;AgentOptions&quot;</span><span class="p">,</span>
-</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>    <span class="s2">&quot;AgentOutputOptions&quot;</span><span class="p">,</span>
-</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>    <span class="s2">&quot;Room&quot;</span><span class="p">,</span>
-</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>    <span class="s2">&quot;Peer&quot;</span><span class="p">,</span>
-</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>    <span class="s2">&quot;MissingFishjamIdError&quot;</span><span class="p">,</span>
-</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>    <span class="s2">&quot;InvalidFishjamCredentialsError&quot;</span><span class="p">,</span>
-</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>    <span class="s2">&quot;events&quot;</span><span class="p">,</span>
-</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>    <span class="s2">&quot;errors&quot;</span><span class="p">,</span>
-</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>    <span class="s2">&quot;room&quot;</span><span class="p">,</span>
-</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>    <span class="s2">&quot;peer&quot;</span><span class="p">,</span>
-</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>    <span class="s2">&quot;agent&quot;</span><span class="p">,</span>
-</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>    <span class="s2">&quot;integrations&quot;</span><span class="p">,</span>
-</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a><span class="p">]</span>
-</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>
-</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a>
-</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a><span class="n">__docformat__</span> <span class="o">=</span> <span class="s2">&quot;restructuredtext&quot;</span>
+</span><span id="L-21"><a href="#L-21"><span class="linenos">21</span></a>    <span class="n">MoqAccess</span><span class="p">,</span>
+</span><span id="L-22"><a href="#L-22"><span class="linenos">22</span></a>    <span class="n">Peer</span><span class="p">,</span>
+</span><span id="L-23"><a href="#L-23"><span class="linenos">23</span></a>    <span class="n">PeerOptions</span><span class="p">,</span>
+</span><span id="L-24"><a href="#L-24"><span class="linenos">24</span></a>    <span class="n">PeerOptionsVapi</span><span class="p">,</span>
+</span><span id="L-25"><a href="#L-25"><span class="linenos">25</span></a>    <span class="n">Room</span><span class="p">,</span>
+</span><span id="L-26"><a href="#L-26"><span class="linenos">26</span></a>    <span class="n">RoomOptions</span><span class="p">,</span>
+</span><span id="L-27"><a href="#L-27"><span class="linenos">27</span></a><span class="p">)</span>
+</span><span id="L-28"><a href="#L-28"><span class="linenos">28</span></a><span class="kn">from</span><span class="w"> </span><span class="nn">fishjam.errors</span><span class="w"> </span><span class="kn">import</span> <span class="n">InvalidFishjamCredentialsError</span><span class="p">,</span> <span class="n">MissingFishjamIdError</span>
+</span><span id="L-29"><a href="#L-29"><span class="linenos">29</span></a>
+</span><span id="L-30"><a href="#L-30"><span class="linenos">30</span></a><span class="n">__version__</span> <span class="o">=</span> <span class="n">version</span><span class="o">.</span><span class="n">__version__</span>
+</span><span id="L-31"><a href="#L-31"><span class="linenos">31</span></a>
+</span><span id="L-32"><a href="#L-32"><span class="linenos">32</span></a><span class="n">__all__</span> <span class="o">=</span> <span class="p">[</span>
+</span><span id="L-33"><a href="#L-33"><span class="linenos">33</span></a>    <span class="s2">&quot;FishjamClient&quot;</span><span class="p">,</span>
+</span><span id="L-34"><a href="#L-34"><span class="linenos">34</span></a>    <span class="s2">&quot;FishjamNotifier&quot;</span><span class="p">,</span>
+</span><span id="L-35"><a href="#L-35"><span class="linenos">35</span></a>    <span class="s2">&quot;decode_server_notifications&quot;</span><span class="p">,</span>
+</span><span id="L-36"><a href="#L-36"><span class="linenos">36</span></a>    <span class="s2">&quot;receive_binary&quot;</span><span class="p">,</span>
+</span><span id="L-37"><a href="#L-37"><span class="linenos">37</span></a>    <span class="s2">&quot;PeerMetadata&quot;</span><span class="p">,</span>
+</span><span id="L-38"><a href="#L-38"><span class="linenos">38</span></a>    <span class="s2">&quot;PeerOptions&quot;</span><span class="p">,</span>
+</span><span id="L-39"><a href="#L-39"><span class="linenos">39</span></a>    <span class="s2">&quot;PeerOptionsVapi&quot;</span><span class="p">,</span>
+</span><span id="L-40"><a href="#L-40"><span class="linenos">40</span></a>    <span class="s2">&quot;RoomOptions&quot;</span><span class="p">,</span>
+</span><span id="L-41"><a href="#L-41"><span class="linenos">41</span></a>    <span class="s2">&quot;AgentOptions&quot;</span><span class="p">,</span>
+</span><span id="L-42"><a href="#L-42"><span class="linenos">42</span></a>    <span class="s2">&quot;AgentOutputOptions&quot;</span><span class="p">,</span>
+</span><span id="L-43"><a href="#L-43"><span class="linenos">43</span></a>    <span class="s2">&quot;Room&quot;</span><span class="p">,</span>
+</span><span id="L-44"><a href="#L-44"><span class="linenos">44</span></a>    <span class="s2">&quot;Peer&quot;</span><span class="p">,</span>
+</span><span id="L-45"><a href="#L-45"><span class="linenos">45</span></a>    <span class="s2">&quot;MoqAccess&quot;</span><span class="p">,</span>
+</span><span id="L-46"><a href="#L-46"><span class="linenos">46</span></a>    <span class="s2">&quot;MissingFishjamIdError&quot;</span><span class="p">,</span>
+</span><span id="L-47"><a href="#L-47"><span class="linenos">47</span></a>    <span class="s2">&quot;InvalidFishjamCredentialsError&quot;</span><span class="p">,</span>
+</span><span id="L-48"><a href="#L-48"><span class="linenos">48</span></a>    <span class="s2">&quot;events&quot;</span><span class="p">,</span>
+</span><span id="L-49"><a href="#L-49"><span class="linenos">49</span></a>    <span class="s2">&quot;errors&quot;</span><span class="p">,</span>
+</span><span id="L-50"><a href="#L-50"><span class="linenos">50</span></a>    <span class="s2">&quot;room&quot;</span><span class="p">,</span>
+</span><span id="L-51"><a href="#L-51"><span class="linenos">51</span></a>    <span class="s2">&quot;peer&quot;</span><span class="p">,</span>
+</span><span id="L-52"><a href="#L-52"><span class="linenos">52</span></a>    <span class="s2">&quot;agent&quot;</span><span class="p">,</span>
+</span><span id="L-53"><a href="#L-53"><span class="linenos">53</span></a>    <span class="s2">&quot;integrations&quot;</span><span class="p">,</span>
+</span><span id="L-54"><a href="#L-54"><span class="linenos">54</span></a><span class="p">]</span>
+</span><span id="L-55"><a href="#L-55"><span class="linenos">55</span></a>
+</span><span id="L-56"><a href="#L-56"><span class="linenos">56</span></a>
+</span><span id="L-57"><a href="#L-57"><span class="linenos">57</span></a><span class="n">__docformat__</span> <span class="o">=</span> <span class="s2">&quot;restructuredtext&quot;</span>
 </span></pre></div>
 
 
@@ -916,70 +945,72 @@ you build your next dream product –
 </span><span id="FishjamClient-416"><a href="#FishjamClient-416"><span class="linenos">416</span></a>
 </span><span id="FishjamClient-417"><a href="#FishjamClient-417"><span class="linenos">417</span></a>        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">token</span>
 </span><span id="FishjamClient-418"><a href="#FishjamClient-418"><span class="linenos">418</span></a>
-</span><span id="FishjamClient-419"><a href="#FishjamClient-419"><span class="linenos">419</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">create_moq_token</span><span class="p">(</span>
+</span><span id="FishjamClient-419"><a href="#FishjamClient-419"><span class="linenos">419</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">create_moq_access</span><span class="p">(</span>
 </span><span id="FishjamClient-420"><a href="#FishjamClient-420"><span class="linenos">420</span></a>        <span class="bp">self</span><span class="p">,</span>
 </span><span id="FishjamClient-421"><a href="#FishjamClient-421"><span class="linenos">421</span></a>        <span class="n">publish_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
 </span><span id="FishjamClient-422"><a href="#FishjamClient-422"><span class="linenos">422</span></a>        <span class="n">subscribe_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="FishjamClient-423"><a href="#FishjamClient-423"><span class="linenos">423</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="FishjamClient-424"><a href="#FishjamClient-424"><span class="linenos">424</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates a MoQ token.</span>
+</span><span id="FishjamClient-423"><a href="#FishjamClient-423"><span class="linenos">423</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MoqAccess</span><span class="p">:</span>
+</span><span id="FishjamClient-424"><a href="#FishjamClient-424"><span class="linenos">424</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates MoQ relay connection details.</span>
 </span><span id="FishjamClient-425"><a href="#FishjamClient-425"><span class="linenos">425</span></a>
 </span><span id="FishjamClient-426"><a href="#FishjamClient-426"><span class="linenos">426</span></a><span class="sd">        Args:</span>
-</span><span id="FishjamClient-427"><a href="#FishjamClient-427"><span class="linenos">427</span></a><span class="sd">            publish_path: Path the token grants publish access to.</span>
-</span><span id="FishjamClient-428"><a href="#FishjamClient-428"><span class="linenos">428</span></a><span class="sd">            subscribe_path: Path the token grants subscribe access to.</span>
+</span><span id="FishjamClient-427"><a href="#FishjamClient-427"><span class="linenos">427</span></a><span class="sd">            publish_path: Path the access grants publish access to.</span>
+</span><span id="FishjamClient-428"><a href="#FishjamClient-428"><span class="linenos">428</span></a><span class="sd">            subscribe_path: Path the access grants subscribe access to.</span>
 </span><span id="FishjamClient-429"><a href="#FishjamClient-429"><span class="linenos">429</span></a>
 </span><span id="FishjamClient-430"><a href="#FishjamClient-430"><span class="linenos">430</span></a><span class="sd">        Returns:</span>
-</span><span id="FishjamClient-431"><a href="#FishjamClient-431"><span class="linenos">431</span></a><span class="sd">            str: The generated token.</span>
-</span><span id="FishjamClient-432"><a href="#FishjamClient-432"><span class="linenos">432</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="FishjamClient-433"><a href="#FishjamClient-433"><span class="linenos">433</span></a>        <span class="n">config</span> <span class="o">=</span> <span class="n">MoqTokenConfig</span><span class="p">(</span>
-</span><span id="FishjamClient-434"><a href="#FishjamClient-434"><span class="linenos">434</span></a>            <span class="n">publish_path</span><span class="o">=</span><span class="n">publish_path</span><span class="p">,</span> <span class="n">subscribe_path</span><span class="o">=</span><span class="n">subscribe_path</span>
-</span><span id="FishjamClient-435"><a href="#FishjamClient-435"><span class="linenos">435</span></a>        <span class="p">)</span>
-</span><span id="FishjamClient-436"><a href="#FishjamClient-436"><span class="linenos">436</span></a>        <span class="n">response</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
-</span><span id="FishjamClient-437"><a href="#FishjamClient-437"><span class="linenos">437</span></a>            <span class="n">MoqToken</span><span class="p">,</span>
-</span><span id="FishjamClient-438"><a href="#FishjamClient-438"><span class="linenos">438</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="n">moq_create_token</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">config</span><span class="p">),</span>
-</span><span id="FishjamClient-439"><a href="#FishjamClient-439"><span class="linenos">439</span></a>        <span class="p">)</span>
-</span><span id="FishjamClient-440"><a href="#FishjamClient-440"><span class="linenos">440</span></a>
-</span><span id="FishjamClient-441"><a href="#FishjamClient-441"><span class="linenos">441</span></a>        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">token</span>
+</span><span id="FishjamClient-431"><a href="#FishjamClient-431"><span class="linenos">431</span></a><span class="sd">            MoqAccess: The relay connection details, containing the</span>
+</span><span id="FishjamClient-432"><a href="#FishjamClient-432"><span class="linenos">432</span></a><span class="sd">            ``connection_url`` (with the JWT embedded as a ``?jwt=`` query</span>
+</span><span id="FishjamClient-433"><a href="#FishjamClient-433"><span class="linenos">433</span></a><span class="sd">            parameter) and the ``token`` itself.</span>
+</span><span id="FishjamClient-434"><a href="#FishjamClient-434"><span class="linenos">434</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="FishjamClient-435"><a href="#FishjamClient-435"><span class="linenos">435</span></a>        <span class="n">config</span> <span class="o">=</span> <span class="n">MoqAccessConfig</span><span class="p">(</span>
+</span><span id="FishjamClient-436"><a href="#FishjamClient-436"><span class="linenos">436</span></a>            <span class="n">publish_path</span><span class="o">=</span><span class="n">publish_path</span><span class="p">,</span> <span class="n">subscribe_path</span><span class="o">=</span><span class="n">subscribe_path</span>
+</span><span id="FishjamClient-437"><a href="#FishjamClient-437"><span class="linenos">437</span></a>        <span class="p">)</span>
+</span><span id="FishjamClient-438"><a href="#FishjamClient-438"><span class="linenos">438</span></a>        <span class="n">response</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
+</span><span id="FishjamClient-439"><a href="#FishjamClient-439"><span class="linenos">439</span></a>            <span class="n">MoqAccess</span><span class="p">,</span>
+</span><span id="FishjamClient-440"><a href="#FishjamClient-440"><span class="linenos">440</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="n">moq_create_access</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">config</span><span class="p">),</span>
+</span><span id="FishjamClient-441"><a href="#FishjamClient-441"><span class="linenos">441</span></a>        <span class="p">)</span>
 </span><span id="FishjamClient-442"><a href="#FishjamClient-442"><span class="linenos">442</span></a>
-</span><span id="FishjamClient-443"><a href="#FishjamClient-443"><span class="linenos">443</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">subscribe_peer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_peer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="FishjamClient-444"><a href="#FishjamClient-444"><span class="linenos">444</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Subscribes a peer to all tracks of another peer.</span>
-</span><span id="FishjamClient-445"><a href="#FishjamClient-445"><span class="linenos">445</span></a>
-</span><span id="FishjamClient-446"><a href="#FishjamClient-446"><span class="linenos">446</span></a><span class="sd">        Args:</span>
-</span><span id="FishjamClient-447"><a href="#FishjamClient-447"><span class="linenos">447</span></a><span class="sd">            room_id: The ID of the room.</span>
-</span><span id="FishjamClient-448"><a href="#FishjamClient-448"><span class="linenos">448</span></a><span class="sd">            peer_id: The ID of the subscribing peer.</span>
-</span><span id="FishjamClient-449"><a href="#FishjamClient-449"><span class="linenos">449</span></a><span class="sd">            target_peer_id: The ID of the peer to subscribe to.</span>
-</span><span id="FishjamClient-450"><a href="#FishjamClient-450"><span class="linenos">450</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="FishjamClient-451"><a href="#FishjamClient-451"><span class="linenos">451</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
-</span><span id="FishjamClient-452"><a href="#FishjamClient-452"><span class="linenos">452</span></a>            <span class="n">room_subscribe_peer</span><span class="p">,</span>
-</span><span id="FishjamClient-453"><a href="#FishjamClient-453"><span class="linenos">453</span></a>            <span class="n">room_id</span><span class="o">=</span><span class="n">room_id</span><span class="p">,</span>
-</span><span id="FishjamClient-454"><a href="#FishjamClient-454"><span class="linenos">454</span></a>            <span class="nb">id</span><span class="o">=</span><span class="n">peer_id</span><span class="p">,</span>
-</span><span id="FishjamClient-455"><a href="#FishjamClient-455"><span class="linenos">455</span></a>            <span class="n">peer_id</span><span class="o">=</span><span class="n">target_peer_id</span><span class="p">,</span>
-</span><span id="FishjamClient-456"><a href="#FishjamClient-456"><span class="linenos">456</span></a>        <span class="p">)</span>
-</span><span id="FishjamClient-457"><a href="#FishjamClient-457"><span class="linenos">457</span></a>
-</span><span id="FishjamClient-458"><a href="#FishjamClient-458"><span class="linenos">458</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">subscribe_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">track_ids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
-</span><span id="FishjamClient-459"><a href="#FishjamClient-459"><span class="linenos">459</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Subscribes a peer to specific tracks of another peer.</span>
-</span><span id="FishjamClient-460"><a href="#FishjamClient-460"><span class="linenos">460</span></a>
-</span><span id="FishjamClient-461"><a href="#FishjamClient-461"><span class="linenos">461</span></a><span class="sd">        Args:</span>
-</span><span id="FishjamClient-462"><a href="#FishjamClient-462"><span class="linenos">462</span></a><span class="sd">            room_id: The ID of the room.</span>
-</span><span id="FishjamClient-463"><a href="#FishjamClient-463"><span class="linenos">463</span></a><span class="sd">            peer_id: The ID of the subscribing peer.</span>
-</span><span id="FishjamClient-464"><a href="#FishjamClient-464"><span class="linenos">464</span></a><span class="sd">            track_ids: A list of track IDs to subscribe to.</span>
-</span><span id="FishjamClient-465"><a href="#FishjamClient-465"><span class="linenos">465</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="FishjamClient-466"><a href="#FishjamClient-466"><span class="linenos">466</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
-</span><span id="FishjamClient-467"><a href="#FishjamClient-467"><span class="linenos">467</span></a>            <span class="n">room_subscribe_tracks</span><span class="p">,</span>
-</span><span id="FishjamClient-468"><a href="#FishjamClient-468"><span class="linenos">468</span></a>            <span class="n">room_id</span><span class="o">=</span><span class="n">room_id</span><span class="p">,</span>
-</span><span id="FishjamClient-469"><a href="#FishjamClient-469"><span class="linenos">469</span></a>            <span class="nb">id</span><span class="o">=</span><span class="n">peer_id</span><span class="p">,</span>
-</span><span id="FishjamClient-470"><a href="#FishjamClient-470"><span class="linenos">470</span></a>            <span class="n">body</span><span class="o">=</span><span class="n">SubscribeTracksBody</span><span class="p">(</span><span class="n">track_ids</span><span class="o">=</span><span class="n">track_ids</span><span class="p">),</span>
-</span><span id="FishjamClient-471"><a href="#FishjamClient-471"><span class="linenos">471</span></a>        <span class="p">)</span>
-</span><span id="FishjamClient-472"><a href="#FishjamClient-472"><span class="linenos">472</span></a>
-</span><span id="FishjamClient-473"><a href="#FishjamClient-473"><span class="linenos">473</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">__parse_peer_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">WebRTCMetadata</span><span class="p">:</span>
-</span><span id="FishjamClient-474"><a href="#FishjamClient-474"><span class="linenos">474</span></a>        <span class="n">peer_metadata</span> <span class="o">=</span> <span class="n">WebRTCMetadata</span><span class="p">()</span>
-</span><span id="FishjamClient-475"><a href="#FishjamClient-475"><span class="linenos">475</span></a>
-</span><span id="FishjamClient-476"><a href="#FishjamClient-476"><span class="linenos">476</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">metadata</span><span class="p">:</span>
-</span><span id="FishjamClient-477"><a href="#FishjamClient-477"><span class="linenos">477</span></a>            <span class="k">return</span> <span class="n">peer_metadata</span>
-</span><span id="FishjamClient-478"><a href="#FishjamClient-478"><span class="linenos">478</span></a>
-</span><span id="FishjamClient-479"><a href="#FishjamClient-479"><span class="linenos">479</span></a>        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">metadata</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
-</span><span id="FishjamClient-480"><a href="#FishjamClient-480"><span class="linenos">480</span></a>            <span class="n">peer_metadata</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
-</span><span id="FishjamClient-481"><a href="#FishjamClient-481"><span class="linenos">481</span></a>
-</span><span id="FishjamClient-482"><a href="#FishjamClient-482"><span class="linenos">482</span></a>        <span class="k">return</span> <span class="n">peer_metadata</span>
+</span><span id="FishjamClient-443"><a href="#FishjamClient-443"><span class="linenos">443</span></a>        <span class="k">return</span> <span class="n">response</span>
+</span><span id="FishjamClient-444"><a href="#FishjamClient-444"><span class="linenos">444</span></a>
+</span><span id="FishjamClient-445"><a href="#FishjamClient-445"><span class="linenos">445</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">subscribe_peer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_peer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="FishjamClient-446"><a href="#FishjamClient-446"><span class="linenos">446</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Subscribes a peer to all tracks of another peer.</span>
+</span><span id="FishjamClient-447"><a href="#FishjamClient-447"><span class="linenos">447</span></a>
+</span><span id="FishjamClient-448"><a href="#FishjamClient-448"><span class="linenos">448</span></a><span class="sd">        Args:</span>
+</span><span id="FishjamClient-449"><a href="#FishjamClient-449"><span class="linenos">449</span></a><span class="sd">            room_id: The ID of the room.</span>
+</span><span id="FishjamClient-450"><a href="#FishjamClient-450"><span class="linenos">450</span></a><span class="sd">            peer_id: The ID of the subscribing peer.</span>
+</span><span id="FishjamClient-451"><a href="#FishjamClient-451"><span class="linenos">451</span></a><span class="sd">            target_peer_id: The ID of the peer to subscribe to.</span>
+</span><span id="FishjamClient-452"><a href="#FishjamClient-452"><span class="linenos">452</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="FishjamClient-453"><a href="#FishjamClient-453"><span class="linenos">453</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
+</span><span id="FishjamClient-454"><a href="#FishjamClient-454"><span class="linenos">454</span></a>            <span class="n">room_subscribe_peer</span><span class="p">,</span>
+</span><span id="FishjamClient-455"><a href="#FishjamClient-455"><span class="linenos">455</span></a>            <span class="n">room_id</span><span class="o">=</span><span class="n">room_id</span><span class="p">,</span>
+</span><span id="FishjamClient-456"><a href="#FishjamClient-456"><span class="linenos">456</span></a>            <span class="nb">id</span><span class="o">=</span><span class="n">peer_id</span><span class="p">,</span>
+</span><span id="FishjamClient-457"><a href="#FishjamClient-457"><span class="linenos">457</span></a>            <span class="n">peer_id</span><span class="o">=</span><span class="n">target_peer_id</span><span class="p">,</span>
+</span><span id="FishjamClient-458"><a href="#FishjamClient-458"><span class="linenos">458</span></a>        <span class="p">)</span>
+</span><span id="FishjamClient-459"><a href="#FishjamClient-459"><span class="linenos">459</span></a>
+</span><span id="FishjamClient-460"><a href="#FishjamClient-460"><span class="linenos">460</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">subscribe_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">track_ids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+</span><span id="FishjamClient-461"><a href="#FishjamClient-461"><span class="linenos">461</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Subscribes a peer to specific tracks of another peer.</span>
+</span><span id="FishjamClient-462"><a href="#FishjamClient-462"><span class="linenos">462</span></a>
+</span><span id="FishjamClient-463"><a href="#FishjamClient-463"><span class="linenos">463</span></a><span class="sd">        Args:</span>
+</span><span id="FishjamClient-464"><a href="#FishjamClient-464"><span class="linenos">464</span></a><span class="sd">            room_id: The ID of the room.</span>
+</span><span id="FishjamClient-465"><a href="#FishjamClient-465"><span class="linenos">465</span></a><span class="sd">            peer_id: The ID of the subscribing peer.</span>
+</span><span id="FishjamClient-466"><a href="#FishjamClient-466"><span class="linenos">466</span></a><span class="sd">            track_ids: A list of track IDs to subscribe to.</span>
+</span><span id="FishjamClient-467"><a href="#FishjamClient-467"><span class="linenos">467</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="FishjamClient-468"><a href="#FishjamClient-468"><span class="linenos">468</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
+</span><span id="FishjamClient-469"><a href="#FishjamClient-469"><span class="linenos">469</span></a>            <span class="n">room_subscribe_tracks</span><span class="p">,</span>
+</span><span id="FishjamClient-470"><a href="#FishjamClient-470"><span class="linenos">470</span></a>            <span class="n">room_id</span><span class="o">=</span><span class="n">room_id</span><span class="p">,</span>
+</span><span id="FishjamClient-471"><a href="#FishjamClient-471"><span class="linenos">471</span></a>            <span class="nb">id</span><span class="o">=</span><span class="n">peer_id</span><span class="p">,</span>
+</span><span id="FishjamClient-472"><a href="#FishjamClient-472"><span class="linenos">472</span></a>            <span class="n">body</span><span class="o">=</span><span class="n">SubscribeTracksBody</span><span class="p">(</span><span class="n">track_ids</span><span class="o">=</span><span class="n">track_ids</span><span class="p">),</span>
+</span><span id="FishjamClient-473"><a href="#FishjamClient-473"><span class="linenos">473</span></a>        <span class="p">)</span>
+</span><span id="FishjamClient-474"><a href="#FishjamClient-474"><span class="linenos">474</span></a>
+</span><span id="FishjamClient-475"><a href="#FishjamClient-475"><span class="linenos">475</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">__parse_peer_metadata</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">metadata</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">WebRTCMetadata</span><span class="p">:</span>
+</span><span id="FishjamClient-476"><a href="#FishjamClient-476"><span class="linenos">476</span></a>        <span class="n">peer_metadata</span> <span class="o">=</span> <span class="n">WebRTCMetadata</span><span class="p">()</span>
+</span><span id="FishjamClient-477"><a href="#FishjamClient-477"><span class="linenos">477</span></a>
+</span><span id="FishjamClient-478"><a href="#FishjamClient-478"><span class="linenos">478</span></a>        <span class="k">if</span> <span class="ow">not</span> <span class="n">metadata</span><span class="p">:</span>
+</span><span id="FishjamClient-479"><a href="#FishjamClient-479"><span class="linenos">479</span></a>            <span class="k">return</span> <span class="n">peer_metadata</span>
+</span><span id="FishjamClient-480"><a href="#FishjamClient-480"><span class="linenos">480</span></a>
+</span><span id="FishjamClient-481"><a href="#FishjamClient-481"><span class="linenos">481</span></a>        <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">metadata</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+</span><span id="FishjamClient-482"><a href="#FishjamClient-482"><span class="linenos">482</span></a>            <span class="n">peer_metadata</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="FishjamClient-483"><a href="#FishjamClient-483"><span class="linenos">483</span></a>
+</span><span id="FishjamClient-484"><a href="#FishjamClient-484"><span class="linenos">484</span></a>        <span class="k">return</span> <span class="n">peer_metadata</span>
 </span></pre></div>
 
 
@@ -1651,56 +1682,60 @@ and Fishjam URL.</li>
 
 
                             </div>
-                            <div id="FishjamClient.create_moq_token" class="classattr">
-                                        <input id="FishjamClient.create_moq_token-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+                            <div id="FishjamClient.create_moq_access" class="classattr">
+                                        <input id="FishjamClient.create_moq_access-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
 <div class="attr function">
 
         <span class="def">def</span>
-        <span class="name">create_moq_token</span><span class="signature pdoc-code multiline">(<span class="param"> <span class="bp">self</span>,</span><span class="param">    <span class="n">publish_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param"> <span class="n">subscribe_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="nb">str</span>:</span></span>
+        <span class="name">create_moq_access</span><span class="signature pdoc-code multiline">(<span class="param">    <span class="bp">self</span>,</span><span class="param">    <span class="n">publish_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>,</span><span class="param"> <span class="n">subscribe_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span></span><span class="return-annotation">) -> <span class="n"><a href="#MoqAccess">MoqAccess</a></span>:</span></span>
 
-                <label class="view-source-button" for="FishjamClient.create_moq_token-view-source"><span>View Source</span></label>
+                <label class="view-source-button" for="FishjamClient.create_moq_access-view-source"><span>View Source</span></label>
 
     </div>
-    <a class="headerlink" href="#FishjamClient.create_moq_token"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="FishjamClient.create_moq_token-419"><a href="#FishjamClient.create_moq_token-419"><span class="linenos">419</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">create_moq_token</span><span class="p">(</span>
-</span><span id="FishjamClient.create_moq_token-420"><a href="#FishjamClient.create_moq_token-420"><span class="linenos">420</span></a>        <span class="bp">self</span><span class="p">,</span>
-</span><span id="FishjamClient.create_moq_token-421"><a href="#FishjamClient.create_moq_token-421"><span class="linenos">421</span></a>        <span class="n">publish_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="FishjamClient.create_moq_token-422"><a href="#FishjamClient.create_moq_token-422"><span class="linenos">422</span></a>        <span class="n">subscribe_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-</span><span id="FishjamClient.create_moq_token-423"><a href="#FishjamClient.create_moq_token-423"><span class="linenos">423</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-</span><span id="FishjamClient.create_moq_token-424"><a href="#FishjamClient.create_moq_token-424"><span class="linenos">424</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates a MoQ token.</span>
-</span><span id="FishjamClient.create_moq_token-425"><a href="#FishjamClient.create_moq_token-425"><span class="linenos">425</span></a>
-</span><span id="FishjamClient.create_moq_token-426"><a href="#FishjamClient.create_moq_token-426"><span class="linenos">426</span></a><span class="sd">        Args:</span>
-</span><span id="FishjamClient.create_moq_token-427"><a href="#FishjamClient.create_moq_token-427"><span class="linenos">427</span></a><span class="sd">            publish_path: Path the token grants publish access to.</span>
-</span><span id="FishjamClient.create_moq_token-428"><a href="#FishjamClient.create_moq_token-428"><span class="linenos">428</span></a><span class="sd">            subscribe_path: Path the token grants subscribe access to.</span>
-</span><span id="FishjamClient.create_moq_token-429"><a href="#FishjamClient.create_moq_token-429"><span class="linenos">429</span></a>
-</span><span id="FishjamClient.create_moq_token-430"><a href="#FishjamClient.create_moq_token-430"><span class="linenos">430</span></a><span class="sd">        Returns:</span>
-</span><span id="FishjamClient.create_moq_token-431"><a href="#FishjamClient.create_moq_token-431"><span class="linenos">431</span></a><span class="sd">            str: The generated token.</span>
-</span><span id="FishjamClient.create_moq_token-432"><a href="#FishjamClient.create_moq_token-432"><span class="linenos">432</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="FishjamClient.create_moq_token-433"><a href="#FishjamClient.create_moq_token-433"><span class="linenos">433</span></a>        <span class="n">config</span> <span class="o">=</span> <span class="n">MoqTokenConfig</span><span class="p">(</span>
-</span><span id="FishjamClient.create_moq_token-434"><a href="#FishjamClient.create_moq_token-434"><span class="linenos">434</span></a>            <span class="n">publish_path</span><span class="o">=</span><span class="n">publish_path</span><span class="p">,</span> <span class="n">subscribe_path</span><span class="o">=</span><span class="n">subscribe_path</span>
-</span><span id="FishjamClient.create_moq_token-435"><a href="#FishjamClient.create_moq_token-435"><span class="linenos">435</span></a>        <span class="p">)</span>
-</span><span id="FishjamClient.create_moq_token-436"><a href="#FishjamClient.create_moq_token-436"><span class="linenos">436</span></a>        <span class="n">response</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
-</span><span id="FishjamClient.create_moq_token-437"><a href="#FishjamClient.create_moq_token-437"><span class="linenos">437</span></a>            <span class="n">MoqToken</span><span class="p">,</span>
-</span><span id="FishjamClient.create_moq_token-438"><a href="#FishjamClient.create_moq_token-438"><span class="linenos">438</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="n">moq_create_token</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">config</span><span class="p">),</span>
-</span><span id="FishjamClient.create_moq_token-439"><a href="#FishjamClient.create_moq_token-439"><span class="linenos">439</span></a>        <span class="p">)</span>
-</span><span id="FishjamClient.create_moq_token-440"><a href="#FishjamClient.create_moq_token-440"><span class="linenos">440</span></a>
-</span><span id="FishjamClient.create_moq_token-441"><a href="#FishjamClient.create_moq_token-441"><span class="linenos">441</span></a>        <span class="k">return</span> <span class="n">response</span><span class="o">.</span><span class="n">token</span>
+    <a class="headerlink" href="#FishjamClient.create_moq_access"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="FishjamClient.create_moq_access-419"><a href="#FishjamClient.create_moq_access-419"><span class="linenos">419</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">create_moq_access</span><span class="p">(</span>
+</span><span id="FishjamClient.create_moq_access-420"><a href="#FishjamClient.create_moq_access-420"><span class="linenos">420</span></a>        <span class="bp">self</span><span class="p">,</span>
+</span><span id="FishjamClient.create_moq_access-421"><a href="#FishjamClient.create_moq_access-421"><span class="linenos">421</span></a>        <span class="n">publish_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="FishjamClient.create_moq_access-422"><a href="#FishjamClient.create_moq_access-422"><span class="linenos">422</span></a>        <span class="n">subscribe_path</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+</span><span id="FishjamClient.create_moq_access-423"><a href="#FishjamClient.create_moq_access-423"><span class="linenos">423</span></a>    <span class="p">)</span> <span class="o">-&gt;</span> <span class="n">MoqAccess</span><span class="p">:</span>
+</span><span id="FishjamClient.create_moq_access-424"><a href="#FishjamClient.create_moq_access-424"><span class="linenos">424</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Generates MoQ relay connection details.</span>
+</span><span id="FishjamClient.create_moq_access-425"><a href="#FishjamClient.create_moq_access-425"><span class="linenos">425</span></a>
+</span><span id="FishjamClient.create_moq_access-426"><a href="#FishjamClient.create_moq_access-426"><span class="linenos">426</span></a><span class="sd">        Args:</span>
+</span><span id="FishjamClient.create_moq_access-427"><a href="#FishjamClient.create_moq_access-427"><span class="linenos">427</span></a><span class="sd">            publish_path: Path the access grants publish access to.</span>
+</span><span id="FishjamClient.create_moq_access-428"><a href="#FishjamClient.create_moq_access-428"><span class="linenos">428</span></a><span class="sd">            subscribe_path: Path the access grants subscribe access to.</span>
+</span><span id="FishjamClient.create_moq_access-429"><a href="#FishjamClient.create_moq_access-429"><span class="linenos">429</span></a>
+</span><span id="FishjamClient.create_moq_access-430"><a href="#FishjamClient.create_moq_access-430"><span class="linenos">430</span></a><span class="sd">        Returns:</span>
+</span><span id="FishjamClient.create_moq_access-431"><a href="#FishjamClient.create_moq_access-431"><span class="linenos">431</span></a><span class="sd">            MoqAccess: The relay connection details, containing the</span>
+</span><span id="FishjamClient.create_moq_access-432"><a href="#FishjamClient.create_moq_access-432"><span class="linenos">432</span></a><span class="sd">            ``connection_url`` (with the JWT embedded as a ``?jwt=`` query</span>
+</span><span id="FishjamClient.create_moq_access-433"><a href="#FishjamClient.create_moq_access-433"><span class="linenos">433</span></a><span class="sd">            parameter) and the ``token`` itself.</span>
+</span><span id="FishjamClient.create_moq_access-434"><a href="#FishjamClient.create_moq_access-434"><span class="linenos">434</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="FishjamClient.create_moq_access-435"><a href="#FishjamClient.create_moq_access-435"><span class="linenos">435</span></a>        <span class="n">config</span> <span class="o">=</span> <span class="n">MoqAccessConfig</span><span class="p">(</span>
+</span><span id="FishjamClient.create_moq_access-436"><a href="#FishjamClient.create_moq_access-436"><span class="linenos">436</span></a>            <span class="n">publish_path</span><span class="o">=</span><span class="n">publish_path</span><span class="p">,</span> <span class="n">subscribe_path</span><span class="o">=</span><span class="n">subscribe_path</span>
+</span><span id="FishjamClient.create_moq_access-437"><a href="#FishjamClient.create_moq_access-437"><span class="linenos">437</span></a>        <span class="p">)</span>
+</span><span id="FishjamClient.create_moq_access-438"><a href="#FishjamClient.create_moq_access-438"><span class="linenos">438</span></a>        <span class="n">response</span> <span class="o">=</span> <span class="n">cast</span><span class="p">(</span>
+</span><span id="FishjamClient.create_moq_access-439"><a href="#FishjamClient.create_moq_access-439"><span class="linenos">439</span></a>            <span class="n">MoqAccess</span><span class="p">,</span>
+</span><span id="FishjamClient.create_moq_access-440"><a href="#FishjamClient.create_moq_access-440"><span class="linenos">440</span></a>            <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span><span class="n">moq_create_access</span><span class="p">,</span> <span class="n">body</span><span class="o">=</span><span class="n">config</span><span class="p">),</span>
+</span><span id="FishjamClient.create_moq_access-441"><a href="#FishjamClient.create_moq_access-441"><span class="linenos">441</span></a>        <span class="p">)</span>
+</span><span id="FishjamClient.create_moq_access-442"><a href="#FishjamClient.create_moq_access-442"><span class="linenos">442</span></a>
+</span><span id="FishjamClient.create_moq_access-443"><a href="#FishjamClient.create_moq_access-443"><span class="linenos">443</span></a>        <span class="k">return</span> <span class="n">response</span>
 </span></pre></div>
 
 
-            <div class="docstring"><p>Generates a MoQ token.</p>
+            <div class="docstring"><p>Generates MoQ relay connection details.</p>
 
 <p>Args:</p>
 
 <ul>
-<li>publish_path: Path the token grants publish access to.</li>
-<li>subscribe_path: Path the token grants subscribe access to.</li>
+<li>publish_path: Path the access grants publish access to.</li>
+<li>subscribe_path: Path the access grants subscribe access to.</li>
 </ul>
 
 <p>Returns:</p>
 
 <ul>
-<li>str: The generated token.</li>
+<li>MoqAccess: The relay connection details, containing the</li>
+<li><code>connection_url</code> (with the JWT embedded as a <code>?jwt=</code> query</li>
+<li>parameter) and the <code>token</code> itself.</li>
 </ul>
 </div>
 
@@ -1717,20 +1752,20 @@ and Fishjam URL.</li>
 
     </div>
     <a class="headerlink" href="#FishjamClient.subscribe_peer"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="FishjamClient.subscribe_peer-443"><a href="#FishjamClient.subscribe_peer-443"><span class="linenos">443</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">subscribe_peer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_peer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-</span><span id="FishjamClient.subscribe_peer-444"><a href="#FishjamClient.subscribe_peer-444"><span class="linenos">444</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Subscribes a peer to all tracks of another peer.</span>
-</span><span id="FishjamClient.subscribe_peer-445"><a href="#FishjamClient.subscribe_peer-445"><span class="linenos">445</span></a>
-</span><span id="FishjamClient.subscribe_peer-446"><a href="#FishjamClient.subscribe_peer-446"><span class="linenos">446</span></a><span class="sd">        Args:</span>
-</span><span id="FishjamClient.subscribe_peer-447"><a href="#FishjamClient.subscribe_peer-447"><span class="linenos">447</span></a><span class="sd">            room_id: The ID of the room.</span>
-</span><span id="FishjamClient.subscribe_peer-448"><a href="#FishjamClient.subscribe_peer-448"><span class="linenos">448</span></a><span class="sd">            peer_id: The ID of the subscribing peer.</span>
-</span><span id="FishjamClient.subscribe_peer-449"><a href="#FishjamClient.subscribe_peer-449"><span class="linenos">449</span></a><span class="sd">            target_peer_id: The ID of the peer to subscribe to.</span>
-</span><span id="FishjamClient.subscribe_peer-450"><a href="#FishjamClient.subscribe_peer-450"><span class="linenos">450</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="FishjamClient.subscribe_peer-451"><a href="#FishjamClient.subscribe_peer-451"><span class="linenos">451</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
-</span><span id="FishjamClient.subscribe_peer-452"><a href="#FishjamClient.subscribe_peer-452"><span class="linenos">452</span></a>            <span class="n">room_subscribe_peer</span><span class="p">,</span>
-</span><span id="FishjamClient.subscribe_peer-453"><a href="#FishjamClient.subscribe_peer-453"><span class="linenos">453</span></a>            <span class="n">room_id</span><span class="o">=</span><span class="n">room_id</span><span class="p">,</span>
-</span><span id="FishjamClient.subscribe_peer-454"><a href="#FishjamClient.subscribe_peer-454"><span class="linenos">454</span></a>            <span class="nb">id</span><span class="o">=</span><span class="n">peer_id</span><span class="p">,</span>
-</span><span id="FishjamClient.subscribe_peer-455"><a href="#FishjamClient.subscribe_peer-455"><span class="linenos">455</span></a>            <span class="n">peer_id</span><span class="o">=</span><span class="n">target_peer_id</span><span class="p">,</span>
-</span><span id="FishjamClient.subscribe_peer-456"><a href="#FishjamClient.subscribe_peer-456"><span class="linenos">456</span></a>        <span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="FishjamClient.subscribe_peer-445"><a href="#FishjamClient.subscribe_peer-445"><span class="linenos">445</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">subscribe_peer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">target_peer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+</span><span id="FishjamClient.subscribe_peer-446"><a href="#FishjamClient.subscribe_peer-446"><span class="linenos">446</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Subscribes a peer to all tracks of another peer.</span>
+</span><span id="FishjamClient.subscribe_peer-447"><a href="#FishjamClient.subscribe_peer-447"><span class="linenos">447</span></a>
+</span><span id="FishjamClient.subscribe_peer-448"><a href="#FishjamClient.subscribe_peer-448"><span class="linenos">448</span></a><span class="sd">        Args:</span>
+</span><span id="FishjamClient.subscribe_peer-449"><a href="#FishjamClient.subscribe_peer-449"><span class="linenos">449</span></a><span class="sd">            room_id: The ID of the room.</span>
+</span><span id="FishjamClient.subscribe_peer-450"><a href="#FishjamClient.subscribe_peer-450"><span class="linenos">450</span></a><span class="sd">            peer_id: The ID of the subscribing peer.</span>
+</span><span id="FishjamClient.subscribe_peer-451"><a href="#FishjamClient.subscribe_peer-451"><span class="linenos">451</span></a><span class="sd">            target_peer_id: The ID of the peer to subscribe to.</span>
+</span><span id="FishjamClient.subscribe_peer-452"><a href="#FishjamClient.subscribe_peer-452"><span class="linenos">452</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="FishjamClient.subscribe_peer-453"><a href="#FishjamClient.subscribe_peer-453"><span class="linenos">453</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
+</span><span id="FishjamClient.subscribe_peer-454"><a href="#FishjamClient.subscribe_peer-454"><span class="linenos">454</span></a>            <span class="n">room_subscribe_peer</span><span class="p">,</span>
+</span><span id="FishjamClient.subscribe_peer-455"><a href="#FishjamClient.subscribe_peer-455"><span class="linenos">455</span></a>            <span class="n">room_id</span><span class="o">=</span><span class="n">room_id</span><span class="p">,</span>
+</span><span id="FishjamClient.subscribe_peer-456"><a href="#FishjamClient.subscribe_peer-456"><span class="linenos">456</span></a>            <span class="nb">id</span><span class="o">=</span><span class="n">peer_id</span><span class="p">,</span>
+</span><span id="FishjamClient.subscribe_peer-457"><a href="#FishjamClient.subscribe_peer-457"><span class="linenos">457</span></a>            <span class="n">peer_id</span><span class="o">=</span><span class="n">target_peer_id</span><span class="p">,</span>
+</span><span id="FishjamClient.subscribe_peer-458"><a href="#FishjamClient.subscribe_peer-458"><span class="linenos">458</span></a>        <span class="p">)</span>
 </span></pre></div>
 
 
@@ -1758,20 +1793,20 @@ and Fishjam URL.</li>
 
     </div>
     <a class="headerlink" href="#FishjamClient.subscribe_tracks"></a>
-            <div class="pdoc-code codehilite"><pre><span></span><span id="FishjamClient.subscribe_tracks-458"><a href="#FishjamClient.subscribe_tracks-458"><span class="linenos">458</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">subscribe_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">track_ids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
-</span><span id="FishjamClient.subscribe_tracks-459"><a href="#FishjamClient.subscribe_tracks-459"><span class="linenos">459</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Subscribes a peer to specific tracks of another peer.</span>
-</span><span id="FishjamClient.subscribe_tracks-460"><a href="#FishjamClient.subscribe_tracks-460"><span class="linenos">460</span></a>
-</span><span id="FishjamClient.subscribe_tracks-461"><a href="#FishjamClient.subscribe_tracks-461"><span class="linenos">461</span></a><span class="sd">        Args:</span>
-</span><span id="FishjamClient.subscribe_tracks-462"><a href="#FishjamClient.subscribe_tracks-462"><span class="linenos">462</span></a><span class="sd">            room_id: The ID of the room.</span>
-</span><span id="FishjamClient.subscribe_tracks-463"><a href="#FishjamClient.subscribe_tracks-463"><span class="linenos">463</span></a><span class="sd">            peer_id: The ID of the subscribing peer.</span>
-</span><span id="FishjamClient.subscribe_tracks-464"><a href="#FishjamClient.subscribe_tracks-464"><span class="linenos">464</span></a><span class="sd">            track_ids: A list of track IDs to subscribe to.</span>
-</span><span id="FishjamClient.subscribe_tracks-465"><a href="#FishjamClient.subscribe_tracks-465"><span class="linenos">465</span></a><span class="sd">        &quot;&quot;&quot;</span>
-</span><span id="FishjamClient.subscribe_tracks-466"><a href="#FishjamClient.subscribe_tracks-466"><span class="linenos">466</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
-</span><span id="FishjamClient.subscribe_tracks-467"><a href="#FishjamClient.subscribe_tracks-467"><span class="linenos">467</span></a>            <span class="n">room_subscribe_tracks</span><span class="p">,</span>
-</span><span id="FishjamClient.subscribe_tracks-468"><a href="#FishjamClient.subscribe_tracks-468"><span class="linenos">468</span></a>            <span class="n">room_id</span><span class="o">=</span><span class="n">room_id</span><span class="p">,</span>
-</span><span id="FishjamClient.subscribe_tracks-469"><a href="#FishjamClient.subscribe_tracks-469"><span class="linenos">469</span></a>            <span class="nb">id</span><span class="o">=</span><span class="n">peer_id</span><span class="p">,</span>
-</span><span id="FishjamClient.subscribe_tracks-470"><a href="#FishjamClient.subscribe_tracks-470"><span class="linenos">470</span></a>            <span class="n">body</span><span class="o">=</span><span class="n">SubscribeTracksBody</span><span class="p">(</span><span class="n">track_ids</span><span class="o">=</span><span class="n">track_ids</span><span class="p">),</span>
-</span><span id="FishjamClient.subscribe_tracks-471"><a href="#FishjamClient.subscribe_tracks-471"><span class="linenos">471</span></a>        <span class="p">)</span>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="FishjamClient.subscribe_tracks-460"><a href="#FishjamClient.subscribe_tracks-460"><span class="linenos">460</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">subscribe_tracks</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">room_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">peer_id</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">track_ids</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]):</span>
+</span><span id="FishjamClient.subscribe_tracks-461"><a href="#FishjamClient.subscribe_tracks-461"><span class="linenos">461</span></a><span class="w">        </span><span class="sd">&quot;&quot;&quot;Subscribes a peer to specific tracks of another peer.</span>
+</span><span id="FishjamClient.subscribe_tracks-462"><a href="#FishjamClient.subscribe_tracks-462"><span class="linenos">462</span></a>
+</span><span id="FishjamClient.subscribe_tracks-463"><a href="#FishjamClient.subscribe_tracks-463"><span class="linenos">463</span></a><span class="sd">        Args:</span>
+</span><span id="FishjamClient.subscribe_tracks-464"><a href="#FishjamClient.subscribe_tracks-464"><span class="linenos">464</span></a><span class="sd">            room_id: The ID of the room.</span>
+</span><span id="FishjamClient.subscribe_tracks-465"><a href="#FishjamClient.subscribe_tracks-465"><span class="linenos">465</span></a><span class="sd">            peer_id: The ID of the subscribing peer.</span>
+</span><span id="FishjamClient.subscribe_tracks-466"><a href="#FishjamClient.subscribe_tracks-466"><span class="linenos">466</span></a><span class="sd">            track_ids: A list of track IDs to subscribe to.</span>
+</span><span id="FishjamClient.subscribe_tracks-467"><a href="#FishjamClient.subscribe_tracks-467"><span class="linenos">467</span></a><span class="sd">        &quot;&quot;&quot;</span>
+</span><span id="FishjamClient.subscribe_tracks-468"><a href="#FishjamClient.subscribe_tracks-468"><span class="linenos">468</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">_request</span><span class="p">(</span>
+</span><span id="FishjamClient.subscribe_tracks-469"><a href="#FishjamClient.subscribe_tracks-469"><span class="linenos">469</span></a>            <span class="n">room_subscribe_tracks</span><span class="p">,</span>
+</span><span id="FishjamClient.subscribe_tracks-470"><a href="#FishjamClient.subscribe_tracks-470"><span class="linenos">470</span></a>            <span class="n">room_id</span><span class="o">=</span><span class="n">room_id</span><span class="p">,</span>
+</span><span id="FishjamClient.subscribe_tracks-471"><a href="#FishjamClient.subscribe_tracks-471"><span class="linenos">471</span></a>            <span class="nb">id</span><span class="o">=</span><span class="n">peer_id</span><span class="p">,</span>
+</span><span id="FishjamClient.subscribe_tracks-472"><a href="#FishjamClient.subscribe_tracks-472"><span class="linenos">472</span></a>            <span class="n">body</span><span class="o">=</span><span class="n">SubscribeTracksBody</span><span class="p">(</span><span class="n">track_ids</span><span class="o">=</span><span class="n">track_ids</span><span class="p">),</span>
+</span><span id="FishjamClient.subscribe_tracks-473"><a href="#FishjamClient.subscribe_tracks-473"><span class="linenos">473</span></a>        <span class="p">)</span>
 </span></pre></div>
 
 
@@ -3514,6 +3549,230 @@ of one request per notification.</li>
             <div class="pdoc-code codehilite"><pre><span></span><span id="Peer.additional_keys-136"><a href="#Peer.additional_keys-136"><span class="linenos">136</span></a>    <span class="nd">@property</span>
 </span><span id="Peer.additional_keys-137"><a href="#Peer.additional_keys-137"><span class="linenos">137</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">additional_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
 </span><span id="Peer.additional_keys-138"><a href="#Peer.additional_keys-138"><span class="linenos">138</span></a>        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</span></pre></div>
+
+
+
+
+                            </div>
+                </section>
+                <section id="MoqAccess">
+                            <input id="MoqAccess-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr class">
+
+    <span class="def">class</span>
+    <span class="name">MoqAccess</span>:
+
+                <label class="view-source-button" for="MoqAccess-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#MoqAccess"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="MoqAccess-13"><a href="#MoqAccess-13"><span class="linenos">13</span></a><span class="nd">@_attrs_define</span>
+</span><span id="MoqAccess-14"><a href="#MoqAccess-14"><span class="linenos">14</span></a><span class="k">class</span><span class="w"> </span><span class="nc">MoqAccess</span><span class="p">:</span>
+</span><span id="MoqAccess-15"><a href="#MoqAccess-15"><span class="linenos">15</span></a><span class="w">    </span><span class="sd">&quot;&quot;&quot;Connection details for a MoQ relay client</span>
+</span><span id="MoqAccess-16"><a href="#MoqAccess-16"><span class="linenos">16</span></a>
+</span><span id="MoqAccess-17"><a href="#MoqAccess-17"><span class="linenos">17</span></a><span class="sd">    Attributes:</span>
+</span><span id="MoqAccess-18"><a href="#MoqAccess-18"><span class="linenos">18</span></a><span class="sd">        connection_url (str): Relay connection URL with the JWT embedded as a `?jwt=` query parameter. Pass directly to</span>
+</span><span id="MoqAccess-19"><a href="#MoqAccess-19"><span class="linenos">19</span></a><span class="sd">            a MoQ client SDK. Example: https://relay.fishjam.io/abc123?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....</span>
+</span><span id="MoqAccess-20"><a href="#MoqAccess-20"><span class="linenos">20</span></a><span class="sd">        token (str): JWT authorizing the MoQ relay connection, also embedded in `connection_url` Example: eyJhbGciOiJIUz</span>
+</span><span id="MoqAccess-21"><a href="#MoqAccess-21"><span class="linenos">21</span></a><span class="sd">            I1NiIsInR5cCI6IkpXVCJ9.eyJyb290IjoiZmlzaGphbSIsInB1dCI6WyJteS1zdHJlYW0iXSwiZ2V0IjpbXSwiaWF0IjoxNzEzMzYwMDAwLCJle</span>
+</span><span id="MoqAccess-22"><a href="#MoqAccess-22"><span class="linenos">22</span></a><span class="sd">            HAiOjE3MTMzNjM2MDB9.abc123.</span>
+</span><span id="MoqAccess-23"><a href="#MoqAccess-23"><span class="linenos">23</span></a><span class="sd">    &quot;&quot;&quot;</span>
+</span><span id="MoqAccess-24"><a href="#MoqAccess-24"><span class="linenos">24</span></a>
+</span><span id="MoqAccess-25"><a href="#MoqAccess-25"><span class="linenos">25</span></a>    <span class="n">connection_url</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="MoqAccess-26"><a href="#MoqAccess-26"><span class="linenos">26</span></a>    <span class="n">token</span><span class="p">:</span> <span class="nb">str</span>
+</span><span id="MoqAccess-27"><a href="#MoqAccess-27"><span class="linenos">27</span></a>    <span class="n">additional_properties</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="n">_attrs_field</span><span class="p">(</span><span class="n">init</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">factory</span><span class="o">=</span><span class="nb">dict</span><span class="p">)</span>
+</span><span id="MoqAccess-28"><a href="#MoqAccess-28"><span class="linenos">28</span></a>
+</span><span id="MoqAccess-29"><a href="#MoqAccess-29"><span class="linenos">29</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="MoqAccess-30"><a href="#MoqAccess-30"><span class="linenos">30</span></a>        <span class="n">connection_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_url</span>
+</span><span id="MoqAccess-31"><a href="#MoqAccess-31"><span class="linenos">31</span></a>
+</span><span id="MoqAccess-32"><a href="#MoqAccess-32"><span class="linenos">32</span></a>        <span class="n">token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span>
+</span><span id="MoqAccess-33"><a href="#MoqAccess-33"><span class="linenos">33</span></a>
+</span><span id="MoqAccess-34"><a href="#MoqAccess-34"><span class="linenos">34</span></a>        <span class="n">field_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="MoqAccess-35"><a href="#MoqAccess-35"><span class="linenos">35</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">)</span>
+</span><span id="MoqAccess-36"><a href="#MoqAccess-36"><span class="linenos">36</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+</span><span id="MoqAccess-37"><a href="#MoqAccess-37"><span class="linenos">37</span></a>            <span class="s2">&quot;connection_url&quot;</span><span class="p">:</span> <span class="n">connection_url</span><span class="p">,</span>
+</span><span id="MoqAccess-38"><a href="#MoqAccess-38"><span class="linenos">38</span></a>            <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="n">token</span><span class="p">,</span>
+</span><span id="MoqAccess-39"><a href="#MoqAccess-39"><span class="linenos">39</span></a>        <span class="p">})</span>
+</span><span id="MoqAccess-40"><a href="#MoqAccess-40"><span class="linenos">40</span></a>
+</span><span id="MoqAccess-41"><a href="#MoqAccess-41"><span class="linenos">41</span></a>        <span class="k">return</span> <span class="n">field_dict</span>
+</span><span id="MoqAccess-42"><a href="#MoqAccess-42"><span class="linenos">42</span></a>
+</span><span id="MoqAccess-43"><a href="#MoqAccess-43"><span class="linenos">43</span></a>    <span class="nd">@classmethod</span>
+</span><span id="MoqAccess-44"><a href="#MoqAccess-44"><span class="linenos">44</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+</span><span id="MoqAccess-45"><a href="#MoqAccess-45"><span class="linenos">45</span></a>        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">src_dict</span><span class="p">)</span>
+</span><span id="MoqAccess-46"><a href="#MoqAccess-46"><span class="linenos">46</span></a>        <span class="n">connection_url</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;connection_url&quot;</span><span class="p">)</span>
+</span><span id="MoqAccess-47"><a href="#MoqAccess-47"><span class="linenos">47</span></a>
+</span><span id="MoqAccess-48"><a href="#MoqAccess-48"><span class="linenos">48</span></a>        <span class="n">token</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">)</span>
+</span><span id="MoqAccess-49"><a href="#MoqAccess-49"><span class="linenos">49</span></a>
+</span><span id="MoqAccess-50"><a href="#MoqAccess-50"><span class="linenos">50</span></a>        <span class="n">moq_access</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+</span><span id="MoqAccess-51"><a href="#MoqAccess-51"><span class="linenos">51</span></a>            <span class="n">connection_url</span><span class="o">=</span><span class="n">connection_url</span><span class="p">,</span>
+</span><span id="MoqAccess-52"><a href="#MoqAccess-52"><span class="linenos">52</span></a>            <span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">,</span>
+</span><span id="MoqAccess-53"><a href="#MoqAccess-53"><span class="linenos">53</span></a>        <span class="p">)</span>
+</span><span id="MoqAccess-54"><a href="#MoqAccess-54"><span class="linenos">54</span></a>
+</span><span id="MoqAccess-55"><a href="#MoqAccess-55"><span class="linenos">55</span></a>        <span class="n">moq_access</span><span class="o">.</span><span class="n">additional_properties</span> <span class="o">=</span> <span class="n">d</span>
+</span><span id="MoqAccess-56"><a href="#MoqAccess-56"><span class="linenos">56</span></a>        <span class="k">return</span> <span class="n">moq_access</span>
+</span><span id="MoqAccess-57"><a href="#MoqAccess-57"><span class="linenos">57</span></a>
+</span><span id="MoqAccess-58"><a href="#MoqAccess-58"><span class="linenos">58</span></a>    <span class="nd">@property</span>
+</span><span id="MoqAccess-59"><a href="#MoqAccess-59"><span class="linenos">59</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">additional_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="MoqAccess-60"><a href="#MoqAccess-60"><span class="linenos">60</span></a>        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
+</span><span id="MoqAccess-61"><a href="#MoqAccess-61"><span class="linenos">61</span></a>
+</span><span id="MoqAccess-62"><a href="#MoqAccess-62"><span class="linenos">62</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Any</span><span class="p">:</span>
+</span><span id="MoqAccess-63"><a href="#MoqAccess-63"><span class="linenos">63</span></a>        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</span><span id="MoqAccess-64"><a href="#MoqAccess-64"><span class="linenos">64</span></a>
+</span><span id="MoqAccess-65"><a href="#MoqAccess-65"><span class="linenos">65</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__setitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="n">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="MoqAccess-66"><a href="#MoqAccess-66"><span class="linenos">66</span></a>        <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span> <span class="o">=</span> <span class="n">value</span>
+</span><span id="MoqAccess-67"><a href="#MoqAccess-67"><span class="linenos">67</span></a>
+</span><span id="MoqAccess-68"><a href="#MoqAccess-68"><span class="linenos">68</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+</span><span id="MoqAccess-69"><a href="#MoqAccess-69"><span class="linenos">69</span></a>        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+</span><span id="MoqAccess-70"><a href="#MoqAccess-70"><span class="linenos">70</span></a>
+</span><span id="MoqAccess-71"><a href="#MoqAccess-71"><span class="linenos">71</span></a>    <span class="k">def</span><span class="w"> </span><span class="fm">__contains__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+</span><span id="MoqAccess-72"><a href="#MoqAccess-72"><span class="linenos">72</span></a>        <span class="k">return</span> <span class="n">key</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Connection details for a MoQ relay client</p>
+
+<p>Attributes:</p>
+
+<ul>
+<li>connection_url (str): Relay connection URL with the JWT embedded as a <code>?jwt=</code> query parameter. Pass directly to
+a MoQ client SDK. Example: https://relay.fishjam.io/abc123?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....</li>
+<li>token (str): JWT authorizing the MoQ relay connection, also embedded in <code><a href="#MoqAccess.connection_url">connection_url</a></code> Example: eyJhbGciOiJIUz
+I1NiIsInR5cCI6IkpXVCJ9.eyJyb290IjoiZmlzaGphbSIsInB1dCI6WyJteS1zdHJlYW0iXSwiZ2V0IjpbXSwiaWF0IjoxNzEzMzYwMDAwLCJle
+HAiOjE3MTMzNjM2MDB9.abc123.</li>
+</ul>
+</div>
+
+
+                            <div id="MoqAccess.__init__" class="classattr">
+                                        <input id="MoqAccess.__init__-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+
+        <span class="name">MoqAccess</span><span class="signature pdoc-code condensed">(<span class="param"><span class="n">connection_url</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span>, </span><span class="param"><span class="n">token</span><span class="p">:</span> <span class="s1">&#39;str&#39;</span></span>)</span>
+
+                <label class="view-source-button" for="MoqAccess.__init__-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#MoqAccess.__init__"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="MoqAccess.__init__-25"><a href="#MoqAccess.__init__-25"><span class="linenos">25</span></a><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">connection_url</span><span class="p">,</span> <span class="n">token</span><span class="p">):</span>
+</span><span id="MoqAccess.__init__-26"><a href="#MoqAccess.__init__-26"><span class="linenos">26</span></a>    <span class="bp">self</span><span class="o">.</span><span class="n">connection_url</span> <span class="o">=</span> <span class="n">connection_url</span>
+</span><span id="MoqAccess.__init__-27"><a href="#MoqAccess.__init__-27"><span class="linenos">27</span></a>    <span class="bp">self</span><span class="o">.</span><span class="n">token</span> <span class="o">=</span> <span class="n">token</span>
+</span><span id="MoqAccess.__init__-28"><a href="#MoqAccess.__init__-28"><span class="linenos">28</span></a>    <span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span> <span class="o">=</span> <span class="n">__attr_factory_additional_properties</span><span class="p">()</span>
+</span></pre></div>
+
+
+            <div class="docstring"><p>Method generated by attrs for class MoqAccess.</p>
+</div>
+
+
+                            </div>
+                            <div id="MoqAccess.connection_url" class="classattr">
+                                <div class="attr variable">
+            <span class="name">connection_url</span><span class="annotation">: &#39;str&#39;</span>
+
+
+    </div>
+    <a class="headerlink" href="#MoqAccess.connection_url"></a>
+
+
+
+                            </div>
+                            <div id="MoqAccess.token" class="classattr">
+                                <div class="attr variable">
+            <span class="name">token</span><span class="annotation">: &#39;str&#39;</span>
+
+
+    </div>
+    <a class="headerlink" href="#MoqAccess.token"></a>
+
+
+
+                            </div>
+                            <div id="MoqAccess.additional_properties" class="classattr">
+                                <div class="attr variable">
+            <span class="name">additional_properties</span><span class="annotation">: &#39;dict[str, Any]&#39;</span>
+
+
+    </div>
+    <a class="headerlink" href="#MoqAccess.additional_properties"></a>
+
+
+
+                            </div>
+                            <div id="MoqAccess.to_dict" class="classattr">
+                                        <input id="MoqAccess.to_dict-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+
+        <span class="def">def</span>
+        <span class="name">to_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">self</span></span><span class="return-annotation">) -> <span class="s1">&#39;dict[str, Any]&#39;</span>:</span></span>
+
+                <label class="view-source-button" for="MoqAccess.to_dict-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#MoqAccess.to_dict"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="MoqAccess.to_dict-29"><a href="#MoqAccess.to_dict-29"><span class="linenos">29</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">to_dict</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+</span><span id="MoqAccess.to_dict-30"><a href="#MoqAccess.to_dict-30"><span class="linenos">30</span></a>        <span class="n">connection_url</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">connection_url</span>
+</span><span id="MoqAccess.to_dict-31"><a href="#MoqAccess.to_dict-31"><span class="linenos">31</span></a>
+</span><span id="MoqAccess.to_dict-32"><a href="#MoqAccess.to_dict-32"><span class="linenos">32</span></a>        <span class="n">token</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">token</span>
+</span><span id="MoqAccess.to_dict-33"><a href="#MoqAccess.to_dict-33"><span class="linenos">33</span></a>
+</span><span id="MoqAccess.to_dict-34"><a href="#MoqAccess.to_dict-34"><span class="linenos">34</span></a>        <span class="n">field_dict</span><span class="p">:</span> <span class="nb">dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]</span> <span class="o">=</span> <span class="p">{}</span>
+</span><span id="MoqAccess.to_dict-35"><a href="#MoqAccess.to_dict-35"><span class="linenos">35</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="p">)</span>
+</span><span id="MoqAccess.to_dict-36"><a href="#MoqAccess.to_dict-36"><span class="linenos">36</span></a>        <span class="n">field_dict</span><span class="o">.</span><span class="n">update</span><span class="p">({</span>
+</span><span id="MoqAccess.to_dict-37"><a href="#MoqAccess.to_dict-37"><span class="linenos">37</span></a>            <span class="s2">&quot;connection_url&quot;</span><span class="p">:</span> <span class="n">connection_url</span><span class="p">,</span>
+</span><span id="MoqAccess.to_dict-38"><a href="#MoqAccess.to_dict-38"><span class="linenos">38</span></a>            <span class="s2">&quot;token&quot;</span><span class="p">:</span> <span class="n">token</span><span class="p">,</span>
+</span><span id="MoqAccess.to_dict-39"><a href="#MoqAccess.to_dict-39"><span class="linenos">39</span></a>        <span class="p">})</span>
+</span><span id="MoqAccess.to_dict-40"><a href="#MoqAccess.to_dict-40"><span class="linenos">40</span></a>
+</span><span id="MoqAccess.to_dict-41"><a href="#MoqAccess.to_dict-41"><span class="linenos">41</span></a>        <span class="k">return</span> <span class="n">field_dict</span>
+</span></pre></div>
+
+
+
+
+                            </div>
+                            <div id="MoqAccess.from_dict" class="classattr">
+                                        <input id="MoqAccess.from_dict-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr function">
+                    <div class="decorator">@classmethod</div>
+
+        <span class="def">def</span>
+        <span class="name">from_dict</span><span class="signature pdoc-code condensed">(<span class="param"><span class="bp">cls</span><span class="p">:</span> <span class="s1">&#39;type[T]&#39;</span>, </span><span class="param"><span class="n">src_dict</span><span class="p">:</span> <span class="s1">&#39;Mapping[str, Any]&#39;</span></span><span class="return-annotation">) -> <span class="s1">&#39;T&#39;</span>:</span></span>
+
+                <label class="view-source-button" for="MoqAccess.from_dict-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#MoqAccess.from_dict"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="MoqAccess.from_dict-43"><a href="#MoqAccess.from_dict-43"><span class="linenos">43</span></a>    <span class="nd">@classmethod</span>
+</span><span id="MoqAccess.from_dict-44"><a href="#MoqAccess.from_dict-44"><span class="linenos">44</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">from_dict</span><span class="p">(</span><span class="bp">cls</span><span class="p">:</span> <span class="nb">type</span><span class="p">[</span><span class="n">T</span><span class="p">],</span> <span class="n">src_dict</span><span class="p">:</span> <span class="n">Mapping</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">T</span><span class="p">:</span>
+</span><span id="MoqAccess.from_dict-45"><a href="#MoqAccess.from_dict-45"><span class="linenos">45</span></a>        <span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">src_dict</span><span class="p">)</span>
+</span><span id="MoqAccess.from_dict-46"><a href="#MoqAccess.from_dict-46"><span class="linenos">46</span></a>        <span class="n">connection_url</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;connection_url&quot;</span><span class="p">)</span>
+</span><span id="MoqAccess.from_dict-47"><a href="#MoqAccess.from_dict-47"><span class="linenos">47</span></a>
+</span><span id="MoqAccess.from_dict-48"><a href="#MoqAccess.from_dict-48"><span class="linenos">48</span></a>        <span class="n">token</span> <span class="o">=</span> <span class="n">d</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;token&quot;</span><span class="p">)</span>
+</span><span id="MoqAccess.from_dict-49"><a href="#MoqAccess.from_dict-49"><span class="linenos">49</span></a>
+</span><span id="MoqAccess.from_dict-50"><a href="#MoqAccess.from_dict-50"><span class="linenos">50</span></a>        <span class="n">moq_access</span> <span class="o">=</span> <span class="bp">cls</span><span class="p">(</span>
+</span><span id="MoqAccess.from_dict-51"><a href="#MoqAccess.from_dict-51"><span class="linenos">51</span></a>            <span class="n">connection_url</span><span class="o">=</span><span class="n">connection_url</span><span class="p">,</span>
+</span><span id="MoqAccess.from_dict-52"><a href="#MoqAccess.from_dict-52"><span class="linenos">52</span></a>            <span class="n">token</span><span class="o">=</span><span class="n">token</span><span class="p">,</span>
+</span><span id="MoqAccess.from_dict-53"><a href="#MoqAccess.from_dict-53"><span class="linenos">53</span></a>        <span class="p">)</span>
+</span><span id="MoqAccess.from_dict-54"><a href="#MoqAccess.from_dict-54"><span class="linenos">54</span></a>
+</span><span id="MoqAccess.from_dict-55"><a href="#MoqAccess.from_dict-55"><span class="linenos">55</span></a>        <span class="n">moq_access</span><span class="o">.</span><span class="n">additional_properties</span> <span class="o">=</span> <span class="n">d</span>
+</span><span id="MoqAccess.from_dict-56"><a href="#MoqAccess.from_dict-56"><span class="linenos">56</span></a>        <span class="k">return</span> <span class="n">moq_access</span>
+</span></pre></div>
+
+
+
+
+                            </div>
+                            <div id="MoqAccess.additional_keys" class="classattr">
+                                        <input id="MoqAccess.additional_keys-view-source" class="view-source-toggle-state" type="checkbox" aria-hidden="true" tabindex="-1">
+<div class="attr variable">
+            <span class="name">additional_keys</span><span class="annotation">: &#39;list[str]&#39;</span>
+
+                <label class="view-source-button" for="MoqAccess.additional_keys-view-source"><span>View Source</span></label>
+
+    </div>
+    <a class="headerlink" href="#MoqAccess.additional_keys"></a>
+            <div class="pdoc-code codehilite"><pre><span></span><span id="MoqAccess.additional_keys-58"><a href="#MoqAccess.additional_keys-58"><span class="linenos">58</span></a>    <span class="nd">@property</span>
+</span><span id="MoqAccess.additional_keys-59"><a href="#MoqAccess.additional_keys-59"><span class="linenos">59</span></a>    <span class="k">def</span><span class="w"> </span><span class="nf">additional_keys</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">str</span><span class="p">]:</span>
+</span><span id="MoqAccess.additional_keys-60"><a href="#MoqAccess.additional_keys-60"><span class="linenos">60</span></a>        <span class="k">return</span> <span class="nb">list</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_properties</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span>
 </span></pre></div>
 
 
