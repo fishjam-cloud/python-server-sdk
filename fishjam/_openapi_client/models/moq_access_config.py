@@ -7,12 +7,12 @@ from attrs import define as _attrs_define
 
 from ..types import UNSET, Unset
 
-T = TypeVar("T", bound="MoqTokenConfig")
+T = TypeVar("T", bound="MoqAccessConfig")
 
 
 @_attrs_define
-class MoqTokenConfig:
-    """MoQ token configuration
+class MoqAccessConfig:
+    """MoQ access configuration
 
     Attributes:
         publish_path (None | str | Unset): Path under the root the token grants publish access to Example: my-stream.
@@ -68,9 +68,9 @@ class MoqTokenConfig:
 
         subscribe_path = _parse_subscribe_path(d.pop("subscribePath", UNSET))
 
-        moq_token_config = cls(
+        moq_access_config = cls(
             publish_path=publish_path,
             subscribe_path=subscribe_path,
         )
 
-        return moq_token_config
+        return moq_access_config

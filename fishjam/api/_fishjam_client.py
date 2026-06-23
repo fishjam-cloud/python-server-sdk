@@ -8,7 +8,7 @@ from fishjam._openapi_client.api.credentials import (
     validate_credentials as credentials_validate_credentials,
 )
 from fishjam._openapi_client.api.mo_q import (
-    create_moq_token as moq_create_token,
+    create_moq_access as moq_create_access,
 )
 from fishjam._openapi_client.api.rooms import add_peer as room_add_peer
 from fishjam._openapi_client.api.rooms import create_room as room_create_room
@@ -29,8 +29,8 @@ from fishjam._openapi_client.models import (
     AgentOutput,
     AudioFormat,
     AudioSampleRate,
-    MoqToken,
-    MoqTokenConfig,
+    MoqAccess,
+    MoqAccessConfig,
     Peer,
     PeerConfig,
     PeerDetailsResponse,
@@ -415,29 +415,31 @@ class FishjamClient(Client):
 
         return response.token
 
-    def create_moq_token(
+    def create_moq_access(
         self,
         publish_path: str | None = None,
         subscribe_path: str | None = None,
-    ) -> str:
-        """Generates a MoQ token.
+    ) -> MoqAccess:
+        """Generates MoQ relay connection details.
 
         Args:
-            publish_path: Path the token grants publish access to.
-            subscribe_path: Path the token grants subscribe access to.
+            publish_path: Path the access grants publish access to.
+            subscribe_path: Path the access grants subscribe access to.
 
         Returns:
-            str: The generated token.
+            MoqAccess: The relay connection details, containing the
+            ``connection_url`` (with the JWT embedded as a ``?jwt=`` query
+            parameter) and the ``token`` itself.
         """
-        config = MoqTokenConfig(
+        config = MoqAccessConfig(
             publish_path=publish_path, subscribe_path=subscribe_path
         )
         response = cast(
-            MoqToken,
-            self._request(moq_create_token, body=config),
+            MoqAccess,
+            self._request(moq_create_access, body=config),
         )
 
-        return response.token
+        return response
 
     def subscribe_peer(self, room_id: str, peer_id: str, target_peer_id: str):
         """Subscribes a peer to all tracks of another peer.

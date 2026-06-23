@@ -6,20 +6,20 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.moq_token import MoqToken
-from ...models.moq_token_config import MoqTokenConfig
+from ...models.moq_access import MoqAccess
+from ...models.moq_access_config import MoqAccessConfig
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    body: MoqTokenConfig | Unset = UNSET,
+    body: MoqAccessConfig | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/moq/token",
+        "url": "/moq/access",
     }
 
     if not isinstance(body, Unset):
@@ -33,9 +33,9 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Error | MoqToken | None:
+) -> Error | MoqAccess | None:
     if response.status_code == 200:
-        response_200 = MoqToken.from_dict(response.json())
+        response_200 = MoqAccess.from_dict(response.json())
 
         return response_200
 
@@ -62,7 +62,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Error | MoqToken]:
+) -> Response[Error | MoqAccess]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -74,21 +74,21 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    body: MoqTokenConfig | Unset = UNSET,
-) -> Response[Error | MoqToken]:
-    """Create a MoQ token
+    body: MoqAccessConfig | Unset = UNSET,
+) -> Response[Error | MoqAccess]:
+    """Create MoQ access
 
      Issue a short-lived JWT for a Media over QUIC client.
 
     Args:
-        body (MoqTokenConfig | Unset): MoQ token configuration
+        body (MoqAccessConfig | Unset): MoQ access configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | MoqToken]
+        Response[Error | MoqAccess]
     """
 
     kwargs = _get_kwargs(
@@ -105,21 +105,21 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    body: MoqTokenConfig | Unset = UNSET,
-) -> Error | MoqToken | None:
-    """Create a MoQ token
+    body: MoqAccessConfig | Unset = UNSET,
+) -> Error | MoqAccess | None:
+    """Create MoQ access
 
      Issue a short-lived JWT for a Media over QUIC client.
 
     Args:
-        body (MoqTokenConfig | Unset): MoQ token configuration
+        body (MoqAccessConfig | Unset): MoQ access configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | MoqToken
+        Error | MoqAccess
     """
 
     return sync_detailed(
@@ -131,21 +131,21 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    body: MoqTokenConfig | Unset = UNSET,
-) -> Response[Error | MoqToken]:
-    """Create a MoQ token
+    body: MoqAccessConfig | Unset = UNSET,
+) -> Response[Error | MoqAccess]:
+    """Create MoQ access
 
      Issue a short-lived JWT for a Media over QUIC client.
 
     Args:
-        body (MoqTokenConfig | Unset): MoQ token configuration
+        body (MoqAccessConfig | Unset): MoQ access configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Error | MoqToken]
+        Response[Error | MoqAccess]
     """
 
     kwargs = _get_kwargs(
@@ -160,21 +160,21 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    body: MoqTokenConfig | Unset = UNSET,
-) -> Error | MoqToken | None:
-    """Create a MoQ token
+    body: MoqAccessConfig | Unset = UNSET,
+) -> Error | MoqAccess | None:
+    """Create MoQ access
 
      Issue a short-lived JWT for a Media over QUIC client.
 
     Args:
-        body (MoqTokenConfig | Unset): MoQ token configuration
+        body (MoqAccessConfig | Unset): MoQ access configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Error | MoqToken
+        Error | MoqAccess
     """
 
     return (

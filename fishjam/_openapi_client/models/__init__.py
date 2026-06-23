@@ -5,8 +5,8 @@ from .audio_format import AudioFormat
 from .audio_sample_rate import AudioSampleRate
 from .composition_info import CompositionInfo
 from .error import Error
-from .moq_token import MoqToken
-from .moq_token_config import MoqTokenConfig
+from .moq_access import MoqAccess
+from .moq_access_config import MoqAccessConfig
 from .peer import Peer
 from .peer_config import PeerConfig
 from .peer_details_response import PeerDetailsResponse
@@ -54,8 +54,8 @@ __all__ = (
     "AudioSampleRate",
     "CompositionInfo",
     "Error",
-    "MoqToken",
-    "MoqTokenConfig",
+    "MoqAccess",
+    "MoqAccessConfig",
     "Peer",
     "PeerConfig",
     "PeerDetailsResponse",

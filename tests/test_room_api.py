@@ -5,6 +5,7 @@ import pytest
 
 from fishjam import (
     FishjamClient,
+    MoqAccess,
     Peer,
     PeerOptions,
     PeerOptionsVapi,
@@ -313,30 +314,36 @@ class TestCreateLivestreamStreamerToken:
             room_api.create_livestream_streamer_token(room.id)
 
 
-class TestCreateMoqToken:
+class TestCreateMoqAccess:
     def test_no_params(self, room_api: FishjamClient):
         with pytest.raises(BadRequestError):
-            room_api.create_moq_token()
+            room_api.create_moq_access()
 
     def test_valid_publish(self, room_api: FishjamClient):
-        token = room_api.create_moq_token(publish_path="test-stream")
+        access = room_api.create_moq_access(publish_path="test-stream")
 
-        assert isinstance(token, str)
+        assert isinstance(access, MoqAccess)
+        assert isinstance(access.connection_url, str)
+        assert isinstance(access.token, str)
 
     def test_valid_subscribe(self, room_api: FishjamClient):
-        token = room_api.create_moq_token(subscribe_path="test-stream")
+        access = room_api.create_moq_access(subscribe_path="test-stream")
 
-        assert isinstance(token, str)
+        assert isinstance(access, MoqAccess)
+        assert isinstance(access.connection_url, str)
+        assert isinstance(access.token, str)
 
     def test_valid_both(self, room_api: FishjamClient):
-        token = room_api.create_moq_token(
+        access = room_api.create_moq_access(
             publish_path="test-stream", subscribe_path="test-stream"
         )
 
-        assert isinstance(token, str)
+        assert isinstance(access, MoqAccess)
+        assert isinstance(access.connection_url, str)
+        assert isinstance(access.token, str)
 
     def test_unauthorized(self):
         room_api = FishjamClient(FISHJAM_ID, "invalid")
 
         with pytest.raises(UnauthorizedError):
-            room_api.create_moq_token(publish_path="test-stream")
+            room_api.create_moq_access(publish_path="test-stream")
