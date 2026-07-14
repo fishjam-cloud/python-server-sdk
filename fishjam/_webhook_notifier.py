@@ -1,5 +1,6 @@
 """Module for decoding received webhook notifications from Fishjam."""
 
+import hmac
 import warnings
 from typing import List, Union
 
@@ -67,6 +68,26 @@ def decode_server_notifications(binary: bytes) -> List[AllowedNotification]:
         return [content]
 
     return []
+
+
+def verify_webhook_signature(body: bytes, signature: str, secret: str) -> bool:
+    """Verify the `x-fishjam-signature-256` header of a raw webhook body.
+
+    Accepts the `sha256=<hex>` format sent by Fishjam (the prefix is
+    optional) and compares in constant time. Call this with the raw request
+    body before passing it to `decode_server_notifications`.
+
+    Args:
+        body: The raw binary body of the webhook request.
+        signature: The value of the `x-fishjam-signature-256` header.
+        secret: The webhook secret configured in Fishjam.
+
+    Returns:
+        bool: True when the signature matches the body, False otherwise.
+    """
+    expected = hmac.new(secret.encode(), body, "sha256").hexdigest()
+    provided = signature.strip().removeprefix("sha256=")
+    return hmac.compare_digest(provided, expected)
 
 
 def receive_binary(
