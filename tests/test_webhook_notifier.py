@@ -1,6 +1,12 @@
+import hmac
+
 import pytest
 
-from fishjam import decode_server_notifications, receive_binary
+from fishjam import (
+    decode_server_notifications,
+    receive_binary,
+    verify_webhook_signature,
+)
 from fishjam.events import (
     ServerMessagePeerConnected,
     ServerMessageRoomCreated,
@@ -171,3 +177,28 @@ def test_decode_empty_batch_returns_empty_list():
     )
 
     assert decode_server_notifications(binary) == []
+
+
+BODY = bytes(ServerMessage(room_created=ServerMessageRoomCreated(room_id="r1")))
+SECRET = "webhook-secret"
+SIGNATURE = hmac.new(SECRET.encode(), BODY, "sha256").hexdigest()
+
+
+def test_verify_valid_signature_with_prefix():
+    assert verify_webhook_signature(BODY, f"sha256={SIGNATURE}", SECRET)
+
+
+def test_verify_valid_signature_without_prefix():
+    assert verify_webhook_signature(BODY, SIGNATURE, SECRET)
+
+
+def test_verify_wrong_secret_fails():
+    assert not verify_webhook_signature(BODY, f"sha256={SIGNATURE}", "other-secret")
+
+
+def test_verify_tampered_body_fails():
+    assert not verify_webhook_signature(BODY + b"x", f"sha256={SIGNATURE}", SECRET)
+
+
+def test_verify_garbage_signature_fails():
+    assert not verify_webhook_signature(BODY, "sha256=nothex", SECRET)
