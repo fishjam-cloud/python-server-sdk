@@ -24,7 +24,8 @@ class RoomConfig:
         public (bool | Unset): True if livestream viewers can omit specifying a token. Default: False.
         room_type (RoomType | Unset): The use-case of the room. If not provided, this defaults to conference.
         video_codec (VideoCodec | Unset): Enforces video codec for each peer in the room
-        webhook_url (None | str | Unset): URL where Fishjam notifications will be sent Example:
+        webhook_url (None | str | Unset): Deprecated: configure the webhook in the Dashboard instead. URL where Fishjam
+            notifications will be sent; overrides the Dashboard-configured webhook URL Example:
             https://backend.address.com/fishjam-notifications-endpoint.
     """
 

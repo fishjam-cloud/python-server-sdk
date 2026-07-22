@@ -4,11 +4,18 @@ from .agent_output import AgentOutput
 from .audio_format import AudioFormat
 from .audio_sample_rate import AudioSampleRate
 from .composition_info import CompositionInfo
+from .composition_source import CompositionSource
 from .error import Error
+from .list_recordings_metadata import ListRecordingsMetadata
 from .moq_access import MoqAccess
 from .moq_access_config import MoqAccessConfig
 from .peer import Peer
-from .peer_config import PeerConfig
+from .peer_config_agent import PeerConfigAgent
+from .peer_config_agent_type import PeerConfigAgentType
+from .peer_config_vapi import PeerConfigVAPI
+from .peer_config_vapi_type import PeerConfigVAPIType
+from .peer_config_web_rtc import PeerConfigWebRTC
+from .peer_config_web_rtc_type import PeerConfigWebRTCType
 from .peer_details_response import PeerDetailsResponse
 from .peer_details_response_data import PeerDetailsResponseData
 from .peer_metadata import PeerMetadata
@@ -19,6 +26,13 @@ from .peer_refresh_token_response import PeerRefreshTokenResponse
 from .peer_refresh_token_response_data import PeerRefreshTokenResponseData
 from .peer_status import PeerStatus
 from .peer_type import PeerType
+from .recording import Recording
+from .recording_config import RecordingConfig
+from .recording_config_metadata_type_0 import RecordingConfigMetadataType0
+from .recording_details_response import RecordingDetailsResponse
+from .recording_list_response import RecordingListResponse
+from .recording_metadata_type_0 import RecordingMetadataType0
+from .recording_status import RecordingStatus
 from .room import Room
 from .room_config import RoomConfig
 from .room_create_details_response import RoomCreateDetailsResponse
@@ -53,11 +67,18 @@ __all__ = (
     "AudioFormat",
     "AudioSampleRate",
     "CompositionInfo",
+    "CompositionSource",
     "Error",
+    "ListRecordingsMetadata",
     "MoqAccess",
     "MoqAccessConfig",
     "Peer",
-    "PeerConfig",
+    "PeerConfigAgent",
+    "PeerConfigAgentType",
+    "PeerConfigVAPI",
+    "PeerConfigVAPIType",
+    "PeerConfigWebRTC",
+    "PeerConfigWebRTCType",
     "PeerDetailsResponse",
     "PeerDetailsResponseData",
     "PeerMetadata",
@@ -68,6 +89,13 @@ __all__ = (
     "PeerRefreshTokenResponseData",
     "PeerStatus",
     "PeerType",
+    "Recording",
+    "RecordingConfig",
+    "RecordingConfigMetadataType0",
+    "RecordingDetailsResponse",
+    "RecordingListResponse",
+    "RecordingMetadataType0",
+    "RecordingStatus",
     "Room",
     "RoomConfig",
     "RoomCreateDetailsResponse",

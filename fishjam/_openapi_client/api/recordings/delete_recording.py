@@ -7,58 +7,38 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.track_forwarding import TrackForwarding
 from ...types import Response
 
 
 def _get_kwargs(
-    room_id: str,
-    *,
-    body: TrackForwarding,
+    recording_id: str,
 ) -> dict[str, Any]:
-    headers: dict[str, Any] = {}
-
     _kwargs: dict[str, Any] = {
-        "method": "post",
-        "url": "/room/{room_id}/track_forwardings".format(
-            room_id=quote(str(room_id), safe=""),
+        "method": "delete",
+        "url": "/recordings/{recording_id}".format(
+            recording_id=quote(str(recording_id), safe=""),
         ),
     }
 
-    _kwargs["json"] = body.to_dict()
-
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
     return _kwargs
 
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
 ) -> Any | Error | None:
-    if response.status_code == 201:
-        response_201 = cast(Any, None)
-        return response_201
-
-    if response.status_code == 400:
-        response_400 = Error.from_dict(response.json())
-
-        return response_400
+    if response.status_code == 204:
+        response_204 = cast(Any, None)
+        return response_204
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
 
         return response_401
 
-    if response.status_code == 404:
-        response_404 = Error.from_dict(response.json())
+    if response.status_code == 503:
+        response_503 = Error.from_dict(response.json())
 
-        return response_404
-
-    if response.status_code == 409:
-        response_409 = Error.from_dict(response.json())
-
-        return response_409
+        return response_503
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -78,18 +58,16 @@ def _build_response(
 
 
 def sync_detailed(
-    room_id: str,
+    recording_id: str,
     *,
     client: AuthenticatedClient,
-    body: TrackForwarding,
 ) -> Response[Any | Error]:
-    """Create a track forwarding
+    """Delete a recording
 
-     Forward a room's tracks into an external composition.
+     Delete a recording by id.
 
     Args:
-        room_id (str):
-        body (TrackForwarding): Track forwardings for a room
+        recording_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -100,8 +78,7 @@ def sync_detailed(
     """
 
     kwargs = _get_kwargs(
-        room_id=room_id,
-        body=body,
+        recording_id=recording_id,
     )
 
     response = client.get_httpx_client().request(
@@ -112,18 +89,16 @@ def sync_detailed(
 
 
 def sync(
-    room_id: str,
+    recording_id: str,
     *,
     client: AuthenticatedClient,
-    body: TrackForwarding,
 ) -> Any | Error | None:
-    """Create a track forwarding
+    """Delete a recording
 
-     Forward a room's tracks into an external composition.
+     Delete a recording by id.
 
     Args:
-        room_id (str):
-        body (TrackForwarding): Track forwardings for a room
+        recording_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -134,25 +109,22 @@ def sync(
     """
 
     return sync_detailed(
-        room_id=room_id,
+        recording_id=recording_id,
         client=client,
-        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    room_id: str,
+    recording_id: str,
     *,
     client: AuthenticatedClient,
-    body: TrackForwarding,
 ) -> Response[Any | Error]:
-    """Create a track forwarding
+    """Delete a recording
 
-     Forward a room's tracks into an external composition.
+     Delete a recording by id.
 
     Args:
-        room_id (str):
-        body (TrackForwarding): Track forwardings for a room
+        recording_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -163,8 +135,7 @@ async def asyncio_detailed(
     """
 
     kwargs = _get_kwargs(
-        room_id=room_id,
-        body=body,
+        recording_id=recording_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -173,18 +144,16 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    room_id: str,
+    recording_id: str,
     *,
     client: AuthenticatedClient,
-    body: TrackForwarding,
 ) -> Any | Error | None:
-    """Create a track forwarding
+    """Delete a recording
 
-     Forward a room's tracks into an external composition.
+     Delete a recording by id.
 
     Args:
-        room_id (str):
-        body (TrackForwarding): Track forwardings for a room
+        recording_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -196,8 +165,7 @@ async def asyncio(
 
     return (
         await asyncio_detailed(
-            room_id=room_id,
+            recording_id=recording_id,
             client=client,
-            body=body,
         )
     ).parsed

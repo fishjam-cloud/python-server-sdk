@@ -1,28 +1,25 @@
 from http import HTTPStatus
-from typing import Any, cast
-from urllib.parse import quote
+from typing import Any
 
 import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.track_forwarding import TrackForwarding
+from ...models.recording_config import RecordingConfig
+from ...models.recording_details_response import RecordingDetailsResponse
 from ...types import Response
 
 
 def _get_kwargs(
-    room_id: str,
     *,
-    body: TrackForwarding,
+    body: RecordingConfig,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
     _kwargs: dict[str, Any] = {
         "method": "post",
-        "url": "/room/{room_id}/track_forwardings".format(
-            room_id=quote(str(room_id), safe=""),
-        ),
+        "url": "/recordings",
     }
 
     _kwargs["json"] = body.to_dict()
@@ -35,9 +32,10 @@ def _get_kwargs(
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Any | Error | None:
+) -> Error | RecordingDetailsResponse | None:
     if response.status_code == 201:
-        response_201 = cast(Any, None)
+        response_201 = RecordingDetailsResponse.from_dict(response.json())
+
         return response_201
 
     if response.status_code == 400:
@@ -50,15 +48,15 @@ def _parse_response(
 
         return response_401
 
-    if response.status_code == 404:
-        response_404 = Error.from_dict(response.json())
+    if response.status_code == 402:
+        response_402 = Error.from_dict(response.json())
 
-        return response_404
+        return response_402
 
-    if response.status_code == 409:
-        response_409 = Error.from_dict(response.json())
+    if response.status_code == 503:
+        response_503 = Error.from_dict(response.json())
 
-        return response_409
+        return response_503
 
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
@@ -68,7 +66,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Any | Error]:
+) -> Response[Error | RecordingDetailsResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -78,29 +76,26 @@ def _build_response(
 
 
 def sync_detailed(
-    room_id: str,
     *,
     client: AuthenticatedClient,
-    body: TrackForwarding,
-) -> Response[Any | Error]:
-    """Create a track forwarding
+    body: RecordingConfig,
+) -> Response[Error | RecordingDetailsResponse]:
+    """Create a recording
 
-     Forward a room's tracks into an external composition.
+     Create a recording resource. Capturing starts synchronously, so it is returned with status `active`.
 
     Args:
-        room_id (str):
-        body (TrackForwarding): Track forwardings for a room
+        body (RecordingConfig): Recording configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error]
+        Response[Error | RecordingDetailsResponse]
     """
 
     kwargs = _get_kwargs(
-        room_id=room_id,
         body=body,
     )
 
@@ -112,58 +107,52 @@ def sync_detailed(
 
 
 def sync(
-    room_id: str,
     *,
     client: AuthenticatedClient,
-    body: TrackForwarding,
-) -> Any | Error | None:
-    """Create a track forwarding
+    body: RecordingConfig,
+) -> Error | RecordingDetailsResponse | None:
+    """Create a recording
 
-     Forward a room's tracks into an external composition.
+     Create a recording resource. Capturing starts synchronously, so it is returned with status `active`.
 
     Args:
-        room_id (str):
-        body (TrackForwarding): Track forwardings for a room
+        body (RecordingConfig): Recording configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error
+        Error | RecordingDetailsResponse
     """
 
     return sync_detailed(
-        room_id=room_id,
         client=client,
         body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    room_id: str,
     *,
     client: AuthenticatedClient,
-    body: TrackForwarding,
-) -> Response[Any | Error]:
-    """Create a track forwarding
+    body: RecordingConfig,
+) -> Response[Error | RecordingDetailsResponse]:
+    """Create a recording
 
-     Forward a room's tracks into an external composition.
+     Create a recording resource. Capturing starts synchronously, so it is returned with status `active`.
 
     Args:
-        room_id (str):
-        body (TrackForwarding): Track forwardings for a room
+        body (RecordingConfig): Recording configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error]
+        Response[Error | RecordingDetailsResponse]
     """
 
     kwargs = _get_kwargs(
-        room_id=room_id,
         body=body,
     )
 
@@ -173,30 +162,27 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    room_id: str,
     *,
     client: AuthenticatedClient,
-    body: TrackForwarding,
-) -> Any | Error | None:
-    """Create a track forwarding
+    body: RecordingConfig,
+) -> Error | RecordingDetailsResponse | None:
+    """Create a recording
 
-     Forward a room's tracks into an external composition.
+     Create a recording resource. Capturing starts synchronously, so it is returned with status `active`.
 
     Args:
-        room_id (str):
-        body (TrackForwarding): Track forwardings for a room
+        body (RecordingConfig): Recording configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error
+        Error | RecordingDetailsResponse
     """
 
     return (
         await asyncio_detailed(
-            room_id=room_id,
             client=client,
             body=body,
         )

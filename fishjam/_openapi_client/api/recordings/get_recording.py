@@ -1,5 +1,5 @@
 from http import HTTPStatus
-from typing import Any, cast
+from typing import Any
 from urllib.parse import quote
 
 import httpx
@@ -7,43 +7,30 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.track_forwarding import TrackForwarding
+from ...models.recording_details_response import RecordingDetailsResponse
 from ...types import Response
 
 
 def _get_kwargs(
-    room_id: str,
-    *,
-    body: TrackForwarding,
+    recording_id: str,
 ) -> dict[str, Any]:
-    headers: dict[str, Any] = {}
-
     _kwargs: dict[str, Any] = {
-        "method": "post",
-        "url": "/room/{room_id}/track_forwardings".format(
-            room_id=quote(str(room_id), safe=""),
+        "method": "get",
+        "url": "/recordings/{recording_id}".format(
+            recording_id=quote(str(recording_id), safe=""),
         ),
     }
 
-    _kwargs["json"] = body.to_dict()
-
-    headers["Content-Type"] = "application/json"
-
-    _kwargs["headers"] = headers
     return _kwargs
 
 
 def _parse_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Any | Error | None:
-    if response.status_code == 201:
-        response_201 = cast(Any, None)
-        return response_201
+) -> Error | RecordingDetailsResponse | None:
+    if response.status_code == 200:
+        response_200 = RecordingDetailsResponse.from_dict(response.json())
 
-    if response.status_code == 400:
-        response_400 = Error.from_dict(response.json())
-
-        return response_400
+        return response_200
 
     if response.status_code == 401:
         response_401 = Error.from_dict(response.json())
@@ -55,11 +42,6 @@ def _parse_response(
 
         return response_404
 
-    if response.status_code == 409:
-        response_409 = Error.from_dict(response.json())
-
-        return response_409
-
     if client.raise_on_unexpected_status:
         raise errors.UnexpectedStatus(response.status_code, response.content)
     else:
@@ -68,7 +50,7 @@ def _parse_response(
 
 def _build_response(
     *, client: AuthenticatedClient | Client, response: httpx.Response
-) -> Response[Any | Error]:
+) -> Response[Error | RecordingDetailsResponse]:
     return Response(
         status_code=HTTPStatus(response.status_code),
         content=response.content,
@@ -78,30 +60,27 @@ def _build_response(
 
 
 def sync_detailed(
-    room_id: str,
+    recording_id: str,
     *,
     client: AuthenticatedClient,
-    body: TrackForwarding,
-) -> Response[Any | Error]:
-    """Create a track forwarding
+) -> Response[Error | RecordingDetailsResponse]:
+    """Get a recording
 
-     Forward a room's tracks into an external composition.
+     Get a recording by id.
 
     Args:
-        room_id (str):
-        body (TrackForwarding): Track forwardings for a room
+        recording_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error]
+        Response[Error | RecordingDetailsResponse]
     """
 
     kwargs = _get_kwargs(
-        room_id=room_id,
-        body=body,
+        recording_id=recording_id,
     )
 
     response = client.get_httpx_client().request(
@@ -112,59 +91,53 @@ def sync_detailed(
 
 
 def sync(
-    room_id: str,
+    recording_id: str,
     *,
     client: AuthenticatedClient,
-    body: TrackForwarding,
-) -> Any | Error | None:
-    """Create a track forwarding
+) -> Error | RecordingDetailsResponse | None:
+    """Get a recording
 
-     Forward a room's tracks into an external composition.
+     Get a recording by id.
 
     Args:
-        room_id (str):
-        body (TrackForwarding): Track forwardings for a room
+        recording_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error
+        Error | RecordingDetailsResponse
     """
 
     return sync_detailed(
-        room_id=room_id,
+        recording_id=recording_id,
         client=client,
-        body=body,
     ).parsed
 
 
 async def asyncio_detailed(
-    room_id: str,
+    recording_id: str,
     *,
     client: AuthenticatedClient,
-    body: TrackForwarding,
-) -> Response[Any | Error]:
-    """Create a track forwarding
+) -> Response[Error | RecordingDetailsResponse]:
+    """Get a recording
 
-     Forward a room's tracks into an external composition.
+     Get a recording by id.
 
     Args:
-        room_id (str):
-        body (TrackForwarding): Track forwardings for a room
+        recording_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Response[Any | Error]
+        Response[Error | RecordingDetailsResponse]
     """
 
     kwargs = _get_kwargs(
-        room_id=room_id,
-        body=body,
+        recording_id=recording_id,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -173,31 +146,28 @@ async def asyncio_detailed(
 
 
 async def asyncio(
-    room_id: str,
+    recording_id: str,
     *,
     client: AuthenticatedClient,
-    body: TrackForwarding,
-) -> Any | Error | None:
-    """Create a track forwarding
+) -> Error | RecordingDetailsResponse | None:
+    """Get a recording
 
-     Forward a room's tracks into an external composition.
+     Get a recording by id.
 
     Args:
-        room_id (str):
-        body (TrackForwarding): Track forwardings for a room
+        recording_id (str):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
         httpx.TimeoutException: If the request takes longer than Client.timeout.
 
     Returns:
-        Any | Error
+        Error | RecordingDetailsResponse
     """
 
     return (
         await asyncio_detailed(
-            room_id=room_id,
+            recording_id=recording_id,
             client=client,
-            body=body,
         )
     ).parsed
