@@ -20,7 +20,8 @@ class StreamConfig:
             single NotificationBatch per HTTP send instead of one request per notification. VAD notifications are
             unaffected. Default: False.
         public (bool | Unset): True if livestream viewers can omit specifying a token. Default: False.
-        webhook_url (None | str | Unset): Webhook URL for receiving server notifications
+        webhook_url (None | str | Unset): Deprecated: configure the webhook in the Dashboard instead. Webhook URL for
+            receiving server notifications; overrides the Dashboard-configured webhook URL
     """
 
     audio_only: bool | None | Unset = False

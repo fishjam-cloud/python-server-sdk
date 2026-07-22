@@ -7,7 +7,9 @@ import httpx
 from ... import errors
 from ...client import AuthenticatedClient, Client
 from ...models.error import Error
-from ...models.peer_config import PeerConfig
+from ...models.peer_config_agent import PeerConfigAgent
+from ...models.peer_config_vapi import PeerConfigVAPI
+from ...models.peer_config_web_rtc import PeerConfigWebRTC
 from ...models.peer_details_response import PeerDetailsResponse
 from ...types import UNSET, Response, Unset
 
@@ -15,7 +17,7 @@ from ...types import UNSET, Response, Unset
 def _get_kwargs(
     room_id: str,
     *,
-    body: PeerConfig | Unset = UNSET,
+    body: PeerConfigAgent | PeerConfigVAPI | PeerConfigWebRTC | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -26,7 +28,11 @@ def _get_kwargs(
         ),
     }
 
-    if not isinstance(body, Unset):
+    if isinstance(body, PeerConfigWebRTC):
+        _kwargs["json"] = body.to_dict()
+    elif isinstance(body, PeerConfigAgent):
+        _kwargs["json"] = body.to_dict()
+    else:
         _kwargs["json"] = body.to_dict()
 
     headers["Content-Type"] = "application/json"
@@ -94,7 +100,7 @@ def sync_detailed(
     room_id: str,
     *,
     client: AuthenticatedClient,
-    body: PeerConfig | Unset = UNSET,
+    body: PeerConfigAgent | PeerConfigVAPI | PeerConfigWebRTC | Unset = UNSET,
 ) -> Response[Error | PeerDetailsResponse]:
     """Create a peer
 
@@ -102,7 +108,7 @@ def sync_detailed(
 
     Args:
         room_id (str):
-        body (PeerConfig | Unset): Peer configuration
+        body (PeerConfigAgent | PeerConfigVAPI | PeerConfigWebRTC | Unset): Peer configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -128,7 +134,7 @@ def sync(
     room_id: str,
     *,
     client: AuthenticatedClient,
-    body: PeerConfig | Unset = UNSET,
+    body: PeerConfigAgent | PeerConfigVAPI | PeerConfigWebRTC | Unset = UNSET,
 ) -> Error | PeerDetailsResponse | None:
     """Create a peer
 
@@ -136,7 +142,7 @@ def sync(
 
     Args:
         room_id (str):
-        body (PeerConfig | Unset): Peer configuration
+        body (PeerConfigAgent | PeerConfigVAPI | PeerConfigWebRTC | Unset): Peer configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -157,7 +163,7 @@ async def asyncio_detailed(
     room_id: str,
     *,
     client: AuthenticatedClient,
-    body: PeerConfig | Unset = UNSET,
+    body: PeerConfigAgent | PeerConfigVAPI | PeerConfigWebRTC | Unset = UNSET,
 ) -> Response[Error | PeerDetailsResponse]:
     """Create a peer
 
@@ -165,7 +171,7 @@ async def asyncio_detailed(
 
     Args:
         room_id (str):
-        body (PeerConfig | Unset): Peer configuration
+        body (PeerConfigAgent | PeerConfigVAPI | PeerConfigWebRTC | Unset): Peer configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -189,7 +195,7 @@ async def asyncio(
     room_id: str,
     *,
     client: AuthenticatedClient,
-    body: PeerConfig | Unset = UNSET,
+    body: PeerConfigAgent | PeerConfigVAPI | PeerConfigWebRTC | Unset = UNSET,
 ) -> Error | PeerDetailsResponse | None:
     """Create a peer
 
@@ -197,7 +203,7 @@ async def asyncio(
 
     Args:
         room_id (str):
-        body (PeerConfig | Unset): Peer configuration
+        body (PeerConfigAgent | PeerConfigVAPI | PeerConfigWebRTC | Unset): Peer configuration
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
