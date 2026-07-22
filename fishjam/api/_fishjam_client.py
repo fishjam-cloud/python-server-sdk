@@ -275,9 +275,6 @@ class FishjamClient(Client):
         return Agent(resp.data.peer.id, room_id, resp.data.token, socket_base_url)
 
     def _peer_socket_base_url(self, peer_websocket_url: str | Unset) -> str:
-        # Fishjam deployments with a separate media node return the websocket
-        # address the peer must connect to; older deployments omit it, in which
-        # case the socket lives on the Fishjam URL itself.
         if isinstance(peer_websocket_url, Unset) or not peer_websocket_url:
             return self._fishjam_url
 

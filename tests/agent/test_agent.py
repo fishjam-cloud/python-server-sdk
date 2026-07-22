@@ -106,8 +106,6 @@ async def wait_event(event: asyncio.Event, timeout: float = 5):
 class TestAgentConnection:
     @pytest.mark.asyncio
     async def test_invalid_auth(self, room: Room, agent: Agent):
-        # Reuse a real agent's socket address so the connection reaches
-        # authentication instead of failing on routing.
         bogus_agent = Agent("fake-id", room.id, "fake-token", agent._fishjam_url)
 
         with pytest.raises(AgentAuthError):
