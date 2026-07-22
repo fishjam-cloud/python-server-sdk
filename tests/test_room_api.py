@@ -89,7 +89,7 @@ class TestCreateRoom:
 
         config = RoomConfig(
             max_peers=0,
-            webhook_url=None,
+            webhook_url=room.config.webhook_url,
             room_type=RoomType(CONFERENCE),
             video_codec=VideoCodec.H264,
         )
@@ -113,7 +113,7 @@ class TestCreateRoom:
         config = RoomConfig(
             max_peers=MAX_PEERS,
             video_codec=VideoCodec.H264,
-            webhook_url=None,
+            webhook_url=room.config.webhook_url,
             room_type=RoomType(AUDIO_ONLY),
         )
 
@@ -171,7 +171,7 @@ class TestGetRoom:
 
         config = RoomConfig(
             max_peers=0,
-            webhook_url=None,
+            webhook_url=room.config.webhook_url,
             room_type=RoomType(CONFERENCE),
             video_codec=VideoCodec.H264,
         )
