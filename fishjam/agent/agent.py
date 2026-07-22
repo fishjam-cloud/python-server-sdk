@@ -203,6 +203,7 @@ class Agent:
         self.id = id
         self.room_id = room_id
 
+        self._fishjam_url = fishjam_url
         self._socket_url = f"{fishjam_url}/socket/agent/websocket".replace("http", "ws")
         self._token = token
 

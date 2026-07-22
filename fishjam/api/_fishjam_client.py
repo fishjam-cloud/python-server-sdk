@@ -32,13 +32,17 @@ from fishjam._openapi_client.models import (
     MoqAccess,
     MoqAccessConfig,
     Peer,
-    PeerConfig,
+    PeerConfigAgent,
+    PeerConfigAgentType,
+    PeerConfigVAPI,
+    PeerConfigVAPIType,
+    PeerConfigWebRTC,
+    PeerConfigWebRTCType,
     PeerDetailsResponse,
     PeerOptionsAgent,
     PeerOptionsVapi,
     PeerOptionsWebRTC,
     PeerRefreshTokenResponse,
-    PeerType,
     RoomConfig,
     RoomCreateDetailsResponse,
     RoomDetailsResponse,
@@ -51,7 +55,7 @@ from fishjam._openapi_client.models import (
     ViewerToken,
     WebRTCMetadata,
 )
-from fishjam._openapi_client.types import UNSET
+from fishjam._openapi_client.types import UNSET, Unset
 from fishjam.agent import Agent
 from fishjam.api._client import Client
 from fishjam.errors import (
@@ -230,7 +234,7 @@ class FishjamClient(Client):
             metadata=peer_metadata,
             subscribe_mode=SubscribeMode(options.subscribe_mode),
         )
-        body = PeerConfig(type_=PeerType.WEBRTC, options=peer_options)
+        body = PeerConfigWebRTC(type_=PeerConfigWebRTCType.WEBRTC, options=peer_options)
 
         resp = cast(
             PeerDetailsResponse,
@@ -251,8 +255,8 @@ class FishjamClient(Client):
                 and Fishjam URL.
         """
         options = options or AgentOptions()
-        body = PeerConfig(
-            type_=PeerType.AGENT,
+        body = PeerConfigAgent(
+            type_=PeerConfigAgentType.AGENT,
             options=PeerOptionsAgent(
                 output=AgentOutput(
                     audio_format=AudioFormat(options.output.audio_format),
@@ -267,7 +271,22 @@ class FishjamClient(Client):
             self._request(room_add_peer, room_id=room_id, body=body),
         )
 
-        return Agent(resp.data.peer.id, room_id, resp.data.token, self._fishjam_url)
+        socket_base_url = self._peer_socket_base_url(resp.data.peer_websocket_url)
+        return Agent(resp.data.peer.id, room_id, resp.data.token, socket_base_url)
+
+    def _peer_socket_base_url(self, peer_websocket_url: str | Unset) -> str:
+        # Fishjam deployments with a separate media node return the websocket
+        # address the peer must connect to; older deployments omit it, in which
+        # case the socket lives on the Fishjam URL itself.
+        if isinstance(peer_websocket_url, Unset) or not peer_websocket_url:
+            return self._fishjam_url
+
+        url = peer_websocket_url
+        if "://" not in url:
+            url = f"https://{url}"
+        for suffix in ("/socket/peer/websocket", "/socket/agent/websocket"):
+            url = url.removesuffix(suffix)
+        return url
 
     def create_vapi_agent(
         self,
@@ -283,7 +302,7 @@ class FishjamClient(Client):
         Returns:
             - Peer: The created peer object.
         """
-        body = PeerConfig(type_=PeerType.VAPI, options=options)
+        body = PeerConfigVAPI(type_=PeerConfigVAPIType.VAPI, options=options)
 
         resp = cast(
             PeerDetailsResponse,
