@@ -9,6 +9,7 @@ from fishjam.events import (
     ServerMessagePeerDeleted,
     ServerMessagePeerDisconnected,
     ServerMessagePeerMetadataUpdated,
+    ServerMessageRecordingStatusChanged,
     ServerMessageRoomCrashed,
     ServerMessageRoomCreated,
     ServerMessageRoomDeleted,
@@ -40,6 +41,7 @@ ALLOWED_NOTIFICATIONS = (
     ServerMessageTrackAdded,
     ServerMessageTrackRemoved,
     ServerMessageTrackMetadataUpdated,
+    ServerMessageRecordingStatusChanged,
 )
 
 AllowedNotification = Union[
@@ -61,4 +63,5 @@ AllowedNotification = Union[
     ServerMessageTrackAdded,
     ServerMessageTrackRemoved,
     ServerMessageTrackMetadataUpdated,
+    ServerMessageRecordingStatusChanged,
 ]

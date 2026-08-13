@@ -34,6 +34,13 @@ class ServerMessageVadNotificationStatus(betterproto.Enum):
     STATUS_SPEECH = 2
 
 
+class ServerMessageRecordingStatusChangedStatus(betterproto.Enum):
+    STATUS_ACTIVE = 0
+    STATUS_FINISHED = 1
+    STATUS_AVAILABLE = 2
+    STATUS_FAILED = 3
+
+
 @dataclass(eq=False, repr=False)
 class AgentRequest(betterproto.Message):
     """Defines any type of message passed from agent peer to Fishjam"""
@@ -228,6 +235,9 @@ class ServerMessage(betterproto.Message):
     )
     streamer_disconnected: "ServerMessageStreamerDisconnected" = (
         betterproto.message_field(27, group="content")
+    )
+    recording_status_changed: "ServerMessageRecordingStatusChanged" = (
+        betterproto.message_field(34, group="content")
     )
     notification_batch: "ServerMessageNotificationBatch" = betterproto.message_field(
         33, group="content"
@@ -547,6 +557,13 @@ class ServerMessageStreamerConnected(betterproto.Message):
 class ServerMessageStreamerDisconnected(betterproto.Message):
     stream_id: str = betterproto.string_field(1)
     streamer_id: str = betterproto.string_field(2)
+
+
+@dataclass(eq=False, repr=False)
+class ServerMessageRecordingStatusChanged(betterproto.Message):
+    recording_id: str = betterproto.string_field(1)
+    status: "ServerMessageRecordingStatusChangedStatus" = betterproto.enum_field(2)
+    metadata: str = betterproto.string_field(3)
 
 
 @dataclass(eq=False, repr=False)
