@@ -10,6 +10,21 @@ from fishjam._openapi_client.api.credentials import (
 from fishjam._openapi_client.api.mo_q import (
     create_moq_access as moq_create_access,
 )
+from fishjam._openapi_client.api.recordings import (
+    create_recording as recording_create_recording,
+)
+from fishjam._openapi_client.api.recordings import (
+    delete_recording as recording_delete_recording,
+)
+from fishjam._openapi_client.api.recordings import (
+    get_recording as recording_get_recording,
+)
+from fishjam._openapi_client.api.recordings import (
+    list_recordings as recording_list_recordings,
+)
+from fishjam._openapi_client.api.recordings import (
+    stop_recording as recording_stop_recording,
+)
 from fishjam._openapi_client.api.rooms import add_peer as room_add_peer
 from fishjam._openapi_client.api.rooms import create_room as room_create_room
 from fishjam._openapi_client.api.rooms import delete_peer as room_delete_peer
@@ -29,6 +44,8 @@ from fishjam._openapi_client.models import (
     AgentOutput,
     AudioFormat,
     AudioSampleRate,
+    CompositionSource,
+    ListRecordingsMetadata,
     MoqAccess,
     MoqAccessConfig,
     Peer,
@@ -43,6 +60,11 @@ from fishjam._openapi_client.models import (
     PeerOptionsVapi,
     PeerOptionsWebRTC,
     PeerRefreshTokenResponse,
+    Recording,
+    RecordingConfig,
+    RecordingConfigMetadataType0,
+    RecordingDetailsResponse,
+    RecordingListResponse,
     RoomConfig,
     RoomCreateDetailsResponse,
     RoomDetailsResponse,
@@ -457,6 +479,117 @@ class FishjamClient(Client):
 
         return response
 
+    def create_recording(
+        self,
+        source: CompositionSource,
+        metadata: dict[str, Any] | None = None,
+    ) -> Recording:
+        """Creates a new recording.
+
+        Capturing starts synchronously, so the returned recording is `active`.
+
+        Args:
+            source: The source of the recording.
+            metadata: Free-form metadata used to organize and filter recordings.
+
+        Returns:
+            Recording: The created recording.
+        """
+        if metadata is None:
+            config_metadata = UNSET
+        else:
+            config_metadata = RecordingConfigMetadataType0()
+            for key, value in metadata.items():
+                config_metadata.additional_properties[key] = value
+
+        config = RecordingConfig(source=source, metadata=config_metadata)
+
+        resp = cast(
+            RecordingDetailsResponse,
+            self._request(recording_create_recording, body=config),
+        )
+
+        return resp.data
+
+    def get_recording(self, recording_id: str) -> Recording:
+        """Returns the recording with the given id.
+
+        Args:
+            recording_id: The ID of the recording to retrieve.
+
+        Returns:
+            Recording: The recording corresponding to the given ID.
+        """
+        resp = cast(
+            RecordingDetailsResponse,
+            self._request(recording_get_recording, recording_id=recording_id),
+        )
+
+        return resp.data
+
+    def get_all_recordings(
+        self, metadata: dict[str, Any] | None = None
+    ) -> list[Recording]:
+        """Returns a list of all recordings, optionally filtered by metadata.
+
+        Args:
+            metadata: If given, only recordings whose metadata contains all
+                the given key-value pairs are returned. Nested dicts match
+                nested metadata keys.
+
+        Returns:
+            list[Recording]: A list of all matching recordings.
+        """
+        # the API expects the deepObject query format
+        # (`metadata[key]=value`, `metadata[key][nested]=value`), but the
+        # generated client serializes the filter keys at the top level, so
+        # prefix and flatten them here
+        if metadata is None:
+            metadata_query = UNSET
+        else:
+            metadata_query = ListRecordingsMetadata()
+            self.__flatten_metadata_filter(
+                "metadata", metadata, metadata_query.additional_properties
+            )
+
+        resp = cast(
+            RecordingListResponse,
+            self._request(recording_list_recordings, metadata=metadata_query),
+        )
+
+        return resp.data
+
+    def stop_recording(self, recording_id: str) -> Recording:
+        """Stops an active recording.
+
+        Finalization is asynchronous: the recording stays `active` until the
+        capture is finalized, then becomes `finished`. Stopping a recording
+        that is no longer active is a no-op.
+
+        Args:
+            recording_id: The ID of the recording to stop.
+
+        Returns:
+            Recording: The stopped recording.
+        """
+        resp = cast(
+            RecordingDetailsResponse,
+            self._request(recording_stop_recording, recording_id=recording_id),
+        )
+
+        return resp.data
+
+    def delete_recording(self, recording_id: str) -> None:
+        """Deletes a recording. Its stored media is removed asynchronously.
+
+        A recording that is still `active` cannot be deleted — stop it first
+        or wait for it to finish.
+
+        Args:
+            recording_id: The ID of the recording to delete.
+        """
+        self._request(recording_delete_recording, recording_id=recording_id)
+
     def subscribe_peer(self, room_id: str, peer_id: str, target_peer_id: str):
         """Subscribes a peer to all tracks of another peer.
 
@@ -486,6 +619,20 @@ class FishjamClient(Client):
             id=peer_id,
             body=SubscribeTracksBody(track_ids=track_ids),
         )
+
+    def __flatten_metadata_filter(
+        self, prefix: str, metadata: dict[str, Any], params: dict[str, Any]
+    ) -> None:
+        for key, value in metadata.items():
+            param_key = f"{prefix}[{key}]"
+            if isinstance(value, dict):
+                self.__flatten_metadata_filter(param_key, value, params)
+            elif value is None:
+                # the generated client drops `None` params; the API compares
+                # values as JSON strings, so send the JSON representation
+                params[param_key] = "null"
+            else:
+                params[param_key] = value
 
     def __parse_peer_metadata(self, metadata: dict | None) -> WebRTCMetadata:
         peer_metadata = WebRTCMetadata()

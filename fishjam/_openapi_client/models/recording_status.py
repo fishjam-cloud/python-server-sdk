@@ -7,6 +7,7 @@ class RecordingStatus(str, Enum):
     ACTIVE = "active"
     AVAILABLE = "available"
     FAILED = "failed"
+    FINISHED = "finished"
 
     def __str__(self) -> str:
         return str(self.value)

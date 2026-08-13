@@ -8,7 +8,7 @@
 # pylint: disable=locally-disabled, no-name-in-module, import-error
 
 # Exceptions and Server Messages
-from fishjam import agent, errors, events, integrations, peer, room, version
+from fishjam import agent, errors, events, integrations, peer, recording, room, version
 from fishjam._openapi_client.models import PeerMetadata
 
 # API
@@ -26,6 +26,7 @@ from fishjam.api._fishjam_client import (
     Peer,
     PeerOptions,
     PeerOptionsVapi,
+    Recording,
     Room,
     RoomOptions,
 )
@@ -47,6 +48,7 @@ __all__ = [
     "AgentOutputOptions",
     "Room",
     "Peer",
+    "Recording",
     "MoqAccess",
     "MissingFishjamIdError",
     "InvalidFishjamCredentialsError",
@@ -54,6 +56,7 @@ __all__ = [
     "errors",
     "room",
     "peer",
+    "recording",
     "agent",
     "integrations",
 ]

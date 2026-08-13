@@ -15,10 +15,10 @@ class HTTPError(Exception):
     @staticmethod
     def from_response(response: Response[Error]):
         """@private"""
-        if not response.parsed:
-            raise RuntimeError("Got endpoint error reponse without parsed field")
-
-        errors = response.parsed.errors
+        if response.parsed:
+            errors = response.parsed.errors
+        else:
+            errors = response.content.decode(errors="replace")
 
         match response.status_code:
             case HTTPStatus.BAD_REQUEST:
@@ -26,6 +26,9 @@ class HTTPError(Exception):
 
             case HTTPStatus.UNAUTHORIZED:
                 return UnauthorizedError(errors)
+
+            case HTTPStatus.PAYMENT_REQUIRED:
+                return QuotaExceededError(errors)
 
             case HTTPStatus.NOT_FOUND:
                 return NotFoundError(errors)
@@ -71,6 +74,12 @@ class InternalServerError(HTTPError):
 
 
 class ConflictError(HTTPError):
+    def __init__(self, errors):
+        """@private"""
+        super().__init__(errors)
+
+
+class QuotaExceededError(HTTPError):
     def __init__(self, errors):
         """@private"""
         super().__init__(errors)
