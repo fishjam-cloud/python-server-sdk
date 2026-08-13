@@ -16,11 +16,27 @@ from fishjam.recording import CompositionSource, RecordingStatus
 from tests.support.env import FISHJAM_ID, FISHJAM_MANAGEMENT_TOKEN
 
 NONEXISTENT_RECORDING_ID = "515c8b52-168b-4b39-a227-4d6b4f102a56"
+RECORDING_ID = "8e9b40aa-27d5-4e05-b6c1-27eb85f603f7"
 
 
 @pytest.fixture
 def recording_api():
     return FishjamClient(FISHJAM_ID, FISHJAM_MANAGEMENT_TOKEN)
+
+
+def make_composition_source():
+    return CompositionSource(
+        composition_url="https://example.com/composition",
+        output_id="output-1",
+    )
+
+
+def make_recording_json(source: CompositionSource, status: str):
+    return {
+        "id": RECORDING_ID,
+        "source": source.to_dict(),
+        "status": status,
+    }
 
 
 def mock_request(status_code: int, json_body):
@@ -82,23 +98,16 @@ class TestGetAllRecordings:
 
 class TestCreateRecording:
     def test_returns_created_recording(self, recording_api: FishjamClient):
-        source = CompositionSource(
-            composition_url="https://example.com/composition",
-            output_id="output-1",
-        )
-        recording_json = {
-            "id": NONEXISTENT_RECORDING_ID,
-            "source": source.to_dict(),
-            "status": "active",
-            "metadata": {"env": "test"},
-        }
+        source = make_composition_source()
+        recording_json = make_recording_json(source, "active")
+        recording_json["metadata"] = {"env": "test"}
         captured_requests, request_patch = mock_request(201, {"data": recording_json})
 
         with request_patch:
             recording = recording_api.create_recording(source, metadata={"env": "test"})
 
         assert isinstance(recording, Recording)
-        assert recording.id == NONEXISTENT_RECORDING_ID
+        assert recording.id == RECORDING_ID
         assert recording.status == RecordingStatus.ACTIVE
 
         assert len(captured_requests) == 1
@@ -111,23 +120,53 @@ class TestCreateRecording:
         }
 
     def test_quota_exceeded(self, recording_api: FishjamClient):
-        source = CompositionSource(
-            composition_url="https://example.com/composition",
-            output_id="output-1",
-        )
         _, request_patch = mock_request(402, {"errors": "quota exceeded"})
 
         with request_patch, pytest.raises(QuotaExceededError):
-            recording_api.create_recording(source)
+            recording_api.create_recording(make_composition_source())
 
 
 class TestGetRecording:
+    def test_returns_recording(self, recording_api: FishjamClient):
+        source = make_composition_source()
+        recording_json = make_recording_json(source, "available")
+        captured_requests, request_patch = mock_request(200, {"data": recording_json})
+
+        with request_patch:
+            recording = recording_api.get_recording(RECORDING_ID)
+
+        assert isinstance(recording, Recording)
+        assert recording.id == RECORDING_ID
+        assert recording.status == RecordingStatus.AVAILABLE
+        assert recording.source == source
+
+        request = captured_requests[0]
+        assert request.method == "GET"
+        assert request.url.path.endswith(f"/recordings/{RECORDING_ID}")
+
     def test_id_not_found(self, recording_api: FishjamClient):
         with pytest.raises(NotFoundError):
             recording_api.get_recording(NONEXISTENT_RECORDING_ID)
 
 
 class TestStopRecording:
+    def test_returns_stopped_recording(self, recording_api: FishjamClient):
+        source = make_composition_source()
+        # the recording stays `active` until finalization completes
+        recording_json = make_recording_json(source, "active")
+        captured_requests, request_patch = mock_request(200, {"data": recording_json})
+
+        with request_patch:
+            recording = recording_api.stop_recording(RECORDING_ID)
+
+        assert isinstance(recording, Recording)
+        assert recording.id == RECORDING_ID
+        assert recording.status == RecordingStatus.ACTIVE
+
+        request = captured_requests[0]
+        assert request.method == "POST"
+        assert request.url.path.endswith(f"/recordings/{RECORDING_ID}/stop")
+
     def test_id_not_found(self, recording_api: FishjamClient):
         with pytest.raises(NotFoundError):
             recording_api.stop_recording(NONEXISTENT_RECORDING_ID)

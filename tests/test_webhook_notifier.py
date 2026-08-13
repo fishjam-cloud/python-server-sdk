@@ -9,6 +9,8 @@ from fishjam import (
 )
 from fishjam.events import (
     ServerMessagePeerConnected,
+    ServerMessageRecordingStatusChanged,
+    ServerMessageRecordingStatusChangedStatus,
     ServerMessageRoomCreated,
     ServerMessageRoomDeleted,
 )
@@ -177,6 +179,28 @@ def test_decode_empty_batch_returns_empty_list():
     )
 
     assert decode_server_notifications(binary) == []
+
+
+def test_decode_recording_status_changed_round_trip():
+    binary = bytes(
+        ServerMessage(
+            recording_status_changed=ServerMessageRecordingStatusChanged(
+                recording_id="rec1",
+                status=ServerMessageRecordingStatusChangedStatus.STATUS_FINISHED,
+                metadata='{"session": "s1"}',
+            )
+        )
+    )
+
+    result = decode_server_notifications(binary)
+
+    assert [type(n) for n in result] == [ServerMessageRecordingStatusChanged]
+    notification = result[0]
+    assert notification.recording_id == "rec1"
+    assert (
+        notification.status == ServerMessageRecordingStatusChangedStatus.STATUS_FINISHED
+    )
+    assert notification.metadata == '{"session": "s1"}'
 
 
 BODY = bytes(ServerMessage(room_created=ServerMessageRoomCreated(room_id="r1")))
