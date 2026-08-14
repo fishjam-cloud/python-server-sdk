@@ -35,10 +35,11 @@ class ServerMessageVadNotificationStatus(betterproto.Enum):
 
 
 class ServerMessageRecordingStatusChangedStatus(betterproto.Enum):
-    STATUS_ACTIVE = 0
-    STATUS_FINISHED = 1
-    STATUS_AVAILABLE = 2
-    STATUS_FAILED = 3
+    STATUS_UNSPECIFIED = 0
+    STATUS_ACTIVE = 1
+    STATUS_FINISHED = 2
+    STATUS_AVAILABLE = 3
+    STATUS_FAILED = 4
 
 
 @dataclass(eq=False, repr=False)

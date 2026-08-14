@@ -7,6 +7,7 @@ from fishjam import (
     receive_binary,
     verify_webhook_signature,
 )
+from fishjam.errors import StaleSdkError
 from fishjam.events import (
     ServerMessagePeerConnected,
     ServerMessageRecordingStatusChanged,
@@ -201,6 +202,51 @@ def test_decode_recording_status_changed_round_trip():
         notification.status == ServerMessageRecordingStatusChangedStatus.STATUS_FINISHED
     )
     assert notification.metadata == '{"session": "s1"}'
+
+
+@pytest.mark.parametrize(
+    "status",
+    [
+        ServerMessageRecordingStatusChangedStatus.STATUS_UNSPECIFIED,
+        # A status added in a newer proto than this SDK was generated from
+        # arrives as its raw wire value.
+        42,
+    ],
+)
+def test_decode_raises_on_unparsable_recording_status(status):
+    binary = bytes(
+        ServerMessage(
+            recording_status_changed=ServerMessageRecordingStatusChanged(
+                recording_id="rec1", status=status, metadata=""
+            )
+        )
+    )
+
+    with pytest.raises(StaleSdkError):
+        decode_server_notifications(binary)
+
+
+def test_decode_batch_raises_on_unparsable_recording_status():
+    binary = bytes(
+        ServerMessage(
+            notification_batch=ServerMessageNotificationBatch(
+                notifications=[
+                    ServerMessage(
+                        recording_status_changed=ServerMessageRecordingStatusChanged(
+                            recording_id="rec1",
+                            status=(
+                                ServerMessageRecordingStatusChangedStatus.STATUS_UNSPECIFIED
+                            ),
+                            metadata="",
+                        )
+                    ),
+                ]
+            )
+        )
+    )
+
+    with pytest.raises(StaleSdkError):
+        decode_server_notifications(binary)
 
 
 BODY = bytes(ServerMessage(room_created=ServerMessageRoomCreated(room_id="r1")))

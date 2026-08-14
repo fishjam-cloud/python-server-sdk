@@ -9,6 +9,17 @@ class MissingFishjamIdError(ValueError):
         super().__init__("Fishjam ID is required")
 
 
+class StaleSdkError(Exception):
+    def __init__(self, status: int) -> None:
+        super().__init__(
+            f"Received a recording status this SDK cannot parse ({int(status)})."
+            " You are probably using an outdated version of fishjam-server-sdk"
+            " - please update it."
+        )
+        self.status = int(status)
+        """Raw wire value received from the server."""
+
+
 class HTTPError(Exception):
     """"""
 

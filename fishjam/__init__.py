@@ -30,7 +30,11 @@ from fishjam.api._fishjam_client import (
     Room,
     RoomOptions,
 )
-from fishjam.errors import InvalidFishjamCredentialsError, MissingFishjamIdError
+from fishjam.errors import (
+    InvalidFishjamCredentialsError,
+    MissingFishjamIdError,
+    StaleSdkError,
+)
 
 __version__ = version.__version__
 
@@ -52,6 +56,7 @@ __all__ = [
     "MoqAccess",
     "MissingFishjamIdError",
     "InvalidFishjamCredentialsError",
+    "StaleSdkError",
     "events",
     "errors",
     "room",
