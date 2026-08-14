@@ -13,6 +13,7 @@ from fishjam.events._protos.fishjam import (
 from fishjam.events.allowed_notifications import (
     ALLOWED_NOTIFICATIONS,
     AllowedNotification,
+    validate_notification,
 )
 
 
@@ -20,6 +21,7 @@ def _content_of(message: ServerMessage) -> Union[AllowedNotification, None]:
     """Return the message's `content` oneof if it is a supported notification."""
     _which, content = betterproto.which_one_of(message, "content")
     if isinstance(content, ALLOWED_NOTIFICATIONS):
+        validate_notification(content)
         return content
     return None
 
@@ -57,6 +59,10 @@ def decode_server_notifications(binary: bytes) -> List[AllowedNotification]:
     Returns:
         list[AllowedNotification]: The decoded notifications, in order. Empty
             when the payload carries no supported notification.
+
+    Raises:
+        fishjam.errors.StaleSdkError: When a notification carries a value this
+            SDK cannot parse, which likely means the SDK is outdated.
     """
     message = ServerMessage().parse(binary)
     _which, content = betterproto.which_one_of(message, "content")
@@ -65,6 +71,7 @@ def decode_server_notifications(binary: bytes) -> List[AllowedNotification]:
         return _unpack_batch(content)
 
     if isinstance(content, ALLOWED_NOTIFICATIONS):
+        validate_notification(content)
         return [content]
 
     return []
@@ -123,6 +130,7 @@ def receive_binary(
         return _unpack_batch(content)
 
     if isinstance(content, ALLOWED_NOTIFICATIONS):
+        validate_notification(content)
         return content
 
     return None

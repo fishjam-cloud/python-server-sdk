@@ -20,6 +20,7 @@ from fishjam.events._protos.fishjam import (
 from fishjam.events.allowed_notifications import (
     ALLOWED_NOTIFICATIONS,
     AllowedNotification,
+    validate_notification,
 )
 from fishjam.utils import get_fishjam_url
 
@@ -135,6 +136,7 @@ class FishjamNotifier:
             _which, message = betterproto.which_one_of(message, "content")
 
             if isinstance(message, ALLOWED_NOTIFICATIONS):
+                validate_notification(message)
                 res = self._notification_handler(message)
                 if inspect.isawaitable(res):
                     await res

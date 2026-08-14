@@ -1,5 +1,6 @@
 import json
 import warnings
+from http import HTTPStatus
 from typing import cast
 
 from fishjam._openapi_client.client import AuthenticatedClient
@@ -24,7 +25,13 @@ class Client:
         response = method.sync_detailed(client=self.client, **kwargs)
         self._handle_deprecation_header(response.headers)
 
-        if isinstance(response.parsed, Error):
+        # `parsed` is None for error statuses the endpoint spec doesn't
+        # document, so check the status code as well to never report
+        # success for a failed request
+        if (
+            isinstance(response.parsed, Error)
+            or response.status_code >= HTTPStatus.BAD_REQUEST
+        ):
             response = cast(Response[Error], response)
             raise HTTPError.from_response(response)
 
