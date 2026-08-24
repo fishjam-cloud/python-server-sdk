@@ -137,22 +137,40 @@ def generate_docusaurus():
         dest_path.write_text(safe_content, encoding="utf-8")
 
 
-def update_client():
+def _spec_argument(name: str) -> str:
     if len(sys.argv) < 2:
-        raise RuntimeError("Missing fishjam openapi.yaml raw url positional argument")
+        raise RuntimeError(f"Missing {name} url or path positional argument")
 
     url_or_path = sys.argv[1]
     is_url = url_or_path.startswith("http://") or url_or_path.startswith("https://")
-    file_arg = f"--url {url_or_path}" if is_url else f"--path {url_or_path}"
+    return f"--url {url_or_path}" if is_url else f"--path {url_or_path}"
 
+
+def _generate_client(file_arg: str, config: str, output_path: str):
     check_exit_code(
         f"openapi-python-client generate \
             {file_arg} \
-            --config openapi-python-client-config.yaml \
+            --config {config} \
             --meta=none \
             --overwrite \
-            --output-path=fishjam/_openapi_client/ \
+            --output-path={output_path} \
             --custom-template-path=templates/openapi"
+    )
+
+
+def update_client():
+    _generate_client(
+        _spec_argument("fishjam openapi.yaml"),
+        "openapi-python-client-config.yaml",
+        "fishjam/_openapi_client/",
+    )
+
+
+def update_composition_client():
+    _generate_client(
+        _spec_argument("Composition API openapi.json"),
+        "openapi-python-client-composition-config.yaml",
+        "fishjam/_composition_client/",
     )
 
 
