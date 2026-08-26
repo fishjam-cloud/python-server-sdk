@@ -8,12 +8,14 @@ from ...client import AuthenticatedClient, Client
 from ...models.error import Error
 from ...models.list_recordings_metadata import ListRecordingsMetadata
 from ...models.recording_list_response import RecordingListResponse
+from ...models.recording_status import RecordingStatus
 from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
     metadata: ListRecordingsMetadata | Unset = UNSET,
+    status: RecordingStatus | Unset = UNSET,
 ) -> dict[str, Any]:
     params: dict[str, Any] = {}
 
@@ -22,6 +24,12 @@ def _get_kwargs(
         json_metadata = metadata.to_dict()
     if not isinstance(json_metadata, Unset):
         params.update(json_metadata)
+
+    json_status: str | Unset = UNSET
+    if not isinstance(status, Unset):
+        json_status = status.value
+
+    params["status"] = json_status
 
     params = {k: v for k, v in params.items() if v is not UNSET and v is not None}
 
@@ -68,13 +76,15 @@ def sync_detailed(
     *,
     client: AuthenticatedClient,
     metadata: ListRecordingsMetadata | Unset = UNSET,
+    status: RecordingStatus | Unset = UNSET,
 ) -> Response[Error | RecordingListResponse]:
     """List recordings
 
-     List recordings for the tenant, optionally filtered by metadata.
+     List recordings for the tenant, optionally filtered by metadata and status.
 
     Args:
         metadata (ListRecordingsMetadata | Unset):
+        status (RecordingStatus | Unset): Lifecycle status of a recording
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -86,6 +96,7 @@ def sync_detailed(
 
     kwargs = _get_kwargs(
         metadata=metadata,
+        status=status,
     )
 
     response = client.get_httpx_client().request(
@@ -99,13 +110,15 @@ def sync(
     *,
     client: AuthenticatedClient,
     metadata: ListRecordingsMetadata | Unset = UNSET,
+    status: RecordingStatus | Unset = UNSET,
 ) -> Error | RecordingListResponse | None:
     """List recordings
 
-     List recordings for the tenant, optionally filtered by metadata.
+     List recordings for the tenant, optionally filtered by metadata and status.
 
     Args:
         metadata (ListRecordingsMetadata | Unset):
+        status (RecordingStatus | Unset): Lifecycle status of a recording
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -118,6 +131,7 @@ def sync(
     return sync_detailed(
         client=client,
         metadata=metadata,
+        status=status,
     ).parsed
 
 
@@ -125,13 +139,15 @@ async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
     metadata: ListRecordingsMetadata | Unset = UNSET,
+    status: RecordingStatus | Unset = UNSET,
 ) -> Response[Error | RecordingListResponse]:
     """List recordings
 
-     List recordings for the tenant, optionally filtered by metadata.
+     List recordings for the tenant, optionally filtered by metadata and status.
 
     Args:
         metadata (ListRecordingsMetadata | Unset):
+        status (RecordingStatus | Unset): Lifecycle status of a recording
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -143,6 +159,7 @@ async def asyncio_detailed(
 
     kwargs = _get_kwargs(
         metadata=metadata,
+        status=status,
     )
 
     response = await client.get_async_httpx_client().request(**kwargs)
@@ -154,13 +171,15 @@ async def asyncio(
     *,
     client: AuthenticatedClient,
     metadata: ListRecordingsMetadata | Unset = UNSET,
+    status: RecordingStatus | Unset = UNSET,
 ) -> Error | RecordingListResponse | None:
     """List recordings
 
-     List recordings for the tenant, optionally filtered by metadata.
+     List recordings for the tenant, optionally filtered by metadata and status.
 
     Args:
         metadata (ListRecordingsMetadata | Unset):
+        status (RecordingStatus | Unset): Lifecycle status of a recording
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -174,5 +193,6 @@ async def asyncio(
         await asyncio_detailed(
             client=client,
             metadata=metadata,
+            status=status,
         )
     ).parsed
