@@ -11,6 +11,7 @@ from ..types import UNSET, Unset
 
 if TYPE_CHECKING:
     from ..models.composition_source import CompositionSource
+    from ..models.recording_file import RecordingFile
     from ..models.recording_metadata_type_0 import RecordingMetadataType0
 
 
@@ -22,6 +23,8 @@ class Recording:
     """A recording and its current lifecycle status
 
     Attributes:
+        files (list[RecordingFile]): Media files of the recording, in playback order. Empty until the recording is
+            `available`.
         id (str): Assigned recording id
         source (CompositionSource): Recording source coming from composition
         status (RecordingStatus): Lifecycle status of a recording
@@ -29,6 +32,7 @@ class Recording:
             recordings
     """
 
+    files: list[RecordingFile]
     id: str
     source: CompositionSource
     status: RecordingStatus
@@ -37,6 +41,11 @@ class Recording:
 
     def to_dict(self) -> dict[str, Any]:
         from ..models.recording_metadata_type_0 import RecordingMetadataType0
+
+        files = []
+        for files_item_data in self.files:
+            files_item = files_item_data.to_dict()
+            files.append(files_item)
 
         id = self.id
 
@@ -55,6 +64,7 @@ class Recording:
         field_dict: dict[str, Any] = {}
         field_dict.update(self.additional_properties)
         field_dict.update({
+            "files": files,
             "id": id,
             "source": source,
             "status": status,
@@ -67,9 +77,17 @@ class Recording:
     @classmethod
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.composition_source import CompositionSource
+        from ..models.recording_file import RecordingFile
         from ..models.recording_metadata_type_0 import RecordingMetadataType0
 
         d = dict(src_dict)
+        files = []
+        _files = d.pop("files")
+        for files_item_data in _files:
+            files_item = RecordingFile.from_dict(files_item_data)
+
+            files.append(files_item)
+
         id = d.pop("id")
 
         source = CompositionSource.from_dict(d.pop("source"))
@@ -94,6 +112,7 @@ class Recording:
         metadata = _parse_metadata(d.pop("metadata", UNSET))
 
         recording = cls(
+            files=files,
             id=id,
             source=source,
             status=status,
