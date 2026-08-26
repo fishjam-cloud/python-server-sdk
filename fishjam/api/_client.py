@@ -13,6 +13,7 @@ from fishjam.version import get_version
 
 class Client:
     def __init__(self, fishjam_id: str, management_token: str):
+        self._fishjam_id = fishjam_id
         self._fishjam_url = get_fishjam_url(fishjam_id)
         self.client = AuthenticatedClient(
             self._fishjam_url,
