@@ -34,6 +34,7 @@ def make_composition_source():
 def make_recording_json(source: CompositionSource, status: str):
     return {
         "id": RECORDING_ID,
+        "files": [],
         "source": source.to_dict(),
         "status": status,
     }
