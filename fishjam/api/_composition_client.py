@@ -1,7 +1,6 @@
 """Composition client used to manage compositions, the video compositing sessions."""
 
 from dataclasses import dataclass
-from http import HTTPStatus
 from io import BytesIO
 from pathlib import Path
 from typing import Any, TypeVar, cast
@@ -144,7 +143,7 @@ class Mp4InputDurations:
 
 
 def _to_error(
-    status_code: HTTPStatus, error: ApiError | None, not_found: type[HTTPError]
+    status_code: int, error: ApiError | None, not_found: type[HTTPError]
 ) -> HTTPError:
     """Turn a failed Composition API response into the matching Fishjam error.
 
@@ -156,7 +155,7 @@ def _to_error(
     Returns:
         The error to raise.
     """
-    return error_for_status(status_code, [error.message] if error else [], not_found)
+    return error_for_status(status_code, error.message if error else "", not_found)
 
 
 def _to_file(source: FileSource, name: str) -> File:
@@ -221,10 +220,15 @@ class CompositionClient:
             response = method.sync_detailed(client=self.client, **kwargs)
         except UnexpectedStatus as status:
             raise error_for_status(
-                HTTPStatus(status.status_code),
-                [status.content.decode(errors="replace")],
+                status.status_code,
+                status.content.decode(errors="replace"),
                 not_found,
             ) from status
+        except ValueError as error:
+            raise InternalServerError(
+                f"The Composition API answered with a status the client cannot "
+                f"interpret: {error}"
+            ) from error
 
         if isinstance(response.parsed, ApiError):
             raise _to_error(response.status_code, response.parsed, not_found)
@@ -357,10 +361,10 @@ class CompositionClient:
 
         token = _or_none(response.bearer_token) or bearer_token
         if not token:
-            raise InternalServerError([
+            raise InternalServerError(
                 f'Registering WHIP input "{input_id}" returned no bearer token, '
                 "so it cannot be published to"
-            ])
+            )
 
         route = _or_none(response.endpoint_route) or f"/whip/{quote(input_id, safe='')}"
 

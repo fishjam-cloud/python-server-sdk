@@ -362,6 +362,18 @@ class TestMissingResources:
             with pytest.raises(CompositionNotFoundError):
                 client().start_composition(COMPOSITION_ID)
 
+    def test_maps_a_status_outside_the_standard_set(self):
+        with mock_response({"message": "gateway"}, status=520):
+            with pytest.raises(InternalServerError):
+                client().create_composition()
+
+    def test_carries_the_server_message_as_text(self):
+        with mock_response({"message": "gone"}, status=404):
+            with pytest.raises(InputNotFoundError) as raised:
+                client().unregister_input(COMPOSITION_ID, INPUT_ID)
+
+        assert str(raised.value) == "gone"
+
     def test_maps_a_payment_required_to_a_quota_error(self):
         with mock_response({"message": "over quota"}, status=402):
             with pytest.raises(QuotaExceededError):

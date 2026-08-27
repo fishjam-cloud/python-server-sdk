@@ -107,27 +107,27 @@ class InvalidFishjamCredentialsError(HTTPError):
 
 
 def error_for_status(
-    status_code: HTTPStatus, messages, not_found: type["HTTPError"] | None = None
+    status_code: int, detail, not_found: type["HTTPError"] | None = None
 ) -> HTTPError:
     """@private"""
     match status_code:
         case HTTPStatus.BAD_REQUEST | HTTPStatus.UNPROCESSABLE_ENTITY:
-            return BadRequestError(messages)
+            return BadRequestError(detail)
 
         case HTTPStatus.UNAUTHORIZED:
-            return UnauthorizedError(messages)
+            return UnauthorizedError(detail)
 
         case HTTPStatus.PAYMENT_REQUIRED:
-            return QuotaExceededError(messages)
+            return QuotaExceededError(detail)
 
         case HTTPStatus.NOT_FOUND:
-            return (not_found or NotFoundError)(messages)
+            return (not_found or NotFoundError)(detail)
 
         case HTTPStatus.CONFLICT:
-            return ConflictError(messages)
+            return ConflictError(detail)
 
         case HTTPStatus.SERVICE_UNAVAILABLE:
-            return ServiceUnavailableError(messages)
+            return ServiceUnavailableError(detail)
 
         case _:
-            return InternalServerError(messages)
+            return InternalServerError(detail)
