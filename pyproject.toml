@@ -90,8 +90,8 @@ ignore = ["D100", "D101", "D102", "D103", "D104", "D105", "D107", "DOC502"]
 convention = "google"
 
 [tool.ruff.lint.extend-per-file-ignores]
-"fishjam/_openapi_client/**" = ["E501", "D", "DOC"]
-"fishjam/_composition_client/**" = ["E501", "D", "DOC"]
+"fishjam/_fishjam_openapi_client/**" = ["E501", "D", "DOC"]
+"fishjam/_composition_openapi_client/**" = ["E501", "D", "DOC"]
 "fishjam/events/_protos/**" = ["D", "DOC"]
 "fishjam/errors.py" = ["D415", "D419", "DOC501", "DOC201"]
 "**/__init__.py" = ["D415", "DOC"]
@@ -111,8 +111,8 @@ exclude = [
     ".pytest_cache",
     ".ruff_cache",
     "lib",
-    "fishjam/_openapi_client",
-    "fishjam/_composition_client",
+    "fishjam/_fishjam_openapi_client",
+    "fishjam/_composition_openapi_client",
     "tests",
 ]
 typeCheckingMode = "basic"

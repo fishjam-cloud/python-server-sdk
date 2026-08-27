@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
-from fishjam._openapi_client.models import Error
-from fishjam._openapi_client.types import Response
+from fishjam._fishjam_openapi_client.models import Error
+from fishjam._fishjam_openapi_client.types import Response
 
 
 class MissingFishjamIdError(ValueError):

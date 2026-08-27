@@ -7,54 +7,54 @@ from pathlib import Path
 from typing import Any, TypeVar, cast
 from urllib.parse import quote
 
-from fishjam._composition_client.api.compositions import (
+from fishjam._composition_openapi_client.api.compositions import (
     create_composition as compositions_create,
 )
-from fishjam._composition_client.api.compositions import (
+from fishjam._composition_openapi_client.api.compositions import (
     delete_composition as compositions_delete,
 )
-from fishjam._composition_client.api.compositions import (
+from fishjam._composition_openapi_client.api.compositions import (
     reset as compositions_reset,
 )
-from fishjam._composition_client.api.compositions import (
+from fishjam._composition_openapi_client.api.compositions import (
     start as compositions_start,
 )
-from fishjam._composition_client.api.events import (
+from fishjam._composition_openapi_client.api.events import (
     send_composition_event as events_send,
 )
-from fishjam._composition_client.api.inputs import (
+from fishjam._composition_openapi_client.api.inputs import (
     register_input as inputs_register,
 )
-from fishjam._composition_client.api.inputs import (
+from fishjam._composition_openapi_client.api.inputs import (
     unregister_input as inputs_unregister,
 )
-from fishjam._composition_client.api.outputs import (
+from fishjam._composition_openapi_client.api.outputs import (
     register_output as outputs_register,
 )
-from fishjam._composition_client.api.outputs import (
+from fishjam._composition_openapi_client.api.outputs import (
     register_template_output as outputs_register_template,
 )
-from fishjam._composition_client.api.outputs import (
+from fishjam._composition_openapi_client.api.outputs import (
     request_keyframe as outputs_request_keyframe,
 )
-from fishjam._composition_client.api.outputs import (
+from fishjam._composition_openapi_client.api.outputs import (
     unregister_output as outputs_unregister,
 )
-from fishjam._composition_client.api.outputs import (
+from fishjam._composition_openapi_client.api.outputs import (
     update_output as outputs_update,
 )
-from fishjam._composition_client.api.renderers import (
+from fishjam._composition_openapi_client.api.renderers import (
     register_font as renderers_register_font,
 )
-from fishjam._composition_client.api.renderers import (
+from fishjam._composition_openapi_client.api.renderers import (
     register_image as renderers_register_image,
 )
-from fishjam._composition_client.api.renderers import (
+from fishjam._composition_openapi_client.api.renderers import (
     unregister_image as renderers_unregister_image,
 )
-from fishjam._composition_client.client import AuthenticatedClient
-from fishjam._composition_client.errors import UnexpectedStatus
-from fishjam._composition_client.models import (
+from fishjam._composition_openapi_client.client import AuthenticatedClient
+from fishjam._composition_openapi_client.errors import UnexpectedStatus
+from fishjam._composition_openapi_client.models import (
     ApiError,
     AudioScene,
     CompositionCreatedResponse,
@@ -85,7 +85,7 @@ from fishjam._composition_client.models import (
     WhipOutput,
     WhipOutputType,
 )
-from fishjam._composition_client.types import UNSET, File, Unset
+from fishjam._composition_openapi_client.types import UNSET, File, Unset
 from fishjam.composition import (
     FileSource,
     ImageSpec,

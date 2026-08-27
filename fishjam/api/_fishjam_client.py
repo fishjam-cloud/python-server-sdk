@@ -4,46 +4,54 @@ from dataclasses import dataclass, field
 from http import HTTPStatus
 from typing import Any, Literal, cast
 
-from fishjam._openapi_client.api.credentials import (
+from fishjam._fishjam_openapi_client.api.credentials import (
     validate_credentials as credentials_validate_credentials,
 )
-from fishjam._openapi_client.api.mo_q import (
+from fishjam._fishjam_openapi_client.api.mo_q import (
     create_moq_access as moq_create_access,
 )
-from fishjam._openapi_client.api.recordings import (
+from fishjam._fishjam_openapi_client.api.recordings import (
     create_recording as recording_create_recording,
 )
-from fishjam._openapi_client.api.recordings import (
+from fishjam._fishjam_openapi_client.api.recordings import (
     delete_recording as recording_delete_recording,
 )
-from fishjam._openapi_client.api.recordings import (
+from fishjam._fishjam_openapi_client.api.recordings import (
     get_recording as recording_get_recording,
 )
-from fishjam._openapi_client.api.recordings import (
+from fishjam._fishjam_openapi_client.api.recordings import (
     list_recordings as recording_list_recordings,
 )
-from fishjam._openapi_client.api.recordings import (
+from fishjam._fishjam_openapi_client.api.recordings import (
     stop_recording as recording_stop_recording,
 )
-from fishjam._openapi_client.api.rooms import add_peer as room_add_peer
-from fishjam._openapi_client.api.rooms import create_room as room_create_room
-from fishjam._openapi_client.api.rooms import delete_peer as room_delete_peer
-from fishjam._openapi_client.api.rooms import delete_room as room_delete_room
-from fishjam._openapi_client.api.rooms import get_all_rooms as room_get_all_rooms
-from fishjam._openapi_client.api.rooms import get_room as room_get_room
-from fishjam._openapi_client.api.rooms import refresh_token as room_refresh_token
-from fishjam._openapi_client.api.rooms import subscribe_peer as room_subscribe_peer
-from fishjam._openapi_client.api.rooms import subscribe_tracks as room_subscribe_tracks
-from fishjam._openapi_client.api.streamers import (
+from fishjam._fishjam_openapi_client.api.rooms import add_peer as room_add_peer
+from fishjam._fishjam_openapi_client.api.rooms import create_room as room_create_room
+from fishjam._fishjam_openapi_client.api.rooms import delete_peer as room_delete_peer
+from fishjam._fishjam_openapi_client.api.rooms import delete_room as room_delete_room
+from fishjam._fishjam_openapi_client.api.rooms import (
+    get_all_rooms as room_get_all_rooms,
+)
+from fishjam._fishjam_openapi_client.api.rooms import get_room as room_get_room
+from fishjam._fishjam_openapi_client.api.rooms import (
+    refresh_token as room_refresh_token,
+)
+from fishjam._fishjam_openapi_client.api.rooms import (
+    subscribe_peer as room_subscribe_peer,
+)
+from fishjam._fishjam_openapi_client.api.rooms import (
+    subscribe_tracks as room_subscribe_tracks,
+)
+from fishjam._fishjam_openapi_client.api.streamers import (
     generate_streamer_token as streamer_generate_streamer_token,
 )
-from fishjam._openapi_client.api.track_forwardings import (
+from fishjam._fishjam_openapi_client.api.track_forwardings import (
     create_track_forwarding as track_forwardings_create,
 )
-from fishjam._openapi_client.api.viewers import (
+from fishjam._fishjam_openapi_client.api.viewers import (
     generate_viewer_token as viewer_generate_viewer_token,
 )
-from fishjam._openapi_client.models import (
+from fishjam._fishjam_openapi_client.models import (
     AgentOutput,
     AudioFormat,
     AudioSampleRate,
@@ -82,7 +90,7 @@ from fishjam._openapi_client.models import (
     ViewerToken,
     WebRTCMetadata,
 )
-from fishjam._openapi_client.types import UNSET, Unset
+from fishjam._fishjam_openapi_client.types import UNSET, Unset
 from fishjam.agent import Agent
 from fishjam.api._client import Client
 from fishjam.errors import (

@@ -402,7 +402,7 @@ class TestPublicModels:
 
     def test_exports_every_model_except_the_wire_envelopes(self):
         import fishjam.composition as public
-        from fishjam._composition_client import models as generated
+        from fishjam._composition_openapi_client import models as generated
 
         assert set(public.__all__) == (
             set(generated.__all__) - self.ENVELOPES | self.ALIASES

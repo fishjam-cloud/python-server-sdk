@@ -1,4 +1,4 @@
-from fishjam._openapi_client.models import (
+from fishjam._fishjam_openapi_client.models import (
     RoomConfig,
     RoomType,
     VideoCodec,

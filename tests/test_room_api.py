@@ -12,7 +12,7 @@ from fishjam import (
     Room,
     RoomOptions,
 )
-from fishjam._openapi_client.models import SubscribeMode, Subscriptions
+from fishjam._fishjam_openapi_client.models import SubscribeMode, Subscriptions
 from fishjam.errors import (
     BadRequestError,
     ConflictError,

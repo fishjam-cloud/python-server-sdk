@@ -6,7 +6,7 @@ from typing import List
 import betterproto
 
 from fishjam import FishjamClient, PeerOptions, Room, RoomOptions
-from fishjam._openapi_client.models import RoomType
+from fishjam._fishjam_openapi_client.models import RoomType
 from fishjam.events import ServerMessagePeerCrashed as PeerCrashed
 from fishjam.events import ServerMessagePeerDeleted as PeerDeleted
 from fishjam.events import ServerMessageRoomCrashed as RoomCrashed

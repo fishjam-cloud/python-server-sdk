@@ -19,7 +19,7 @@ from fishjam import (
     room,
     version,
 )
-from fishjam._openapi_client.models import PeerMetadata
+from fishjam._fishjam_openapi_client.models import PeerMetadata
 
 # API
 from fishjam._webhook_notifier import (

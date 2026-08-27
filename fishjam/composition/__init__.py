@@ -1,6 +1,6 @@
 from pathlib import Path
 
-from fishjam._composition_client.models import (
+from fishjam._composition_openapi_client.models import (
     AudioChannels,
     AudioMixingStrategy,
     AudioScene,

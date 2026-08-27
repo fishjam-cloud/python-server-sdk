@@ -3,9 +3,9 @@ import warnings
 from http import HTTPStatus
 from typing import cast
 
-from fishjam._openapi_client.client import AuthenticatedClient
-from fishjam._openapi_client.models import Error
-from fishjam._openapi_client.types import Response
+from fishjam._fishjam_openapi_client.client import AuthenticatedClient
+from fishjam._fishjam_openapi_client.models import Error
+from fishjam._fishjam_openapi_client.types import Response
 from fishjam.errors import HTTPError
 from fishjam.utils import get_fishjam_url
 from fishjam.version import get_version

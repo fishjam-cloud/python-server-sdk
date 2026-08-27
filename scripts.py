@@ -79,7 +79,7 @@ def generate_docs():
 def clean_mdx_content(content: str) -> str:
     parts = re.split(r"((?:```[\s\S]*?```|`[^`\n]+`))", content)
 
-    # example: convert `fishjam._openapi_client.models.peer.Peer` into `Peer`
+    # example: convert `fishjam._fishjam_openapi_client.models.peer.Peer` into `Peer`
     internal_path_pattern = r"fishjam\.(?:[\w.]+\.)?_[\w.]+\."
 
     cleaned_parts = []
@@ -162,7 +162,7 @@ def update_client():
     _generate_client(
         _spec_argument("fishjam openapi.yaml"),
         "openapi-python-client-config.yaml",
-        "fishjam/_openapi_client/",
+        "fishjam/_fishjam_openapi_client/",
     )
 
 
@@ -170,7 +170,7 @@ def update_composition_client():
     _generate_client(
         _spec_argument("Composition API openapi.json"),
         "openapi-python-client-composition-config.yaml",
-        "fishjam/_composition_client/",
+        "fishjam/_composition_openapi_client/",
     )
 
 
