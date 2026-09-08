@@ -4,46 +4,58 @@ from dataclasses import dataclass, field
 from http import HTTPStatus
 from typing import Any, Literal, cast
 
-from fishjam._openapi_client.api.credentials import (
+from fishjam._fishjam_openapi_client.api.credentials import (
     validate_credentials as credentials_validate_credentials,
 )
-from fishjam._openapi_client.api.mo_q import (
+from fishjam._fishjam_openapi_client.api.mo_q import (
     create_moq_access as moq_create_access,
 )
-from fishjam._openapi_client.api.recordings import (
+from fishjam._fishjam_openapi_client.api.recordings import (
     create_recording as recording_create_recording,
 )
-from fishjam._openapi_client.api.recordings import (
+from fishjam._fishjam_openapi_client.api.recordings import (
     delete_recording as recording_delete_recording,
 )
-from fishjam._openapi_client.api.recordings import (
+from fishjam._fishjam_openapi_client.api.recordings import (
     get_recording as recording_get_recording,
 )
-from fishjam._openapi_client.api.recordings import (
+from fishjam._fishjam_openapi_client.api.recordings import (
     list_recordings as recording_list_recordings,
 )
-from fishjam._openapi_client.api.recordings import (
+from fishjam._fishjam_openapi_client.api.recordings import (
     stop_recording as recording_stop_recording,
 )
-from fishjam._openapi_client.api.rooms import add_peer as room_add_peer
-from fishjam._openapi_client.api.rooms import create_room as room_create_room
-from fishjam._openapi_client.api.rooms import delete_peer as room_delete_peer
-from fishjam._openapi_client.api.rooms import delete_room as room_delete_room
-from fishjam._openapi_client.api.rooms import get_all_rooms as room_get_all_rooms
-from fishjam._openapi_client.api.rooms import get_room as room_get_room
-from fishjam._openapi_client.api.rooms import refresh_token as room_refresh_token
-from fishjam._openapi_client.api.rooms import subscribe_peer as room_subscribe_peer
-from fishjam._openapi_client.api.rooms import subscribe_tracks as room_subscribe_tracks
-from fishjam._openapi_client.api.streamers import (
+from fishjam._fishjam_openapi_client.api.rooms import add_peer as room_add_peer
+from fishjam._fishjam_openapi_client.api.rooms import create_room as room_create_room
+from fishjam._fishjam_openapi_client.api.rooms import delete_peer as room_delete_peer
+from fishjam._fishjam_openapi_client.api.rooms import delete_room as room_delete_room
+from fishjam._fishjam_openapi_client.api.rooms import (
+    get_all_rooms as room_get_all_rooms,
+)
+from fishjam._fishjam_openapi_client.api.rooms import get_room as room_get_room
+from fishjam._fishjam_openapi_client.api.rooms import (
+    refresh_token as room_refresh_token,
+)
+from fishjam._fishjam_openapi_client.api.rooms import (
+    subscribe_peer as room_subscribe_peer,
+)
+from fishjam._fishjam_openapi_client.api.rooms import (
+    subscribe_tracks as room_subscribe_tracks,
+)
+from fishjam._fishjam_openapi_client.api.streamers import (
     generate_streamer_token as streamer_generate_streamer_token,
 )
-from fishjam._openapi_client.api.viewers import (
+from fishjam._fishjam_openapi_client.api.track_forwardings import (
+    create_track_forwarding as track_forwardings_create,
+)
+from fishjam._fishjam_openapi_client.api.viewers import (
     generate_viewer_token as viewer_generate_viewer_token,
 )
-from fishjam._openapi_client.models import (
+from fishjam._fishjam_openapi_client.models import (
     AgentOutput,
     AudioFormat,
     AudioSampleRate,
+    CompositionInfo,
     CompositionSource,
     ListRecordingsMetadata,
     MoqAccess,
@@ -73,16 +85,18 @@ from fishjam._openapi_client.models import (
     StreamerToken,
     SubscribeMode,
     SubscribeTracksBody,
+    TrackForwarding,
     VideoCodec,
     ViewerToken,
     WebRTCMetadata,
 )
-from fishjam._openapi_client.types import UNSET, Unset
+from fishjam._fishjam_openapi_client.types import UNSET, Unset
 from fishjam.agent import Agent
 from fishjam.api._client import Client
 from fishjam.errors import (
     InvalidFishjamCredentialsError,
 )
+from fishjam.utils import get_livestream_whep_url, get_livestream_whip_url
 
 
 @dataclass
@@ -93,6 +107,8 @@ class Room:
         config: Room configuration.
         id: Room ID.
         peers: List of all peers.
+        composition_info: The composition the room's tracks are forwarded into,
+            when `FishjamClient.forward_room_tracks` has linked one.
     """
 
     config: RoomConfig
@@ -101,6 +117,8 @@ class Room:
     """Room ID"""
     peers: list[Peer]
     """List of all peers"""
+    composition_info: CompositionInfo | None = None
+    """The composition the room's tracks are forwarded into"""
 
 
 @dataclass
@@ -359,7 +377,7 @@ class FishjamClient(Client):
             RoomCreateDetailsResponse, self._request(room_create_room, body=config)
         ).data.room
 
-        return Room(config=room.config, id=room.id, peers=room.peers)
+        return _to_room(room)
 
     def get_all_rooms(self) -> list[Room]:
         """Returns list of all rooms.
@@ -369,9 +387,7 @@ class FishjamClient(Client):
         """
         rooms = cast(RoomsListingResponse, self._request(room_get_all_rooms)).data
 
-        return [
-            Room(config=room.config, id=room.id, peers=room.peers) for room in rooms
-        ]
+        return [_to_room(room) for room in rooms]
 
     def get_room(self, room_id: str) -> Room:
         """Returns room with the given id.
@@ -386,7 +402,7 @@ class FishjamClient(Client):
             RoomDetailsResponse, self._request(room_get_room, room_id=room_id)
         ).data
 
-        return Room(config=room.config, id=room.id, peers=room.peers)
+        return _to_room(room)
 
     def delete_peer(self, room_id: str, peer_id: str) -> None:
         """Deletes a peer from a room.
@@ -421,6 +437,47 @@ class FishjamClient(Client):
         )
 
         return response.data.token
+
+    def forward_room_tracks(self, room_id: str, composition_url: str) -> None:
+        """Forwards every track published in the room into a composition.
+
+        The composition composes them into its outputs. Pass the composition's
+        address, as returned by
+        `fishjam.CompositionClient.composition_url`.
+
+        Args:
+            room_id: The ID of the room to forward tracks from.
+            composition_url: The address of the composition to forward tracks to.
+        """
+        self._request(
+            track_forwardings_create,
+            room_id=room_id,
+            body=TrackForwarding(composition_url=composition_url),
+        )
+
+    def livestream_whip_url(self) -> str:
+        """Where to publish a livestream.
+
+        Pair it with a token from
+        `fishjam.FishjamClient.create_livestream_streamer_token`. A composition
+        reaches viewers by sending a WHIP output here.
+
+        Returns:
+            str: The address a WHIP publisher sends the livestream to.
+        """
+        return get_livestream_whip_url(self._fishjam_id)
+
+    def livestream_whep_url(self) -> str:
+        """Where to watch a livestream.
+
+        Pair it with a token from
+        `fishjam.FishjamClient.create_livestream_viewer_token`, sent as a bearer
+        token by the WHEP player.
+
+        Returns:
+            str: The address a WHEP viewer plays the livestream from.
+        """
+        return get_livestream_whep_url(self._fishjam_id)
 
     def create_livestream_viewer_token(self, room_id: str) -> str:
         """Generates a viewer token for livestream rooms.
@@ -644,3 +701,16 @@ class FishjamClient(Client):
             peer_metadata.additional_properties[key] = value
 
         return peer_metadata
+
+
+def _to_room(room) -> Room:
+    composition_info = room.composition_info
+
+    return Room(
+        config=room.config,
+        id=room.id,
+        peers=room.peers,
+        composition_info=None
+        if isinstance(composition_info, Unset)
+        else composition_info,
+    )

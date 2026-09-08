@@ -1,7 +1,7 @@
 from http import HTTPStatus
 
-from fishjam._openapi_client.models import Error
-from fishjam._openapi_client.types import Response
+from fishjam._fishjam_openapi_client.models import Error
+from fishjam._fishjam_openapi_client.types import Response
 
 
 class MissingFishjamIdError(ValueError):
@@ -31,27 +31,7 @@ class HTTPError(Exception):
         else:
             errors = response.content.decode(errors="replace")
 
-        match response.status_code:
-            case HTTPStatus.BAD_REQUEST:
-                return BadRequestError(errors)
-
-            case HTTPStatus.UNAUTHORIZED:
-                return UnauthorizedError(errors)
-
-            case HTTPStatus.PAYMENT_REQUIRED:
-                return QuotaExceededError(errors)
-
-            case HTTPStatus.NOT_FOUND:
-                return NotFoundError(errors)
-
-            case HTTPStatus.SERVICE_UNAVAILABLE:
-                return ServiceUnavailableError(errors)
-
-            case HTTPStatus.CONFLICT:
-                return ConflictError(errors)
-
-            case _:
-                return InternalServerError(errors)
+        return error_for_status(response.status_code, errors)
 
 
 class BadRequestError(HTTPError):
@@ -67,6 +47,30 @@ class UnauthorizedError(HTTPError):
 
 
 class NotFoundError(HTTPError):
+    def __init__(self, errors):
+        """@private"""
+        super().__init__(errors)
+
+
+class CompositionNotFoundError(NotFoundError):
+    def __init__(self, errors):
+        """@private"""
+        super().__init__(errors)
+
+
+class InputNotFoundError(NotFoundError):
+    def __init__(self, errors):
+        """@private"""
+        super().__init__(errors)
+
+
+class OutputNotFoundError(NotFoundError):
+    def __init__(self, errors):
+        """@private"""
+        super().__init__(errors)
+
+
+class RendererNotFoundError(NotFoundError):
     def __init__(self, errors):
         """@private"""
         super().__init__(errors)
@@ -100,3 +104,30 @@ class InvalidFishjamCredentialsError(HTTPError):
     def __init__(self, errors):
         """@private"""
         super().__init__(errors)
+
+
+def error_for_status(
+    status_code: int, detail, not_found: type["HTTPError"] | None = None
+) -> HTTPError:
+    """@private"""
+    match status_code:
+        case HTTPStatus.BAD_REQUEST | HTTPStatus.UNPROCESSABLE_ENTITY:
+            return BadRequestError(detail)
+
+        case HTTPStatus.UNAUTHORIZED:
+            return UnauthorizedError(detail)
+
+        case HTTPStatus.PAYMENT_REQUIRED:
+            return QuotaExceededError(detail)
+
+        case HTTPStatus.NOT_FOUND:
+            return (not_found or NotFoundError)(detail)
+
+        case HTTPStatus.CONFLICT:
+            return ConflictError(detail)
+
+        case HTTPStatus.SERVICE_UNAVAILABLE:
+            return ServiceUnavailableError(detail)
+
+        case _:
+            return InternalServerError(detail)

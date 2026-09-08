@@ -3,9 +3,9 @@ import warnings
 from http import HTTPStatus
 from typing import cast
 
-from fishjam._openapi_client.client import AuthenticatedClient
-from fishjam._openapi_client.models import Error
-from fishjam._openapi_client.types import Response
+from fishjam._fishjam_openapi_client.client import AuthenticatedClient
+from fishjam._fishjam_openapi_client.models import Error
+from fishjam._fishjam_openapi_client.types import Response
 from fishjam.errors import HTTPError
 from fishjam.utils import get_fishjam_url
 from fishjam.version import get_version
@@ -13,6 +13,7 @@ from fishjam.version import get_version
 
 class Client:
     def __init__(self, fishjam_id: str, management_token: str):
+        self._fishjam_id = fishjam_id
         self._fishjam_url = get_fishjam_url(fishjam_id)
         self.client = AuthenticatedClient(
             self._fishjam_url,
