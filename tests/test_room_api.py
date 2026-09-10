@@ -1,3 +1,5 @@
+import base64
+import json
 from unittest.mock import Mock, patch
 
 import httpx
@@ -341,6 +343,18 @@ class TestCreateMoqAccess:
         assert isinstance(access, MoqAccess)
         assert isinstance(access.connection_url, str)
         assert isinstance(access.token, str)
+
+    def test_ttl_sets_token_expiry(self, room_api: FishjamClient):
+        access = room_api.create_moq_access(publish_path="test-stream", ttl=120)
+
+        _header, payload, _signature = access.token.split(".")
+        payload += "=" * (-len(payload) % 4)
+        claims = json.loads(base64.urlsafe_b64decode(payload))
+        assert claims["exp"] - claims["iat"] == 120
+
+    def test_invalid_ttl(self, room_api: FishjamClient):
+        with pytest.raises(BadRequestError):
+            room_api.create_moq_access(publish_path="test-stream", ttl=0)
 
     def test_unauthorized(self):
         room_api = FishjamClient(FISHJAM_ID, "invalid")
