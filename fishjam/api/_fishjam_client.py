@@ -514,12 +514,15 @@ class FishjamClient(Client):
         self,
         publish_path: str | None = None,
         subscribe_path: str | None = None,
+        ttl: int | None = None,
     ) -> MoqAccess:
         """Generates MoQ relay connection details.
 
         Args:
             publish_path: Path the access grants publish access to.
             subscribe_path: Path the access grants subscribe access to.
+            ttl: Token time to live in seconds. Defaults to 3600 (1 hour),
+                maximum is 604800 (7 days).
 
         Returns:
             MoqAccess: The relay connection details, containing the
@@ -527,7 +530,9 @@ class FishjamClient(Client):
             parameter) and the ``token`` itself.
         """
         config = MoqAccessConfig(
-            publish_path=publish_path, subscribe_path=subscribe_path
+            publish_path=publish_path,
+            subscribe_path=subscribe_path,
+            ttl=ttl if ttl is not None else UNSET,
         )
         response = cast(
             MoqAccess,

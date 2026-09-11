@@ -18,10 +18,13 @@ class MoqAccessConfig:
         publish_path (None | str | Unset): Path under the root the token grants publish access to Example: my-stream.
         subscribe_path (None | str | Unset): Path under the root the token grants subscribe access to Example: my-
             stream.
+        ttl (int | None | Unset): Token time to live in seconds. Defaults to 3600 (1 hour), maximum is 604800 (7 days).
+            Example: 3600.
     """
 
     publish_path: None | str | Unset = UNSET
     subscribe_path: None | str | Unset = UNSET
+    ttl: int | None | Unset = UNSET
 
     def to_dict(self) -> dict[str, Any]:
         publish_path: None | str | Unset
@@ -36,6 +39,12 @@ class MoqAccessConfig:
         else:
             subscribe_path = self.subscribe_path
 
+        ttl: int | None | Unset
+        if isinstance(self.ttl, Unset):
+            ttl = UNSET
+        else:
+            ttl = self.ttl
+
         field_dict: dict[str, Any] = {}
 
         field_dict.update({})
@@ -43,6 +52,8 @@ class MoqAccessConfig:
             field_dict["publishPath"] = publish_path
         if subscribe_path is not UNSET:
             field_dict["subscribePath"] = subscribe_path
+        if ttl is not UNSET:
+            field_dict["ttl"] = ttl
 
         return field_dict
 
@@ -68,9 +79,19 @@ class MoqAccessConfig:
 
         subscribe_path = _parse_subscribe_path(d.pop("subscribePath", UNSET))
 
+        def _parse_ttl(data: object) -> int | None | Unset:
+            if data is None:
+                return data
+            if isinstance(data, Unset):
+                return data
+            return cast(int | None | Unset, data)
+
+        ttl = _parse_ttl(d.pop("ttl", UNSET))
+
         moq_access_config = cls(
             publish_path=publish_path,
             subscribe_path=subscribe_path,
+            ttl=ttl,
         )
 
         return moq_access_config
