@@ -61,15 +61,12 @@ def generate_docs():
     -o doc \
     fishjam"
     )
-    input_images = here / "images"
     out = here / "docs" / "api"
-    out_images = here / "docs" / "api" / "images"
 
     if out.exists():
         shutil.rmtree(out)
 
     shutil.copytree(input, out)
-    shutil.copytree(input_images, out_images)
 
     # ...and rename the .html files to .md so that mkdocs picks them up!
     for f in out.glob("**/*.html"):
