@@ -522,7 +522,7 @@ class FishjamClient(Client):
             publish_path: Path the access grants publish access to.
             subscribe_path: Path the access grants subscribe access to.
             ttl: Token time to live in seconds. Defaults to 3600 (1 hour),
-                maximum is 86400 (24 hours).
+                maximum is 604800 (7 days).
 
         Returns:
             MoqAccess: The relay connection details, containing the

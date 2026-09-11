@@ -18,7 +18,7 @@ class MoqAccessConfig:
         publish_path (None | str | Unset): Path under the root the token grants publish access to Example: my-stream.
         subscribe_path (None | str | Unset): Path under the root the token grants subscribe access to Example: my-
             stream.
-        ttl (int | None | Unset): Token time to live in seconds. Defaults to 3600 (1 hour), maximum is 86400 (24 hours).
+        ttl (int | None | Unset): Token time to live in seconds. Defaults to 3600 (1 hour), maximum is 604800 (7 days).
             Example: 3600.
     """
 
