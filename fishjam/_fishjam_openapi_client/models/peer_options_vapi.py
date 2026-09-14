@@ -18,17 +18,21 @@ class PeerOptionsVapi:
     Attributes:
         api_key (str): VAPI API key
         call_id (str): VAPI call ID
+        auto_close (bool | Unset): Ends the VAPI call when the last participant leaves the room Default: False.
         subscribe_mode (SubscribeMode | Unset): Configuration of peer's subscribing policy
     """
 
     api_key: str
     call_id: str
+    auto_close: bool | Unset = False
     subscribe_mode: SubscribeMode | Unset = UNSET
 
     def to_dict(self) -> dict[str, Any]:
         api_key = self.api_key
 
         call_id = self.call_id
+
+        auto_close = self.auto_close
 
         subscribe_mode: str | Unset = UNSET
         if not isinstance(self.subscribe_mode, Unset):
@@ -40,6 +44,8 @@ class PeerOptionsVapi:
             "apiKey": api_key,
             "callId": call_id,
         })
+        if auto_close is not UNSET:
+            field_dict["autoClose"] = auto_close
         if subscribe_mode is not UNSET:
             field_dict["subscribeMode"] = subscribe_mode
 
@@ -52,6 +58,8 @@ class PeerOptionsVapi:
 
         call_id = d.pop("callId")
 
+        auto_close = d.pop("autoClose", UNSET)
+
         _subscribe_mode = d.pop("subscribeMode", UNSET)
         subscribe_mode: SubscribeMode | Unset
         if isinstance(_subscribe_mode, Unset):
@@ -62,6 +70,7 @@ class PeerOptionsVapi:
         peer_options_vapi = cls(
             api_key=api_key,
             call_id=call_id,
+            auto_close=auto_close,
             subscribe_mode=subscribe_mode,
         )
 
