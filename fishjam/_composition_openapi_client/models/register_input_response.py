@@ -18,14 +18,14 @@ class RegisterInputResponse:
         endpoint_route (None | str | Unset):
         video_duration_ms (int | None | Unset):
         audio_duration_ms (int | None | Unset):
-        port (int | None | Unset):
+        publish_url (None | str | Unset):
     """
 
     bearer_token: None | str | Unset = UNSET
     endpoint_route: None | str | Unset = UNSET
     video_duration_ms: int | None | Unset = UNSET
     audio_duration_ms: int | None | Unset = UNSET
-    port: int | None | Unset = UNSET
+    publish_url: None | str | Unset = UNSET
 
     def to_dict(self) -> dict[str, Any]:
         bearer_token: None | str | Unset
@@ -52,11 +52,11 @@ class RegisterInputResponse:
         else:
             audio_duration_ms = self.audio_duration_ms
 
-        port: int | None | Unset
-        if isinstance(self.port, Unset):
-            port = UNSET
+        publish_url: None | str | Unset
+        if isinstance(self.publish_url, Unset):
+            publish_url = UNSET
         else:
-            port = self.port
+            publish_url = self.publish_url
 
         field_dict: dict[str, Any] = {}
 
@@ -69,8 +69,8 @@ class RegisterInputResponse:
             field_dict["video_duration_ms"] = video_duration_ms
         if audio_duration_ms is not UNSET:
             field_dict["audio_duration_ms"] = audio_duration_ms
-        if port is not UNSET:
-            field_dict["port"] = port
+        if publish_url is not UNSET:
+            field_dict["publish_url"] = publish_url
 
         return field_dict
 
@@ -114,21 +114,21 @@ class RegisterInputResponse:
 
         audio_duration_ms = _parse_audio_duration_ms(d.pop("audio_duration_ms", UNSET))
 
-        def _parse_port(data: object) -> int | None | Unset:
+        def _parse_publish_url(data: object) -> None | str | Unset:
             if data is None:
                 return data
             if isinstance(data, Unset):
                 return data
-            return cast(int | None | Unset, data)
+            return cast(None | str | Unset, data)
 
-        port = _parse_port(d.pop("port", UNSET))
+        publish_url = _parse_publish_url(d.pop("publish_url", UNSET))
 
         register_input_response = cls(
             bearer_token=bearer_token,
             endpoint_route=endpoint_route,
             video_duration_ms=video_duration_ms,
             audio_duration_ms=audio_duration_ms,
-            port=port,
+            publish_url=publish_url,
         )
 
         return register_input_response

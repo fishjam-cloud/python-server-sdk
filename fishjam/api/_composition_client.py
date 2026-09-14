@@ -433,22 +433,37 @@ class CompositionClient:
 
     def register_rtmp_input(
         self, composition_id: str, input_id: str, *, stream_key: str
-    ) -> None:
+    ) -> str:
         """Register an input that an RTMP publisher pushes media into.
 
-        The stream key identifies the input; the address to publish to belongs to the
-        composition, not to this call.
+        The stream key identifies the input and is carried in the returned address.
 
         Args:
             composition_id: ID of the composition.
             input_id: ID to register the input under.
             stream_key: Key the publisher identifies the input with.
+
+        Returns:
+            The address to publish the RTMP stream to.
+
+        Raises:
+            InternalServerError: When the server reports no address, leaving the input
+                impossible to publish to.
         """
-        self.register_input(
+        response = self.register_input(
             composition_id,
             input_id,
             RtmpInput(type_=RtmpInputType.RTMP_SERVER, stream_key=stream_key),
         )
+
+        publish_url = _or_none(response.publish_url)
+        if not publish_url:
+            raise InternalServerError(
+                f'Registering RTMP input "{input_id}" returned no publishing address, '
+                "so it cannot be published to"
+            )
+
+        return publish_url
 
     def unregister_input(
         self,

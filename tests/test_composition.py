@@ -35,6 +35,7 @@ OUTPUT_ID = "out-1"
 IMAGE_ID = "logo"
 LOCAL_URL = "http://localhost:8000"
 FONT_PATH = Path(__file__).parent / "fixtures" / "font.ttf"
+RTMP_PUBLISH_URL = "rtmps://rtmp.example.com:443/key"
 
 
 def client(composition_url: str | None = None) -> CompositionClient:
@@ -211,10 +212,23 @@ class TestInputVariants:
         }
 
     def test_sends_the_rtmp_discriminant(self):
-        with mock_response() as requests:
+        with mock_response({"publish_url": RTMP_PUBLISH_URL}) as requests:
             client().register_rtmp_input(COMPOSITION_ID, INPUT_ID, stream_key="key")
 
         assert sent_json(requests) == {"type": "rtmp_server", "stream_key": "key"}
+
+    def test_returns_the_rtmp_publishing_address_the_server_chose(self):
+        with mock_response({"publish_url": RTMP_PUBLISH_URL}):
+            url = client().register_rtmp_input(
+                COMPOSITION_ID, INPUT_ID, stream_key="key"
+            )
+
+        assert url == RTMP_PUBLISH_URL
+
+    def test_raises_when_no_rtmp_publishing_address_is_available(self):
+        with mock_response():
+            with pytest.raises(InternalServerError):
+                client().register_rtmp_input(COMPOSITION_ID, INPUT_ID, stream_key="key")
 
     def test_returns_the_durations_of_an_mp4_input(self):
         with mock_response({"video_duration_ms": 1000, "audio_duration_ms": 2000}):
