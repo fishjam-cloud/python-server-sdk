@@ -5,15 +5,16 @@ import httpx
 
 from ... import errors
 from ...client import AuthenticatedClient, Client
+from ...models.create_recording_files_body import CreateRecordingFilesBody
 from ...models.error import Error
 from ...models.recording_config import RecordingConfig
 from ...models.recording_details_response import RecordingDetailsResponse
-from ...types import Response
+from ...types import UNSET, Response, Unset
 
 
 def _get_kwargs(
     *,
-    body: RecordingConfig,
+    body: RecordingConfig | CreateRecordingFilesBody | Unset = UNSET,
 ) -> dict[str, Any]:
     headers: dict[str, Any] = {}
 
@@ -22,9 +23,12 @@ def _get_kwargs(
         "url": "/recordings",
     }
 
-    _kwargs["json"] = body.to_dict()
+    if isinstance(body, RecordingConfig):
+        _kwargs["json"] = body.to_dict()
 
-    headers["Content-Type"] = "application/json"
+        headers["Content-Type"] = "application/json"
+    if isinstance(body, CreateRecordingFilesBody):
+        _kwargs["files"] = body.to_multipart()
 
     _kwargs["headers"] = headers
     return _kwargs
@@ -78,14 +82,18 @@ def _build_response(
 def sync_detailed(
     *,
     client: AuthenticatedClient,
-    body: RecordingConfig,
+    body: RecordingConfig | CreateRecordingFilesBody | Unset = UNSET,
 ) -> Response[Error | RecordingDetailsResponse]:
     """Create a recording
 
      Create a recording resource. Capturing starts synchronously, so it is returned with status `active`.
+    A source naming an `outputId` records an output the composition already has and is sent as JSON. A
+    template source renders its own scene and has to be sent as `multipart/form-data`: the configuration
+    in a `config` part, the React bundle in a `template` part.
 
     Args:
         body (RecordingConfig): Recording configuration
+        body (CreateRecordingFilesBody):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -109,14 +117,18 @@ def sync_detailed(
 def sync(
     *,
     client: AuthenticatedClient,
-    body: RecordingConfig,
+    body: RecordingConfig | CreateRecordingFilesBody | Unset = UNSET,
 ) -> Error | RecordingDetailsResponse | None:
     """Create a recording
 
      Create a recording resource. Capturing starts synchronously, so it is returned with status `active`.
+    A source naming an `outputId` records an output the composition already has and is sent as JSON. A
+    template source renders its own scene and has to be sent as `multipart/form-data`: the configuration
+    in a `config` part, the React bundle in a `template` part.
 
     Args:
         body (RecordingConfig): Recording configuration
+        body (CreateRecordingFilesBody):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -135,14 +147,18 @@ def sync(
 async def asyncio_detailed(
     *,
     client: AuthenticatedClient,
-    body: RecordingConfig,
+    body: RecordingConfig | CreateRecordingFilesBody | Unset = UNSET,
 ) -> Response[Error | RecordingDetailsResponse]:
     """Create a recording
 
      Create a recording resource. Capturing starts synchronously, so it is returned with status `active`.
+    A source naming an `outputId` records an output the composition already has and is sent as JSON. A
+    template source renders its own scene and has to be sent as `multipart/form-data`: the configuration
+    in a `config` part, the React bundle in a `template` part.
 
     Args:
         body (RecordingConfig): Recording configuration
+        body (CreateRecordingFilesBody):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.
@@ -164,14 +180,18 @@ async def asyncio_detailed(
 async def asyncio(
     *,
     client: AuthenticatedClient,
-    body: RecordingConfig,
+    body: RecordingConfig | CreateRecordingFilesBody | Unset = UNSET,
 ) -> Error | RecordingDetailsResponse | None:
     """Create a recording
 
      Create a recording resource. Capturing starts synchronously, so it is returned with status `active`.
+    A source naming an `outputId` records an output the composition already has and is sent as JSON. A
+    template source renders its own scene and has to be sent as `multipart/form-data`: the configuration
+    in a `config` part, the React bundle in a `template` part.
 
     Args:
         body (RecordingConfig): Recording configuration
+        body (CreateRecordingFilesBody):
 
     Raises:
         errors.UnexpectedStatus: If the server returns an undocumented status code and Client.raise_on_unexpected_status is True.

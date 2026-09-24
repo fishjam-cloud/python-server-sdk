@@ -6,13 +6,20 @@ import pytest
 
 from fishjam import FishjamClient, Recording
 from fishjam.errors import (
+    BadRequestError,
     InternalServerError,
     NotFoundError,
     QuotaExceededError,
     ServiceUnavailableError,
     UnauthorizedError,
 )
-from fishjam.recording import CompositionSource, RecordingStatus
+from fishjam.recording import (
+    CompositionSource,
+    RecordingSource,
+    RecordingStatus,
+    TemplateSource,
+    TemplateSourceResolution,
+)
 from tests.support.env import FISHJAM_ID, FISHJAM_MANAGEMENT_TOKEN
 
 NONEXISTENT_RECORDING_ID = "515c8b52-168b-4b39-a227-4d6b4f102a56"
@@ -31,7 +38,11 @@ def make_composition_source():
     )
 
 
-def make_recording_json(source: CompositionSource, status: str):
+def make_template_source():
+    return TemplateSource(composition_url="https://example.com/composition")
+
+
+def make_recording_json(source: RecordingSource, status: str):
     return {
         "id": RECORDING_ID,
         "files": [],
@@ -44,6 +55,7 @@ def mock_request(status_code: int, json_body):
     captured_requests = []
 
     def mock_send(request, **kwargs):
+        request.read()
         captured_requests.append(request)
         return httpx.Response(status_code, json=json_body, request=request)
 
@@ -125,6 +137,83 @@ class TestCreateRecording:
 
         with request_patch, pytest.raises(QuotaExceededError):
             recording_api.create_recording(make_composition_source())
+
+
+class TestCreateTemplateRecording:
+    def test_uploads_the_bundle_alongside_the_config(
+        self, recording_api: FishjamClient
+    ):
+        source = make_template_source()
+        recording_json = make_recording_json(source, "active")
+        recording_json["metadata"] = {"env": "test"}
+        captured_requests, request_patch = mock_request(201, {"data": recording_json})
+
+        with request_patch:
+            recording = recording_api.create_template_recording(
+                source, b"bundle", metadata={"env": "test"}
+            )
+
+        assert isinstance(recording, Recording)
+        assert recording.id == RECORDING_ID
+        assert recording.status == RecordingStatus.ACTIVE
+
+        assert len(captured_requests) == 1
+        request = captured_requests[0]
+        assert request.method == "POST"
+        assert request.url.path.endswith("/recordings")
+        assert request.headers["content-type"].startswith(
+            "multipart/form-data; boundary="
+        )
+
+        content = request.content
+        assert b'name="config"' in content
+        assert (
+            json.dumps({
+                "source": source.to_dict(),
+                "metadata": {"env": "test"},
+            }).encode()
+            in content
+        )
+        assert b'name="template"; filename=' in content
+        assert b"bundle" in content
+
+    def test_reads_the_bundle_from_a_path(self, recording_api: FishjamClient, tmp_path):
+        source = make_template_source()
+        bundle = tmp_path / "index.js"
+        bundle.write_bytes(b"bundle-from-a-file")
+        captured_requests, request_patch = mock_request(
+            201, {"data": make_recording_json(source, "active")}
+        )
+
+        with request_patch:
+            recording_api.create_template_recording(source, bundle)
+
+        content = captured_requests[0].content
+        assert b"bundle-from-a-file" in content
+        assert b'filename="index.js"' in content
+
+    def test_returns_a_recording_rendering_its_own_scene(
+        self, recording_api: FishjamClient
+    ):
+        source = TemplateSource(
+            composition_url="https://example.com/composition",
+            resolution=TemplateSourceResolution(width=1920, height=1080),
+            audio=False,
+        )
+        recording_json = make_recording_json(source, "available")
+        _, request_patch = mock_request(200, {"data": recording_json})
+
+        with request_patch:
+            recording = recording_api.get_recording(RECORDING_ID)
+
+        assert isinstance(recording, Recording)
+        assert recording.source == source
+
+    def test_rejected_bundle_raises(self, recording_api: FishjamClient):
+        _, request_patch = mock_request(400, {"errors": "template bundle is invalid"})
+
+        with request_patch, pytest.raises(BadRequestError):
+            recording_api.create_template_recording(make_template_source(), b"bundle")
 
 
 class TestGetRecording:

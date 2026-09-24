@@ -2,7 +2,10 @@
 
 from dataclasses import dataclass, field
 from http import HTTPStatus
+from io import BytesIO
+from pathlib import Path
 from typing import Any, Literal, cast
+from warnings import deprecated
 
 from fishjam._fishjam_openapi_client.api.credentials import (
     validate_credentials as credentials_validate_credentials,
@@ -57,6 +60,7 @@ from fishjam._fishjam_openapi_client.models import (
     AudioSampleRate,
     CompositionInfo,
     CompositionSource,
+    CreateRecordingFilesBody,
     ListRecordingsMetadata,
     MoqAccess,
     MoqAccessConfig,
@@ -85,14 +89,16 @@ from fishjam._fishjam_openapi_client.models import (
     StreamerToken,
     SubscribeMode,
     SubscribeTracksBody,
+    TemplateSource,
     TrackForwarding,
     VideoCodec,
     ViewerToken,
     WebRTCMetadata,
 )
-from fishjam._fishjam_openapi_client.types import UNSET, Unset
+from fishjam._fishjam_openapi_client.types import UNSET, File, Unset
 from fishjam.agent import Agent
 from fishjam.api._client import Client
+from fishjam.composition import FileSource
 from fishjam.errors import (
     InvalidFishjamCredentialsError,
 )
@@ -541,6 +547,7 @@ class FishjamClient(Client):
 
         return response
 
+    @deprecated("Use `create_composition_recording` instead.")
     def create_recording(
         self,
         source: CompositionSource,
@@ -555,20 +562,77 @@ class FishjamClient(Client):
             metadata: Free-form metadata used to organize and filter recordings.
 
         Returns:
-            Recording: The created recording.
+            Recording: The started recording details.
         """
-        if metadata is None:
-            config_metadata = UNSET
-        else:
-            config_metadata = RecordingConfigMetadataType0()
-            for key, value in metadata.items():
-                config_metadata.additional_properties[key] = value
-
-        config = RecordingConfig(source=source, metadata=config_metadata)
+        config = RecordingConfig(
+            source=source, metadata=self.__parse_recording_metadata(metadata)
+        )
 
         resp = cast(
             RecordingDetailsResponse,
             self._request(recording_create_recording, body=config),
+        )
+
+        return resp.data
+
+    def create_composition_recording(
+        self,
+        source: CompositionSource,
+        metadata: dict[str, Any] | None = None,
+    ) -> Recording:
+        """Creates a new recording.
+
+        Capturing starts synchronously, so the returned recording is `active`.
+
+        Args:
+            source: The source of the recording.
+            metadata: Free-form metadata used to organize and filter recordings.
+
+        Returns:
+            Recording: The started recording details.
+        """
+        config = RecordingConfig(
+            source=source, metadata=self.__parse_recording_metadata(metadata)
+        )
+
+        resp = cast(
+            RecordingDetailsResponse,
+            self._request(recording_create_recording, body=config),
+        )
+
+        return resp.data
+
+    def create_template_recording(
+        self,
+        source: TemplateSource,
+        template: FileSource,
+        metadata: dict[str, Any] | None = None,
+    ) -> Recording:
+        """Starts a new recording that renders its own scene from a template.
+
+        The template bundle can weigh at most 1 MiB; only valid template
+        bundles are accepted.
+
+        Args:
+            source: The source of the recording.
+            template: The bundle to render, as bytes or a path to read them from.
+            metadata: Free-form metadata used to organize and filter recordings.
+
+        Returns:
+            Recording: The created recording.
+        """
+        config = RecordingConfig(
+            source=source, metadata=self.__parse_recording_metadata(metadata)
+        )
+
+        resp = cast(
+            RecordingDetailsResponse,
+            self._request(
+                recording_create_recording,
+                body=CreateRecordingFilesBody(
+                    config=config, template=_to_file(template, "template.js")
+                ),
+            ),
         )
 
         return resp.data
@@ -696,6 +760,18 @@ class FishjamClient(Client):
             else:
                 params[param_key] = value
 
+    def __parse_recording_metadata(
+        self, metadata: dict[str, Any] | None
+    ) -> RecordingConfigMetadataType0 | Unset:
+        if metadata is None:
+            return UNSET
+
+        config_metadata = RecordingConfigMetadataType0()
+        for key, value in metadata.items():
+            config_metadata.additional_properties[key] = value
+
+        return config_metadata
+
     def __parse_peer_metadata(self, metadata: dict | None) -> WebRTCMetadata:
         peer_metadata = WebRTCMetadata()
 
@@ -706,6 +782,27 @@ class FishjamClient(Client):
             peer_metadata.additional_properties[key] = value
 
         return peer_metadata
+
+
+def _to_file(source: FileSource, name: str) -> File:
+    """Read an upload from bytes or from a path.
+
+    The upload is named, so it is sent as a file rather than a plain form field.
+    Never pass a path taken from untrusted input, since its contents are uploaded.
+
+    Args:
+        source: The bytes to upload, or a path to read them from.
+        name: Name to send the upload under, when the source has none of its own.
+
+    Returns:
+        The upload, as the generated client takes it.
+    """
+    if isinstance(source, bytes):
+        return File(payload=BytesIO(source), file_name=name)
+
+    path = Path(source)
+
+    return File(payload=BytesIO(path.read_bytes()), file_name=path.name)
 
 
 def _to_room(room) -> Room:
