@@ -5,6 +5,7 @@ from http import HTTPStatus
 from io import BytesIO
 from pathlib import Path
 from typing import Any, Literal, cast
+from warnings import deprecated
 
 from fishjam._fishjam_openapi_client.api.credentials import (
     validate_credentials as credentials_validate_credentials,
@@ -546,7 +547,35 @@ class FishjamClient(Client):
 
         return response
 
+    @deprecated("Use `create_composition_recording` instead.")
     def create_recording(
+        self,
+        source: CompositionSource,
+        metadata: dict[str, Any] | None = None,
+    ) -> Recording:
+        """Creates a new recording.
+
+        Capturing starts synchronously, so the returned recording is `active`.
+
+        Args:
+            source: The source of the recording.
+            metadata: Free-form metadata used to organize and filter recordings.
+
+        Returns:
+            Recording: The started recording details.
+        """
+        config = RecordingConfig(
+            source=source, metadata=self.__parse_recording_metadata(metadata)
+        )
+
+        resp = cast(
+            RecordingDetailsResponse,
+            self._request(recording_create_recording, body=config),
+        )
+
+        return resp.data
+
+    def create_composition_recording(
         self,
         source: CompositionSource,
         metadata: dict[str, Any] | None = None,
