@@ -73,7 +73,8 @@ def sync_detailed(
 
      Request the recorder to stop capturing. Finalization is asynchronous: the recording stays `active`
     until the capture is finalized, then becomes `finished`. Stopping a recording that is no longer
-    active is a no-op.
+    active is a no-op. Stopping a recording whose composition no longer exists, or whose recorder has
+    already ended, is a no-op as well.
 
     Args:
         recording_id (str):
@@ -106,7 +107,8 @@ def sync(
 
      Request the recorder to stop capturing. Finalization is asynchronous: the recording stays `active`
     until the capture is finalized, then becomes `finished`. Stopping a recording that is no longer
-    active is a no-op.
+    active is a no-op. Stopping a recording whose composition no longer exists, or whose recorder has
+    already ended, is a no-op as well.
 
     Args:
         recording_id (str):
@@ -134,7 +136,8 @@ async def asyncio_detailed(
 
      Request the recorder to stop capturing. Finalization is asynchronous: the recording stays `active`
     until the capture is finalized, then becomes `finished`. Stopping a recording that is no longer
-    active is a no-op.
+    active is a no-op. Stopping a recording whose composition no longer exists, or whose recorder has
+    already ended, is a no-op as well.
 
     Args:
         recording_id (str):
@@ -165,7 +168,8 @@ async def asyncio(
 
      Request the recorder to stop capturing. Finalization is asynchronous: the recording stays `active`
     until the capture is finalized, then becomes `finished`. Stopping a recording that is no longer
-    active is a no-op.
+    active is a no-op. Stopping a recording whose composition no longer exists, or whose recorder has
+    already ended, is a no-op as well.
 
     Args:
         recording_id (str):
