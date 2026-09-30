@@ -1,11 +1,11 @@
 """Fishjam client used to manage rooms."""
 
+import warnings
 from dataclasses import dataclass, field
 from http import HTTPStatus
 from io import BytesIO
 from pathlib import Path
 from typing import Any, Literal, cast
-from warnings import deprecated
 
 from fishjam._fishjam_openapi_client.api.credentials import (
     validate_credentials as credentials_validate_credentials,
@@ -547,7 +547,6 @@ class FishjamClient(Client):
 
         return response
 
-    @deprecated("Use `create_composition_recording` instead.")
     def create_recording(
         self,
         source: CompositionSource,
@@ -564,6 +563,11 @@ class FishjamClient(Client):
         Returns:
             Recording: The started recording details.
         """
+        warnings.warn(
+            "create_recording is deprecated; use create_composition_recording instead.",
+            DeprecationWarning,
+            stacklevel=2,
+        )
         config = RecordingConfig(
             source=source, metadata=self.__parse_recording_metadata(metadata)
         )

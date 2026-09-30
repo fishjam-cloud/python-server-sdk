@@ -138,6 +138,15 @@ class TestCreateRecording:
         with request_patch, pytest.raises(QuotaExceededError):
             recording_api.create_recording(make_composition_source())
 
+    def test_warns_deprecated(self, recording_api: FishjamClient):
+        source = make_composition_source()
+        _, request_patch = mock_request(
+            201, {"data": make_recording_json(source, "active")}
+        )
+
+        with request_patch, pytest.warns(DeprecationWarning):
+            recording_api.create_recording(source)
+
 
 class TestCreateTemplateRecording:
     def test_uploads_the_bundle_alongside_the_config(
