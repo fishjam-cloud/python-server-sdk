@@ -13,6 +13,7 @@ if TYPE_CHECKING:
     from ..models.composition_source import CompositionSource
     from ..models.recording_file import RecordingFile
     from ..models.recording_metadata_type_0 import RecordingMetadataType0
+    from ..models.template_source import TemplateSource
 
 
 T = TypeVar("T", bound="Recording")
@@ -26,7 +27,7 @@ class Recording:
         files (list[RecordingFile]): Media files of the recording, in playback order. Empty until the recording is
             `available`.
         id (str): Assigned recording id
-        source (CompositionSource): Recording source coming from composition
+        source (CompositionSource | TemplateSource): The source for the recording
         status (RecordingStatus): Lifecycle status of a recording
         metadata (None | RecordingMetadataType0 | Unset): Free-form, user-supplied metadata used to organize and filter
             recordings
@@ -34,12 +35,13 @@ class Recording:
 
     files: list[RecordingFile]
     id: str
-    source: CompositionSource
+    source: CompositionSource | TemplateSource
     status: RecordingStatus
     metadata: None | RecordingMetadataType0 | Unset = UNSET
     additional_properties: dict[str, Any] = _attrs_field(init=False, factory=dict)
 
     def to_dict(self) -> dict[str, Any]:
+        from ..models.composition_source import CompositionSource
         from ..models.recording_metadata_type_0 import RecordingMetadataType0
 
         files = []
@@ -49,7 +51,11 @@ class Recording:
 
         id = self.id
 
-        source = self.source.to_dict()
+        source: dict[str, Any]
+        if isinstance(self.source, CompositionSource):
+            source = self.source.to_dict()
+        else:
+            source = self.source.to_dict()
 
         status = self.status.value
 
@@ -79,6 +85,7 @@ class Recording:
         from ..models.composition_source import CompositionSource
         from ..models.recording_file import RecordingFile
         from ..models.recording_metadata_type_0 import RecordingMetadataType0
+        from ..models.template_source import TemplateSource
 
         d = dict(src_dict)
         files = []
@@ -90,7 +97,24 @@ class Recording:
 
         id = d.pop("id")
 
-        source = CompositionSource.from_dict(d.pop("source"))
+        def _parse_source(data: object) -> CompositionSource | TemplateSource:
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                componentsschemas_recording_source_type_0 = CompositionSource.from_dict(
+                    data
+                )
+
+                return componentsschemas_recording_source_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            if not isinstance(data, dict):
+                raise TypeError()
+            componentsschemas_recording_source_type_1 = TemplateSource.from_dict(data)
+
+            return componentsschemas_recording_source_type_1
+
+        source = _parse_source(d.pop("source"))
 
         status = RecordingStatus(d.pop("status"))
 

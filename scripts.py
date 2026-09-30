@@ -153,6 +153,42 @@ def _generate_client(file_arg: str, config: str, output_path: str):
             --output-path={output_path} \
             --custom-template-path=templates/openapi"
     )
+    _fix_multi_content_type_endpoints(output_path)
+
+
+def _fix_multi_content_type_endpoints(output_path: str):
+    """Work around openapi-python-client 0.28 on endpoints taking several content types.
+
+    An endpoint that accepts more than one request content type is generated with a body
+    annotated `Unset` that the module never imports, and with a `multipart/form-data`
+    content type set without the boundary httpx computes for the parts it uploads.
+
+    Args:
+        output_path: Directory the client was generated into.
+    """
+    unset_import = re.compile(
+        r"^from \.\.\.types import UNSET, Response$", re.MULTILINE
+    )
+    multipart_header = '        headers["Content-Type"] = "multipart/form-data"\n'
+    fixed = []
+
+    for path in Path(output_path).rglob("*.py"):
+        source = path.read_text()
+        patched = source.replace(f"{multipart_header}\n", "").replace(
+            multipart_header, ""
+        )
+
+        if "| Unset = UNSET" in patched:
+            patched = unset_import.sub(
+                "from ...types import UNSET, Response, Unset", patched
+            )
+
+        if patched != source:
+            path.write_text(patched)
+            fixed.append(str(path))
+
+    for path in fixed:
+        print(f"Patched {path}")
 
 
 def update_client():

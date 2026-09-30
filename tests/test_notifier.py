@@ -25,6 +25,7 @@ from tests.support.asyncio_utils import assert_events
 from tests.support.env import (
     FISHJAM_ID,
     FISHJAM_MANAGEMENT_TOKEN,
+    WEBHOOK_SERVER_PUBLIC,
     WEBHOOK_SERVER_URL,
     WEBHOOK_URL,
 )
@@ -250,6 +251,11 @@ class TestReceivingNotifications:
         self.assert_webhook_events(event_checks, event_queue, room.id)
 
     def assert_webhook_events(self, event_checks, event_queue, room_id, timeout=60):
+        if not WEBHOOK_SERVER_PUBLIC:
+            pytest.skip(
+                "Fishjam cannot reach the local webhook server; "
+                "set WEBHOOK_SERVER_URL to a public tunnel URL"
+            )
         deadline = time.monotonic() + timeout
         received = []
 

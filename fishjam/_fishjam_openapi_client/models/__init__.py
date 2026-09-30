@@ -5,6 +5,7 @@ from .audio_format import AudioFormat
 from .audio_sample_rate import AudioSampleRate
 from .composition_info import CompositionInfo
 from .composition_source import CompositionSource
+from .create_recording_files_body import CreateRecordingFilesBody
 from .error import Error
 from .list_recordings_metadata import ListRecordingsMetadata
 from .moq_access import MoqAccess
@@ -52,6 +53,8 @@ from .streams_listing_response import StreamsListingResponse
 from .subscribe_mode import SubscribeMode
 from .subscribe_tracks_body import SubscribeTracksBody
 from .subscriptions import Subscriptions
+from .template_source import TemplateSource
+from .template_source_resolution import TemplateSourceResolution
 from .track import Track
 from .track_forwarding import TrackForwarding
 from .track_forwarding_info import TrackForwardingInfo
@@ -69,6 +72,7 @@ __all__ = (
     "AudioSampleRate",
     "CompositionInfo",
     "CompositionSource",
+    "CreateRecordingFilesBody",
     "Error",
     "ListRecordingsMetadata",
     "MoqAccess",
@@ -116,6 +120,8 @@ __all__ = (
     "SubscribeMode",
     "SubscribeTracksBody",
     "Subscriptions",
+    "TemplateSource",
+    "TemplateSourceResolution",
     "Track",
     "TrackForwarding",
     "TrackForwardingInfo",
