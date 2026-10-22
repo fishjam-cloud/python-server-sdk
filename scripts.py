@@ -83,7 +83,8 @@ def clean_mdx_content(content: str) -> str:
     for part in parts:
         if part.startswith("`"):
             text = (
-                part.replace("&lt;", "<")
+                part
+                .replace("&lt;", "<")
                 .replace("&gt;", ">")
                 .replace("&#39;", "'")
                 .replace("builtins.", "")
