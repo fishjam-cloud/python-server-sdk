@@ -28,7 +28,9 @@ Create a `FishjamClient` instance, providing the fishjam server address and api 
 ```python
 from fishjam import FishjamClient
 
-fishjam_client = FishjamClient(fishjam_id="<fishjam_id>", management_token="<management_token>")
+fishjam_client = FishjamClient(
+    fishjam_id="<fishjam_id>", management_token="<management_token>"
+)
 ```
 
 You can use it to interact with Fishjam to manage rooms and peers
@@ -60,7 +62,9 @@ Create `FishjamNotifier` instance
 ```python
 from fishjam import FishjamNotifier
 
-fishjam_notifier = FishjamNotifier(fishjam_id='<fishjam_id>', management_token='<management_token>')
+fishjam_notifier = FishjamNotifier(
+    fishjam_id="<fishjam_id>", management_token="<management_token>"
+)
 ```
 
 Then define a handler for incoming messages
@@ -68,7 +72,7 @@ Then define a handler for incoming messages
 ```python
 @notifier.on_server_notification
 def handle_notification(server_notification):
-    print(f'Received a notification: {server_notification}')
+    print(f"Received a notification: {server_notification}")
 ```
 
 After that you can start the notifier
@@ -85,6 +89,7 @@ async def test_notifier():
     fishjam_client.create_room()
 
     await notifier_task
+
 
 asyncio.run(test_notifier())
 
