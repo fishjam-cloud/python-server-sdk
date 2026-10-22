@@ -7,7 +7,7 @@ requires-python = ">=3.10"
 readme = "README.md"
 license = "Apache-2.0"
 dependencies = [
-    "websockets~=15.0",
+    "websockets>=15.0,<17",
     "urllib3>=1.25.3,<2",
     "aenum>=3.1.15,<4",
     "python-dateutil>=2.8.2,<3",
