@@ -14,6 +14,7 @@ def _get_kwargs(
     room_id: str,
     id: str,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "delete",
         "url": "/room/{room_id}/peer/{id}".format(

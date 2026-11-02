@@ -17,6 +17,7 @@ def _get_kwargs(
     metadata: ListRecordingsMetadata | Unset = UNSET,
     status: RecordingStatus | Unset = UNSET,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     json_metadata: dict[str, Any] | Unset = UNSET
