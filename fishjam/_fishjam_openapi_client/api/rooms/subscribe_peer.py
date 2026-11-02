@@ -16,6 +16,7 @@ def _get_kwargs(
     *,
     peer_id: str | Unset = UNSET,
 ) -> dict[str, Any]:
+
     params: dict[str, Any] = {}
 
     params["peer_id"] = peer_id

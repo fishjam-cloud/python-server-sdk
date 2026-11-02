@@ -14,6 +14,7 @@ from ...types import Response
 def _get_kwargs(
     stream_id: str,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "get",
         "url": "/livestream/{stream_id}".format(
