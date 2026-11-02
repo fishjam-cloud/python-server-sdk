@@ -32,6 +32,7 @@ from .recording_config import RecordingConfig
 from .recording_config_metadata_type_0 import RecordingConfigMetadataType0
 from .recording_details_response import RecordingDetailsResponse
 from .recording_file import RecordingFile
+from .recording_hls_type_0 import RecordingHlsType0
 from .recording_list_response import RecordingListResponse
 from .recording_metadata_type_0 import RecordingMetadataType0
 from .recording_status import RecordingStatus
@@ -99,6 +100,7 @@ __all__ = (
     "RecordingConfigMetadataType0",
     "RecordingDetailsResponse",
     "RecordingFile",
+    "RecordingHlsType0",
     "RecordingListResponse",
     "RecordingMetadataType0",
     "RecordingStatus",

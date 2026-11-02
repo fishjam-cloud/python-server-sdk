@@ -46,6 +46,7 @@ def make_recording_json(source: RecordingSource, status: str):
     return {
         "id": RECORDING_ID,
         "files": [],
+        "hls": None,
         "source": source.to_dict(),
         "status": status,
     }
@@ -242,6 +243,31 @@ class TestGetRecording:
         request = captured_requests[0]
         assert request.method == "GET"
         assert request.url.path.endswith(f"/recordings/{RECORDING_ID}")
+
+    def test_exposes_the_hls_link_of_an_active_recording(
+        self, recording_api: FishjamClient
+    ):
+        hls_url = "https://media.example.com/tenant/composition/recording/index.m3u8"
+        recording_json = make_recording_json(make_composition_source(), "active")
+        recording_json["hls"] = {"url": hls_url}
+        _, request_patch = mock_request(200, {"data": recording_json})
+
+        with request_patch:
+            recording = recording_api.get_recording(RECORDING_ID)
+
+        assert recording.hls is not None
+        assert recording.hls.url == hls_url
+
+    def test_hls_is_none_until_the_playlist_is_uploaded(
+        self, recording_api: FishjamClient
+    ):
+        recording_json = make_recording_json(make_composition_source(), "active")
+        _, request_patch = mock_request(200, {"data": recording_json})
+
+        with request_patch:
+            recording = recording_api.get_recording(RECORDING_ID)
+
+        assert recording.hls is None
 
     def test_id_not_found(self, recording_api: FishjamClient):
         with pytest.raises(NotFoundError):

@@ -12,6 +12,7 @@ from ..types import UNSET, Unset
 if TYPE_CHECKING:
     from ..models.composition_source import CompositionSource
     from ..models.recording_file import RecordingFile
+    from ..models.recording_hls_type_0 import RecordingHlsType0
     from ..models.recording_metadata_type_0 import RecordingMetadataType0
     from ..models.template_source import TemplateSource
 
@@ -26,6 +27,8 @@ class Recording:
     Attributes:
         files (list[RecordingFile]): Media files of the recording, in playback order. Empty until the recording is
             `available`.
+        hls (None | RecordingHlsType0): HLS playlist of the recording, playable while it is still `active`. Null until
+            the playlist reaches the delivery bucket.
         id (str): Assigned recording id
         source (CompositionSource | TemplateSource): The source for the recording
         status (RecordingStatus): Lifecycle status of a recording
@@ -34,6 +37,7 @@ class Recording:
     """
 
     files: list[RecordingFile]
+    hls: None | RecordingHlsType0
     id: str
     source: CompositionSource | TemplateSource
     status: RecordingStatus
@@ -42,12 +46,19 @@ class Recording:
 
     def to_dict(self) -> dict[str, Any]:
         from ..models.composition_source import CompositionSource
+        from ..models.recording_hls_type_0 import RecordingHlsType0
         from ..models.recording_metadata_type_0 import RecordingMetadataType0
 
         files = []
         for files_item_data in self.files:
             files_item = files_item_data.to_dict()
             files.append(files_item)
+
+        hls: dict[str, Any] | None
+        if isinstance(self.hls, RecordingHlsType0):
+            hls = self.hls.to_dict()
+        else:
+            hls = self.hls
 
         id = self.id
 
@@ -71,6 +82,7 @@ class Recording:
         field_dict.update(self.additional_properties)
         field_dict.update({
             "files": files,
+            "hls": hls,
             "id": id,
             "source": source,
             "status": status,
@@ -84,6 +96,7 @@ class Recording:
     def from_dict(cls: type[T], src_dict: Mapping[str, Any]) -> T:
         from ..models.composition_source import CompositionSource
         from ..models.recording_file import RecordingFile
+        from ..models.recording_hls_type_0 import RecordingHlsType0
         from ..models.recording_metadata_type_0 import RecordingMetadataType0
         from ..models.template_source import TemplateSource
 
@@ -94,6 +107,21 @@ class Recording:
             files_item = RecordingFile.from_dict(files_item_data)
 
             files.append(files_item)
+
+        def _parse_hls(data: object) -> None | RecordingHlsType0:
+            if data is None:
+                return data
+            try:
+                if not isinstance(data, dict):
+                    raise TypeError()
+                hls_type_0 = RecordingHlsType0.from_dict(data)
+
+                return hls_type_0
+            except (TypeError, ValueError, AttributeError, KeyError):
+                pass
+            return cast(None | RecordingHlsType0, data)
+
+        hls = _parse_hls(d.pop("hls"))
 
         id = d.pop("id")
 
@@ -137,6 +165,7 @@ class Recording:
 
         recording = cls(
             files=files,
+            hls=hls,
             id=id,
             source=source,
             status=status,

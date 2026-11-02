@@ -15,6 +15,7 @@ def _get_kwargs(
     room_id: str,
     id: str,
 ) -> dict[str, Any]:
+
     _kwargs: dict[str, Any] = {
         "method": "post",
         "url": "/room/{room_id}/peer/{id}/refresh_token".format(
@@ -43,6 +44,11 @@ def _parse_response(
         response_401 = Error.from_dict(response.json())
 
         return response_401
+
+    if response.status_code == 402:
+        response_402 = Error.from_dict(response.json())
+
+        return response_402
 
     if response.status_code == 404:
         response_404 = Error.from_dict(response.json())
