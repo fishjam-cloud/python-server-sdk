@@ -14,8 +14,9 @@ class MoqAccess:
     """Connection details for a MoQ relay client
 
     Attributes:
-        connection_url (str): Relay connection URL with the JWT embedded as a `?jwt=` query parameter. Pass directly to
-            a MoQ client SDK. Example: https://relay.fishjam.io/abc123?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....
+        connection_url (str): Relay connection URL scoped to the tenant UUID, with the JWT embedded as a `?jwt=` query
+            parameter. Pass directly to a MoQ client SDK. Example:
+            https://relay.fishjam.io/abc123?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9....
         token (str): JWT authorizing the MoQ relay connection, also embedded in `connection_url` Example: eyJhbGciOiJIUz
             I1NiIsInR5cCI6IkpXVCJ9.eyJyb290IjoiZmlzaGphbSIsInB1dCI6WyJteS1zdHJlYW0iXSwiZ2V0IjpbXSwiaWF0IjoxNzEzMzYwMDAwLCJle
             HAiOjE3MTMzNjM2MDB9.abc123.
